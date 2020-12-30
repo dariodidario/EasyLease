@@ -5,6 +5,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class implements the UserDAO interface, using the singleton DBConnection
+ * as the DataBase.
+ *
+ * @author Francesco Maria Torino
+ * @since 0.1
+ * @version 0.1
+ */
 
 public class DBUserDAO implements UserDAO{
 
@@ -35,8 +43,9 @@ public class DBUserDAO implements UserDAO{
 
     } finally {
       try {
-        if (preparedStatement != null)
+        if (preparedStatement != null) {
           preparedStatement.close();
+        }
       } finally {
         ConnectionPool.releaseConnection(connection);
       }
@@ -72,8 +81,9 @@ public class DBUserDAO implements UserDAO{
 
     } finally {
       try {
-        if (preparedStatement != null)
+        if (preparedStatement != null) {
           preparedStatement.close();
+        }
       } finally {
         ConnectionPool.releaseConnection(connection);
       }
@@ -142,8 +152,10 @@ public class DBUserDAO implements UserDAO{
 
     } finally {
       try {
-        if (preparedStatement != null)
+        if (preparedStatement != null) {
           preparedStatement.close();
+        }
+
       } finally {
         ConnectionPool.releaseConnection(connection);
       }
@@ -171,8 +183,9 @@ public class DBUserDAO implements UserDAO{
       connection.commit();
     } finally {
       try {
-        if (preparedStatement != null)
+        if (preparedStatement != null) {
           preparedStatement.close();
+        }
       } finally {
         ConnectionPool.releaseConnection(connection);
       }
@@ -198,8 +211,9 @@ public class DBUserDAO implements UserDAO{
 
     } finally {
       try {
-        if (preparedStatement != null)
+        if (preparedStatement != null) {
           preparedStatement.close();
+        }
       } finally {
         ConnectionPool.releaseConnection(connection);
       }
@@ -220,8 +234,9 @@ public class DBUserDAO implements UserDAO{
 
     } finally {
       try {
-        if (preparedStatement != null)
+        if (preparedStatement != null) {
           preparedStatement.close();
+        }
       } finally {
         ConnectionPool.releaseConnection(connection);
       }
