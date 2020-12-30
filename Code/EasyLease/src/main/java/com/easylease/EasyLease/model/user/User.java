@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * This class models an object of type Advisor within the system.
+ * This class models an object of type User within the system.
  *
  * @author Torino Francesco Maria
  * @since 0.1
@@ -22,9 +22,9 @@ public class User implements Serializable {
 
 
   /**
-   * Constructor for the Advisor object.
+   * Constructor for the User object.
    *
-   * @param ID The ID who identify the Advisor.
+   * @param ID The ID who identify the User.
    * @param name The name of the User.
    * @param surname The surname of the User.
    * @param email The email of the User.
