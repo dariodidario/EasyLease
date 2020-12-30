@@ -56,12 +56,11 @@ public class DBClientDAO implements ClientDAO {
       preparedStatement.setString(1, id);
       ResultSet rs = preparedStatement.executeQuery();
       if (rs.next()) {
-        c.setId(rs.getId("id_user"));
-        c.setAccountType("Cliente");
-        c.setName(rs.getName("name"));
-        c.setSurname(rs.getSurname("surname"));
-        c.setEmail(rs.getEmail("email"));
-        c.setPassword(rs.getPassword("password"));
+        c.setId(rs.getString("id_user"));
+        c.setName(rs.getString("name"));
+        c.setSurname(rs.getString("surname"));
+        c.setEmail(rs.getString("email"));
+        c.setPassword(rs.getString("password"));
         c.setBirthDate(rs.getDate("birth_date"));
         c.setBirthPlace(rs.getString("birth_place"));
         c.setCity(rs.getString("city"));
@@ -88,12 +87,11 @@ public class DBClientDAO implements ClientDAO {
       preparedStatement.setString(1, email);
       ResultSet rs = preparedStatement.executeQuery();
       if (rs.next()) {
-        c.setId(rs.getId("id_user"));
-        c.setAccountType("Cliente");
-        c.setName(rs.getName("name"));
-        c.setSurname(rs.getSurname("surname"));
-        c.setEmail(rs.getEmail("email"));
-        c.setPassword(rs.getPassword("password"));
+        c.setId(rs.getString("id_user"));
+        c.setName(rs.getString("name"));
+        c.setSurname(rs.getString("surname"));
+        c.setEmail(rs.getString("email"));
+        c.setPassword(rs.getString("password"));
         c.setBirthDate(rs.getDate("birth_date"));
         c.setBirthPlace(rs.getString("birth_place"));
         c.setCity(rs.getString("city"));
@@ -120,12 +118,11 @@ public class DBClientDAO implements ClientDAO {
 
       while (rs.next()) {
         Client c = new Client();
-        c.setId(rs.getId("id_user"));
-        c.setAccountType("Cliente");
-        c.setName(rs.getName("first_name"));
-        c.setSurname(rs.getSurname("surname"));
-        c.setEmail(rs.getEmail("email"));
-        c.setPassword(rs.getPassword("password"));
+        c.setId(rs.getString("id_user"));
+        c.setName(rs.getString("first_name"));
+        c.setSurname(rs.getString("surname"));
+        c.setEmail(rs.getString("email"));
+        c.setPassword(rs.getString("password"));
         c.setBirthDate(new SimpleDateFormat().parse(rs.getString("startDate")));
         c.setBirthPlace(rs.getString("birth_place"));
         c.setCity(rs.getString("city"));
@@ -156,10 +153,10 @@ public class DBClientDAO implements ClientDAO {
       preparedStatement.setString(3, c.getBirthPlace());
       preparedStatement.setDate(4, (Date) c.getBirthDate());
       preparedStatement.setString(5, c.getKind());
-      preparedStatement.setString(6, c.getName);
-      preparedStatement.setString(7, c.getSurname);
-      preparedStatement.setString(8, c.getEmail);
-      preparedStatement.setString(9, c.getPassword);
+      preparedStatement.setString(6, c.getName());
+      preparedStatement.setString(7, c.getSurname());
+      preparedStatement.setString(8, c.getEmail());
+      preparedStatement.setString(9, c.getPassword());
       preparedStatement.setString(10, c.getStreet());
       preparedStatement.setString(11, c.getCity());
       preparedStatement.setString(12, c.getPc());
@@ -184,10 +181,10 @@ public class DBClientDAO implements ClientDAO {
       preparedStatement.setString(1, c.getBirthPlace());
       preparedStatement.setDate(2, (Date) c.getBirthDate());
       preparedStatement.setString(3, c.getKind());
-      preparedStatement.setString(4, c.getName);
-      preparedStatement.setString(5, c.getSurname);
-      preparedStatement.setString(6, c.getEmail);
-      preparedStatement.setString(7, c.getPassword);
+      preparedStatement.setString(4, c.getName());
+      preparedStatement.setString(5, c.getSurname());
+      preparedStatement.setString(6, c.getEmail());
+      preparedStatement.setString(7, c.getPassword());
       preparedStatement.setString(8, c.getStreet());
       preparedStatement.setString(9, c.getCity());
       preparedStatement.setString(10, c.getPc());
