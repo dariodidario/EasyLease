@@ -26,7 +26,7 @@ public interface UserDAO {
    * @param tipo of the {@link User} you are looking for.
    * @return the {@link User} with that id or null if not present in Database.
    */
-  List<User> retrieveByType(Enum tipo) throws SQLException;
+  List<User> retrieveByType(String tipo) throws SQLException;
 
   /**
    * Search for an user based on his id.
@@ -60,8 +60,8 @@ public interface UserDAO {
   /**
    * Deletes the {@link User} that is passed as a parameter in the DataBase.
    *
-   * @param id of the {@link User} to delete.
+   * @param user {@link User} to delete.
    */
-  void delete(String id) throws SQLException;
+  void delete(User user) throws SQLException;
 
 }

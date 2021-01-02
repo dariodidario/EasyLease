@@ -63,7 +63,7 @@ public class DBUserDAO implements UserDAO{
       }
       User bean = new User();
 
-      while (rs.next()){
+      while (rs.next()) {
         bean.setId(rs.getString("ID"));
         bean.setName(rs.getString("NAME"));
         bean.setSurname(rs.getString("SURNAME"));
@@ -78,15 +78,15 @@ public class DBUserDAO implements UserDAO{
   }
 
   @Override
-  public List<User> retrieveByType(Enum tipo) {
-    final String query = "SELECT * FROM " + DBUserDAO.TABLE_NAME + " WHERE TYPE = ?";
-    if (tipo.name() == null || tipo.name().equals("")) {
+  public List<User> retrieveByType(String tipo) {
+    final String query = "SELECT * FROM " + tipo;
+    if (tipo.equals("")) {
       throw new IllegalArgumentException(
           String.format("The id(%s) passed as a parameter is not valid", tipo));
     }
     try {
       PreparedStatement stm = connection.prepareStatement(query);
-      stm.setString(1, tipo.name());
+      stm.setString(1, tipo);
       stm.execute();
 
       ResultSet rs = stm.getResultSet();
@@ -113,15 +113,15 @@ public class DBUserDAO implements UserDAO{
   }
 
   @Override
-  public User retrieveByEmail(String Email)  {
+  public User retrieveByEmail(String email)  {
     final String query = "SELECT * FROM " + DBUserDAO.TABLE_NAME + " WHERE EMAIL = ?";
-    if (Email == null || Email.equals("")) {
+    if (email == null || email.equals("")) {
       throw new IllegalArgumentException(
-          String.format("The id(%s) passed as a parameter is not valid", Email));
+          String.format("The id(%s) passed as a parameter is not valid", email));
     }
     try {
       PreparedStatement stm = connection.prepareStatement(query);
-      stm.setString(1, Email);
+      stm.setString(1, email);
       stm.execute();
 
       ResultSet rs = stm.getResultSet();
@@ -130,7 +130,7 @@ public class DBUserDAO implements UserDAO{
       }
       User bean = new User();
 
-      while (rs.next()){
+      while (rs.next()) {
         bean.setId(rs.getString("ID"));
         bean.setName(rs.getString("NAME"));
         bean.setSurname(rs.getString("SURNAME"));
@@ -178,7 +178,7 @@ public class DBUserDAO implements UserDAO{
   @Override
   public void insert(User user) throws EntityTamperingException {
     final String query = "INSERT INTO " + DBUserDAO.TABLE_NAME
-        + " (ID, NOME, COGNOME, EMAIL, PASSWIRD) VALUES (?,?,?,?,?)";
+        + " (ID, NOME, COGNOME, EMAIL, PASSWORD) VALUES (?,?,?,?,?)";
 
     try {
       PreparedStatement stm = connection.prepareStatement(query);
@@ -214,12 +214,12 @@ public class DBUserDAO implements UserDAO{
   }
 
   @Override
-  public void delete(String id) throws EntityTamperingException {
+  public void delete(User user) throws EntityTamperingException {
     final String query = "DELETE FROM " + DBUserDAO.TABLE_NAME + " WHERE ID = ?";
 
     try {
       PreparedStatement stm = connection.prepareStatement(query);
-      stm.setString(1, id);
+      stm.setString(1, user.getId());
       stm.executeUpdate();
     } catch (SQLException ex) {
       logger.log(Level.SEVERE, ex.getMessage());
