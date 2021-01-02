@@ -19,8 +19,8 @@ import java.util.logging.Logger;
 public class EmailManager {
 
   private static final Logger logger = Logger.getLogger(EmailManager.class.getName());
-  private final String username = ""; //TODO: Create a group mail
-  private final String password = ""; //TODO: Password of the mail
+  private final String username = "";
+  private final String password = "";
   private String hostname;
 
   /**

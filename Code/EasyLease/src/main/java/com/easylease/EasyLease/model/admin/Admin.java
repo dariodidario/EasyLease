@@ -1,10 +1,6 @@
 package com.easylease.EasyLease.model.admin;
 
-import com.easylease.EasyLease.model.order.Order;
-
-import java.util.Objects;
-
-import static org.graalvm.compiler.options.OptionType.User;
+import com.easylease.EasyLease.model.user.User;
 
 /**
  * This class models an object of type Admin within the system.
@@ -15,7 +11,7 @@ import static org.graalvm.compiler.options.OptionType.User;
  */
 public class Admin extends User {
 
-  private String newProperty; //TODO: Trovare proprieta da aggiungere
+  private String recoveryEmail;
 
   public Admin() {
 
@@ -24,29 +20,30 @@ public class Admin extends User {
   /**
    * Constructor for the Admin Object.
    *
-   * @param newProperty newProperty.
+   * @param recoveryEmail newProperty.
    */
-  public Admin(String newProperty) {
-    super();
-    this.newProperty = newProperty;
+  public Admin(String id, String name, String surname, String email,
+               String password, String recoveryEmail) {
+    super(id, name, surname, email, password);
+    this.recoveryEmail = recoveryEmail;
   }
 
   /**
-   * Returns the newProperty.
+   * Get the admins recoveryEmail.
    *
-   * @return newProperty.
+   * @return recoveryEmail of the admins.
    */
-  public String getNewProperty() {
-    return newProperty;
+  public String getRecoveryEmail() {
+    return recoveryEmail;
   }
 
   /**
-   * Set the newProperty.
+   * Set the admins recoveryEmail.
    *
-   * @param newProperty newProperty.
+   * @param recoveryEmail the admins recoveryEmail.
    */
-  public void setNewProperty(String newProperty) {
-    this.newProperty = newProperty;
+  public void setRecoveryEmail(String recoveryEmail) {
+    this.recoveryEmail = recoveryEmail;
   }
 
   @Override
@@ -58,19 +55,18 @@ public class Admin extends User {
       return false;
     }
     Admin admin = (Admin) obj;
-    //return this.id.equals(order.id);
-    return true; //TODO: Cambiare quando avrò tutti i model
+    return this.id.equals(admin.id);
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(newProperty); //TODO: Cambiare con id quando ho tutto
-  }
-
-  @Override
-  public String toString() { //TODO: Aggiustare toString quando ho tutto
+  public String toString() {
     return "Admin{"
-        + "newProperty='" + newProperty + '\''
+        + "recoveryEmail='" + recoveryEmail + '\''
+        + ", id='" + id + '\''
+        + ", name='" + name + '\''
+        + ", surname='" + surname + '\''
+        + ", email='" + email + '\''
+        + ", password='" + password + '\''
         + '}';
   }
 }

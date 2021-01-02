@@ -1,4 +1,4 @@
-package com.easylease.EasyLease.model.exception;
+package com.easylease.EasyLease.control.utility.exception;
 
 /**
  * This Exception is thrown when tampering with any entity in the database occurs.

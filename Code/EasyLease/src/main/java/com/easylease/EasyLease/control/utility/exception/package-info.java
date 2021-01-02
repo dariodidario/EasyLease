@@ -8,4 +8,4 @@
  * @author Antonio Sarro
  * @version 0.1
  */
-package com.easylease.EasyLease.model.exception;
+package com.easylease.EasyLease.control.utility.exception;
