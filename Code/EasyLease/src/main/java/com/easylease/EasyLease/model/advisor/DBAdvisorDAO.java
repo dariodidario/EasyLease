@@ -2,8 +2,6 @@ package com.easylease.EasyLease.model.advisor;
 
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.admin.DBAdminDAO;
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,21 +23,21 @@ import java.util.logging.Logger;
  * @version 0.2
  */
 public class DBAdvisorDAO implements AdvisorDAO {
-  private static Logger logger = Logger.getLogger(DBAdminDAO.class.getName());
+  private static final Logger logger = Logger.getLogger(DBAdminDAO.class.getName());
   private static DBAdvisorDAO dao;
-  private Connection connection;
+  private final Connection connection;
 
   /**
    * Returns a DBAdvisorDAO Singleton Object.
    *
    * @return the {@link DBAdvisorDAO} Object that accesses the {@link Advisor}
-   * object in the DataBase.
+   *     object in the DataBase.
    */
   public static AdvisorDAO getIstance() {
     if (dao == null) {
       dao = new DBAdvisorDAO(DBConnection.getInstance().getConnection());
     }
-    return (AdvisorDAO) dao;
+    return dao;
   }
 
   /**
@@ -64,7 +62,7 @@ public class DBAdvisorDAO implements AdvisorDAO {
   @Override
   public Advisor retrieveByEmail(String email) {
     final String query = "SELECT * FROM user WHERE email = ?";
-    if(email == null || email.equals("")) {
+    if (email == null || email.equals("")) {
       throw new IllegalArgumentException(
           String.format("The email(%s) passed as a parameter is not valid", email));
     }
@@ -79,7 +77,7 @@ public class DBAdvisorDAO implements AdvisorDAO {
       PreparedStatement stm = connection.prepareStatement(query);
       stm.execute();
       ResultSet rs = stm.getResultSet();
-      while(rs.next()) {
+      while (rs.next()) {
         advisors.add(getAdvisorFromRs(rs));
       }
       return advisors;
@@ -95,18 +93,18 @@ public class DBAdvisorDAO implements AdvisorDAO {
         + "account_type, hire_date) VALUES (?, ?, ?, ?, ?, ?, ?)";
     try {
       executeQuery(advisor, query);
-    } catch(SQLException e) {
+    } catch (SQLException e) {
       logger.log(Level.SEVERE, e.getMessage());
     }
   }
 
   @Override
   public void insert(Advisor advisor) {
-  final String query = "INSERT INTO user (id_user, first_name, surname, email, pwd,"
-      + "account_type, hire_date) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    final String query = "INSERT INTO user (id_user, first_name, surname, email, pwd,"
+        + "account_type, hire_date) VALUES (?, ?, ?, ?, ?, ?, ?)";
     try {
       executeQuery(advisor, query);
-    } catch(SQLException e) {
+    } catch (SQLException e) {
       logger.log(Level.SEVERE, e.getMessage());
     }
   }
@@ -142,8 +140,7 @@ public class DBAdvisorDAO implements AdvisorDAO {
     } catch (ParseException e) {
       e.printStackTrace();
     }
-    Advisor advisor = new Advisor(id, name, surname, email, password, hireDate);
-    return advisor;
+    return new Advisor(id, name, surname, email, password, hireDate);
   }
 
   /**

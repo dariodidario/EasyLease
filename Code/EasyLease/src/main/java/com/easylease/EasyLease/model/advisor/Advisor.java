@@ -3,7 +3,6 @@ package com.easylease.EasyLease.model.advisor;
 
 import com.easylease.EasyLease.model.user.User;
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * This class models an object of type Advisor within the system.
