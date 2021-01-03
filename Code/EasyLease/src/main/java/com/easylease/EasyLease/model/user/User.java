@@ -1,3 +1,4 @@
+
 package com.easylease.EasyLease.model.user;
 
 import java.io.Serializable;
@@ -138,7 +139,7 @@ public class User implements Serializable {
     this.password = password;
   }
 
-  /** Rapresents the user's idrntificator. */
+  /** Rapresents the user's identificator. */
   protected String id;
 
   /** Rapresents the user's name. */
@@ -152,6 +153,4 @@ public class User implements Serializable {
 
   /** Rapresents the user's password. */
   protected String password;
-
-
 }
