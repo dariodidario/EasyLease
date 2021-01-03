@@ -6,10 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -32,7 +29,7 @@ public class DBCarDAO implements CarDAO{
      *
      * @return the connection with the Database.
      */
-    public static CarDAO getInstance() {
+    public static DBCarDAO getInstance() {
         if (dao == null) {
             dao = new DBCarDAO(DBConnection.getInstance().getConnection());
         }
@@ -46,7 +43,10 @@ public class DBCarDAO implements CarDAO{
 
 
     @Override
-    public synchronized Car retriveById(String id) throws SQLException {
+    public synchronized Car retriveById(String id) {
+        if (id == null || id.equals("")) {
+            throw new IllegalArgumentException();
+        }
         PreparedStatement preparedStatement = null;
 
         Car car = new Car();
@@ -93,7 +93,10 @@ public class DBCarDAO implements CarDAO{
 
 
     @Override
-    public synchronized Car retriveByModel(String model) throws SQLException {
+    public synchronized Car retriveByModel(String model) {
+        if (model == null || model.equals("")) {
+            throw new IllegalArgumentException();
+        }
         PreparedStatement preparedStatement = null;
 
         Car car = new Car();
@@ -140,126 +143,12 @@ public class DBCarDAO implements CarDAO{
 
 
     @Override
-    public synchronized List<Car> retriveByBrand(String brand) throws SQLException {
+    public synchronized List<Car> retriveByBrand(String brand) {
+        if (brand == null || brand.equals("")) {
+            throw new IllegalArgumentException();
+        }
         PreparedStatement preparedStatement = null;
-
-        List<Car> cars = new List<Car>() {
-            @Override
-            public int size() {
-                return 0;
-            }
-
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public boolean contains(Object o) {
-                return false;
-            }
-
-            @Override
-            public Iterator<Car> iterator() {
-                return null;
-            }
-
-            @Override
-            public Object[] toArray() {
-                return new Object[0];
-            }
-
-            @Override
-            public <T> T[] toArray(T[] a) {
-                return null;
-            }
-
-            @Override
-            public boolean add(Car car) {
-                return false;
-            }
-
-            @Override
-            public boolean remove(Object o) {
-                return false;
-            }
-
-            @Override
-            public boolean containsAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(Collection<? extends Car> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(int index, Collection<? extends Car> c) {
-                return false;
-            }
-
-            @Override
-            public boolean removeAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean retainAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public void clear() {
-
-            }
-
-            @Override
-            public Car get(int index) {
-                return null;
-            }
-
-            @Override
-            public Car set(int index, Car element) {
-                return null;
-            }
-
-            @Override
-            public void add(int index, Car element) {
-
-            }
-
-            @Override
-            public Car remove(int index) {
-                return null;
-            }
-
-            @Override
-            public int indexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public int lastIndexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public ListIterator<Car> listIterator() {
-                return null;
-            }
-
-            @Override
-            public ListIterator<Car> listIterator(int index) {
-                return null;
-            }
-
-            @Override
-            public List<Car> subList(int fromIndex, int toIndex) {
-                return null;
-            }
-        };
-
+        ArrayList<Car> cars=new ArrayList<>();
         String selectSQL = "SELECT * FROM " + DBCarDAO.TABLE_NAME +" WHERE BRAND LIKE ?";
         selectSQL += " ORDER BY ID";
 
@@ -301,132 +190,19 @@ public class DBCarDAO implements CarDAO{
                 throwables.printStackTrace();
             }
         }
-        return cars;
+        List<Car> list=cars;
+        return list;
     }
 
 
 
     @Override
-    public synchronized List<Car> retriveByType(String type) throws SQLException {
+    public synchronized List<Car> retriveByType(String type) {
+        if (type == null || type.equals("")) {
+            throw new IllegalArgumentException();
+        }
         PreparedStatement preparedStatement = null;
-
-        List<Car> cars = new List<Car>() {
-            @Override
-            public int size() {
-                return 0;
-            }
-
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public boolean contains(Object o) {
-                return false;
-            }
-
-            @Override
-            public Iterator<Car> iterator() {
-                return null;
-            }
-
-            @Override
-            public Object[] toArray() {
-                return new Object[0];
-            }
-
-            @Override
-            public <T> T[] toArray(T[] a) {
-                return null;
-            }
-
-            @Override
-            public boolean add(Car car) {
-                return false;
-            }
-
-            @Override
-            public boolean remove(Object o) {
-                return false;
-            }
-
-            @Override
-            public boolean containsAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(Collection<? extends Car> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(int index, Collection<? extends Car> c) {
-                return false;
-            }
-
-            @Override
-            public boolean removeAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean retainAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public void clear() {
-
-            }
-
-            @Override
-            public Car get(int index) {
-                return null;
-            }
-
-            @Override
-            public Car set(int index, Car element) {
-                return null;
-            }
-
-            @Override
-            public void add(int index, Car element) {
-
-            }
-
-            @Override
-            public Car remove(int index) {
-                return null;
-            }
-
-            @Override
-            public int indexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public int lastIndexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public ListIterator<Car> listIterator() {
-                return null;
-            }
-
-            @Override
-            public ListIterator<Car> listIterator(int index) {
-                return null;
-            }
-
-            @Override
-            public List<Car> subList(int fromIndex, int toIndex) {
-                return null;
-            }
-        };
-
+        ArrayList<Car> cars=new ArrayList<>();
         String selectSQL = "SELECT * FROM " + DBCarDAO.TABLE_NAME +" WHERE CAR_TYPE LIKE ?";
         selectSQL += " ORDER BY ID";
 
@@ -468,132 +244,16 @@ public class DBCarDAO implements CarDAO{
                 throwables.printStackTrace();
             }
         }
-        return cars;
+        List<Car> list=cars;
+        return list;
     }
 
 
 
     @Override
-    public synchronized List<Car> retriveAll() throws SQLException {
+    public synchronized List<Car> retriveAll() {
         PreparedStatement preparedStatement = null;
-
-        List<Car> cars = new List<Car>() {
-            @Override
-            public int size() {
-                return 0;
-            }
-
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public boolean contains(Object o) {
-                return false;
-            }
-
-            @Override
-            public Iterator<Car> iterator() {
-                return null;
-            }
-
-            @Override
-            public Object[] toArray() {
-                return new Object[0];
-            }
-
-            @Override
-            public <T> T[] toArray(T[] a) {
-                return null;
-            }
-
-            @Override
-            public boolean add(Car car) {
-                return false;
-            }
-
-            @Override
-            public boolean remove(Object o) {
-                return false;
-            }
-
-            @Override
-            public boolean containsAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(Collection<? extends Car> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(int index, Collection<? extends Car> c) {
-                return false;
-            }
-
-            @Override
-            public boolean removeAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean retainAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public void clear() {
-
-            }
-
-            @Override
-            public Car get(int index) {
-                return null;
-            }
-
-            @Override
-            public Car set(int index, Car element) {
-                return null;
-            }
-
-            @Override
-            public void add(int index, Car element) {
-
-            }
-
-            @Override
-            public Car remove(int index) {
-                return null;
-            }
-
-            @Override
-            public int indexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public int lastIndexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public ListIterator<Car> listIterator() {
-                return null;
-            }
-
-            @Override
-            public ListIterator<Car> listIterator(int index) {
-                return null;
-            }
-
-            @Override
-            public List<Car> subList(int fromIndex, int toIndex) {
-                return null;
-            }
-        };
-
+        ArrayList<Car> cars=new ArrayList<>();
         String selectSQL = "SELECT * FROM " + DBCarDAO.TABLE_NAME;
         selectSQL += " ORDER BY ID";
 
@@ -634,13 +294,17 @@ public class DBCarDAO implements CarDAO{
                 throwables.printStackTrace();
             }
         }
-        return cars;
+        List<Car> list=cars;
+        return list;
     }
 
 
 
     @Override
-    public synchronized void update(Car car) throws SQLException {
+    public synchronized void update(Car car)  {
+        if (car == null) {
+            throw new IllegalArgumentException();
+        }
         PreparedStatement preparedStatement = null;
 
 
@@ -661,7 +325,7 @@ public class DBCarDAO implements CarDAO{
             preparedStatement.setString(11, car.getEmission_class());
             preparedStatement.setInt(12, car.getCo2_emissions());
             preparedStatement.setString(13, car.getPowerSupply());
-            preparedStatement.setInt(14, car.getCapacity());
+            preparedStatement.setInt(14, car.getCc());
             preparedStatement.setString(15, car.getImage());
             preparedStatement.setString(16, car.getId());
 
@@ -681,7 +345,10 @@ public class DBCarDAO implements CarDAO{
 
 
     @Override
-    public synchronized void delete(Car car) throws SQLException {
+    public synchronized void delete(Car car)  {
+        if (car == null) {
+            throw new IllegalArgumentException();
+        }
         PreparedStatement preparedStatement = null;
 
 
@@ -709,7 +376,10 @@ public class DBCarDAO implements CarDAO{
 
 
     @Override
-    public synchronized void insert(Car car) throws SQLException {
+    public synchronized void insert(Car car)  {
+        if (car == null) {
+            throw new IllegalArgumentException();
+        }
         PreparedStatement preparedStatement = null;
 
         String insertSQL = "INSERT INTO " + DBCarDAO.TABLE_NAME
@@ -731,7 +401,7 @@ public class DBCarDAO implements CarDAO{
             preparedStatement.setInt(12, car.getHorse_power());
             preparedStatement.setString(13, car.getEmission_class());
             preparedStatement.setInt(14, car.getCo2_emissions());
-            preparedStatement.setInt(15, car.getCapacity());
+            preparedStatement.setInt(15, car.getCc());
 
 
             preparedStatement.executeUpdate();
