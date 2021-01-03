@@ -2,15 +2,15 @@
 
 <Context>
     <Resource
-            name="jdbc/EaseLease"
+            name="jdbc/EasyLease"
             driverClassName="com.mysql.cj.jdbc.Driver"
             type="javax.sql.DataSource"
             auth="Container"
             maxActive="100"
             maxIdle="30"
             maxWait="10000"
-            username=""
-            password=""
-            url=""
+            username="root"
+            password="master"
+            url="jdbc:mysql://localhost:3306/easylease?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"
     />
 </Context>
