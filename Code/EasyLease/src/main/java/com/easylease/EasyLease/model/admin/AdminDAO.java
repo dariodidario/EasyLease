@@ -1,7 +1,5 @@
 package com.easylease.EasyLease.model.admin;
 
-import com.easylease.EasyLease.model.order.Order;
-
 import java.util.List;
 
 /**

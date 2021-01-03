@@ -1,17 +1,12 @@
 package com.easylease.EasyLease.model.admin;
 
 import com.easylease.EasyLease.model.DBPool.DBConnection;
-import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
-import com.easylease.EasyLease.model.order.Order;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -50,13 +45,14 @@ public class DBAdminDAO implements AdminDAO {
 
   @Override
   public Admin retrieveById(String id) {
-    final String query = "SELECT * FROM user WHERE id = ?";
+    final String query = "SELECT * FROM users WHERE id_user = ?";
+
     return getAdmin(id, query);
   }
 
   @Override
   public Admin retrieveByEmail(String email) {
-    final String query = "SELECT * FROM user WHERE email = ?";
+    final String query = "SELECT * FROM users WHERE email = ?";
     return getAdmin(email, query);
   }
 
@@ -88,9 +84,14 @@ public class DBAdminDAO implements AdminDAO {
    * @throws SQLException if the ResultSet is null.
    */
   private Admin getAdminFromRs(ResultSet rs) throws SQLException {
-    //AdminDAO adminDAO = DBAdminDAO.getIstance();
+    AdminDAO adminDAO = DBAdminDAO.getInstance();
     Admin o = new Admin();
-    //TODO: Finire quando avrò tutto
+    o.setId(rs.getString("id_user"));
+    o.setName(rs.getString("first_name"));
+    o.setSurname(rs.getString("surname"));
+    o.setEmail(rs.getString("email"));
+    o.setPassword(rs.getString("pwd"));
+    o.setRecoveryEmail(rs.getString("recovery_mail"));
     return o;
   }
 
@@ -99,7 +100,8 @@ public class DBAdminDAO implements AdminDAO {
    *
    * @param param used in the query.
    * @param query for retrieveById or retrieveByEmail
-   * @return
+   * @return the admin get from the query
+
    */
   private Admin getAdmin(String param, String query) {
     if (param == null || param.equals("")) {

@@ -1,6 +1,6 @@
 package com.easylease.EasyLease.model.order;
 
-import com.easylease.EasyLease.model.exception.EntityTamperingException;
+import com.easylease.EasyLease.control.utility.exception.EntityTamperingException;
 import java.util.List;
 
 /**

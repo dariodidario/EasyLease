@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * @version 0.1
  */
 public class PasswordHashing {
-  private static final String algorithm = "SHA-1";
+
   private static final Logger logger = Logger.getLogger(PasswordHashing.class.getName());
 
   /**
@@ -23,14 +23,16 @@ public class PasswordHashing {
    * @param password of which to hash.
    * @return the hash of password.
    */
-  public static String generatePassword(String password) {
+  public static String generatePassword(String password, String algorithm) {
+
+ 
     try {
       MessageDigest md = MessageDigest.getInstance(algorithm);
       md.update(password.getBytes(StandardCharsets.UTF_8));
       return toHex(md.digest());
     } catch (NoSuchAlgorithmException ex) {
-      logger.log(Level.SEVERE, ex.getMessage());
-      return null;
+        logger.log(Level.SEVERE, ex.getMessage());
+        return null;
     }
   }
 
@@ -41,8 +43,9 @@ public class PasswordHashing {
    * @param hash of client retrieved from the Database.
    * @return true if correct, false if wrong.
    */
-  public static boolean passwordAuthenticator(String password, String hash) {
-    return hash.equals(generatePassword(password));
+
+  public static boolean passwordAuthenticator(String password, String hash, String algorithm) {
+    return hash.equals(generatePassword(password, algorithm));
   }
 
   /**
@@ -52,7 +55,7 @@ public class PasswordHashing {
    * @return the hash string.
    */
   private static String toHex(byte[] data) {
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
     for (byte b : data) {
       String digit = Integer.toString(b & 0xFF, 16);
       if (digit.length() == 1) {
