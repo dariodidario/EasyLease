@@ -10,13 +10,16 @@ import java.util.Objects;
  *
  * @author Caprio Mattia
  * @since 0.1
- * @version 0.1
+ * @version 0.2
  */
 public class Advisor extends User {
 
   /** Rapresents the date from which the Advisor was hired. */
   private Date hireDate;
 
+  /**
+   * Empty constructor for the Advisor object.
+   */
   public Advisor() {
     super();
   }
@@ -55,20 +58,4 @@ public class Advisor extends User {
     this.hireDate = hireDate;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Advisor advisor = (Advisor) o;
-    return Objects.equals(hireDate, advisor.hireDate);
-  }
-
-  @Override
-  public String toString() {
-    return "Advisor{" + super.toString() + "hireDate=" + hireDate + '}';
-  }
 }

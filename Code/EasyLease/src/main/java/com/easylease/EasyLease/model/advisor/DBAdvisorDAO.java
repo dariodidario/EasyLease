@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  *
  * @author Caprio Mattia
  * @since 0.1
- * @version 0.1
+ * @version 0.2
  */
 public class DBAdvisorDAO implements AdvisorDAO {
   private static Logger logger = Logger.getLogger(DBAdminDAO.class.getName());
@@ -42,6 +42,11 @@ public class DBAdvisorDAO implements AdvisorDAO {
     return (AdvisorDAO) dao;
   }
 
+  /**
+   * Constructor for the DBAdvisorDAO object.
+   *
+   * @param connection the {@link Connection} needed to create the {@link PreparedStatement}.
+   */
   private DBAdvisorDAO(Connection connection) {
     this.connection = connection;
   }
@@ -53,19 +58,7 @@ public class DBAdvisorDAO implements AdvisorDAO {
       throw new IllegalArgumentException(
           String.format("The id(%s) passed as a parameter is not valid", id));
     }
-    try {
-      PreparedStatement stm = connection.prepareStatement(query);
-      stm.setString(1, id);
-      stm.execute();
-      ResultSet rs = stm.getResultSet();
-      if (!rs.next()) {
-        return null;
-      }
-      return getAdvisorFromRs(rs);
-    } catch (SQLException e) {
-      logger.log(Level.SEVERE, e.getMessage());
-      return null;
-    }
+    return singleRetrieve(query, id);
   }
 
   @Override
@@ -75,19 +68,7 @@ public class DBAdvisorDAO implements AdvisorDAO {
       throw new IllegalArgumentException(
           String.format("The email(%s) passed as a parameter is not valid", email));
     }
-    try {
-      PreparedStatement stm = connection.prepareStatement(query);
-      stm.setString(1, email);
-      stm.execute();
-      ResultSet rs = stm.getResultSet();
-      if (!rs.next()) {
-        return null;
-      }
-      return getAdvisorFromRs(rs);
-    } catch (SQLException throwables) {
-      logger.log(Level.SEVERE, throwables.getMessage());
-      return null;
-    }
+    return singleRetrieve(query, email);
   }
 
   @Override
@@ -95,7 +76,7 @@ public class DBAdvisorDAO implements AdvisorDAO {
     final String query = "SELECT * FROM advisor";
     List<Advisor> advisors = new ArrayList<>();
     try {
-      PreparedStatement stm =  connection.prepareStatement(query);
+      PreparedStatement stm = connection.prepareStatement(query);
       stm.execute();
       ResultSet rs = stm.getResultSet();
       while(rs.next()) {
@@ -142,7 +123,6 @@ public class DBAdvisorDAO implements AdvisorDAO {
     }
   }
 
-
   /**
    * Returns the {@link Advisor} object created by the ResultSet.
    *
@@ -166,6 +146,13 @@ public class DBAdvisorDAO implements AdvisorDAO {
     return advisor;
   }
 
+  /**
+   * Executes the update and insert queries passed.
+   *
+   * @param advisor the {@link Advisor}.
+   * @param query the String of the query to do.
+   * @throws SQLException if cant set an attribute on the PreparedStatement.
+   */
   private void executeQuery(Advisor advisor, String query) throws SQLException {
     PreparedStatement stm = connection.prepareStatement(query);
     stm.setString(1, advisor.getId());
@@ -176,5 +163,28 @@ public class DBAdvisorDAO implements AdvisorDAO {
     stm.setString(6, "Advisor");
     stm.setDate(7, (java.sql.Date) advisor.getHireDate());
     stm.executeUpdate();
+  }
+
+  /**
+   * Returns the {@link Advisor} object returned by {@link #getAdvisorFromRs(ResultSet) method}.
+   *
+   * @param query the String of the query to do.
+   * @param s the String to set in the {@link PreparedStatement}.
+   * @return the {@link Advisor} object returned by {@link #getAdvisorFromRs(ResultSet) method}.
+   */
+  private Advisor singleRetrieve(String query, String s) {
+    try {
+      PreparedStatement stm = connection.prepareStatement(query);
+      stm.setString(1, s);
+      stm.execute();
+      ResultSet rs = stm.getResultSet();
+      if (!rs.next()) {
+        return null;
+      }
+      return getAdvisorFromRs(rs);
+    } catch (SQLException e) {
+      logger.log(Level.SEVERE, e.getMessage());
+      return null;
+    }
   }
 }

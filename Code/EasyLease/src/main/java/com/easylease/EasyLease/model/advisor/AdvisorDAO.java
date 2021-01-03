@@ -8,7 +8,8 @@ import java.util.List;
  * for the Advisor Object.
  *
  * @author Caprio Mattia
- * @version 0.1
+ * @since 0.1
+ * @version 0.2
  */
 public interface AdvisorDAO {
   /**
