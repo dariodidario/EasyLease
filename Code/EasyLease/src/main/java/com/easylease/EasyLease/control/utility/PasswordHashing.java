@@ -14,6 +14,7 @@ import java.util.logging.Logger;
  * @version 0.1
  */
 public class PasswordHashing {
+
   private static final Logger logger = Logger.getLogger(PasswordHashing.class.getName());
 
   /**
@@ -23,13 +24,15 @@ public class PasswordHashing {
    * @return the hash of password.
    */
   public static String generatePassword(String password, String algorithm) {
+
+ 
     try {
       MessageDigest md = MessageDigest.getInstance(algorithm);
       md.update(password.getBytes(StandardCharsets.UTF_8));
       return toHex(md.digest());
     } catch (NoSuchAlgorithmException ex) {
-      logger.log(Level.SEVERE, ex.getMessage());
-      return null;
+        logger.log(Level.SEVERE, ex.getMessage());
+        return null;
     }
   }
 
@@ -40,6 +43,7 @@ public class PasswordHashing {
    * @param hash of client retrieved from the Database.
    * @return true if correct, false if wrong.
    */
+
   public static boolean passwordAuthenticator(String password, String hash, String algorithm) {
     return hash.equals(generatePassword(password, algorithm));
   }

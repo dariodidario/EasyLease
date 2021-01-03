@@ -1,5 +1,7 @@
 package com.easylease.EasyLease.model.admin;
 
+
+
 import com.easylease.EasyLease.model.user.User;
 
 /**
@@ -11,6 +13,7 @@ import com.easylease.EasyLease.model.user.User;
  */
 public class Admin extends User {
 
+
   private String recoveryEmail;
 
   public Admin() {
@@ -20,6 +23,7 @@ public class Admin extends User {
   /**
    * Constructor for the Admin Object.
    *
+
    * @param recoveryEmail newProperty.
    */
   public Admin(String id, String name, String surname, String email,
@@ -55,6 +59,7 @@ public class Admin extends User {
       return false;
     }
     Admin admin = (Admin) obj;
+
     return this.id.equals(admin.id);
   }
 

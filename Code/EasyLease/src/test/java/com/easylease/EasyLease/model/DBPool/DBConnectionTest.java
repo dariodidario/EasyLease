@@ -52,7 +52,6 @@ public class DBConnectionTest {
     Connection conn = dbConnection.getConnection();
     Statement stm = conn.createStatement();
     stm.execute("SELECT 15 + 5");
-
     ResultSet rs = stm.getResultSet();
     assertTrue(rs.next());
     assertEquals(20, rs.getInt(1));

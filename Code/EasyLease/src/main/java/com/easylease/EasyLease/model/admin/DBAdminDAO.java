@@ -1,6 +1,8 @@
 package com.easylease.EasyLease.model.admin;
 
 import com.easylease.EasyLease.model.DBPool.DBConnection;
+
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,6 +46,7 @@ public class DBAdminDAO implements AdminDAO {
   @Override
   public Admin retrieveById(String id) {
     final String query = "SELECT * FROM users WHERE id_user = ?";
+
     return getAdmin(id, query);
   }
 
@@ -98,6 +101,7 @@ public class DBAdminDAO implements AdminDAO {
    * @param param used in the query.
    * @param query for retrieveById or retrieveByEmail
    * @return the admin get from the query
+
    */
   private Admin getAdmin(String param, String query) {
     if (param == null || param.equals("")) {

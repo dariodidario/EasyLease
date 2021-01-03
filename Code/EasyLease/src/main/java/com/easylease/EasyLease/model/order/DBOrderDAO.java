@@ -1,6 +1,8 @@
 package com.easylease.EasyLease.model.order;
 
+
 import com.easylease.EasyLease.control.utility.exception.EntityTamperingException;
+
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.client.Client;
@@ -43,13 +45,16 @@ public class DBOrderDAO implements OrderDAO {
     return dao;
   }
 
+
   DBOrderDAO(Connection connection) {
+
     this.connection = connection;
   }
 
   @Override
   public Order retrieveById(String id) {
     final String query = "SELECT * FROM orders WHERE id_order = ?";
+
     if (id == null || id.equals("")) {
       throw new IllegalArgumentException(
           String.format("The id(%s) passed as a parameter is not valid", id));
@@ -76,8 +81,10 @@ public class DBOrderDAO implements OrderDAO {
   @Override
   public List<Order> retrieveByAdvisor(String id) {
 
+
     final String query = "SELECT * FROM orders WHERE id_estimate = "
         + "(SELECT id_estimate FROM estimate WHERE id_advisor = ?)";
+
     return getOrders(id, query);
   }
 
@@ -97,6 +104,7 @@ public class DBOrderDAO implements OrderDAO {
       PreparedStatement stm = connection.prepareStatement(query);
       stm.execute();
       ResultSet rs = stm.getResultSet();
+
       if (rs == null) {
         return null;
       }
@@ -129,7 +137,6 @@ public class DBOrderDAO implements OrderDAO {
     final String query =
         "INSERT INTO orders (id_order, id_estimate, start_date, end_date,"
             + "pickup_date, visibility) VALUES (?, ?, ?, ?, ?, ?)";
-
     try {
       executeInternalQuery(order, query);
     } catch (SQLException ex) {
@@ -137,11 +144,9 @@ public class DBOrderDAO implements OrderDAO {
       throw new EntityTamperingException("Already existing Order!");
     }
   }
-
   @Override
   public void delete(Order order) throws EntityTamperingException {
     final String query = "DELETE FROM orders WHERE id_order = ?";
-
     try {
       PreparedStatement stm = connection.prepareStatement(query);
       stm.setString(1, order.getId());
