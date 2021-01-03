@@ -45,10 +45,9 @@ public class DBClientDAO implements ClientDAO {
       throw new IllegalArgumentException();
     }
     PreparedStatement preparedStatement = null;
-    Client c = new Client();
-    c = null;
+    Client c = null;
     final String query = "SELECT * FROM user WHERE id = ?";
-    if (id == null || id.equals("")) {
+    if (id == null || id.equals("") || !id.startsWith("CL")) {
       throw new IllegalArgumentException();
     }
     try {
@@ -70,6 +69,7 @@ public class DBClientDAO implements ClientDAO {
       }
     } catch (Exception e) {
       e.printStackTrace();
+      return null;
     }
     return c;
   }
@@ -205,6 +205,7 @@ public class DBClientDAO implements ClientDAO {
     try {
       preparedStatement = connection.prepareStatement(query);
       preparedStatement.setString(1, c.getId());
+      preparedStatement.executeQuery();
     } catch (Exception e) {
       e.printStackTrace();
     }

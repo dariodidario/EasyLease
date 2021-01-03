@@ -40,9 +40,9 @@ public class Client extends User {
    * @param email the email of the client, extended by the class User
    * @param password the password of the client, extended by the class User
    */
-  public Client(String birthPlace, Date birthDate, String kind,
-                String city, String pc, String street, String id, String name,
-                String surname, String email, String password) {
+  public Client(String id, String name, String surname, String email,
+                String password, String birthPlace, Date birthDate, String kind,
+                String city, String pc, String street) {
     super(id, name, surname, email, password);
     this.birthPlace = birthPlace;
     this.birthDate = birthDate;
