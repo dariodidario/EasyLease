@@ -1,13 +1,5 @@
 package com.easylease.EasyLease.model.optional;
 
-<<<<<<< Updated upstream
-import java.util.List;
-
-public interface OptionalDAO {
-
-  Optional retrieveById(String id);
-
-=======
 import com.easylease.EasyLease.model.estimate.Estimate;
 
 import java.util.List;
@@ -35,7 +27,6 @@ public interface OptionalDAO {
    * @param type of the list of {@link Optional} you are looking for.
    * @return the list of {@link Optional} of the type passed or null if not present in Database.
    */
->>>>>>> Stashed changes
   List<Optional> retrieveByType(String type);
 
 }

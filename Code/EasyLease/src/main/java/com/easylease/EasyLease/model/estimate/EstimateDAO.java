@@ -1,23 +1,5 @@
 package com.easylease.EasyLease.model.estimate;
 
-<<<<<<< Updated upstream
-import java.util.List;
-
-public interface EstimateDAO {
-
-  Estimate retrieveById(String id);
-
-  List<Estimate>  retrieveAll();
-
-  List<Estimate> retrieveByAdvisor(String id);
-
-  List<Estimate> retrieveByClient(String id);
-
-  void update(Estimate e);
-
-  void delete(Estimate e);
-
-=======
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.client.Client;
 import java.util.List;
@@ -84,7 +66,6 @@ public interface EstimateDAO {
    *
    * @param e is the {@link Estimate} you want to insert.
    */
->>>>>>> Stashed changes
   void insert(Estimate e);
 
 }
