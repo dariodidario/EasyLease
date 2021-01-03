@@ -1,7 +1,5 @@
 package com.easylease.EasyLease.model.optional;
 
-import com.easylease.EasyLease.model.estimate.Estimate;
-
 import java.util.List;
 
 /**

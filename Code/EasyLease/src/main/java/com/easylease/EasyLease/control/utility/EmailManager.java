@@ -1,7 +1,8 @@
 package com.easylease.EasyLease.control.utility;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.order.Order
+import com.easylease.EasyLease.model.order.Order;
 import javax.mail.*;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
@@ -59,9 +60,16 @@ public class EmailManager {
         message.setFrom(new InternetAddress("noreply@easylease.it"));
         message.setRecipients(Message.RecipientType.TO,
             InternetAddress.parse(clientMail));
-        logger.log(Level.SEVERE, "Message: {0}\nCause: {1}", new Object[]{
-            ex.getMessage(),
-            ex.getCause()});
+        message.setSubject(subjectMail);
+        message.setText(bodyMail,"UTF-8", "html");
+        logger.log(Level.INFO, "Trying to send an email to " + clientMail);
+
+        Transport.send(message);
+
+        logger.log(Level.INFO, "Email sent");
+
+      } catch (MessagingException e) {
+        logger.log(Level.SEVERE, "Message: {0}\nCause: {1}", new Object[]{e.getMessage(), e.getCause()});
       }
     }).start();
   }

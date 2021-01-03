@@ -1,8 +1,6 @@
 package com.easylease.EasyLease.model.advisor;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,25 +26,19 @@ class DBAdvisorDAOTest {
   @Test
   public void retrieveById_WrongIdGiven_ExceptedNull() {
     when(dbAdvisorDAO.retrieveById("CL10AB1")).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbAdvisorDAO.retrieveById("CL10AB1");
-    });
+    assertThrows(IllegalArgumentException.class, () -> dbAdvisorDAO.retrieveById("CL10AB1"));
   }
 
   @Test
   public void retrieveById_NullIdGiven_ExceptedNull() {
     when(dbAdvisorDAO.retrieveById(null)).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbAdvisorDAO.retrieveById(null);
-    });
+    assertThrows(IllegalArgumentException.class, () -> dbAdvisorDAO.retrieveById(null));
   }
 
   @Test
   public void retrieveById_EmptyIdGiven_ExceptedNull() {
     when(dbAdvisorDAO.retrieveById("")).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbAdvisorDAO.retrieveById("");
-    });
+    assertThrows(IllegalArgumentException.class, () -> dbAdvisorDAO.retrieveById(""));
   }
 
   @Test
@@ -64,17 +56,13 @@ class DBAdvisorDAOTest {
   @Test
   public void retrieveByEmail_EmptyEmailGiven_ExpectedException() {
     when(dbAdvisorDAO.retrieveByEmail("")).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbAdvisorDAO.retrieveByEmail("");
-    });
+    assertThrows(IllegalArgumentException.class, () -> dbAdvisorDAO.retrieveByEmail(""));
   }
 
   @Test
   public void retrieveByEmail_NullEmailGiven_ExpectedException() {
     when(dbAdvisorDAO.retrieveByEmail(null)).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbAdvisorDAO.retrieveByEmail(null);
-    });
+    assertThrows(IllegalArgumentException.class, () -> dbAdvisorDAO.retrieveByEmail(null));
   }
 
   @Test
@@ -82,16 +70,13 @@ class DBAdvisorDAOTest {
     doNothing().when(dbAdvisorDAO).insert(advisor);
     dbAdvisorDAO.insert(advisor);
     verify(dbAdvisorDAO).insert(advisor);
-    verifyNoInteractions(dbAdvisorDAO);
+    verifyNoInteractions(dbAdvisorDAO); //TODO: Test sbagliato
   }
 
   @Test
   public void insert_NullClientGiven_ExpectedException() {
-    Advisor nullAdvisor = null;
     doThrow(IllegalArgumentException.class).when(dbAdvisorDAO).insert(null);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbAdvisorDAO.insert(null);
-    });
+    assertThrows(IllegalArgumentException.class, () -> dbAdvisorDAO.insert(null));
   }
 
   @Test
@@ -99,16 +84,13 @@ class DBAdvisorDAOTest {
     doNothing().when(dbAdvisorDAO).update(advisor);
     dbAdvisorDAO.update(advisor);
     verify(dbAdvisorDAO).update(advisor);
-    verifyNoInteractions(dbAdvisorDAO);
+    verifyNoInteractions(dbAdvisorDAO); //TODO: Test sbagliato
   }
 
   @Test
   public void update_NullClientGiven_ExpectedException() {
-    Advisor nullAdvisor = null;
     doThrow(IllegalArgumentException.class).when(dbAdvisorDAO).update(null);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbAdvisorDAO.update(null);
-    });
+    assertThrows(IllegalArgumentException.class, () -> dbAdvisorDAO.update(null));
   }
 
   @Test
@@ -116,15 +98,12 @@ class DBAdvisorDAOTest {
     doNothing().when(dbAdvisorDAO).delete(advisor);
     dbAdvisorDAO.delete(advisor);
     verify(dbAdvisorDAO).delete(advisor);
-    verifyNoInteractions(dbAdvisorDAO);
+    verifyNoInteractions(dbAdvisorDAO); //TODO: Test sbagliato
   }
 
   @Test
   public void delelete_NullClientGiven_ExpectedException() {
-    Advisor nullAdvisor = null;
     doThrow(IllegalArgumentException.class).when(dbAdvisorDAO).delete(null);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbAdvisorDAO.delete(null);
-    });
+    assertThrows(IllegalArgumentException.class, () -> dbAdvisorDAO.delete(null));
   }
 }

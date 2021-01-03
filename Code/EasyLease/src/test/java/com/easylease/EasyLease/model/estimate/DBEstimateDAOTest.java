@@ -1,3 +1,5 @@
+package com.easylease.EasyLease.model.estimate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -22,8 +24,8 @@ class DBEstimateDAOTest {
 
   Optional optional = new Optional("op12345", "cerchi in lega",  "di serie", 33);
   Optional optional2 = new Optional("op54321", "vetri oscurati", "di serie", 22);
-  Client client = new Client("Roma", new Date(), "cliente", "Roma", "84018",
-      "Via", "cl123", "Marco", "Polo", "email", "password");
+  Client client = new Client("cl123", "Marco", "Polo", "email", "password",
+      "Roma", new Date(), "Uomo", "Roma", "84018", "Via");
   Advisor advisor = new Advisor("ad12345", "Mario", "Rossi", "email",
       "password", new Date());
   Car car = new Car("ca12345", "Peugeot", "3008", 134, "city car",

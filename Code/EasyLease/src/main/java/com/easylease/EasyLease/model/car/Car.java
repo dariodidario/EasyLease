@@ -16,7 +16,7 @@ public class Car {
     private String car_type;
     private boolean visibility;
     private int doors;
-    private String trasmision;
+    private String transmission;
     private float avg_consumption;
     private int horse_power;
     private String emission_class;
@@ -39,16 +39,16 @@ public class Car {
      * @param car_type the typology of the car
      * @param visibility the visibility of the car into the catalogue
      * @param doors the number of the car doors
-     * @param trasmission the type of car trasmission
+     * @param transmission the type of car transmission
      * @param avg_consumption the average consumption of the car
      * @param horse_power the horse power of the car
      * @param emission_class the CO2 emission class of the car
      * @param co2_emissions the quantity of CO2 emissions  of the car
      * @param power_supply the type of car's power
-     * @param cc the capacity of the car
+     * @param cc the engine capacity of the car
      * @param image the path of car's image
      */
-    public Car(String id, String brand,String model, float price, String car_type, boolean visibility,int doors, String trasmission, float avg_consumption, int horse_power, String emission_class, int co2_emissions, String power_supply, int cc, String image){
+    public Car(String id, String brand,String model, float price, String car_type, boolean visibility,int doors, String transmission, float avg_consumption, int horse_power, String emission_class, int co2_emissions, String power_supply, int cc, String image){
         setId(id);
         setBrand(brand);
         setModel(model);
@@ -56,7 +56,7 @@ public class Car {
         setType(car_type);
         setVisibility(visibility);
         setDoors(doors);
-        setTrasmision(trasmission);
+        setTrasmision(transmission);
         setAvg_consumption(avg_consumption);
         setHorse_power(horse_power);
         setEmission_class(emission_class);
@@ -207,18 +207,18 @@ public class Car {
     public void setDoors(int doorsNew){this.doors=doorsNew;}
 
     /**
-     * Returns the type of the car trasmission.
+     * Returns the type of the car transmission.
      *
-     * @return the type of the car trasmission.
+     * @return the type of the car transmission.
      */
-    public String getTrasmision(){return this.trasmision;}
+    public String getTransmision(){return this.transmission;}
 
     /**
-     * Set the type  of the car trasmission.
+     * Set the type  of the car transmission.
      *
-     * @param trasmisionNew the new trasmission of the car.
+     * @param transmissionNew the new transmission of the car.
      */
-    public void setTrasmision(String trasmisionNew){this.trasmision=trasmisionNew;}
+    public void setTrasmision(String transmissionNew){this.transmission = transmissionNew;}
 
     /**
      * Returns the average consumption of the car.
@@ -277,16 +277,16 @@ public class Car {
     public void setCo2_emissions(int co2_emissionsNew){this.co2_emissions=co2_emissionsNew;}
 
     /**
-     * Returns the capacity of the car.
+     * Returns the engine capacity of the car.
      *
-     * @return the capacity of the car.
+     * @return the engine capacity of the car.
      */
     public int getCapacity(){return this.cc;}
 
     /**
-     * Set the capacity of the car.
+     * Set the engine capacity of the car.
      *
-     * @param ccNew the new capacity of the car.
+     * @param ccNew the new engine capacity of the car.
      */
     public void setCc(int ccNew){this.cc=ccNew;}
 

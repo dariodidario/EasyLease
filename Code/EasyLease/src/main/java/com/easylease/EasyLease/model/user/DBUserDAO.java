@@ -1,7 +1,7 @@
 package com.easylease.EasyLease.model.user;
 
+import com.easylease.EasyLease.control.utility.exception.EntityTamperingException;
 import com.easylease.EasyLease.model.DBPool.DBConnection;
-import com.easylease.EasyLease.model.exception.EntityTamperingException;
 import com.easylease.EasyLease.model.order.DBOrderDAO;
 import com.easylease.EasyLease.model.order.Order;
 import com.easylease.EasyLease.model.order.OrderDAO;

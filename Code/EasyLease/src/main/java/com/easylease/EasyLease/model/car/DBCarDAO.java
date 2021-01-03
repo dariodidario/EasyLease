@@ -319,13 +319,13 @@ public class DBCarDAO implements CarDAO{
             preparedStatement.setString(5, car.getType());
             preparedStatement.setBoolean(6, car.getVisibility());
             preparedStatement.setInt(7, car.getDoors());
-            preparedStatement.setString(8, car.getTrasmision());
+            preparedStatement.setString(8, car.getTransmision());
             preparedStatement.setFloat(9, car.getAvg_consumption());
             preparedStatement.setInt(10, car.getHorse_power());
             preparedStatement.setString(11, car.getEmission_class());
             preparedStatement.setInt(12, car.getCo2_emissions());
             preparedStatement.setString(13, car.getPowerSupply());
-            preparedStatement.setInt(14, car.getCc());
+            preparedStatement.setInt(14, car.getCapacity());
             preparedStatement.setString(15, car.getImage());
             preparedStatement.setString(16, car.getId());
 
@@ -396,12 +396,12 @@ public class DBCarDAO implements CarDAO{
             preparedStatement.setString(7, car.getImage());
             preparedStatement.setBoolean(8, car.getVisibility());
             preparedStatement.setInt(9, car.getDoors());
-            preparedStatement.setString(10, car.getTrasmision());
+            preparedStatement.setString(10, car.getTransmision());
             preparedStatement.setFloat(11, car.getAvg_consumption());
             preparedStatement.setInt(12, car.getHorse_power());
             preparedStatement.setString(13, car.getEmission_class());
             preparedStatement.setInt(14, car.getCo2_emissions());
-            preparedStatement.setInt(15, car.getCc());
+            preparedStatement.setInt(15, car.getCapacity());
 
 
             preparedStatement.executeUpdate();

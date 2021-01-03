@@ -1,9 +1,9 @@
-package com.easylease.EasyLease.model.DBPool;
+package com.easylease.EasyLease.model.user;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
+import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.user.DBUserDAO;
 
 import com.easylease.EasyLease.model.user.User;

@@ -2,7 +2,6 @@ package com.easylease.EasyLease.model.order;
 
 
 import com.easylease.EasyLease.control.utility.exception.EntityTamperingException;
-
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.client.Client;
@@ -144,6 +143,7 @@ public class DBOrderDAO implements OrderDAO {
       throw new EntityTamperingException("Already existing Order!");
     }
   }
+
   @Override
   public void delete(Order order) throws EntityTamperingException {
     final String query = "DELETE FROM orders WHERE id_order = ?";

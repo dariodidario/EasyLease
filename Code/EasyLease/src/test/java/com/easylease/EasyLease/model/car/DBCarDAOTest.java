@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 class DBCarDAOTest {
@@ -22,7 +21,9 @@ class DBCarDAOTest {
     /**test with correct id parameter expected car in return**/
     @Test
     void retriveById_test1() {
-        Car car=new Car("ca11111", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499);
+      Car car = new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+          true, 5, "Automatico", 3.9f,
+          130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
 
            when(dao.retriveById("ca11111")).thenReturn(car);
 
@@ -34,7 +35,9 @@ class DBCarDAOTest {
     /**test with nonexistent id parameter expected null return**/
     @Test
     void retriveById_test2() {
-        Car car=new Car("ca11111", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499);
+      Car car = new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+          true, 5, "Automatico", 3.9f,
+          130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
 
         when(dao.retriveById("ca11111")).thenReturn(car);
 
@@ -68,7 +71,9 @@ class DBCarDAOTest {
     /**test with correct model parameter expected car in return**/
     @Test
     void retriveByModel_test1() {
-        Car car=new Car("ca11111", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499);
+      Car car = new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+          true, 5, "Automatico", 3.9f,
+          130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
 
         when(dao.retriveByModel("3008")).thenReturn(car);
 
@@ -80,7 +85,9 @@ class DBCarDAOTest {
     /**test with nonexistent model parameter expected null return**/
     @Test
     void retriveByModel_test2() {
-        Car car=new Car("ca11111", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499);
+      Car car = new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+          true, 5, "Automatico", 3.9f,
+          130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
 
         when(dao.retriveByModel("3008")).thenReturn(car);
 
@@ -113,8 +120,12 @@ class DBCarDAOTest {
     @Test
     void retriveByBrand_test1() {
         ArrayList<Car> cars=new ArrayList<>();
-        cars.add(new Car("ca11111", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499));
-        cars.add(new Car("ca11112", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499));
+        cars.add(new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+            true, 5, "Automatico", 3.9f,
+            130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
+        cars.add(new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+            true, 5, "Automatico", 3.9f,
+            130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
         List list=cars;
         when(dao.retriveByBrand("Peugeot")).thenReturn(list);
 
@@ -129,8 +140,12 @@ class DBCarDAOTest {
     @Test
     void retriveByBrand_test2() {
         ArrayList<Car> cars=new ArrayList<>();
-        cars.add(new Car("ca11111", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499));
-        cars.add(new Car("ca11112", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499));
+        cars.add(new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+            true, 5, "Automatico", 3.9f,
+            130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
+        cars.add(new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+            true, 5, "Automatico", 3.9f,
+            130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
         List list=cars;
         when(dao.retriveByBrand("Peugeot")).thenReturn(list);
 
@@ -163,8 +178,12 @@ class DBCarDAOTest {
     @Test
     void retriveByType_test1() {
         ArrayList<Car> cars=new ArrayList<>();
-        cars.add(new Car("ca11111", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499));
-        cars.add(new Car("ca11112", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499));
+        cars.add(new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+            true, 5, "Automatico", 3.9f,
+            130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
+        cars.add(new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+            true, 5, "Automatico", 3.9f,
+            130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
         List list=cars;
         when(dao.retriveByType("SUV")).thenReturn(list);
 
@@ -179,8 +198,12 @@ class DBCarDAOTest {
     @Test
     void retriveByType_test2() {
         ArrayList<Car> cars=new ArrayList<>();
-        cars.add(new Car("ca11111", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499));
-        cars.add(new Car("ca11112", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499));
+      cars.add(new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+          true, 5, "Automatico", 3.9f,
+          130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
+      cars.add(new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+          true, 5, "Automatico", 3.9f,
+          130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
         List list=cars;
         when(dao.retriveByType("SUV")).thenReturn(list);
 
@@ -193,8 +216,12 @@ class DBCarDAOTest {
     @Test
     void retriveByType_test3() {
         ArrayList<Car> cars=new ArrayList<>();
-        cars.add(new Car("ca11111", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499));
-        cars.add(new Car("ca11112", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499));
+      cars.add(new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+          true, 5, "Automatico", 3.9f,
+          130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
+      cars.add(new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+          true, 5, "Automatico", 3.9f,
+          130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
         List list=cars;
         when(dao.retriveByType(null)).thenThrow(IllegalArgumentException.class);
 
@@ -206,8 +233,12 @@ class DBCarDAOTest {
     @Test
     void retriveByType_test4() {
         ArrayList<Car> cars=new ArrayList<>();
-        cars.add(new Car("ca11111", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499));
-        cars.add(new Car("ca11112", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499));
+      cars.add(new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+          true, 5, "Automatico", 3.9f,
+          130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
+      cars.add(new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+          true, 5, "Automatico", 3.9f,
+          130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
         List list=cars;
         when(dao.retriveByType("")).thenThrow(IllegalArgumentException.class);
 
@@ -219,8 +250,12 @@ class DBCarDAOTest {
     @Test
     void retriveAll_test1() {
 
-        Car car=new Car("ca11111", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499);
-        Car car1=new Car("ca11112", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499);
+        Car car=new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+            true, 5, "Automatico", 3.9f,
+            130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
+        Car car1=new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+            true, 5, "Automatico", 3.9f,
+            130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
         ArrayList<Car> cars=new ArrayList<>();
         cars.add(car);
         cars.add(car1);
@@ -239,7 +274,9 @@ class DBCarDAOTest {
     /**test with correct car parameter expected success**/
     @Test
     void update_test1() {
-        Car car=new Car("ca11111", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499);
+      Car car = new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+          true, 5, "Automatico", 3.9f,
+          130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
 
         doAnswer(invocation -> {
             return null;
@@ -265,7 +302,9 @@ class DBCarDAOTest {
     /**test with correct car parameter expected success**/
     @Test
     void delete_test1() {
-        Car car=new Car("ca11111", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499);
+      Car car = new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+          true, 5, "Automatico", 3.9f,
+          130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
 
         doAnswer(invocation -> {
             return null;
@@ -290,13 +329,17 @@ class DBCarDAOTest {
     /**test with correct car parameter expected success**/
     @Test
     void insert_test1() {
-        Car car=new Car("ca11111", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499);
+      Car car = new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+          true, 5, "Automatico", 3.9f,
+          130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
 
         doAnswer(invocation -> {
             return null;
         }).when(dao).insert(any());
 
-        dao.insert(new Car("ca11111", "Peugeot", "3008", 249, "SUV", "Diesel", "peugeot_3008.jpg", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, 1499));
+        dao.insert(new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
+            true, 5, "Automatico", 3.9f,
+            130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
 
         ArgumentCaptor<Car> captor=ArgumentCaptor.forClass(Car.class);
         verify(dao,times(1)).insert(captor.capture());
