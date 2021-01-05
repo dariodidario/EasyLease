@@ -4,6 +4,7 @@ import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.car.Car;
 import com.easylease.EasyLease.model.client.Client;
 import com.easylease.EasyLease.model.optional.Optional;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -24,6 +25,8 @@ public class Estimate {
   private int period;
   private List<Optional> optionalList;
   private boolean visibility;
+  private String state;
+  private GregorianCalendar responseDate;
 
   public Estimate() {}
 
@@ -40,8 +43,9 @@ public class Estimate {
    * @param visibility tells you if the Estimate is still valid.
    */
 
-  public Estimate(String id, float price, Client client, Advisor advisor, Car car, int period,
-                  List<Optional> optionalList, boolean visibility) {
+  public Estimate(String id, float price, Client client, Advisor advisor, Car car,
+                  int period, List<Optional> optionalList, boolean visibility,
+                  String state, GregorianCalendar requestDate) {
     setId(id);
     setPrice(price);
     setClient(client);
@@ -50,6 +54,7 @@ public class Estimate {
     setPeriod(period);
     setOptionalList(optionalList);
     setVisibility(visibility);
+
   }
 
   /**
@@ -194,5 +199,41 @@ public class Estimate {
    */
   public void setVisibility(boolean visibility) {
     this.visibility = visibility;
+  }
+
+  /**
+   * Get estimate's state.
+   *
+   * @return state estimate's state.
+   */
+  public String getState() {
+    return state;
+  }
+
+  /**
+   * Set estimate's state.
+   *
+   * @param state is estimate's state.
+   */
+  public void setState(String state) {
+    this.state = state;
+  }
+
+  /**
+   * Get estimate's responseDate.
+   *
+   * @return responseDate estimate's responseDate.
+   */
+  public GregorianCalendar getResponseDate() {
+    return responseDate;
+  }
+
+  /**
+   * Set estimate's responseDate.
+   *
+   * @param responseDate is estimate's responseDate.
+   */
+  public void setResponseDate(GregorianCalendar responseDate) {
+    this.responseDate = responseDate;
   }
 }
