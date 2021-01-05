@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.logging.Logger;
 
 /**
  * This class provides methods for interacting with the customer database.
@@ -18,7 +17,6 @@ import java.util.logging.Logger;
  */
 public class DBCarDAO implements CarDAO{
     private static final String TABLE_NAME = "car";
-    private static final Logger logger = Logger.getLogger(DBCarDAO.class.getName());
     private static DBCarDAO dao;
     private Connection connection;
 
@@ -29,21 +27,21 @@ public class DBCarDAO implements CarDAO{
      *
      * @return the connection with the Database.
      */
-    public static DBCarDAO getInstance() {
+    public static CarDAO getInstance() {
         if (dao == null) {
             dao = new DBCarDAO(DBConnection.getInstance().getConnection());
         }
-        return dao;
+        return (CarDAO) dao;
     }
 
-    public DBCarDAO(Connection connection) {
+    private DBCarDAO(Connection connection) {
         this.connection = connection;
     }
 
 
 
     @Override
-    public synchronized Car retriveById(String id) {
+    public synchronized Car retrieveById(String id) {
         if (id == null || id.equals("")) {
             throw new IllegalArgumentException();
         }
@@ -67,13 +65,13 @@ public class DBCarDAO implements CarDAO{
                 car.setType(rs.getString("car_type"));
                 car.setVisibility(rs.getBoolean("visibility"));
                 car.setDoors(rs.getInt("doors"));
-                car.setTrasmision(rs.getString("transmission"));
+                car.setTransmission(rs.getString("transmission"));
                 car.setAvg_consumption(rs.getFloat("avg_consumption"));
                 car.setHorse_power(rs.getInt("horse_power"));
                 car.setEmission_class(rs.getString("emission_class"));
                 car.setCo2_emissions(rs.getInt("co2_emissions"));
                 car.setPowerSupply(rs.getString("power_supply"));
-                car.setCc(rs.getInt("cc"));
+                car.setCapacity(rs.getInt("cc"));
                 car.setImage(rs.getString("img_path"));
             }
 
@@ -93,7 +91,7 @@ public class DBCarDAO implements CarDAO{
 
 
     @Override
-    public synchronized Car retriveByModel(String model) {
+    public synchronized Car retrieveByModel(String model) {
         if (model == null || model.equals("")) {
             throw new IllegalArgumentException();
         }
@@ -117,13 +115,13 @@ public class DBCarDAO implements CarDAO{
                 car.setType(rs.getString("car_type"));
                 car.setVisibility(rs.getBoolean("visibility"));
                 car.setDoors(rs.getInt("doors"));
-                car.setTrasmision(rs.getString("transmission"));
+                car.setTransmission(rs.getString("transmission"));
                 car.setAvg_consumption(rs.getFloat("avg_consumption"));
                 car.setHorse_power(rs.getInt("horse_power"));
                 car.setEmission_class(rs.getString("emission_class"));
                 car.setCo2_emissions(rs.getInt("co2_emissions"));
                 car.setPowerSupply(rs.getString("power_supply"));
-                car.setCc(rs.getInt("cc"));
+                car.setCapacity(rs.getInt("cc"));
                 car.setImage(rs.getString("img_path"));
             }
 
@@ -143,7 +141,7 @@ public class DBCarDAO implements CarDAO{
 
 
     @Override
-    public synchronized List<Car> retriveByBrand(String brand) {
+    public synchronized List<Car> retrieveByBrand(String brand) {
         if (brand == null || brand.equals("")) {
             throw new IllegalArgumentException();
         }
@@ -169,13 +167,13 @@ public class DBCarDAO implements CarDAO{
                 car.setType(rs.getString("car_type"));
                 car.setVisibility(rs.getBoolean("visibility"));
                 car.setDoors(rs.getInt("doors"));
-                car.setTrasmision(rs.getString("transmission"));
+                car.setTransmission(rs.getString("transmission"));
                 car.setAvg_consumption(rs.getFloat("avg_consumption"));
                 car.setHorse_power(rs.getInt("horse_power"));
                 car.setEmission_class(rs.getString("emission_class"));
                 car.setCo2_emissions(rs.getInt("co2_emissions"));
                 car.setPowerSupply(rs.getString("power_supply"));
-                car.setCc(rs.getInt("cc"));
+                car.setCapacity(rs.getInt("cc"));
                 car.setImage(rs.getString("img_path"));
                 cars.add(car);
             }
@@ -197,7 +195,7 @@ public class DBCarDAO implements CarDAO{
 
 
     @Override
-    public synchronized List<Car> retriveByType(String type) {
+    public synchronized List<Car> retrieveByType(String type) {
         if (type == null || type.equals("")) {
             throw new IllegalArgumentException();
         }
@@ -223,13 +221,13 @@ public class DBCarDAO implements CarDAO{
                 car.setType(rs.getString("car_type"));
                 car.setVisibility(rs.getBoolean("visibility"));
                 car.setDoors(rs.getInt("doors"));
-                car.setTrasmision(rs.getString("transmission"));
+                car.setTransmission(rs.getString("transmission"));
                 car.setAvg_consumption(rs.getFloat("avg_consumption"));
                 car.setHorse_power(rs.getInt("horse_power"));
                 car.setEmission_class(rs.getString("emission_class"));
                 car.setCo2_emissions(rs.getInt("co2_emissions"));
                 car.setPowerSupply(rs.getString("power_supply"));
-                car.setCc(rs.getInt("cc"));
+                car.setCapacity(rs.getInt("cc"));
                 car.setImage(rs.getString("img_path"));
                 cars.add(car);
             }
@@ -251,7 +249,7 @@ public class DBCarDAO implements CarDAO{
 
 
     @Override
-    public synchronized List<Car> retriveAll() {
+    public synchronized List<Car> retrieveAll() {
         PreparedStatement preparedStatement = null;
         ArrayList<Car> cars=new ArrayList<>();
         String selectSQL = "SELECT * FROM " + DBCarDAO.TABLE_NAME;
@@ -273,13 +271,13 @@ public class DBCarDAO implements CarDAO{
                 car.setType(rs.getString("car_type"));
                 car.setVisibility(rs.getBoolean("visibility"));
                 car.setDoors(rs.getInt("doors"));
-                car.setTrasmision(rs.getString("transmission"));
+                car.setTransmission(rs.getString("transmission"));
                 car.setAvg_consumption(rs.getFloat("avg_consumption"));
                 car.setHorse_power(rs.getInt("horse_power"));
                 car.setEmission_class(rs.getString("emission_class"));
                 car.setCo2_emissions(rs.getInt("co2_emissions"));
                 car.setPowerSupply(rs.getString("power_supply"));
-                car.setCc(rs.getInt("cc"));
+                car.setCapacity(rs.getInt("cc"));
                 car.setImage(rs.getString("img_path"));
                 cars.add(car);
             }
@@ -301,7 +299,7 @@ public class DBCarDAO implements CarDAO{
 
 
     @Override
-    public synchronized void update(Car car)  {
+    public synchronized void update(Car car) {
         if (car == null) {
             throw new IllegalArgumentException();
         }
@@ -319,7 +317,7 @@ public class DBCarDAO implements CarDAO{
             preparedStatement.setString(5, car.getType());
             preparedStatement.setBoolean(6, car.getVisibility());
             preparedStatement.setInt(7, car.getDoors());
-            preparedStatement.setString(8, car.getTransmision());
+            preparedStatement.setString(8, car.getTransmission());
             preparedStatement.setFloat(9, car.getAvg_consumption());
             preparedStatement.setInt(10, car.getHorse_power());
             preparedStatement.setString(11, car.getEmission_class());
@@ -345,7 +343,7 @@ public class DBCarDAO implements CarDAO{
 
 
     @Override
-    public synchronized void delete(Car car)  {
+    public synchronized void delete(Car car) {
         if (car == null) {
             throw new IllegalArgumentException();
         }
@@ -376,7 +374,7 @@ public class DBCarDAO implements CarDAO{
 
 
     @Override
-    public synchronized void insert(Car car)  {
+    public synchronized void insert(Car car) {
         if (car == null) {
             throw new IllegalArgumentException();
         }
@@ -396,7 +394,7 @@ public class DBCarDAO implements CarDAO{
             preparedStatement.setString(7, car.getImage());
             preparedStatement.setBoolean(8, car.getVisibility());
             preparedStatement.setInt(9, car.getDoors());
-            preparedStatement.setString(10, car.getTransmision());
+            preparedStatement.setString(10, car.getTransmission());
             preparedStatement.setFloat(11, car.getAvg_consumption());
             preparedStatement.setInt(12, car.getHorse_power());
             preparedStatement.setString(13, car.getEmission_class());
