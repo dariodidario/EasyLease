@@ -57,7 +57,7 @@ public class DBCarDAO implements CarDAO{
 
             ResultSet rs = preparedStatement.executeQuery();
 
-            if(rs!=null){//extraction of the data from the db
+            if(rs.next()){//extraction of the data from the db
                 car.setId(rs.getString("id_car"));
                 car.setBrand(rs.getString("brand"));
                 car.setModel(rs.getString("model"));
@@ -107,7 +107,7 @@ public class DBCarDAO implements CarDAO{
 
             ResultSet rs = preparedStatement.executeQuery();
 
-            if (rs!=null) {//extraction of the data from the db
+            if (rs.next()) {//extraction of the data from the db
                 car.setId(rs.getString("id_car"));
                 car.setBrand(rs.getString("brand"));
                 car.setModel(rs.getString("model"));
