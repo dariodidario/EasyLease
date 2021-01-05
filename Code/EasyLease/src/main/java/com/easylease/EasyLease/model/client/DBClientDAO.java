@@ -45,8 +45,8 @@ public class DBClientDAO implements ClientDAO {
       throw new IllegalArgumentException();
     }
     PreparedStatement preparedStatement = null;
-    Client c = null;
-    final String query = "SELECT * FROM user WHERE id = ?";
+    Client c = new Client();
+    final String query = "SELECT * FROM users WHERE id_user = ?";
     if (id == null || id.equals("") || !id.startsWith("CL")) {
       throw new IllegalArgumentException();
     }
@@ -56,10 +56,10 @@ public class DBClientDAO implements ClientDAO {
       ResultSet rs = preparedStatement.executeQuery();
       if (rs.next()) {
         c.setId(rs.getString("id_user"));
-        c.setName(rs.getString("name"));
+        c.setName(rs.getString("first_name"));
         c.setSurname(rs.getString("surname"));
         c.setEmail(rs.getString("email"));
-        c.setPassword(rs.getString("password"));
+        c.setPassword(rs.getString("pwd"));
         c.setBirthDate(rs.getDate("birth_date"));
         c.setBirthPlace(rs.getString("birth_place"));
         c.setCity(rs.getString("city"));
@@ -143,7 +143,7 @@ public class DBClientDAO implements ClientDAO {
       throw new IllegalArgumentException();
     }
     PreparedStatement preparedStatement = null;
-    String query = "INSERT INTO user(id_user, account_type, birth_place, "
+    String query = "INSERT INTO users(id_user, account_type, birth_place, "
         + "birth_date, kind, first_name, surname, email, pwd, street, city, pc) "
         + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try {
@@ -172,7 +172,7 @@ public class DBClientDAO implements ClientDAO {
       throw new IllegalArgumentException();
     }
     PreparedStatement preparedStatement = null;
-    String query = "UPDATE user"
+    String query = "UPDATE users"
         + "SET birth_place = ?, birth_date = ?, kind = ?, first_name = ?, "
         + "surname = ?, email = ?, pwd = ?, street = ?, city = ?, pc = ?"
         + "WHERE id_user = ?";
@@ -201,7 +201,7 @@ public class DBClientDAO implements ClientDAO {
       throw new IllegalArgumentException();
     }
     PreparedStatement preparedStatement = null;
-    String query = "DELETE FROM user WHERE id_user = ?";
+    String query = "DELETE FROM users WHERE id_user = ?";
     try {
       preparedStatement = connection.prepareStatement(query);
       preparedStatement.setString(1, c.getId());
