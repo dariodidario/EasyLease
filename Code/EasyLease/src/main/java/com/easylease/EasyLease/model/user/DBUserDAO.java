@@ -117,7 +117,7 @@ public class DBUserDAO implements UserDAO{
     final String query = "SELECT * FROM " + DBUserDAO.TABLE_NAME + " WHERE EMAIL = ?";
     if (email == null || email.equals("")) {
       throw new IllegalArgumentException(
-          String.format("The id(%s) passed as a parameter is not valid", email));
+          String.format("The email(%s) passed as a parameter is not valid", email));
     }
     try {
       PreparedStatement stm = connection.prepareStatement(query);

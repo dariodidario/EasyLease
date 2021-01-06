@@ -17,18 +17,18 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "LoginServlet")
 public class LoginServlet extends HttpServlet {
-  protected void doPost(HttpServletRequest request,
+
+  public void doPost(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     doGet(request, response);
   }
 
-  protected void doGet(HttpServletRequest request,
+  public void doGet(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     DBUserDAO dao = DBUserDAO.getInstance();
-    String email = request.getParameter("email");
-    String password = request.getParameter("password");
-    request.removeAttribute("email");
-    request.removeAttribute("password");
+    String email = (String) request.getAttribute("email");
+    String password = (String) request.getAttribute("password");
+
 
     User user = dao.retrieveByEmail(email);
     if (password.equals(user.getPassword())) {
@@ -42,9 +42,13 @@ public class LoginServlet extends HttpServlet {
       if (user instanceof Client) {
         request.getSession().setAttribute("role", "client");
       }
+      request.removeAttribute("email");
+      request.removeAttribute("password");
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
       dispatcher.forward(request, response);
     }
+    request.removeAttribute("email");
+    request.removeAttribute("password");
     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/loginJSP.jsp");
     dispatcher.forward(request, response);
   }

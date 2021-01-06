@@ -1,10 +1,10 @@
 package com.easylease.EasyLease.model.user;
 
-import com.easylease.EasyLease.model.user.User;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
+
 
 public class UserTest {
 
