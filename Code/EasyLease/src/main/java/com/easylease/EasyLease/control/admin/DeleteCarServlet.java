@@ -1,59 +1,23 @@
 package com.easylease.EasyLease.control.admin;
 
-
-import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.CarDAO;
-import com.easylease.EasyLease.model.car.DBCarDAO;
-import com.easylease.EasyLease.model.user.User;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-/**this servlet provides to delete a car from the database*/
-
-@WebServlet("/DeleteCarServlet")
+@WebServlet(name = "DeleteCarServlet")
 public class DeleteCarServlet extends HttpServlet {
-  static CarDAO CarDAO =DBCarDAO.getInstance();
-
   protected void doPost(
-          HttpServletRequest request,
-          HttpServletResponse response) throws ServletException, IOException {
-    doGet(request, response);
+      HttpServletRequest request,
+      HttpServletResponse response) throws ServletException, IOException {
+
   }
 
   protected void doGet(
-          HttpServletRequest request,
-          HttpServletResponse response) throws ServletException, IOException {
+      HttpServletRequest request,
+      HttpServletResponse response) throws ServletException, IOException {
 
-    String id = request.getParameter("ID_Delete");
-    if (id != null && !id.equalsIgnoreCase("")) {
-      Car car = CarDAO.retrieveById(id);
-      car.setVisibility(false);
-      CarDAO.update(car);
-
-      User user = (User) request.getSession().getAttribute("user");
-      request.getSession().setAttribute("user", user);
-      request.getSession().setAttribute("role", "advisor");
-
-      response.setContentType("text/html;charset=UTF-8");
-      PrintWriter out = response.getWriter();
-      out.println("<script type=\"text/javascript\">");
-      out.println("alert('Auto eliminata con successo');");
-      out.println("location='user/homePageJSP.jsp';");
-      out.println("</script>");
-
-    }else{
-      response.setContentType("text/html;charset=UTF-8");
-      PrintWriter out = response.getWriter();
-      out.println("<script type=\"text/javascript\">");
-      out.println("alert('Impossibile eliminare, Id null error!');");
-      out.println("location='user/updateCarJSP.jsp';");
-      out.println("</script>");
-    }
   }
 }
-
