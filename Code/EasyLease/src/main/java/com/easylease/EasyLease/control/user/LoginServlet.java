@@ -1,28 +1,29 @@
 package com.easylease.EasyLease.control.user;
 
+
 import com.easylease.EasyLease.model.admin.Admin;
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.client.Client;
 import com.easylease.EasyLease.model.user.DBUserDAO;
 import com.easylease.EasyLease.model.user.User;
-
+import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.SQLException;
+
 
 @WebServlet(name = "LoginServlet")
 public class LoginServlet extends HttpServlet {
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doPost(HttpServletRequest request,
+      HttpServletResponse response) throws ServletException, IOException {
     doGet(request, response);
   }
 
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    boolean log = false;
+  protected void doGet(HttpServletRequest request,
+      HttpServletResponse response) throws ServletException, IOException {
     DBUserDAO dao = DBUserDAO.getInstance();
     String email = request.getParameter("email");
     String password = request.getParameter("password");
@@ -31,7 +32,6 @@ public class LoginServlet extends HttpServlet {
 
     User user = dao.retrieveByEmail(email);
     if (password.equals(user.getPassword())) {
-      log = true;
       request.getSession().setAttribute("user", user);
       if (user instanceof Admin) {
         request.getSession().setAttribute("role", "admin");

@@ -11,11 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "LogoutServlet")
 public class LogoutServlet extends HttpServlet {
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doPost(HttpServletRequest request,
+      HttpServletResponse response) throws ServletException, IOException {
     doGet(request, response);
   }
 
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest request,
+      HttpServletResponse response) throws ServletException, IOException {
     request.getSession().removeAttribute("user");
     request.getSession().removeAttribute("role");
     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");

@@ -29,7 +29,10 @@
   </div>
   <h1><%=car.getBrand()%> <%=car.getModel()%></h1>
   <br><br><br>
-  <img src="<%=car.getImage()%>" alt=""> <br><br><br>
+  <img src="<%=car.getImage()%>" alt=""> <br><br>
+  <div style="border-style: solid;width: 60px; height: 100%; background-color: red; font-size: large">
+    <%=car.getPrice()%>
+  </div><br><br>
   <div id="azioni" style="float:left; margin:10px 5px 5px 100px">
     <a href="#"><input type="button" name="Registrati" value="Registrati" ></a>
   </div>
@@ -77,7 +80,10 @@
     </div>
   <h1><%=car.getBrand()%> <%=car.getModel()%></h1>
   <br><br><br>
-  <img src="<%=car.getImage()%>" alt=""> <br><br><br>
+  <img src="<%=car.getImage()%>" alt=""> <br><br>
+  <div style="border-style: solid;width: 60px; height: 100%; background-color: red; font-size: large">
+    <%=car.getPrice()%>
+  </div><br><br>
     <div id="azioni" style="float:left; margin:10px 5px 5px 100px">
       <form method="POST" action="jetbrains://idea/navigate/reference?project=EasyLease&path=advisor/estimateManagementAdvisorJSP.jsp?id=<%=car.getId()%>">
         <input type="submit" name="Richiedi preventivo" value="Richiedi preventivo">
@@ -100,7 +106,10 @@
     </div>
   <h1><%=car.getBrand()%> <%=car.getModel()%></h1>
   <br><br><br>
-  <img src="<%=car.getImage()%>" alt=""> <br><br><br>
+  <img src="<%=car.getImage()%>" alt=""> <br><br>
+  <div style="border-style: solid;width: 60px; height: 100%; background-color: red; font-size: large">
+    <%=car.getPrice()%>
+  </div><br><br>
     <div id="azioni" style="float:left; margin:10px 5px 5px 100px">
       <form method="POST" action="../index.jsp">
         <input type="submit" name="Home" value="Home" >
