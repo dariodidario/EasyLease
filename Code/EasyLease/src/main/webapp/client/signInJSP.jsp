@@ -2,52 +2,66 @@
          pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous">
+<link rel="stylesheet" href="signin.css">
 <head>
   <meta charset="ISO-8859-1">
   <title>Registrazione</title>
-  <style>
-    .lb{
-      color: red;
-      display:none;
-    }
-  </style>
 </head>
 <body>
-  <div style="text-align: center; border:solid;">
-    <form action="jetbrains://idea/navigate/reference?project=EasyLease&fqn=com.easylease.EasyLease.control.client.SignInServlet" method="POST">
-      <br/><br/>
-      <input name="name" id="nome" type="text" placeholder="Nome"/><br/>
-      <label id="nomelb" for="nome" class="lb">*Nome non valido</label><br/>
-      <input name="surname" id="cognome" type="text" placeholder="Cognome"/><br/>
-      <label id="cognomelb" for="cognome" class="lb">*Cogome non valido</label><br/>
-      <input name="mail" id="mail" type="email" placeholder="E-mail"/><br/>
-      <label id="maillb" for="mail" class="lb">*E-mail non valida</label><br/>
-      <input name="password" id="password" type="password" placeholder="Password"/><br/>
-      <label id="passwordlb" for="password" class="lb">*Password non valida</label><br/>
-
-      <input name="birthplace" id="bp" type="text" placeholder="Luogo di nascita"/><br/>
-      <label id="birthplacelb" for="bp" class="lb">*birthplace non valida</label><br/>
-
-      <input name="birthdate" id="bd" type="date"/><br/><br/>
-      <label id="birthdatelb" for="bd" class="lb">*birthplace non valida</label><br/>
-      <select name="kind" id="kind">
-        <option value="uomo">uomo</option>
-        <option value="donna">donna</option>
-        <option value="preferisco non specificarlo">preferisco non specificarlo</option>
-      </select><br/>
-      <label id="kindlb" for="kind" class="lb">*birthplace non valida</label><br/>
-
-      <input name="city" id="city" type="text" placeholder="Via"/><br/>
-      <label id="citylb" for="city" class="lb">*Città non valida</label><br/>
-
-      <input name="pc" id="cap" type="text" placeholder="CAP"/><br/>
-      <label id="caplb" for="cap" class="lb">*CAP non valido</label><br/>
-      <input name="street" id="street" type="text" placeholder="Via"/><br/>
-      <label id="vialb" for="street" class="lb">*Via non valida</label><br/>
-      <input type="submit" value="Registrati" >
-      <input type="reset" value="Cancella">
-      <br/><br/>
-    </form>
-  </div>
+<div style="text-align: center; border:solid;">
+  <form action="jetbrains://idea/navigate/reference?project=EasyLease&fqn=com.easylease.EasyLease.control.client.SignInServlet" method="POST">
+    <br/>
+    <div class="form-group">
+      <input name="name" class="form-control" id="nome" type="text" placeholder="Nome"/><br/>
+      <label id="nomelb" for="nome"></label>
+    </div>
+    <div class="form-group">
+      <input name="surname" class="form-control" id="cognome" type="text" placeholder="Cognome"/><br/>
+      <label id="cognomelb" for="cognome"></label><br/>
+    </div>
+    <div class="form-group">
+      <input type="email" name = "email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"><br>
+      <label for="exampleInputEmail1"></label>
+    </div>
+    <div class="form-group">
+      <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password"><br>
+      <label for="exampleInputPassword1"></label>
+    </div>
+    <div class="form-group">
+      <input name="birthplace" class="form-control" id="bp" type="text" placeholder="Luogo di nascita"/><br/>
+      <label id="birthplacelb" for="bp"></label>
+    </div>
+    <div class="form-group">
+      <input name="birthdate" class="form-control" id="bd" type="date"/><br/>
+      <label id="birthdatelb" for="bd"></label>
+    </div>
+    <select name="kind" id="kind" class="form-control">
+      <option value="Uomo">uomo</option>
+      <option value="Donna">donna</option>
+      <option value="Preferisco non specificarlo">preferisco non specificarlo</option>
+    </select><br/>
+    <label id="kindlb" for="kind"></label>
+    <div class="form-group">
+      <input name="city" class="form-control" id="city" type="text" placeholder="Città"/><br/>
+      <label id="citylb" for="city"></label>
+    </div>
+    <div class="form-group">
+      <input name="pc" class="form-control" id="cap" type="text" placeholder="CAP"/><br/>
+      <label id="caplb" for="cap"></label>
+    </div>
+    <div class="form-group">
+      <input name="street" class="form-control" id="street" type="text" placeholder="Via"/><br/>
+      <label id="vialb" for="street"></label>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Registrati</button>
+    <input type="reset" class="btn btn-primary" value="Cancella">
+    <br>
+    <br>
+  </form>
+</div>
 </body>
 </html>

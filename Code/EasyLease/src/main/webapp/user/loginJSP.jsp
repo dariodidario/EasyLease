@@ -2,26 +2,29 @@
          pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous">
+<link rel="stylesheet" href="login.css">
 <head>
   <meta charset="ISO-8859-1">
   <title>Login</title>
 </head>
 <body>
-<hr>
-<h1>Login</h1>
-<hr>
-<br/><br/>
+<br/>
 <form action="jetbrains://idea/navigate/reference?project=EasyLease&fqn=com.easylease.EasyLease.control.user.LoginServlet" method="POST">
-  <input name="email" id="email" type="email" value="" placeholder="Email"/><br/><br/>
-  <label id="maillb" for="email" class="lb" style="display: none"></label><br/>
-  <input name="password" id="password" type="password" value="" placeholder="Password"/>
-  <label id="passwordlb" for="password" class="lb" style="display: none"></label><br/>
-  <br/><br/>
-  <input type="hidden" name="action" value="login">
-  <input type="submit" value="Login">
-  <input type="reset" value="Cancella">
-  <br/><br/>
+  <div class="form-group">
+    <label for="exampleInputEmail1"></label><br>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1"></label> <br>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div> <br>
   <a href="../client/signInJSP.jsp">Registrati</a>
+  <br><br>
+  <button type="submit" class="btn btn-primary">Login</button>
+  <input type="reset" class="btn btn-primary" value="Cancella">
 </form>
 </body>
 </html>
