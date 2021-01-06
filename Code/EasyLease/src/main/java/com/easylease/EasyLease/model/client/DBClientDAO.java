@@ -110,10 +110,11 @@ public class DBClientDAO implements ClientDAO {
     PreparedStatement preparedStatement = null;
     List<Client> clientList = new ArrayList<Client>();
 
-    final String query = "SELECT * FROM client";
+    final String query = "SELECT * FROM client WHERE account_type = ?";
 
     try {
       preparedStatement = connection.prepareStatement(query);
+      preparedStatement.setString(1, "Cliente");
       ResultSet rs = preparedStatement.executeQuery();
 
       while (rs.next()) {
@@ -123,7 +124,7 @@ public class DBClientDAO implements ClientDAO {
         c.setSurname(rs.getString("surname"));
         c.setEmail(rs.getString("email"));
         c.setPassword(rs.getString("password"));
-        c.setBirthDate(new SimpleDateFormat().parse(rs.getString("startDate")));
+        c.setBirthDate(rs.getDate("birth_date"));
         c.setBirthPlace(rs.getString("birth_place"));
         c.setCity(rs.getString("city"));
         c.setKind(rs.getString("kind"));
@@ -160,7 +161,7 @@ public class DBClientDAO implements ClientDAO {
       preparedStatement.setString(10, c.getStreet());
       preparedStatement.setString(11, c.getCity());
       preparedStatement.setString(12, c.getPc());
-      preparedStatement.executeQuery();
+      preparedStatement.executeUpdate();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -189,7 +190,7 @@ public class DBClientDAO implements ClientDAO {
       preparedStatement.setString(9, c.getCity());
       preparedStatement.setString(10, c.getPc());
       preparedStatement.setString(11, c.getId());
-      preparedStatement.executeQuery();
+      preparedStatement.executeUpdate();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -205,7 +206,7 @@ public class DBClientDAO implements ClientDAO {
     try {
       preparedStatement = connection.prepareStatement(query);
       preparedStatement.setString(1, c.getId());
-      preparedStatement.executeQuery();
+      preparedStatement.executeUpdate();
     } catch (Exception e) {
       e.printStackTrace();
     }
