@@ -1,20 +1,18 @@
-package com.easylease.EasyLease.model.user;
+package com.easylease.EasyLease.model.DBPool;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.user.DBUserDAO;
-
 import com.easylease.EasyLease.model.user.User;
-import com.easylease.EasyLease.model.user.UserDAO;
-import com.mysql.cj.jdbc.MysqlDataSource;
-
 import java.util.ArrayList;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -24,8 +22,8 @@ public class UserUnitTest {
 
   private static DataSource dataSource;
   private DBConnection dbConnection;
-  private static final String TABLE_NAME = "users";
-  private static Logger logger = Logger.getLogger(DBUserDAO.class.getName());
+  private static final String TABLE_NAME = "user";
+  private static final Logger logger = Logger.getLogger(DBUserDAO.class.getName());
   private static DBUserDAO dao;
 
   public enum tipo {CLIENT, ADMIN, ADVISOR};
@@ -34,8 +32,6 @@ public class UserUnitTest {
   void setUp() {
     dao = mock(DBUserDAO.class);
   }
-
-
 
   @Test
   public void testRetriveById() {
@@ -53,6 +49,17 @@ public class UserUnitTest {
   }
 
   @Test
+  public void testNotRetriveById() {
+    User user = new User("CL0001", "Francesco", "Torino", "francesco.torino1999@gmail.com", "password");
+
+    when(dao.retrieveById("CL0001")).thenReturn(null);
+
+    User user1 = dao.retrieveById("CL0001");
+
+    assertNull(user1);
+  }
+
+  @Test
   public void testRetriveByType() {
     String type = String.valueOf(tipo.CLIENT);
     User user = new User("CL0001", "Francesco", "Torino", "francesco.torino1999@gmail.com", "password");
@@ -65,7 +72,7 @@ public class UserUnitTest {
 
     when(dao.retrieveByType(type)).thenReturn(users);
 
-    ArrayList<User> users1 =(ArrayList<User>)  dao.retrieveByType(type);
+    ArrayList<User> users1 = (ArrayList<User>)  dao.retrieveByType(type);
 
     assertEquals(users.get(0).getId(), users1.get(0).getId());
     assertEquals(users.get(0).getName(), users1.get(0).getName());
@@ -85,6 +92,17 @@ public class UserUnitTest {
   }
 
   @Test
+  public void testNotRetriveByType() {
+    String type = String.valueOf(tipo.CLIENT);
+
+    when(dao.retrieveByType(type)).thenReturn(null);
+
+    ArrayList<User> users1 = (ArrayList<User>)  dao.retrieveByType(type);
+
+    assertNull(users1);
+  }
+
+  @Test
   public void testRetriveByEmail() {
     User user = new User("CL0001", "Francesco", "Torino", "francesco.torino1999@gmail.com", "password");
 
@@ -100,8 +118,18 @@ public class UserUnitTest {
   }
 
   @Test
+  public void testNotRetriveByEmail() {
+    User user = new User("CL0001", "Francesco", "Torino", "francesco.torino1999@gmail.com", "password");
+
+    when(dao.retrieveByEmail("francesco.torino1999@gmail.com")).thenReturn(null);
+
+    User user1 = dao.retrieveByEmail("francesco.torino1999@gmail.com");
+
+    assertNull(user1);
+  }
+
+  @Test
   public void testRetriveAll() {
-    String type = String.valueOf(tipo.CLIENT);
     User user = new User("CL0001", "Francesco", "Torino", "francesco.torino1999@gmail.com", "password");
     User user1 = new User("CL0002", "Antonio", "Sarro", "antonio.sarro1999@gmail.com", "password");
     User user2 = new User("CL0003", "Mattia", "Caprio", "mattia.caprio1999@gmail.com", "password");
@@ -129,6 +157,16 @@ public class UserUnitTest {
     assertEquals(users.get(2).getSurname(), users1.get(2).getSurname());
     assertEquals(users.get(2).getEmail(), users1.get(2).getEmail());
     assertEquals(users.get(2).getPassword(), users1.get(2).getPassword());
+  }
+
+  @Test
+  public void testNotRetriveAll() {
+
+    when(dao.retrieveAll()).thenReturn(null);
+
+    ArrayList<User> users1 =(ArrayList<User>)  dao.retrieveAll();
+
+    assertNull(users1);
   }
 
   @Test

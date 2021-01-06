@@ -113,7 +113,7 @@ public class DBUserDAO implements UserDAO{
   }
 
   @Override
-  public User retrieveByEmail(String email)  {
+  public User retrieveByEmail(String email) {
     final String query = "SELECT * FROM " + DBUserDAO.TABLE_NAME + " WHERE EMAIL = ?";
     if (email == null || email.equals("")) {
       throw new IllegalArgumentException(
