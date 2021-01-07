@@ -147,8 +147,8 @@ public class DBCarDAO implements CarDAO{
         }
         PreparedStatement preparedStatement = null;
         ArrayList<Car> cars=new ArrayList<>();
-        String selectSQL = "SELECT * FROM " + DBCarDAO.TABLE_NAME +" WHERE BRAND LIKE ?";
-        selectSQL += " ORDER BY ID";
+        String selectSQL = "SELECT * FROM " + DBCarDAO.TABLE_NAME +" WHERE brand LIKE ?";
+        selectSQL += " ORDER BY id_car";
 
 
         try {
@@ -201,8 +201,8 @@ public class DBCarDAO implements CarDAO{
         }
         PreparedStatement preparedStatement = null;
         ArrayList<Car> cars=new ArrayList<>();
-        String selectSQL = "SELECT * FROM " + DBCarDAO.TABLE_NAME +" WHERE CAR_TYPE LIKE ?";
-        selectSQL += " ORDER BY ID";
+        String selectSQL = "SELECT * FROM " + DBCarDAO.TABLE_NAME +" WHERE car_type LIKE ?";
+        selectSQL += " ORDER BY id_car";
 
 
         try {
@@ -253,7 +253,7 @@ public class DBCarDAO implements CarDAO{
         PreparedStatement preparedStatement = null;
         ArrayList<Car> cars=new ArrayList<>();
         String selectSQL = "SELECT * FROM " + DBCarDAO.TABLE_NAME;
-        selectSQL += " ORDER BY ID";
+        selectSQL += " ORDER BY id_car";
 
 
         try {
@@ -306,7 +306,7 @@ public class DBCarDAO implements CarDAO{
         PreparedStatement preparedStatement = null;
 
 
-        String deleteSQL = "UPDATE " + DBCarDAO.TABLE_NAME + "SET id_car = ?, brand = ?, model = ?, price = ?, car_type = ?, visibility = ?, doors = ?, transmission = ?, avg_consumption = ?, horse_power = ?, emission_class = ?, co2_emissions = ?, power_supply = ?, cc = ?, img_path = ? WHERE id_car = ?";
+        String deleteSQL = "UPDATE " + DBCarDAO.TABLE_NAME + " SET id_car = ?, brand = ?, model = ?, price = ?, car_type = ?, visibility = ?, doors = ?, transmission = ?, avg_consumption = ?, horse_power = ?, emission_class = ?, co2_emissions = ?, power_supply = ?, cc = ?, img_path = ? WHERE id_car = ?";
 
         try {
             preparedStatement = connection.prepareStatement(deleteSQL);
@@ -381,7 +381,7 @@ public class DBCarDAO implements CarDAO{
         PreparedStatement preparedStatement = null;
 
         String insertSQL = "INSERT INTO " + DBCarDAO.TABLE_NAME
-                + " car(id_car, brand, model, price, car_type, power_supply, img_path, visibility, doors, transmission, avg_consumption, horse_power, emission_class, co2_emissions, cc) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "(id_car, brand, model, price, car_type, power_supply, img_path, visibility, doors, transmission, avg_consumption, horse_power, emission_class, co2_emissions, cc) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             preparedStatement = connection.prepareStatement(insertSQL);
