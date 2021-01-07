@@ -4,7 +4,8 @@ import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.car.Car;
 import com.easylease.EasyLease.model.client.Client;
 import com.easylease.EasyLease.model.optional.Optional;
-import java.util.GregorianCalendar;
+
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class Estimate {
   private List<Optional> optionalList;
   private boolean visibility;
   private String state;
-  private GregorianCalendar responseDate;
+  private Date responseDate;
 
   public Estimate() {}
 
@@ -45,7 +46,7 @@ public class Estimate {
 
   public Estimate(String id, float price, Client client, Advisor advisor, Car car,
                   int period, List<Optional> optionalList, boolean visibility,
-                  String state, GregorianCalendar requestDate) {
+                  String state, Date responseDate) {
     setId(id);
     setPrice(price);
     setClient(client);
@@ -54,7 +55,8 @@ public class Estimate {
     setPeriod(period);
     setOptionalList(optionalList);
     setVisibility(visibility);
-
+    setState(state);
+    setResponseDate(responseDate);
   }
 
   /**
@@ -224,7 +226,7 @@ public class Estimate {
    *
    * @return responseDate estimate's responseDate.
    */
-  public GregorianCalendar getResponseDate() {
+  public Date getResponseDate() {
     return responseDate;
   }
 
@@ -233,7 +235,7 @@ public class Estimate {
    *
    * @param responseDate is estimate's responseDate.
    */
-  public void setResponseDate(GregorianCalendar responseDate) {
+  public void setResponseDate(Date responseDate) {
     this.responseDate = responseDate;
   }
 }

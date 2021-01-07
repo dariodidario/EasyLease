@@ -11,12 +11,10 @@ import com.easylease.EasyLease.model.optional.DBOptionalDAO;
 import com.easylease.EasyLease.model.optional.Optional;
 import com.easylease.EasyLease.model.optional.OptionalDAO;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -155,7 +153,7 @@ public class DBEstimateDAO implements  EstimateDAO {
       preparedStatement.setInt(6, e.getPeriod());
       preparedStatement.setBoolean(7, e.isVisibility());
       preparedStatement.setString(8, e.getState());
-      preparedStatement.setDate(9, new Date(e.getResponseDate().getTimeInMillis()));
+      preparedStatement.setDate(9, e.getResponseDate());
       preparedStatement.executeQuery();
       for (Optional o : e.getOptionalList()) {
         insertOptional(e.getId(), o.getId());
@@ -184,7 +182,7 @@ public class DBEstimateDAO implements  EstimateDAO {
       preparedStatement.setString(5, e.getAdvisor().getId());
       preparedStatement.setString(6, e.getCar().getId());
       preparedStatement.setString(7, e.getState());
-      preparedStatement.setDate(8, new Date(e.getResponseDate().getTimeInMillis()));
+      preparedStatement.setDate(8, e.getResponseDate());
       preparedStatement.setString(9, e.getId());
       preparedStatement.executeUpdate();
     } catch (SQLException sqlException) {
@@ -219,9 +217,7 @@ public class DBEstimateDAO implements  EstimateDAO {
       result.setClient(client.retrieveById(rs.getString("id_client")));
       result.setCar(car.retriveById(rs.getString("id_car")));
       result.setState(rs.getString("state"));
-      GregorianCalendar date = new GregorianCalendar();
-      date.setTime(rs.getDate("response_date"));
-      result.setResponseDate(date);
+      result.setResponseDate(rs.getDate("response_date"));
       result.setOptionalList(getOptionalList(result.getId()));
     } catch (SQLException e) {
       logger.log(Level.SEVERE, e.getMessage());
