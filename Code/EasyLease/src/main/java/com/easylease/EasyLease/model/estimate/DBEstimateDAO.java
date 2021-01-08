@@ -141,8 +141,8 @@ public class DBEstimateDAO implements  EstimateDAO {
     PreparedStatement preparedStatement;
     String insertQuery = "INSERT INTO " + DBEstimateDAO.TABLE_NAME
         + " (id_estimate, price, id_advisor, id_client, id_car, period,"
-        + "visibility, state, response_date)"
-        + " VALUES(?,?,?,?,?,?,?))";
+        + " visibility, state, request_date, response_date)"
+        + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?))";
     try {
       preparedStatement = connection.prepareStatement(insertQuery);
       preparedStatement.setString(1, e.getId());
@@ -153,7 +153,8 @@ public class DBEstimateDAO implements  EstimateDAO {
       preparedStatement.setInt(6, e.getPeriod());
       preparedStatement.setBoolean(7, e.isVisibility());
       preparedStatement.setString(8, e.getState());
-      preparedStatement.setDate(9, e.getResponseDate());
+      preparedStatement.setDate(9, e.getRequestDate()!=null ? new java.sql.Date(e.getRequestDate().getTime()) : null);
+      preparedStatement.setDate(10, e.getResponseDate()!=null ? new java.sql.Date(e.getResponseDate().getTime()) : null);
       preparedStatement.executeQuery();
       for (Optional o : e.getOptionalList()) {
         insertOptional(e.getId(), o.getId());
@@ -171,7 +172,7 @@ public class DBEstimateDAO implements  EstimateDAO {
     PreparedStatement preparedStatement;
     String updateQuery = "UPDATE" + DBEstimateDAO.TABLE_NAME
         + " SET price = ?, period = ?, visibility = ?, id_client = ?, id_advisor = ?,"
-        + " id_car = ?, state = ?, response_date = ?"
+        + " id_car = ?, state = ?, request_date = ?, response_date = ?"
         + " WHERE id_estimate = ?";
     try {
       preparedStatement = connection.prepareStatement(updateQuery);
@@ -182,8 +183,9 @@ public class DBEstimateDAO implements  EstimateDAO {
       preparedStatement.setString(5, e.getAdvisor().getId());
       preparedStatement.setString(6, e.getCar().getId());
       preparedStatement.setString(7, e.getState());
-      preparedStatement.setDate(8, e.getResponseDate());
-      preparedStatement.setString(9, e.getId());
+      preparedStatement.setDate(8, e.getRequestDate()!=null ? new java.sql.Date(e.getRequestDate().getTime()) : null);
+      preparedStatement.setDate(9, e.getResponseDate()!=null ? new java.sql.Date(e.getResponseDate().getTime()) : null);
+      preparedStatement.setString(10, e.getId());
       preparedStatement.executeUpdate();
     } catch (SQLException sqlException) {
       logger.log(Level.SEVERE, sqlException.getMessage());
@@ -217,7 +219,8 @@ public class DBEstimateDAO implements  EstimateDAO {
       result.setClient(client.retrieveById(rs.getString("id_client")));
       result.setCar(car.retriveById(rs.getString("id_car")));
       result.setState(rs.getString("state"));
-      result.setResponseDate(rs.getDate("response_date"));
+      result.setResponseDate(rs.getDate("request_date")!= null ? new java.util.Date(rs.getDate("request_date").getTime()) : null);
+      result.setResponseDate(rs.getDate("response_date")!= null ? new java.util.Date(rs.getDate("response_date").getTime()) : null);
       result.setOptionalList(getOptionalList(result.getId()));
     } catch (SQLException e) {
       logger.log(Level.SEVERE, e.getMessage());

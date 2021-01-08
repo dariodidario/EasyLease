@@ -5,7 +5,7 @@ import com.easylease.EasyLease.model.car.Car;
 import com.easylease.EasyLease.model.client.Client;
 import com.easylease.EasyLease.model.optional.Optional;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +28,7 @@ public class Estimate {
   private boolean visibility;
   private String state;
   private Date responseDate;
+  private Date requestDate;
 
   public Estimate() {}
 
@@ -46,7 +47,7 @@ public class Estimate {
 
   public Estimate(String id, float price, Client client, Advisor advisor, Car car,
                   int period, List<Optional> optionalList, boolean visibility,
-                  String state, Date responseDate) {
+                  String state, Date requestDate, Date responseDate) {
     setId(id);
     setPrice(price);
     setClient(client);
@@ -56,6 +57,7 @@ public class Estimate {
     setOptionalList(optionalList);
     setVisibility(visibility);
     setState(state);
+    setRequestDate(requestDate);
     setResponseDate(responseDate);
   }
 
@@ -238,4 +240,24 @@ public class Estimate {
   public void setResponseDate(Date responseDate) {
     this.responseDate = responseDate;
   }
+
+  /**
+   * Get estimate's requestDate.
+   *
+   * @return requestDate estimate's requestDate.
+   */
+  public  Date getRequestDate() {
+    return requestDate;
+
+  }
+
+  /**
+   * Set estimate's requestDate.
+   *
+   * @param requestDate is estimate's requestDate.
+   */
+  public void setRequestDate(Date requestDate) {
+    this.requestDate = requestDate;
+  }
+
 }
