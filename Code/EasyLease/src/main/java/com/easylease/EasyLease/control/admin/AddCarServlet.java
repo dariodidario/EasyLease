@@ -62,6 +62,7 @@ public class AddCarServlet extends HttpServlet {
                   horse_power, emission_class, co2_emissions, power_supply, capacity, price);
 
           if (Car_ok == false) {//case if is already present
+              request.getSession().setAttribute("role", "admin");
               response.setContentType("text/html;charset=UTF-8");
 
               PrintWriter out = response.getWriter();
