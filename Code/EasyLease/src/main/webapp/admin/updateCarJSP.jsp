@@ -302,7 +302,7 @@ if(role==null){%>
 </div>
 
 <div id="divButton">
-  <form action="UpdateCarServlet">
+  <form action="UpdateCarServlet" method="post" enctype="multipart/form-data">
     <input type="hidden" name="ID_Update" value="<%=id%>">
     <input type="hidden" id="brand" name="brand_Update" value="<%=brand%>">
     <input type="hidden" id="model" name="model_Update" value="<%=model%>">
