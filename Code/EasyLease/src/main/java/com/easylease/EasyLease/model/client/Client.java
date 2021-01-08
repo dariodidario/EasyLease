@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class Client extends User {
 
-  private String birthPlace = "";
+  private String birthPlace;
   private Date birthDate;
   /** This instance variable represent the genre of the Client.
    * Can be one between Uomo, Donna, Altro, Preferisco non specificarlo

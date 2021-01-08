@@ -16,9 +16,9 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@WebServlet(name = "ConfirmOrderServlet")
+@WebServlet(name = "ConfirmOrderServlet", urlPatterns = "/ConfirmOrderServlet")
 public class ConfirmOrderServlet extends HttpServlet {
-  private DBOrderDAO orderDAO;
+  private DBOrderDAO orderDAO = (DBOrderDAO) DBOrderDAO.getInstance();
 
   protected void doPost(
       HttpServletRequest request,
@@ -30,23 +30,41 @@ public class ConfirmOrderServlet extends HttpServlet {
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     HttpSession session = request.getSession();
-    if (!(session == null)) {
+    /*if (!(session == null)) {
       try {
         if (!(session.getAttribute("user") instanceof Client)
-            || session.getAttribute("user") == null) {
+            || session.getAttribute("user") = null) {
           throw new ServletException("Section dedicated to a registered user "
               + "on the platform correctly as a Client");
-        }
-
-        request.getRequestDispatcher("/client/confirmOrder.jsp")
-            .forward(request, response);
-      } catch (ServletException e) {
+        }*/
+    String choice = request.getParameter("choice");
+    String id_ordine = request.getParameter("id_order");
+    Order order = orderDAO.retrieveById(id_ordine);
+    if(choice.equals("Confermato")){
+      request.setAttribute("order", order);
+      order.setState(choice);
+      orderDAO.update(order);
+      request.getRequestDispatcher("/client/orderCheckoutJSP.jsp")
+          .forward(request, response);
+    } else if(choice.equals("Non confermato")){
+      order.setState(choice);
+      order.setVisibility(false);
+      System.out.println(order.getState());
+      orderDAO.update(order);
+      request.getRequestDispatcher("/HistoryClientServlet")
+          .forward(request, response);
+    }else if(choice.equals("Paga")){
+      request.setAttribute("order", order);
+      request.getRequestDispatcher("/client/orderCheckoutJSP.jsp")
+          .forward(request, response);
+    }
+      /*} catch (ServletException e) {
         Logger logger = Logger.getLogger(
             EstimateManagementClientServlet.class.getName());
         logger.log(Level.SEVERE, e.getMessage());
         request.getRequestDispatcher("/user/homePageJSP.jsp");
       }
-    }
+    }*/
   }
 }
 
