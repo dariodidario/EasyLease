@@ -47,7 +47,7 @@ public class DeleteCarServlet extends HttpServlet {
 
         User user = (User) request.getSession().getAttribute("user");
         request.getSession().setAttribute("user", user);
-        request.getSession().setAttribute("role", "advisor");
+        request.getSession().setAttribute("role", "admin");
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -57,6 +57,7 @@ public class DeleteCarServlet extends HttpServlet {
         out.println("</script>");
 
       } else {
+        request.getSession().setAttribute("role", "admin");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<script type=\"text/javascript\">");
