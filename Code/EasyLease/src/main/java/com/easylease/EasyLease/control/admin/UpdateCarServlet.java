@@ -181,7 +181,7 @@ public class UpdateCarServlet extends HttpServlet {
    * @param request the image of the car
    * @return the image path*/
   private String uploadImage(HttpServletRequest request, String brand, String model) throws IOException, ServletException {
-    Part filePart = request.getPart("image_path"); // Retrieves <input type="file" name="file">
+    Part filePart = request.getPart("img_car_Update"); // Retrieves <input type="file" name="file">
     String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
     InputStream fileContent = filePart.getInputStream();
 
