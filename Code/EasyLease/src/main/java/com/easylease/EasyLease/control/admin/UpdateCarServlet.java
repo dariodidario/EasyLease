@@ -7,6 +7,7 @@ import com.easylease.EasyLease.model.car.DBCarDAO;
 import com.easylease.EasyLease.model.user.User;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,15 +23,10 @@ import java.nio.file.Paths;
 /**this servlet provides to update a car already in the database*/
 
 @WebServlet("/UpdateCarServlet")
+@MultipartConfig
 public class UpdateCarServlet extends HttpServlet {
   static CarDAO CarDAO =DBCarDAO.getInstance();
   protected void doPost(
-          HttpServletRequest request,
-          HttpServletResponse response) throws ServletException, IOException {
-    doGet(request,response);
-  }
-
-  protected void doGet(
           HttpServletRequest request,
           HttpServletResponse response) throws ServletException, IOException {
     String role =(String) request.getSession().getAttribute("role");
@@ -171,6 +167,12 @@ public class UpdateCarServlet extends HttpServlet {
         out.println("</script>");
       }
     }
+  }
+
+  protected void doGet(
+          HttpServletRequest request,
+          HttpServletResponse response) throws ServletException, IOException {
+   doPost(request,response);
   }
 
   /** this method upload the image passed as parameters of the request with the name of brand_model.jpg in the carImage's folder
