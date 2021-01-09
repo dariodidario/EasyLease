@@ -147,7 +147,7 @@ public class DBEstimateDAO implements  EstimateDAO {
       preparedStatement = connection.prepareStatement(insertQuery);
       preparedStatement.setString(1, e.getId());
       preparedStatement.setFloat(2, e.getPrice());
-      preparedStatement.setString(3, e.getAdvisor().getId());
+      preparedStatement.setString(3, e.getAdvisor() != null ? e.getAdvisor().getId() : null);
       preparedStatement.setString(4, e.getClient().getId());
       preparedStatement.setString(5, e.getCar().getId());
       preparedStatement.setInt(6, e.getPeriod());
@@ -219,7 +219,7 @@ public class DBEstimateDAO implements  EstimateDAO {
       result.setClient(client.retrieveById(rs.getString("id_client")));
       result.setCar(car.retriveById(rs.getString("id_car")));
       result.setState(rs.getString("state"));
-      result.setResponseDate(rs.getDate("request_date")!= null ? new java.util.Date(rs.getDate("request_date").getTime()) : null);
+      result.setRequestDate(rs.getDate("request_date")!= null ? new java.util.Date(rs.getDate("request_date").getTime()) : null);
       result.setResponseDate(rs.getDate("response_date")!= null ? new java.util.Date(rs.getDate("response_date").getTime()) : null);
       result.setOptionalList(getOptionalList(result.getId()));
     } catch (SQLException e) {
