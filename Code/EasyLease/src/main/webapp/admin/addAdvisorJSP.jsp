@@ -1,9 +1,10 @@
+<%@ page import="com.easylease.EasyLease.model.user.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String role=(String) request.getSession().getAttribute("role");
   if(role==null){%>
 <html>
 <head>
-  <title>Update Car</title>
+  <title>Add Advisor</title>
 </head>
 <body onload="window.location.href='fragments/error403.jsp'">
 
@@ -12,7 +13,7 @@
 <%}else if(role.equalsIgnoreCase("admin")==false){ %>
 <html>
 <head>
-  <title>Update Car</title>
+  <title>Add Advisor</title>
 </head>
 <body onload="window.location.href='fragments/error403.jsp'">
 
@@ -29,112 +30,13 @@
 <html>
 <head>
   <title>Add Advisor</title>
+  <link rel="stylesheet" href="admin/addAdvisorCSS.css">
 </head>
-<style type="text/css">
-  hr{
-    position: absolute;
-    bottom: 20%;
-    border: 1px solid #dec717;
-    width: 70%;
-    alignment: left;
-    margin-left: 17%;
-  }
-  input.advisorParameter {
-    width: 90%;
-    background: #9b334e;
-    font-size: 1vw;
-  }
-  input.advisorParameter:hover {
-    background: #800000;
-  }
 
-  label.advisorParameter{
-    font-size: 1.2vw;
-  }
-  .information{
-    width: 100%;
-    font-style: oblique;
-    font-size: 0.9vw;
-  }
-  #errore{
-    width: 100%;
-    font-style: oblique;
-    font-size: 1.1vw;
-    color: #dec717;
-  }
-
-  table.characteristics{
-    position: absolute;
-    top: 20%;
-    right: 35%;
-    background: #9b334e;
-    width: 30%;
-    height: 50%;
-    border: medium solid #dec717;
-  }
-  #buttonAddAdvisor:hover{
-    background: #800000;
-  }
-  #buttonAddAdvisor{
-    background: #9b334e;
-    position: absolute;
-    right: 43%;
-    bottom: 23%;
-    width: 15%;
-    height: 5%;
-    font-size: 1.5vw;
-    border-bottom:medium solid #dec717;
-    border-radius: 5px;
-  }
-
-
-</style>
 <body>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script>
-  var confirm_valid;
-  function checkEmail(input){
-    var email=input.value;
-    var email_valid =  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,2})+$/;
-    if(!email_valid.test(email)){
-      document.getElementById("advisor_email").style.background="#dec717";
-    }else{
-      document.getElementById("advisor_email").style.background="#9b334e";
-      document.getElementById("email_valid").setAttribute("value","true");
-    }
-  }
-  function checkPassword(input){
-    var password=input.value;
-    var password_valid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
-    if(!password_valid.test(password)){
-      document.getElementById("advisor_password").style.background="#dec717";
-    }else{
-      confirm_valid=password;
-      document.getElementById("advisor_password").style.background="#9b334e";
-      document.getElementById("password_valid").setAttribute("value","true");
-    }
-  }
-  function checkConfirm(input){
-    var confirm=input.value;
-    var label=document.createElement('label');
-    label.id="error";
-    if(confirm!=confirm_valid){
-      document.getElementById("advisor_confirm_password").style.background="#dec717";
-    }else{
-      document.getElementById("advisor_confirm_password").style.background="#9b334e";
-      document.getElementById("confirm_valid").setAttribute("value","true");
-    }
-  }
-  function checkDate(input){
-    var date=Date.parse(input.value);
-    var date_valid=new Date();
-    if(date<=date_valid){
-      document.getElementById("advisor_date").style.background="#9b334e";
-      document.getElementById("date_valid").setAttribute("value","true");
-    }else{
-      document.getElementById("advisor_date").style.background="#dec717";
-    }
-  }
+<script src="admin/addAdvisorJS.js">
+
 </script>
 
 <%@include file="../fragments/headerJSP.jsp"%>
