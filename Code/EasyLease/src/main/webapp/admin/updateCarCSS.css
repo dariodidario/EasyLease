@@ -1,0 +1,118 @@
+hr{
+    border: 1px solid #dec717;
+    width: 50%;
+    alignment: left;
+    margin-left: 10%;
+    position: absolute;
+    bottom: 20%;
+}
+label.carDetail{
+    font-size: 1.5vw;
+}
+.autoName{
+    width: 15%;
+    font-size: 2vw;
+    background: none;
+    border: none;
+    border-bottom: solid #dec717;
+}
+
+table.characteristics{
+    position: absolute;
+    top: 20.5%;
+    right: 1%;
+    background: #9b334e;
+    width: 35%;
+    height: 59%;
+    margin-bottom: 2px;
+    border-right: medium solid #dec717;
+    border-top: medium solid #dec717;
+    border-bottom: medium solid #dec717;
+}
+#buttonUpdateCar:hover{
+    background: #800000;
+}
+#buttonUpdateCar{
+    background: #9b334e;
+    position: absolute;
+    left: 30%;
+    top: 66%;
+    width: 15%;
+    height: 5%;
+    font-size: 1.5vw;
+    border-bottom:medium solid #dec717;
+    border-radius: 5px;
+}
+#buttonDeleteCar:hover{
+    background: #800000;
+}
+#buttonDeleteCar{
+    background: #9b334e;
+    position: absolute;
+    top: 72%;
+    left: 32%;
+    width: 12%;
+    height: 5%;
+    font-size: 1.5vw;
+    border-bottom:medium solid #dec717;
+    border-radius: 5px;
+}
+#divAutoName{
+    position: absolute;
+    top: 20.5%;
+    left: 5%;
+    width: 59%;
+}
+#divImage{
+    top: 23%;
+    position: absolute;
+    left: 5%;
+    width: 59%;
+}
+#img_carL{
+    max-width: 40%;
+    max-height: 30%;
+    position: relative;
+    left: 10%;
+}
+.matita{
+    max-width: 2%;
+    max-height: 2%;
+}
+.matita_table{
+    max-width: 5%;
+    max-height: 5%;
+}
+.matita_img{
+    position: relative;
+    left: 10%;
+    max-width: 2%;
+    max-height: 2%;
+}
+.matita:hover{
+    max-width: 2%;
+    max-height: 2%;
+    border-bottom: 2px solid #dec717;
+}
+.matita_table:hover{
+    max-width: 5%;
+    max-height: 5%;
+    border-bottom: 2px solid #dec717;
+}
+.matita_img:hover{
+    position: relative;
+    left: 10%;
+
+    max-width: 2%;
+    max-height: 2%;
+    border-bottom: 2px solid #dec717;
+}
+
+input[type=file]::-webkit-file-upload-button {
+    border-bottom: medium solid #dec717;
+    border-radius: 5px;
+    background-color: #9b334e;
+}
+input[type=file]::-webkit-file-upload-button:hover {
+    background-color: #800000;
+}

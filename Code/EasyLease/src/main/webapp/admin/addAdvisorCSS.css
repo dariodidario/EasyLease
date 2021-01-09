@@ -1,0 +1,55 @@
+ hr{
+     position: absolute;
+     bottom: 20%;
+     border: 1px solid #dec717;
+     width: 70%;
+     alignment: left;
+     margin-left: 17%;
+ }
+input.advisorParameter {
+    width: 90%;
+    background: #9b334e;
+    font-size: 1vw;
+}
+input.advisorParameter:hover {
+    background: #800000;
+}
+
+label.advisorParameter{
+    font-size: 1.2vw;
+}
+.information{
+    width: 100%;
+    font-style: oblique;
+    font-size: 0.9vw;
+}
+#errore{
+    width: 100%;
+    font-style: oblique;
+    font-size: 1.1vw;
+    color: #dec717;
+}
+
+table.characteristics{
+    position: absolute;
+    top: 20%;
+    right: 35%;
+    background: #9b334e;
+    width: 30%;
+    height: 50%;
+    border: medium solid #dec717;
+}
+#buttonAddAdvisor:hover{
+    background: #800000;
+}
+#buttonAddAdvisor{
+    background: #9b334e;
+    position: absolute;
+    right: 43%;
+    bottom: 23%;
+    width: 15%;
+    height: 5%;
+    font-size: 1.5vw;
+    border-bottom:medium solid #dec717;
+    border-radius: 5px;
+}
