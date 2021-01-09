@@ -3,7 +3,7 @@
   if(role==null){%>
 <html>
 <head>
-  <title>Update Car</title>
+  <title>Add Car</title>
 </head>
 <body onload="window.location.href='fragments/error403.jsp'">
 
@@ -12,7 +12,7 @@
 <%}else if(role.equalsIgnoreCase("admin")==false){ %>
 <html>
 <head>
-  <title>Update Car</title>
+  <title>Add Car</title>
 </head>
 <body onload="window.location.href='fragments/error403.jsp'">
 
@@ -23,110 +23,11 @@
 <html>
 <head>
   <title>Add Car</title>
+  <link rel="stylesheet" href="admin/addCarCSS.css">
 </head>
-<style type="text/css">
-  hr{
-    border: 1px solid #dec717;
-    width: 50%;
-    alignment: left;
-    margin-left: 10%;
-    position: absolute;
-    bottom: 20%;
-  }
-  input.carDetail {
-    width: 40%;
-    background: #9b334e;
-    font-size: 0.8vw;
-  }
-  input.carDetail:hover {
-    background: #800000;
-  }
-
-  label.carDetail{
-    font-size: 1.5vw;
-  }
-  input.autoName{
-    width: 15%;
-    background: none;
-    border: none;
-    border-bottom: solid #dec717;
-  }
-
-  table.characteristics{
-    position: absolute;
-    top: 20.5%;
-    right: 1%;
-    background: #9b334e;
-    width: 30%;
-    height: 59%;
-    border-right: medium solid #dec717;
-    border-top: medium solid #dec717;
-    border-bottom: medium solid #dec717;
-  }
-  #buttonAddCar:hover{
-    background: #800000;
-  }
-  #buttonAddCar{
-    background: #9b334e;
-    position: absolute;
-    left: 30%;
-    top: 72%;
-    width: 15%;
-    height: 5%;
-    font-size: 1.5vw;
-    border-bottom:medium solid #dec717;
-    border-radius: 5px;
-  }
-  #divAutoName{
-    position: absolute;
-    top: 20.5%;
-    left: 5%;
-    width: 64%;
-  }
-  #divImage{
-    top: 30%;
-    position: absolute;
-    left: 5%;
-    width: 64%;
-  }
-  #img_prev{
-    margin-top: 5px;
-    max-width: 30%;
-    max-height: 20%;
-    position: relative;
-    left: 5%;
-  }
-  input[type=file]::-webkit-file-upload-button {
-    border-bottom: medium solid #dec717;
-    border-radius: 5px;
-    background-color: #9b334e;
-  }
-  input[type=file]::-webkit-file-upload-button:hover {
-    background-color: #800000;
-  }
-
-</style>
 <body>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script>
-  function readURL(input) {
-    if (input.files && input.files[0]) {
-      for(var i=0;i<input.files.length;i++) {
-        var reader = new FileReader();
-        var img='#img_prev';
-        reader.onload = function (e) {
-          $(img)
-                  .attr('src', e.target.result)
-        };
-
-        reader.readAsDataURL(input.files[i]);
-
-      }
-    }
-  }
-
-
-</script>
+<script src="admin/addCarJS.js"/>
 
 <%@include file="../fragments/headerJSP.jsp"%>
 <form action="AddCarServlet" method="post" enctype="multipart/form-data">
