@@ -1,6 +1,5 @@
 package com.easylease.EasyLease.control.admin;
 
-
 import com.easylease.EasyLease.control.utility.IdGenerator;
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.advisor.AdvisorDAO;
