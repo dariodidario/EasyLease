@@ -1,4 +1,3 @@
-<%@ page import="com.easylease.EasyLease.model.user.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String role=(String) request.getSession().getAttribute("role");
   if(role==null){%>
@@ -35,9 +34,7 @@
 
 <body>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="admin/addAdvisorJS.js">
-
-</script>
+<script src="admin/addAdvisorJS.js"/>
 
 <%@include file="../fragments/headerJSP.jsp"%>
 <form action="AddAdvisorServlet">
