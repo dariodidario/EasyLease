@@ -5,7 +5,6 @@ import com.easylease.EasyLease.model.car.Car;
 import com.easylease.EasyLease.model.car.CarDAO;
 import com.easylease.EasyLease.model.car.DBCarDAO;
 import com.easylease.EasyLease.model.user.User;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
