@@ -170,7 +170,7 @@ public class DBEstimateDAO implements  EstimateDAO {
       throw new IllegalArgumentException("The estimate passed is not valid");
     }
     PreparedStatement preparedStatement;
-    String updateQuery = "UPDATE" + DBEstimateDAO.TABLE_NAME
+    String updateQuery = "UPDATE " + DBEstimateDAO.TABLE_NAME
         + " SET price = ?, period = ?, visibility = ?, id_client = ?, id_advisor = ?,"
         + " id_car = ?, state = ?, request_date = ?, response_date = ?"
         + " WHERE id_estimate = ?";
