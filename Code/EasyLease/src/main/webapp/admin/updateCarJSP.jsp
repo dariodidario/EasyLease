@@ -1,7 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@page import="com.easylease.EasyLease.model.car.Car" %>
-<%@page import="com.easylease.EasyLease.model.car.DBCarDAO" %>
-<%@ page import="com.easylease.EasyLease.model.car.CarDAO" %>
 <%String role=(String) request.getSession().getAttribute("role");
 if(role==null){%>
   <html>
@@ -23,22 +21,18 @@ if(role==null){%>
 </html>
 <%}else {
 %>
-<% String id=(String) request.getSession().getAttribute("Car_id");
-  Car car=null;
-  if(id!=null&&id.equalsIgnoreCase("")==false) {
-    CarDAO carDAO = DBCarDAO.getInstance();
-    car = carDAO.retrieveById(id);
-  }
-  String brand=""; String model=""; float price=0; String car_type=""; boolean visibility=false; int doors=0;
+<%
+  String brand=""; String model=""; float price=0; String car_type=""; int doors=0;
   String trasmission=""; float avg_consumption=0; int horse_power=0; String emission_class="";
   int co2_emissions=0; String power_supply=""; int capacity=0; String image_path="";
+
+  Car car=(Car) request.getSession().getAttribute("update_car");
 
   if(car!=null) {
     brand = car.getBrand();
     model = car.getModel();
     price = car.getPrice();
     car_type = car.getType();
-    visibility = car.getVisibility();
     doors = car.getDoors();
     trasmission = car.getTransmission();
     avg_consumption = car.getAvg_consumption();
@@ -53,237 +47,11 @@ if(role==null){%>
 <html>
 <head>
   <title>Update Car</title>
+  <link rel="stylesheet" href="admin/updateCarCSS.css">
 </head>
-<style type="text/css">
-  hr{
-    border: 1px solid #dec717;
-    width: 50%;
-    alignment: left;
-    margin-left: 10%;
-    position: absolute;
-    bottom: 20%;
-  }
-  label.carDetail{
-    font-size: 1.5vw;
-  }
-  .autoName{
-    width: 15%;
-    font-size: 2vw;
-    background: none;
-    border: none;
-    border-bottom: solid #dec717;
-  }
-
-  table.characteristics{
-    position: absolute;
-    top: 20.5%;
-    right: 1%;
-    background: #9b334e;
-    width: 35%;
-    height: 59%;
-    margin-bottom: 2px;
-    border-right: medium solid #dec717;
-    border-top: medium solid #dec717;
-    border-bottom: medium solid #dec717;
-  }
-  #buttonUpdateCar:hover{
-    background: #800000;
-  }
-  #buttonUpdateCar{
-    background: #9b334e;
-    position: absolute;
-    left: 30%;
-    top: 66%;
-    width: 15%;
-    height: 5%;
-    font-size: 1.5vw;
-    border-bottom:medium solid #dec717;
-    border-radius: 5px;
-  }
-  #buttonDeleteCar:hover{
-    background: #800000;
-  }
-  #buttonDeleteCar{
-    background: #9b334e;
-    position: absolute;
-    top: 72%;
-    left: 32%;
-    width: 12%;
-    height: 5%;
-    font-size: 1.5vw;
-    border-bottom:medium solid #dec717;
-    border-radius: 5px;
-  }
-  #divAutoName{
-    position: absolute;
-    top: 20.5%;
-    left: 5%;
-    width: 59%;
-  }
-  #divImage{
-    top: 23%;
-    position: absolute;
-    left: 5%;
-    width: 59%;
-  }
-  #img_carL{
-    max-width: 40%;
-    max-height: 30%;
-    position: relative;
-    left: 10%;
-  }
-  .matita{
-    max-width: 2%;
-    max-height: 2%;
-  }
-  .matita_table{
-    max-width: 5%;
-    max-height: 5%;
-  }
-  .matita_img{
-    position: relative;
-    left: 10%;
-    max-width: 2%;
-    max-height: 2%;
-  }
-  .matita:hover{
-    max-width: 2%;
-    max-height: 2%;
-    border-bottom: 2px solid #dec717;
-  }
-  .matita_table:hover{
-    max-width: 5%;
-    max-height: 5%;
-    border-bottom: 2px solid #dec717;
-  }
-  .matita_img:hover{
-    position: relative;
-    left: 10%;
-
-    max-width: 2%;
-    max-height: 2%;
-    border-bottom: 2px solid #dec717;
-  }
-
-  input[type=file]::-webkit-file-upload-button {
-    border-bottom: medium solid #dec717;
-    border-radius: 5px;
-    background-color: #9b334e;
-  }
-  input[type=file]::-webkit-file-upload-button:hover {
-    background-color: #800000;
-  }
-
-</style>
 <body>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script>
-  function readURL(input) {
-    if (input.files && input.files[0]) {
-      for(var i=0;i<input.files.length;i++) {
-        var reader = new FileReader();
-        var img='#img_carL';
-        reader.onload = function (e) {
-          $(img)
-                  .attr('src', e.target.result)
-        };
-
-        reader.readAsDataURL(input.files[i]);
-
-      }
-    }
-  }
-
-  var vis = 1000;
-  window.confirm = function(message) {
-    var w = 400;
-    var h = 350;
-    var l = Math.floor((screen.width-w)/2);
-    var t = Math.floor((screen.height-h)/2);
-    var a = document.createElement('div');
-    var input = document.createElement('input');
-    var y = document.createElement('button');
-    var n = document.createElement('button');
-
-    //regole di stile CSS
-    a.style.cssText = "width:"+w+"; height:"+h+"; border:1px solid #bbb; border-radius:5px; padding:10px; background:#9b334e; box-shadow:0px 0px 8px #0006; position:fixed; top:"+t+"; left:"+l+"; margin:auto; font-family: \"Arial\", sans-serif; color:black;z-index:"+ vis+ ";";
-    input.style.cssText = "width:100%; margin-top:100px;";
-    input.placeholder = "new "+message;
-    if(message=="brand"){
-      input.type="text";
-      var x = 'autoBrand';
-      input.setAttribute('list',x);
-    }else if(message=="model"){
-      input.type="text";
-    }else if(message=="price"||message=="avg_consumption"){
-      input.type="number";
-      input.min="0";
-      input.step="0.01";
-    }else if(message=="car_type"){
-      input.type="text"
-      var x = 'autoTipologia';
-      input.setAttribute('list',x);
-    }else if(message=="doors"){
-      input.type="number";
-      input.min="0";
-      var x = 'autoPorte';
-      input.setAttribute('list',x);
-    }else if(message=="transmission"){
-      input.type="text";
-      var x = 'autoCambio';
-      input.setAttribute('list',x);
-    }else if(message=="emission_class"){
-      input.type="text";
-      var x = 'Emision_class';
-      input.setAttribute('list',x);
-    }else if(message=="co2_emissions"||message=="capacity"||message=="horse_power"){
-      input.type="number";
-      input.min="0";
-    }else if(message=="power_supply"){
-      input.type="text";
-      var x = 'autoPower';
-      input.setAttribute('list',x);
-    }else if(message=="img_car"){
-      input.type="file";
-      input.accept=".jpg,.png,.jpeg";
-      input.maxLength="255";
-      input.value="";
-    }
-    //buttons style
-    y.style.cssText = "position:absolute; bottom:10; right:20px; width:40%; margin:2px; margin-bottom:10px; clear:both; border-bottom: 2px solid #dec717; background-color: #800000;";
-    n.style.cssText = "position:absolute; bottom:10; left:20px; width:40%; margin:2px; margin-bottom:10px; clear:both; border-bottom: 2px solid #dec717; background-color: #800000;";
-    a.innerHTML = "<b>Modifica "+message+"</b><br>";
-    y.innerHTML = "Applica";
-    n.innerHTML = "Annulla";
-    document.body.appendChild(a);
-    a.appendChild(input);
-    a.appendChild(y);
-    a.appendChild(n);
-    vis--;
-
-// case YES
-    y.addEventListener("click", function(e) {
-              var s=input.value;
-              if(message=="img_car"){
-                document.getElementById(message).setAttribute("value",s);
-                readURL(input);
-              }else {
-                document.getElementById(message).setAttribute("value", s);
-
-                document.getElementById(message + "L").replaceWith(s);
-              }
-              a.remove();
-            }
-    )
-    //case NO
-    n.addEventListener("click", function(e,resp) {
-              a.remove();
-
-            }
-    )
-  }
-
-</script>
+<script src="admin/updateCarJS.js"/>
 
 <%@include file="../fragments/headerJSP.jsp"%>
 <div id="divAutoName">
