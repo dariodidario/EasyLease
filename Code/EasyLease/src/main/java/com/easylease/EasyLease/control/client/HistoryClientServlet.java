@@ -6,7 +6,6 @@ import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
 import com.easylease.EasyLease.model.estimate.Estimate;
 import com.easylease.EasyLease.model.order.DBOrderDAO;
 import com.easylease.EasyLease.model.order.Order;
-
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Iterator;
@@ -44,8 +43,8 @@ public class HistoryClientServlet extends HttpServlet {
               + "on the platform correctly as a Client");
         }
         Client client = (Client) request.getSession().getAttribute("user");
-        /*Client client = clDao.retrieveById("CLEE8BD");
-        Client client = clDao.retrieveById("CLcapNK");*/
+        //Client client = clDao.retrieveById("CLEE8BD");
+        //Client client = clDao.retrieveById("CLcapNK");
         String role = (String) request.getSession().getAttribute("role");
         //role = "Cliente";
         if (!(client == null) && role.equals("Cliente")) {

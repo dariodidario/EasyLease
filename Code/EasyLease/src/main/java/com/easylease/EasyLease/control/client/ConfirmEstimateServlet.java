@@ -6,7 +6,6 @@ import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
 import com.easylease.EasyLease.model.estimate.Estimate;
 import com.easylease.EasyLease.model.order.DBOrderDAO;
 import com.easylease.EasyLease.model.order.Order;
-
 import java.io.IOException;
 import java.util.Date;
 import java.util.logging.Level;
@@ -28,13 +27,13 @@ public class ConfirmEstimateServlet extends HttpServlet {
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     HttpSession session = request.getSession();
-    /*if (!(session == null)) {
+    if (!(session == null)) {
       try {
         if (!(session.getAttribute("user") instanceof Client)
             || session.getAttribute("user") == null) {
           throw new ServletException("Section dedicated to a registered user "
               + "on the platform correctly as a Client");
-        }*/
+        }
         String estimateId = (String) request.getParameter("id_estimate");
         String choice = (String) request.getParameter("choice");
         Estimate estimate = estimateDao.retrieveById(estimateId);
@@ -44,15 +43,15 @@ public class ConfirmEstimateServlet extends HttpServlet {
           estimate.setVisibility(false);
           estimateDao.update(estimate);
           Order order = new Order();
-          String tryID = "";
+          String tryId = "";
           boolean checked = false;
-          while(checked==false){
-            tryID = "OR"+IdGenerator.randomIdGenerator();
-            if(orderDao.retrieveById(tryID) == null){
+          while (checked == false) {
+            tryId = "OR" + IdGenerator.randomIdGenerator();
+            if (orderDao.retrieveById(tryId) == null) {
               checked = true;
             }
           }
-          order.setId("OR"+ IdGenerator.randomIdGenerator());
+          order.setId("OR" + IdGenerator.randomIdGenerator());
           session.setAttribute("id_order", order.getId());
           order.setState("Attesa");
           Date date = new Date();
@@ -71,13 +70,13 @@ public class ConfirmEstimateServlet extends HttpServlet {
           request.getRequestDispatcher("/HistoryClientServlet")
               .forward(request, response);
         }
-      /*} catch (ServletException e) {
+      } catch (ServletException e) {
         Logger logger = Logger.getLogger(
             EstimateManagementClientServlet.class.getName());
         logger.log(Level.SEVERE, e.getMessage());
         request.getRequestDispatcher("/user/homePageJSP.jsp");
       }
-    }*/
+    }
   }
 
   protected void doGet(

@@ -9,6 +9,11 @@
     List<Optional> optionalList = new ArrayList<>();
     List<Optional> carOptionalList = new ArrayList<>();
     List<Optional> contractOptionalList = new ArrayList<>();
+
+    if (estimate == null) {
+        response.sendRedirect(request.getContextPath() + "/EstimateManagementClientServlet");
+        return;
+    }
     if (!(estimate == null)) {
         optionalList = estimate.getOptionalList();
         carOptionalList = new ArrayList<>();
