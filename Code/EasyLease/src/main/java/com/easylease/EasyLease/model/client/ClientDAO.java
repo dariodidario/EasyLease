@@ -27,19 +27,21 @@ public interface ClientDAO {
    */
   List<Client> retrieveAll();
 
+  String retrievePasswordByMail(String mail);
+
   /**
    * This method insert in the DB a new Client.
    *
    * @param c The new Client which must be inserted into the DB.
    */
-  void insert(Client c);
+  void insert(Client c, String password);
 
   /**
    * This method update the parameters od an existing Client into the DB.
    *
    * @param c The new Client object containing new parameters to update into the DB.
    */
-  void update(Client c);
+  void update(Client c, String password);
 
   /**
    * This method delete a Client from the DB.
