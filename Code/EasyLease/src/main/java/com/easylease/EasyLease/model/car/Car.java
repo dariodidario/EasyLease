@@ -56,13 +56,13 @@ public class Car {
         setType(car_type);
         setVisibility(visibility);
         setDoors(doors);
-        setTrasmision(transmission);
+        setTransmission(transmission);
         setAvg_consumption(avg_consumption);
         setHorse_power(horse_power);
         setEmission_class(emission_class);
         setCo2_emissions(co2_emissions);
         setPowerSupply(power_supply);
-        setCc(cc);
+        setCapacity(cc);
         setImage(image);
     }
 
@@ -211,14 +211,14 @@ public class Car {
      *
      * @return the type of the car transmission.
      */
-    public String getTransmision(){return this.transmission;}
+    public String getTransmission(){return this.transmission;}
 
     /**
      * Set the type  of the car transmission.
      *
      * @param transmissionNew the new transmission of the car.
      */
-    public void setTrasmision(String transmissionNew){this.transmission = transmissionNew;}
+    public void setTransmission(String transmissionNew){this.transmission = transmissionNew;}
 
     /**
      * Returns the average consumption of the car.
@@ -288,7 +288,7 @@ public class Car {
      *
      * @param ccNew the new engine capacity of the car.
      */
-    public void setCc(int ccNew){this.cc=ccNew;}
+    public void setCapacity(int ccNew){this.cc=ccNew;}
 
     /**
      * Returns the path of the car image.

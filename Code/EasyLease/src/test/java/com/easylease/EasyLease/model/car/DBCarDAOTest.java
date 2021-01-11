@@ -3,10 +3,8 @@ package com.easylease.EasyLease.model.car;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -25,9 +23,9 @@ class DBCarDAOTest {
           true, 5, "Automatico", 3.9f,
           130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
 
-           when(dao.retriveById("ca11111")).thenReturn(car);
+           when(dao.retrieveById("ca11111")).thenReturn(car);
 
-           Car car1=dao.retriveById("ca11111");
+           Car car1=dao.retrieveById("ca11111");
            assertEquals(car,car1);
 
     }
@@ -39,9 +37,9 @@ class DBCarDAOTest {
           true, 5, "Automatico", 3.9f,
           130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
 
-        when(dao.retriveById("ca11111")).thenReturn(car);
+        when(dao.retrieveById("ca11111")).thenReturn(car);
 
-        Car car1=dao.retriveById("ca11112");
+        Car car1=dao.retrieveById("ca11112");
         assertNull(car1);
 
     }
@@ -50,10 +48,10 @@ class DBCarDAOTest {
     @Test
     void retriveById_test3() {
 
-        when(dao.retriveById(null)).thenThrow(IllegalArgumentException.class);
+        when(dao.retrieveById(null)).thenThrow(IllegalArgumentException.class);
 
 
-        assertThrows(IllegalArgumentException.class,()->{dao.retriveById(null);});
+        assertThrows(IllegalArgumentException.class,()->{dao.retrieveById(null);});
 
     }
 
@@ -61,10 +59,10 @@ class DBCarDAOTest {
     @Test
     void retriveById_test4() {
 
-        when(dao.retriveById("")).thenThrow(IllegalArgumentException.class);
+        when(dao.retrieveById("")).thenThrow(IllegalArgumentException.class);
 
 
-        assertThrows(IllegalArgumentException.class,()->{dao.retriveById("");});
+        assertThrows(IllegalArgumentException.class,()->{dao.retrieveById("");});
 
     }
 
@@ -75,9 +73,9 @@ class DBCarDAOTest {
           true, 5, "Automatico", 3.9f,
           130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
 
-        when(dao.retriveByModel("3008")).thenReturn(car);
+        when(dao.retrieveByModel("3008")).thenReturn(car);
 
-        Car car1=dao.retriveByModel("3008");
+        Car car1=dao.retrieveByModel("3008");
         assertEquals(car,car1);
 
     }
@@ -89,9 +87,9 @@ class DBCarDAOTest {
           true, 5, "Automatico", 3.9f,
           130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
 
-        when(dao.retriveByModel("3008")).thenReturn(car);
+        when(dao.retrieveByModel("3008")).thenReturn(car);
 
-        Car car1=dao.retriveByModel("compass");
+        Car car1=dao.retrieveByModel("compass");
         assertNull(car1);
 
     }
@@ -100,9 +98,9 @@ class DBCarDAOTest {
     @Test
     void retriveByModel_test3() {
 
-        when(dao.retriveByModel(null)).thenThrow(IllegalArgumentException.class);
+        when(dao.retrieveByModel(null)).thenThrow(IllegalArgumentException.class);
 
-        assertThrows(IllegalArgumentException.class,()->{dao.retriveByModel(null);});
+        assertThrows(IllegalArgumentException.class,()->{dao.retrieveByModel(null);});
 
     }
 
@@ -110,9 +108,9 @@ class DBCarDAOTest {
     @Test
     void retriveByModel_test4() {
 
-        when(dao.retriveByModel("")).thenThrow(IllegalArgumentException.class);
+        when(dao.retrieveByModel("")).thenThrow(IllegalArgumentException.class);
 
-        assertThrows(IllegalArgumentException.class,()->{dao.retriveByModel("");});
+        assertThrows(IllegalArgumentException.class,()->{dao.retrieveByModel("");});
 
     }
 
@@ -127,10 +125,10 @@ class DBCarDAOTest {
             true, 5, "Automatico", 3.9f,
             130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
         List list=cars;
-        when(dao.retriveByBrand("Peugeot")).thenReturn(list);
+        when(dao.retrieveByBrand("Peugeot")).thenReturn(list);
 
-        List<Car> cars1=dao.retriveByBrand("Peugeot");
-        verify(dao,times(1)).retriveByBrand(any());
+        List<Car> cars1=dao.retrieveByBrand("Peugeot");
+        verify(dao,times(1)).retrieveByBrand(any());
         assertAll(
                 ()->assertEquals(2,cars1.size()),
                 ()->assertEquals(list,cars1));
@@ -147,9 +145,9 @@ class DBCarDAOTest {
             true, 5, "Automatico", 3.9f,
             130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
         List list=cars;
-        when(dao.retriveByBrand("Peugeot")).thenReturn(list);
+        when(dao.retrieveByBrand("Peugeot")).thenReturn(list);
 
-        List<Car> cars1=dao.retriveByBrand("Mercedes");
+        List<Car> cars1=dao.retrieveByBrand("Mercedes");
         assertEquals(0,cars1.size());
 
     }
@@ -158,9 +156,9 @@ class DBCarDAOTest {
     @Test
     void retriveByBrand_test3() {
 
-        when(dao.retriveByBrand(null)).thenThrow(IllegalArgumentException.class);
+        when(dao.retrieveByBrand(null)).thenThrow(IllegalArgumentException.class);
 
-        assertThrows(IllegalArgumentException.class,()->{dao.retriveByBrand(null);});
+        assertThrows(IllegalArgumentException.class,()->{dao.retrieveByBrand(null);});
 
     }
 
@@ -168,9 +166,9 @@ class DBCarDAOTest {
     @Test
     void retriveByBrand_test4() {
 
-        when(dao.retriveByBrand("")).thenThrow(IllegalArgumentException.class);
+        when(dao.retrieveByBrand("")).thenThrow(IllegalArgumentException.class);
 
-        assertThrows(IllegalArgumentException.class,()->{dao.retriveByBrand("");});
+        assertThrows(IllegalArgumentException.class,()->{dao.retrieveByBrand("");});
 
     }
 
@@ -185,9 +183,9 @@ class DBCarDAOTest {
             true, 5, "Automatico", 3.9f,
             130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
         List list=cars;
-        when(dao.retriveByType("SUV")).thenReturn(list);
+        when(dao.retrieveByType("SUV")).thenReturn(list);
 
-        List<Car> cars1=dao.retriveByType("SUV");
+        List<Car> cars1=dao.retrieveByType("SUV");
 
         assertAll(
                 ()->assertEquals(2,cars1.size()),
@@ -205,9 +203,9 @@ class DBCarDAOTest {
           true, 5, "Automatico", 3.9f,
           130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
         List list=cars;
-        when(dao.retriveByType("SUV")).thenReturn(list);
+        when(dao.retrieveByType("SUV")).thenReturn(list);
 
-        List<Car> cars1=dao.retriveByType("cabriolet");
+        List<Car> cars1=dao.retrieveByType("cabriolet");
 
         assertEquals(0,cars1.size());
     }
@@ -223,10 +221,10 @@ class DBCarDAOTest {
           true, 5, "Automatico", 3.9f,
           130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
         List list=cars;
-        when(dao.retriveByType(null)).thenThrow(IllegalArgumentException.class);
+        when(dao.retrieveByType(null)).thenThrow(IllegalArgumentException.class);
 
 
-        assertThrows(IllegalArgumentException.class,()->{dao.retriveByType(null);});
+        assertThrows(IllegalArgumentException.class,()->{dao.retrieveByType(null);});
     }
 
     /**test with empty type parameter expected exception**/
@@ -240,10 +238,10 @@ class DBCarDAOTest {
           true, 5, "Automatico", 3.9f,
           130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
         List list=cars;
-        when(dao.retriveByType("")).thenThrow(IllegalArgumentException.class);
+        when(dao.retrieveByType("")).thenThrow(IllegalArgumentException.class);
 
 
-        assertThrows(IllegalArgumentException.class,()->{dao.retriveByType("");});
+        assertThrows(IllegalArgumentException.class,()->{dao.retrieveByType("");});
     }
 
     /**test correct expected list of all car**/
@@ -260,10 +258,10 @@ class DBCarDAOTest {
         cars.add(car);
         cars.add(car1);
         List list=cars;
-        when(dao.retriveAll()).thenReturn(list);
+        when(dao.retrieveAll()).thenReturn(list);
 
-        List<Car> cars1=dao.retriveAll();
-        verify(dao,times(1)).retriveAll();
+        List<Car> cars1=dao.retrieveAll();
+        verify(dao,times(1)).retrieveAll();
         assertAll(
                 ()->assertEquals(2,cars1.size()),
                 ()->assertEquals(car,cars1.get(0)),
