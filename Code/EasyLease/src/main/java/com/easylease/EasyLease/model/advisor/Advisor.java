@@ -3,7 +3,6 @@ package com.easylease.EasyLease.model.advisor;
 
 import com.easylease.EasyLease.model.user.User;
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * This class models an object of type Advisor within the system.
@@ -31,12 +30,10 @@ public class Advisor extends User {
    * @param name The name of the Advisor.
    * @param surname The surname of the Advisor.
    * @param email The email of the Advisor.
-   * @param password The password of the Advisor.
    * @param hireDate The date from which the Advisor was hired.
    */
-  public Advisor(String id, String name, String surname, String email,
-      String password, Date hireDate) {
-    super(id, name, surname, email, password);
+  public Advisor(String id, String name, String surname, String email, Date hireDate) {
+    super(id, name, surname, email);
     this.hireDate = hireDate;
   }
 

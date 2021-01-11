@@ -1,0 +1,42 @@
+.table_space{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 2%;
+}
+
+.table_space td{
+    font-size: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table_space img{
+    max-width: 200px;
+    max-height: 100px;
+    height: auto;
+    width: auto;
+}
+
+.table_space th{
+    font-size: 30px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#order_list_text{
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#estimate_list_text{
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.btn-check:active+.btn-primary, .btn-check:checked+.btn-primary,
+.btn-primary.active, .btn-primary:active, .show>.btn-primary.dropdown-toggle{
+    background-color: #9B334E !important;
+    border-color: #9B334E !important;
+
+}

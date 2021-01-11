@@ -1,0 +1,11 @@
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+}
+
+.btn-check:active+.btn-primary, .btn-check:checked+.btn-primary,
+.btn-primary.active, .btn-primary:active, .show>.btn-primary.dropdown-toggle{
+    background-color: #9B334E !important;
+    border-color: #9B334E !important;
+
+}

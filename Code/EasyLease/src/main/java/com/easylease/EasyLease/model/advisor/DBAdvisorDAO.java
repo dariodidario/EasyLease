@@ -2,14 +2,10 @@ package com.easylease.EasyLease.model.advisor;
 
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.admin.DBAdminDAO;
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,24 +18,24 @@ import java.util.logging.Logger;
  *
  * @author Caprio Mattia
  * @since 0.1
- * @version 0.2
+ * @version 0.3
  */
 public class DBAdvisorDAO implements AdvisorDAO {
-  private static Logger logger = Logger.getLogger(DBAdminDAO.class.getName());
+  private static final Logger logger = Logger.getLogger(DBAdminDAO.class.getName());
   private static DBAdvisorDAO dao;
-  private Connection connection;
+  private final Connection connection;
 
   /**
    * Returns a DBAdvisorDAO Singleton Object.
    *
    * @return the {@link DBAdvisorDAO} Object that accesses the {@link Advisor}
-   * object in the DataBase.
+   *     object in the DataBase.
    */
   public static AdvisorDAO getIstance() {
     if (dao == null) {
       dao = new DBAdvisorDAO(DBConnection.getInstance().getConnection());
     }
-    return (AdvisorDAO) dao;
+    return dao;
   }
 
   /**
@@ -53,7 +49,7 @@ public class DBAdvisorDAO implements AdvisorDAO {
 
   @Override
   public Advisor retrieveById(String id) {
-    final String query = "SELECT * FROM user WHERE id_user = ?";
+    final String query = "SELECT * FROM users WHERE account_type ='Consulente' AND id_user = ?";
     if (id == null || id.equals("")) {
       throw new IllegalArgumentException(
           String.format("The id(%s) passed as a parameter is not valid", id));
@@ -63,8 +59,8 @@ public class DBAdvisorDAO implements AdvisorDAO {
 
   @Override
   public Advisor retrieveByEmail(String email) {
-    final String query = "SELECT * FROM user WHERE email = ?";
-    if(email == null || email.equals("")) {
+    final String query = "SELECT * FROM users WHERE account_type ='Consulente' AND email = ?";
+    if (email == null || email.equals("")) {
       throw new IllegalArgumentException(
           String.format("The email(%s) passed as a parameter is not valid", email));
     }
@@ -72,14 +68,31 @@ public class DBAdvisorDAO implements AdvisorDAO {
   }
 
   @Override
+  public String retrievePasswordByEmail(String email) throws SQLException {
+    final String query = "SELECT pwd FROM users WHERE account_type ='Consulente' AND email = ?";
+    if(email == null || email.equals("")){
+      throw new IllegalArgumentException(
+          String.format("The email(%s) passed as a parameter is not valid", email));
+    }
+    PreparedStatement stm = connection.prepareStatement(query);
+    stm.setString(1, email);
+    stm.execute();
+    ResultSet rs = stm.getResultSet();
+    if (!rs.next()) {
+      return null;
+    }
+     return rs.getString("pwd");
+  }
+
+  @Override
   public List<Advisor> retrieveAll() {
-    final String query = "SELECT * FROM advisor";
+    final String query = "SELECT * FROM users WHERE account_type ='Consulente'";
     List<Advisor> advisors = new ArrayList<>();
     try {
       PreparedStatement stm = connection.prepareStatement(query);
       stm.execute();
       ResultSet rs = stm.getResultSet();
-      while(rs.next()) {
+      while (rs.next()) {
         advisors.add(getAdvisorFromRs(rs));
       }
       return advisors;
@@ -91,29 +104,31 @@ public class DBAdvisorDAO implements AdvisorDAO {
 
   @Override
   public void update(Advisor advisor) {
-    final String query = "INSERT INTO user (id_user, first_name, surname, email, pwd,"
-        + "account_type, hire_date) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    final String query = "INSERT INTO users (id_user, first_name, surname, email, pwd,"
+        + "account_type, hire_date, birth_place, birth_date, kind, street, city, pc"
+        + ") VALUES (?, ?, ?, ?, ?, ?, ?, null, null, null, null, null, null)";
     try {
       executeQuery(advisor, query);
-    } catch(SQLException e) {
+    } catch (SQLException e) {
       logger.log(Level.SEVERE, e.getMessage());
     }
   }
 
   @Override
   public void insert(Advisor advisor) {
-  final String query = "INSERT INTO user (id_user, first_name, surname, email, pwd,"
-      + "account_type, hire_date) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    final String query = "INSERT INTO users (id_user, first_name, surname, email, pwd,"
+        + "account_type, hire_date, birth_place, birth_date, kind, street, city, pc"
+        + ") VALUES (?, ?, ?, ?, ?, ?, ?, null, null, null, null, null, null)";
     try {
       executeQuery(advisor, query);
-    } catch(SQLException e) {
+    } catch (SQLException e) {
       logger.log(Level.SEVERE, e.getMessage());
     }
   }
 
   @Override
   public void delete(Advisor advisor) {
-    final String query = "DELETE FROM advisor WHERE id_user = ?";
+    final String query = "DELETE FROM users WHERE id_user = ?";
     try {
       PreparedStatement stm = connection.prepareStatement(query);
       stm.setString(1, advisor.getId());
@@ -131,19 +146,12 @@ public class DBAdvisorDAO implements AdvisorDAO {
    * @throws SQLException if the ResultSet is null.
    */
   private Advisor getAdvisorFromRs(ResultSet rs) throws SQLException {
-    String id = rs.getString("id");
+    String id = rs.getString("id_user");
     String name = rs.getString("first_name");
     String surname = rs.getString("surname");
     String email = rs.getString("email");
-    String password = rs.getString("pwd");
-    Date hireDate = null;
-    try {
-      hireDate = new SimpleDateFormat().parse(rs.getString("hireDate"));
-    } catch (ParseException e) {
-      e.printStackTrace();
-    }
-    Advisor advisor = new Advisor(id, name, surname, email, password, hireDate);
-    return advisor;
+    Date hireDate = rs.getDate("hire_date");
+    return new Advisor(id, name, surname, email, hireDate);
   }
 
   /**
@@ -159,9 +167,8 @@ public class DBAdvisorDAO implements AdvisorDAO {
     stm.setString(2, advisor.getName());
     stm.setString(3, advisor.getSurname());
     stm.setString(4, advisor.getEmail());
-    stm.setString(5, advisor.getPassword());
-    stm.setString(6, "Advisor");
-    stm.setDate(7, (java.sql.Date) advisor.getHireDate());
+    stm.setString(5, "Advisor");
+    stm.setDate(6, (java.sql.Date) advisor.getHireDate());
     stm.executeUpdate();
   }
 

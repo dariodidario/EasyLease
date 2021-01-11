@@ -1,14 +1,23 @@
 package com.easylease.EasyLease.model.advisor;
 
-import org.junit.jupiter.api.Test;
-import java.util.Date;
+import static java.util.Calendar.JANUARY;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import java.util.GregorianCalendar;
+
+import org.junit.jupiter.api.Test;
 
 class DBAdvisorDAOTest {
   Advisor advisor = new Advisor("AD12DD2", "Marco", "Montemagno", "m.marco@gmail.com",
-      "password", new Date(2021, 1, 1));
+      "password", new GregorianCalendar(2021, JANUARY, 1).getTime());
   DBAdvisorDAO dbAdvisorDAO = mock(DBAdvisorDAO.class);
 
   @Test
@@ -66,43 +75,40 @@ class DBAdvisorDAOTest {
   }
 
   @Test
-  public void insert_CorrectClientGiven_ExpectedTrue() {
+  public void insert_CorrectAdvisorGiven_ExpectedTrue() {
     doNothing().when(dbAdvisorDAO).insert(advisor);
     dbAdvisorDAO.insert(advisor);
     verify(dbAdvisorDAO).insert(advisor);
-    //verifyNoInteractions(dbAdvisorDAO); //TODO: Test sbagliato
   }
 
   @Test
-  public void insert_NullClientGiven_ExpectedException() {
+  public void insert_NullAdvisorGiven_ExpectedException() {
     doThrow(IllegalArgumentException.class).when(dbAdvisorDAO).insert(null);
     assertThrows(IllegalArgumentException.class, () -> dbAdvisorDAO.insert(null));
   }
 
   @Test
-  public void update_CorrectClientGiven_ExpectedTrue() {
+  public void update_CorrectAdvisorGiven_ExpectedTrue() {
     doNothing().when(dbAdvisorDAO).update(advisor);
     dbAdvisorDAO.update(advisor);
     verify(dbAdvisorDAO).update(advisor);
-    //verifyNoInteractions(dbAdvisorDAO); //TODO: Test sbagliato
   }
 
   @Test
-  public void update_NullClientGiven_ExpectedException() {
+  public void update_NullAdvisorGiven_ExpectedException() {
     doThrow(IllegalArgumentException.class).when(dbAdvisorDAO).update(null);
     assertThrows(IllegalArgumentException.class, () -> dbAdvisorDAO.update(null));
   }
 
   @Test
-  public void delete_CorrectClientGiven_ExpectedTrue() {
+  public void delete_CorrectAdvisorGiven_ExpectedTrue() {
     doNothing().when(dbAdvisorDAO).delete(advisor);
     dbAdvisorDAO.delete(advisor);
     verify(dbAdvisorDAO).delete(advisor);
-    //verifyNoInteractions(dbAdvisorDAO); //TODO: Test sbagliato
   }
 
   @Test
-  public void delelete_NullClientGiven_ExpectedException() {
+  public void delelete_NullAdvisorGiven_ExpectedException() {
     doThrow(IllegalArgumentException.class).when(dbAdvisorDAO).delete(null);
     assertThrows(IllegalArgumentException.class, () -> dbAdvisorDAO.delete(null));
   }

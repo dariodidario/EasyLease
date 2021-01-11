@@ -1,8 +1,13 @@
 package com.easylease.EasyLease.control.advisor;
 
+/**
+ *
+ */
+
 import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
-import com.easylease.EasyLease.model.order.Order;
+import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
+import com.easylease.EasyLease.model.estimate.Estimate;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,9 +18,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@WebServlet(name = "OrderManagementAdvisorServlet", urlPatterns = "/OrderManagementAdvisorServlet")
-public class OrderManagementAdvisorServlet extends HttpServlet {
-  private final Logger logger = Logger.getLogger(OrderManagementAdvisorServlet.class.getName());
+@WebServlet(name = "EstimateStipulationViewServlet",urlPatterns = "/EstimateStipulationViewServlet")
+public class EstimateStipulationViewServlet extends HttpServlet {
+  private final Logger logger = Logger.getLogger(EstimateStipulationViewServlet.class.getName());
 
   protected void doPost(
       HttpServletRequest request,
@@ -30,25 +35,28 @@ public class OrderManagementAdvisorServlet extends HttpServlet {
     if(session != null){
       try{
         if (!(session.getAttribute("user") instanceof Advisor)
-            || session.getAttribute("user") == null) {
+          || session.getAttribute("user") == null) {
           throw new ServletException("Section dedicated to a registered user"
               + "on the platform correctly as an Advisor");
         }
-        String id = request.getParameter("id_order");
-        if(id.length() != 7 || !id.startsWith("OR")){
+
+
+        String id = request.getParameter("id");
+        if(id.length() != 7 || !id.startsWith("ES")){
           throw new ServletException("The id sent is incorrect");
         }
-        DBOrderDAO dbOrderDAO = (DBOrderDAO) DBOrderDAO.getInstance();
-        Order order = dbOrderDAO.retrieveById(id);
-        if(order == null){
-          throw new ServletException("The order doesn't exist");
+        DBEstimateDAO dbEstimateDao = (DBEstimateDAO) DBEstimateDAO.getInstance();
+        Estimate estimate = dbEstimateDao.retrieveById(id);
+        if(estimate == null){
+          throw new ServletException("The estimate doesn't exist");
         }
-        request.setAttribute("order", order);
-
-        request.getRequestDispatcher("/advisor/orderManagementAdvisorJSP.jsp")
+        if(!estimate.getState().equals("Preso in carico")){
+          throw new ServletException("The chosen quote cannot be stipulated");
+        }
+        request.setAttribute("estimate", estimate);
+        request.getRequestDispatcher("/advisor/estimateStipulationJSP.jsp")
             .forward(request, response);
-        //TODO cambiare il redirect
-      } catch (ServletException e) {
+      } catch(ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
         request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
       }
