@@ -70,7 +70,7 @@ class DBAdvisorDAOTest {
     doNothing().when(dbAdvisorDAO).insert(advisor);
     dbAdvisorDAO.insert(advisor);
     verify(dbAdvisorDAO).insert(advisor);
-    verifyNoInteractions(dbAdvisorDAO); //TODO: Test sbagliato
+    //verifyNoInteractions(dbAdvisorDAO); //TODO: Test sbagliato
   }
 
   @Test
@@ -84,7 +84,7 @@ class DBAdvisorDAOTest {
     doNothing().when(dbAdvisorDAO).update(advisor);
     dbAdvisorDAO.update(advisor);
     verify(dbAdvisorDAO).update(advisor);
-    verifyNoInteractions(dbAdvisorDAO); //TODO: Test sbagliato
+    //verifyNoInteractions(dbAdvisorDAO); //TODO: Test sbagliato
   }
 
   @Test
@@ -98,7 +98,7 @@ class DBAdvisorDAOTest {
     doNothing().when(dbAdvisorDAO).delete(advisor);
     dbAdvisorDAO.delete(advisor);
     verify(dbAdvisorDAO).delete(advisor);
-    verifyNoInteractions(dbAdvisorDAO); //TODO: Test sbagliato
+    //verifyNoInteractions(dbAdvisorDAO); //TODO: Test sbagliato
   }
 
   @Test

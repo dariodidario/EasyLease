@@ -4,6 +4,8 @@ import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.car.Car;
 import com.easylease.EasyLease.model.client.Client;
 import com.easylease.EasyLease.model.optional.Optional;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,6 +26,9 @@ public class Estimate {
   private int period;
   private List<Optional> optionalList;
   private boolean visibility;
+  private String state;
+  private Date responseDate;
+  private Date requestDate;
 
   public Estimate() {}
 
@@ -40,8 +45,9 @@ public class Estimate {
    * @param visibility tells you if the Estimate is still valid.
    */
 
-  public Estimate(String id, float price, Client client, Advisor advisor, Car car, int period,
-                  List<Optional> optionalList, boolean visibility) {
+  public Estimate(String id, float price, Client client, Advisor advisor, Car car,
+                  int period, List<Optional> optionalList, boolean visibility,
+                  String state, Date requestDate, Date responseDate) {
     setId(id);
     setPrice(price);
     setClient(client);
@@ -50,6 +56,9 @@ public class Estimate {
     setPeriod(period);
     setOptionalList(optionalList);
     setVisibility(visibility);
+    setState(state);
+    setRequestDate(requestDate);
+    setResponseDate(responseDate);
   }
 
   /**
@@ -195,4 +204,60 @@ public class Estimate {
   public void setVisibility(boolean visibility) {
     this.visibility = visibility;
   }
+
+  /**
+   * Get estimate's state.
+   *
+   * @return state estimate's state.
+   */
+  public String getState() {
+    return state;
+  }
+
+  /**
+   * Set estimate's state.
+   *
+   * @param state is estimate's state.
+   */
+  public void setState(String state) {
+    this.state = state;
+  }
+
+  /**
+   * Get estimate's responseDate.
+   *
+   * @return responseDate estimate's responseDate.
+   */
+  public Date getResponseDate() {
+    return responseDate;
+  }
+
+  /**
+   * Set estimate's responseDate.
+   *
+   * @param responseDate is estimate's responseDate.
+   */
+  public void setResponseDate(Date responseDate) {
+    this.responseDate = responseDate;
+  }
+
+  /**
+   * Get estimate's requestDate.
+   *
+   * @return requestDate estimate's requestDate.
+   */
+  public  Date getRequestDate() {
+    return requestDate;
+
+  }
+
+  /**
+   * Set estimate's requestDate.
+   *
+   * @param requestDate is estimate's requestDate.
+   */
+  public void setRequestDate(Date requestDate) {
+    this.requestDate = requestDate;
+  }
+
 }

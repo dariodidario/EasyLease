@@ -3,18 +3,7 @@ package com.easylease.EasyLease.model.user;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
-import com.easylease.EasyLease.model.user.DBUserDAO;
-
-import com.easylease.EasyLease.model.user.User;
-import com.easylease.EasyLease.model.user.UserDAO;
-import com.mysql.cj.jdbc.MysqlDataSource;
-
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.sql.DataSource;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -22,24 +11,22 @@ import org.mockito.ArgumentCaptor;
 
 public class UserUnitTest {
 
-  private static DataSource dataSource;
-  private DBConnection dbConnection;
-  private static final String TABLE_NAME = "user";
-  private static Logger logger = Logger.getLogger(DBUserDAO.class.getName());
   private static DBUserDAO dao;
-
-  public enum tipo {CLIENT, ADMIN, ADVISOR};
 
   @BeforeEach
   void setUp() {
     dao = mock(DBUserDAO.class);
   }
 
+
+
   @Test
   public void testRetriveById() {
-    User user = new User("CL0001", "Francesco", "Torino", "francesco.torino1999@gmail.com", "password");
+    User user = new User("CL0001", "Francesco",
+        "Torino", "francesco.torino1999@gmail.com", "password");
 
-    when(dao.retrieveById("CL0001")).thenReturn(new User("CL0001", "Francesco", "Torino", "francesco.torino1999@gmail.com", "password"));
+    when(dao.retrieveById("CL0001")).thenReturn(new User(
+        "CL0001", "Francesco", "Torino", "francesco.torino1999@gmail.com", "password"));
 
     User user1 = dao.retrieveById("CL0001");
 
@@ -52,18 +39,20 @@ public class UserUnitTest {
 
   @Test
   public void testRetriveByType() {
-    String type = String.valueOf(tipo.CLIENT);
-    User user = new User("CL0001", "Francesco", "Torino", "francesco.torino1999@gmail.com", "password");
-    User user1 = new User("CL0002", "Antonio", "Sarro", "antonio.sarro1999@gmail.com", "password");
-    User user2 = new User("CL0003", "Mattia", "Caprio", "mattia.caprio1999@gmail.com", "password");
-    ArrayList<User> users = new ArrayList<User>();
+    User user = new User("CL0001", "Francesco",
+        "Torino", "francesco.torino1999@gmail.com", "password");
+    User user1 = new User("CL0002", "Antonio",
+        "Sarro", "antonio.sarro1999@gmail.com", "password");
+    User user2 = new User("CL0003", "Mattia",
+        "Caprio", "mattia.caprio1999@gmail.com", "password");
+    ArrayList<User> users = new ArrayList<>();
     users.add(user);
     users.add(user1);
     users.add(user2);
-
+    String type = "CLIENT";
     when(dao.retrieveByType(type)).thenReturn(users);
 
-    ArrayList<User> users1 =(ArrayList<User>)  dao.retrieveByType(type);
+    ArrayList<User> users1 = (ArrayList<User>)  dao.retrieveByType(type);
 
     assertEquals(users.get(0).getId(), users1.get(0).getId());
     assertEquals(users.get(0).getName(), users1.get(0).getName());
@@ -84,9 +73,12 @@ public class UserUnitTest {
 
   @Test
   public void testRetriveByEmail() {
-    User user = new User("CL0001", "Francesco", "Torino", "francesco.torino1999@gmail.com", "password");
+    User user = new User("CL0001", "Francesco",
+        "Torino", "francesco.torino1999@gmail.com", "password");
 
-    when(dao.retrieveByEmail("francesco.torino1999@gmail.com")).thenReturn(new User("CL0001", "Francesco", "Torino", "francesco.torino1999@gmail.com", "password"));
+    when(dao.retrieveByEmail("francesco.torino1999@gmail.com")).thenReturn(
+        new User("CL0001", "Francesco",
+            "Torino", "francesco.torino1999@gmail.com", "password"));
 
     User user1 = dao.retrieveByEmail("francesco.torino1999@gmail.com");
 
@@ -99,18 +91,20 @@ public class UserUnitTest {
 
   @Test
   public void testRetriveAll() {
-    String type = String.valueOf(tipo.CLIENT);
-    User user = new User("CL0001", "Francesco", "Torino", "francesco.torino1999@gmail.com", "password");
-    User user1 = new User("CL0002", "Antonio", "Sarro", "antonio.sarro1999@gmail.com", "password");
-    User user2 = new User("CL0003", "Mattia", "Caprio", "mattia.caprio1999@gmail.com", "password");
-    ArrayList<User> users = new ArrayList<User>();
+    User user = new User("CL0001", "Francesco",
+        "Torino", "francesco.torino1999@gmail.com", "password");
+    User user1 = new User("CL0002", "Antonio",
+        "Sarro", "antonio.sarro1999@gmail.com", "password");
+    User user2 = new User("CL0003", "Mattia",
+        "Caprio", "mattia.caprio1999@gmail.com", "password");
+    ArrayList<User> users = new ArrayList<>();
     users.add(user);
     users.add(user1);
     users.add(user2);
 
     when(dao.retrieveAll()).thenReturn(users);
 
-    ArrayList<User> users1 =(ArrayList<User>)  dao.retrieveAll();
+    ArrayList<User> users1 = (ArrayList<User>)  dao.retrieveAll();
 
     assertEquals(users.get(0).getId(), users1.get(0).getId());
     assertEquals(users.get(0).getName(), users1.get(0).getName());
@@ -131,7 +125,8 @@ public class UserUnitTest {
 
   @Test
   public void testInsert() {
-    User user = new User("CL0001", "Francesco", "Torino", "francesco.torino1999@gmail.com", "password");
+    User user = new User("CL0001", "Francesco",
+        "Torino", "francesco.torino1999@gmail.com", "password");
 
     doAnswer(invocation -> {
       return null;
@@ -145,7 +140,8 @@ public class UserUnitTest {
 
   @Test
   public void testUpdate() {
-    User user = new User("CL0001", "Francesco", "Torino", "francesco.torino1999@gmail.com", "password");
+    User user = new User("CL0001", "Francesco",
+        "Torino", "francesco.torino1999@gmail.com", "password");
 
     doAnswer(invocation -> {
       return null;
@@ -159,7 +155,8 @@ public class UserUnitTest {
 
   @Test
   public void testDelete() {
-    User user = new User("CL0001", "Francesco", "Torino", "francesco.torino1999@gmail.com", "password");
+    User user = new User("CL0001", "Francesco",
+        "Torino", "francesco.torino1999@gmail.com", "password");
 
     doAnswer(invocation -> {
       return null;
