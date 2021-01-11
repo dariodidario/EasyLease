@@ -16,7 +16,7 @@
 
 <nav class="navbar navbar-expand-sm bg-dangers navbar-danger">
   <!-- Brand -->
-  <a class="navbar-brand" href="../user/homePageJSP.jsp">
+  <a class="navbar-brand" href="${pageContext.request.contextPath}/user/homePageJSP.jsp">
       <div class="headerLogo"> <img src="${pageContext.request.contextPath}/foto/logoTrasparente.png"></div></a>
 
   <!-- Links -->

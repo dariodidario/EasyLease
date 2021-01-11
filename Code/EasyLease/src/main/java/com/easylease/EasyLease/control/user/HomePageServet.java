@@ -33,11 +33,7 @@ public class HomePageServet extends HttpServlet {
               marca.equals("0") && modello!=null && modello.equals("0"))
       ) {
         carList = DBCarDAO.getInstance().retriveAll();
-        for (Car c : carList) {
-          if (!c.getVisibility()) {
-            carList.remove(c);
-          }
-        }
+        carList.removeIf(c -> !c.getVisibility());
       }
       else if (modello != null && !modello.equals("0")) {
         carList = new ArrayList<>();
@@ -45,26 +41,14 @@ public class HomePageServet extends HttpServlet {
       }
       else if (marca != null && !marca.equals("0")) {
         carList = DBCarDAO.getInstance().retriveByBrand(marca);
-        for (Car c : carList) {
-          if (!c.getVisibility()) {
-            carList.remove(c);
-          }
-        }
+        carList.removeIf(c -> !c.getVisibility());
         if (tipologia != null) {
-          for (Car t : carList) {
-            if (!t.getType().equals(tipologia)) {
-              carList.remove(t);
-            }
-          }
+          carList.removeIf(t -> !t.getType().equals(tipologia));
         }
       }
       else {
         carList = DBCarDAO.getInstance().retriveByType(tipologia);
-        for (Car c : carList) {
-          if (!c.getVisibility()) {
-            carList.remove(c);
-          }
-        }
+        carList.removeIf(c -> !c.getVisibility());
       }
     request.setAttribute("carList", carList);
     RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/user/homePageJSP.jsp");

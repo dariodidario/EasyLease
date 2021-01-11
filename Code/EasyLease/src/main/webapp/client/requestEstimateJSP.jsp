@@ -7,8 +7,7 @@
 <%@ page import="com.easylease.EasyLease.model.client.DBClientDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-   /*
-   String role = request.getSession().getAttribute("role")
+   String role = (String)request.getSession().getAttribute("role");
    if (!role.equals("client")) {
        response.sendRedirect(((HttpServletRequest)request).getContextPath()+"/HomeServlet");
    }
@@ -16,13 +15,7 @@
    Car car = (Car)request.getSession().getAttribute("car");
    List<Optional> optionalCarList = (List<Optional>)request.getSession().getAttribute("optionalCarList");
    List<Optional> optionalContractList = (List<Optional>)request.getSession().getAttribute("optionalContractList");
-   * */
-    Client client = DBClientDAO.getInstance().retrieveAll().get(0);
-    request.getSession().setAttribute("user", client);
-    request.setAttribute("idCar", "CAbj0kk");
-    Car car = DBCarDAO.getInstance().retriveById("CAbj0kk");
-    List<Optional> optionalCarList = DBOptionalDAO.getInstance().retrieveByType("Auto");
-    List<Optional> optionalContractList = DBOptionalDAO.getInstance().retrieveByType("Contratto");
+
 %>
 <%@include file="../fragments/headerJSP.jsp"%>
 <html>

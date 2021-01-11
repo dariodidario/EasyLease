@@ -57,8 +57,7 @@ public class RequestEstimateServlet extends HttpServlet {
 
     DBEstimateDAO.getInstance().insert(estimate);
 
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/homePageJSP.jsp");
-    dispatcher.forward(request, response);
+    response.sendRedirect(request.getContextPath() + "/user/homePageJSP.jsp");
   }
 
   protected void doGet(

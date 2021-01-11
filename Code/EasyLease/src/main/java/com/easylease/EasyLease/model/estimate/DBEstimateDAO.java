@@ -187,6 +187,25 @@ public class DBEstimateDAO implements  EstimateDAO {
       preparedStatement.setDate(9, e.getResponseDate()!=null ? new java.sql.Date(e.getResponseDate().getTime()) : null);
       preparedStatement.setString(10, e.getId());
       preparedStatement.executeUpdate();
+      for (Optional o : e.getOptionalList()) {
+        updateOptional(e.getId(), o.getId(), o.getPrice());
+      }
+    } catch (SQLException sqlException) {
+      logger.log(Level.SEVERE, sqlException.getMessage());
+    }
+  }
+
+  private void updateOptional(String id,  String optional_code, float price) {
+    PreparedStatement preparedStatement;
+    String updateQuery = "UPDATE included"
+        + " SET price = ?"
+        + " WHERE id_estimate = ? AND optional_code = ?";
+    try {
+      preparedStatement = connection.prepareStatement(updateQuery);
+      preparedStatement.setFloat(1, price);
+      preparedStatement.setString(2, id);
+      preparedStatement.setString(3, optional_code);
+      preparedStatement.executeUpdate();
     } catch (SQLException sqlException) {
       logger.log(Level.SEVERE, sqlException.getMessage());
     }
