@@ -1,13 +1,17 @@
 package com.easylease.EasyLease.model.client;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class DBClientDAOTest {
-  Date bdate = new Date(1998, 9, 9);
+  Calendar calBdate = new GregorianCalendar(1998, 8, 9);
+  Date bdate = calBdate.getTime();
   Client cliente = new Client("CLABC12", "Mario", "Rossi", "m.rossi@gmail.com",
       "mrossi", "Avellino", bdate, "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
 

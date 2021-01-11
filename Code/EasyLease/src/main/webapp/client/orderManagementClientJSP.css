@@ -1,0 +1,58 @@
+.container{
+    margin-top: 2% !important;
+}
+.car_name{
+    font-size: 45px;
+    font-weight: bold;
+}
+
+img, svg{
+    max-width: 700px !important;
+    max-height: 700px !important;
+    margin: auto !important;
+    display: block !important;
+}
+
+.contract_link{
+    display: block;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.car_spec_text{
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.car_spec td{
+    font-size: 30px;
+}
+
+.car_optional_text{
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.car_optionals td{
+    font-size: 30px;
+}
+
+.car_optionals th{
+    font-size: 30px;
+}
+
+.no_optionals_text{
+    font-size: 30px;
+}
+
+.price{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.btn-check:active+.btn-primary, .btn-check:checked+.btn-primary,
+.btn-primary.active, .btn-primary:active, .show>.btn-primary.dropdown-toggle{
+    background-color: #9B334E !important;
+    border-color: #9B334E !important;
+
+}

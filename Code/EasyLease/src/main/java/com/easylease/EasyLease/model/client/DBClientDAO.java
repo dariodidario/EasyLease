@@ -1,10 +1,9 @@
 package com.easylease.EasyLease.model.client;
 
+import com.easylease.EasyLease.control.utility.PasswordHashing;
 import com.easylease.EasyLease.model.DBPool.DBConnection;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +44,8 @@ public class DBClientDAO implements ClientDAO {
       throw new IllegalArgumentException();
     }
     PreparedStatement preparedStatement = null;
-    Client c = null;
-    final String query = "SELECT * FROM user WHERE id = ?";
+    Client c = new Client();
+    final String query = "SELECT * FROM users WHERE id_user = ?";
     if (id == null || id.equals("") || !id.startsWith("CL")) {
       throw new IllegalArgumentException();
     }
@@ -56,10 +55,9 @@ public class DBClientDAO implements ClientDAO {
       ResultSet rs = preparedStatement.executeQuery();
       if (rs.next()) {
         c.setId(rs.getString("id_user"));
-        c.setName(rs.getString("name"));
+        c.setName(rs.getString("first_name"));
         c.setSurname(rs.getString("surname"));
         c.setEmail(rs.getString("email"));
-        c.setPassword(rs.getString("password"));
         c.setBirthDate(rs.getDate("birth_date"));
         c.setBirthPlace(rs.getString("birth_place"));
         c.setCity(rs.getString("city"));
@@ -88,10 +86,9 @@ public class DBClientDAO implements ClientDAO {
       ResultSet rs = preparedStatement.executeQuery();
       if (rs.next()) {
         c.setId(rs.getString("id_user"));
-        c.setName(rs.getString("name"));
+        c.setName(rs.getString("first_name"));
         c.setSurname(rs.getString("surname"));
         c.setEmail(rs.getString("email"));
-        c.setPassword(rs.getString("password"));
         c.setBirthDate(rs.getDate("birth_date"));
         c.setBirthPlace(rs.getString("birth_place"));
         c.setCity(rs.getString("city"));
@@ -110,10 +107,11 @@ public class DBClientDAO implements ClientDAO {
     PreparedStatement preparedStatement = null;
     List<Client> clientList = new ArrayList<Client>();
 
-    final String query = "SELECT * FROM client";
+    final String query = "SELECT * FROM users WHERE account_type = ?";
 
     try {
       preparedStatement = connection.prepareStatement(query);
+      preparedStatement.setString(1, "Cliente");
       ResultSet rs = preparedStatement.executeQuery();
 
       while (rs.next()) {
@@ -122,8 +120,7 @@ public class DBClientDAO implements ClientDAO {
         c.setName(rs.getString("first_name"));
         c.setSurname(rs.getString("surname"));
         c.setEmail(rs.getString("email"));
-        c.setPassword(rs.getString("password"));
-        c.setBirthDate(new SimpleDateFormat().parse(rs.getString("startDate")));
+        c.setBirthDate(rs.getDate("birth_date"));
         c.setBirthPlace(rs.getString("birth_place"));
         c.setCity(rs.getString("city"));
         c.setKind(rs.getString("kind"));
@@ -138,12 +135,42 @@ public class DBClientDAO implements ClientDAO {
   }
 
   @Override
-  public void insert(Client c) {
-    if (c == null) {
+  public String retrievePasswordByMail(String mail){
+    if((mail==null)){
       throw new IllegalArgumentException();
     }
     PreparedStatement preparedStatement = null;
-    String query = "INSERT INTO user(id_user, account_type, birth_place, "
+    Client client = new Client();
+    String result = "";
+    final String query = "SELECT * FROM users WHERE account_type = ? AND email = ?";
+
+    try{
+      preparedStatement = connection.prepareStatement(query);
+      preparedStatement.setString(1, "Cliente");
+      preparedStatement.setString(2, mail);
+      ResultSet rs = preparedStatement.executeQuery();
+
+      if(rs.next()){
+        result = rs.getString("pwd");
+      } else{
+        result = null;
+      }
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
+    return result;
+  }
+
+  @Override
+  public void insert(Client c, String password) {
+    if (c == null) {
+      throw new IllegalArgumentException();
+    }
+
+    String pwd = PasswordHashing.generatePassword(password, "SHA-1");
+    PreparedStatement preparedStatement = null;
+    String query = "INSERT INTO users(id_user, account_type, birth_place, "
         + "birth_date, kind, first_name, surname, email, pwd, street, city, pc) "
         + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try {
@@ -156,23 +183,24 @@ public class DBClientDAO implements ClientDAO {
       preparedStatement.setString(6, c.getName());
       preparedStatement.setString(7, c.getSurname());
       preparedStatement.setString(8, c.getEmail());
-      preparedStatement.setString(9, c.getPassword());
+      preparedStatement.setString(9, pwd);
       preparedStatement.setString(10, c.getStreet());
       preparedStatement.setString(11, c.getCity());
       preparedStatement.setString(12, c.getPc());
-      preparedStatement.executeQuery();
+      preparedStatement.executeUpdate();
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
   @Override
-  public void update(Client c) {
+  public void update(Client c, String password) {
     if (c == null) {
       throw new IllegalArgumentException();
     }
+    String pwd = PasswordHashing.generatePassword(password, "SHA-1");
     PreparedStatement preparedStatement = null;
-    String query = "UPDATE user"
+    String query = "UPDATE users"
         + "SET birth_place = ?, birth_date = ?, kind = ?, first_name = ?, "
         + "surname = ?, email = ?, pwd = ?, street = ?, city = ?, pc = ?"
         + "WHERE id_user = ?";
@@ -184,12 +212,12 @@ public class DBClientDAO implements ClientDAO {
       preparedStatement.setString(4, c.getName());
       preparedStatement.setString(5, c.getSurname());
       preparedStatement.setString(6, c.getEmail());
-      preparedStatement.setString(7, c.getPassword());
+      preparedStatement.setString(7, pwd);
       preparedStatement.setString(8, c.getStreet());
       preparedStatement.setString(9, c.getCity());
       preparedStatement.setString(10, c.getPc());
       preparedStatement.setString(11, c.getId());
-      preparedStatement.executeQuery();
+      preparedStatement.executeUpdate();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -201,11 +229,11 @@ public class DBClientDAO implements ClientDAO {
       throw new IllegalArgumentException();
     }
     PreparedStatement preparedStatement = null;
-    String query = "DELETE FROM user WHERE id_user = ?";
+    String query = "DELETE FROM users WHERE id_user = ?";
     try {
       preparedStatement = connection.prepareStatement(query);
       preparedStatement.setString(1, c.getId());
-      preparedStatement.executeQuery();
+      preparedStatement.executeUpdate();
     } catch (Exception e) {
       e.printStackTrace();
     }
