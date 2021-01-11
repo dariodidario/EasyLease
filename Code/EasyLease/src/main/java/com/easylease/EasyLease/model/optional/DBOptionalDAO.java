@@ -47,13 +47,15 @@ public class DBOptionalDAO implements OptionalDAO {
       preparedStatement = connection.prepareStatement(selectQuery);
       preparedStatement.setString(1, id);
       ResultSet rs = preparedStatement.executeQuery();
-      result.setType(rs.getString("optional_type"));
-      result.setName(rs.getString("optional_name"));
-      result.setPrice(rs.getFloat("optional_price"));
-      result.setId(id);
+      if (rs.next()) {
+        result.setId(id);
+        result.setType(rs.getString("optional_type"));
+        result.setName(rs.getString("optional_name"));
+        result.setPrice(rs.getFloat("price"));
+      }
+
     } catch (SQLException e) {
       logger.log(Level.SEVERE, e.getMessage());
-      return null;
     }
     return result;
   }
@@ -72,15 +74,14 @@ public class DBOptionalDAO implements OptionalDAO {
       ResultSet rs = preparedStatement.executeQuery();
       while (rs.next()) {
         Optional optional = new Optional();
+        optional.setId(rs.getString("optional_code"));
         optional.setType(rs.getString("optional_type"));
         optional.setName(rs.getString("optional_name"));
-        optional.setPrice(rs.getFloat("optional_price"));
-        optional.setId(rs.getString("optional_code"));
+        optional.setPrice(rs.getFloat("price"));
         results.add(optional);
       }
     } catch (SQLException e) {
       logger.log(Level.SEVERE, e.getMessage());
-      return null;
     }
     return results;
   }

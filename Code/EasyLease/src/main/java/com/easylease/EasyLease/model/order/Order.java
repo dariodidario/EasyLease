@@ -2,7 +2,6 @@ package com.easylease.EasyLease.model.order;
 
 import com.easylease.EasyLease.model.estimate.Estimate;
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * This class models an object of type Order within the system.
@@ -25,6 +24,10 @@ public class Order {
   private Date pickupDate;
   /** Indicates whether the order is visible or not. */
   private boolean visibility;
+  /** Current status of the Order */
+  private String state;
+  /** Order creation date */
+  private Date creationDate;
 
   public Order() {
 
@@ -38,11 +41,13 @@ public class Order {
    * @param startDate Date from which the contract begins.
    * @param endDate Data from which the contract ends.
    * @param pickupDate Order pickup date.
-   * @param visibility Indicates whether the order is visible or not
+   * @param creationDate Order creation date.
+   * @param visibility Indicates whether the order is visible or not.
+   * @param state Current state of the Order.
    */
   public Order(
       String id, Estimate estimate, Date startDate, Date endDate, Date pickupDate,
-      boolean visibility) {
+      Date creationDate, boolean visibility, String state) {
 
     this.id = id;
     this.estimate = estimate;
@@ -50,6 +55,8 @@ public class Order {
     this.endDate = endDate;
     this.pickupDate = pickupDate;
     this.visibility = visibility;
+    this.state = state;
+    this.creationDate = creationDate;
   }
 
   /**
@@ -160,6 +167,42 @@ public class Order {
     this.visibility = visibility;
   }
 
+  /**
+   * Returns the state of the Order.
+   *
+   * @return the Order state.
+   */
+  public String getState() {
+    return state;
+  }
+
+  /**
+   * Set the Order state.
+   *
+   * @param state The order state.
+   */
+  public void setState(String state) {
+    this.state = state;
+  }
+
+  /**
+   * Returns the creation Date of the Order.
+   *
+   * @return the Order creation Date.
+   */
+  public Date getCreationDate() {
+    return creationDate;
+  }
+
+  /**
+   * Set the Order creation Date.
+   *
+   * @param creationDate The order creation Date.
+   */
+  public void setCreationDate(Date creationDate) {
+    this.creationDate = creationDate;
+  }
+
   @Override
   public boolean equals(Object obj) {
     if (this == obj) {
@@ -174,13 +217,15 @@ public class Order {
 
   @Override
   public String toString() {
-    return "Order{"
-        + "id='" + id + '\''
-        + ", estimate=" + estimate
-        + ", startDate=" + startDate
-        + ", endDate=" + endDate
-        + ", pickupDate=" + pickupDate
-        + ", visibility=" + visibility
-        + '}';
+    return "Order{" +
+        "id='" + id + '\'' +
+        ", estimate=" + estimate +
+        ", startDate=" + startDate +
+        ", endDate=" + endDate +
+        ", pickupDate=" + pickupDate +
+        ", visibility=" + visibility +
+        ", state='" + state + '\'' +
+        ", creationDate=" + creationDate +
+        '}';
   }
 }

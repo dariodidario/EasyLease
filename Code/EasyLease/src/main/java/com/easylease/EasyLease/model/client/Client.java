@@ -6,7 +6,6 @@ import java.util.Date;
 /**
  * This class provides the information about the client of the EasyLease platform,
  * and also extends the User class, including the parameters id, name, surname, email
- * and password.
  *
  * @since 0.1
  * @author Mattia Mori
@@ -14,7 +13,7 @@ import java.util.Date;
  */
 public class Client extends User {
 
-  private String birthPlace = "";
+  private String birthPlace;
   private Date birthDate;
   /** This instance variable represent the genre of the Client.
    * Can be one between Uomo, Donna, Altro, Preferisco non specificarlo
@@ -38,12 +37,11 @@ public class Client extends User {
    * @param name the name of the client, extended by the class User
    * @param surname the surname of the client, extended by the class User
    * @param email the email of the client, extended by the class User
-   * @param password the password of the client, extended by the class User
    */
   public Client(String id, String name, String surname, String email,
-                String password, String birthPlace, Date birthDate, String kind,
+                String birthPlace, Date birthDate, String kind,
                 String city, String pc, String street) {
-    super(id, name, surname, email, password);
+    super(id, name, surname, email);
     this.birthPlace = birthPlace;
     this.birthDate = birthDate;
     this.kind = kind;

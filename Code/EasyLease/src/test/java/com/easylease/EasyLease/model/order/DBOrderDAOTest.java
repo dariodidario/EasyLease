@@ -1,197 +1,158 @@
 package com.easylease.EasyLease.model.order;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import com.easylease.EasyLease.control.utility.exception.EntityTamperingException;
-import com.easylease.EasyLease.model.estimate.Estimate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.mysql.cj.jdbc.MysqlDataSource;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.sql.SQLException;
+import java.util.List;
 
-class DBOrderDAOTest {
+import static org.junit.jupiter.api.Assertions.*;
 
-  DBOrderDAO dbOrderDAO = mock(DBOrderDAO.class);
-
-  private static Order order;
-  private static List<Order> orderList;
+public class DBOrderDAOTest {
+  private static DBConnection dbConnection;
+  private OrderDAO orderDAO;
 
   @BeforeAll
-  static void setUp() {
-    order = new Order("OR12RT4", new Estimate(), new Date(),
-        new Date(), new Date(), true);
-    orderList = new ArrayList<>();
-    orderList.add(order);
+  static void init() throws Exception {
+    dbConnection = DBConnection.getInstance();
+    MysqlDataSource mysqlDataSource = new MysqlDataSource();
+    mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
+    mysqlDataSource.setUser("root");
+    mysqlDataSource.setPassword("root");
+    mysqlDataSource.setServerTimezone("UTC");
+    mysqlDataSource.setVerifyServerCertificate(false);
+    mysqlDataSource.setUseSSL(false);
+    dbConnection.setDataSource(mysqlDataSource);
+  }
+
+  @BeforeEach
+  void setUp() throws SQLException {
+    orderDAO = DBOrderDAO.getInstance();
+    dbConnection.getConnection().setAutoCommit(false);
+  }
+
+  @AfterEach
+  void tearDown() throws SQLException {
+    dbConnection.getConnection().rollback();
+    dbConnection.getConnection().setAutoCommit(true);
   }
 
   @Test
-  void retrieveByCorrectId() {
-    when(dbOrderDAO.retrieveById("OR12RT4")).thenReturn(order);
-    assertEquals(order, dbOrderDAO.retrieveById("OR12RT4"));
+  void retrieveById_Success() {
+    String orderID = "OR1ER4T";
+    Order order = orderDAO.retrieveById(orderID);
+    assertEquals(orderID, order.getId());
   }
 
   @Test
-  void retrieveByNonexistentId() {
-    when(dbOrderDAO.retrieveById("OR5729A")).thenReturn(null);
-    assertNull(dbOrderDAO.retrieveById("OR5729A"));
+  void retrieveById_NullId() {
+      assertThrows(IllegalArgumentException.class, () -> orderDAO.retrieveById(null));
   }
 
   @Test
-  void retrieveByWrongId() {
-    when(dbOrderDAO.retrieveById("AD34GBA")).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbOrderDAO.retrieveById("AD34GBA");
-    });
+  void retrieveById_EmptyId() {
+    assertThrows(IllegalArgumentException.class, () -> orderDAO.retrieveById(""));
   }
 
   @Test
-  void retrieveByNullId() {
-    when(dbOrderDAO.retrieveById(null)).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbOrderDAO.retrieveById(null);
-    });
+  void retrieveById_WrongId() {
+    assertThrows(IllegalArgumentException.class, () -> orderDAO.retrieveById("CL12345"));
   }
 
   @Test
-  void retrieveByEmptyId() {
-    when(dbOrderDAO.retrieveById("")).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbOrderDAO.retrieveById("");
-    });
+  void retrieveById_NullRs() {
+    assertNull(orderDAO.retrieveById("OR12345"));
   }
 
   @Test
-  void retrieveByCorrectAdvisor() {
-    when(dbOrderDAO.retrieveByAdvisor("ADGT12D")).thenReturn(orderList);
-    assertEquals(orderList, dbOrderDAO.retrieveByAdvisor("ADGT12D"));
+  void retrieveByAdvisor_Success() {
+    String advisorID = "ADJdybc";
+    List<Order> orders = orderDAO.retrieveByAdvisor(advisorID);
+    assertEquals(advisorID, orders.get(0).getEstimate().getAdvisor().getId());
   }
 
   @Test
-  void retrieveByNonexistentAdvisor() {
-    when(dbOrderDAO.retrieveByAdvisor("AD84F88")).thenReturn(null);
-    assertNull(dbOrderDAO.retrieveByAdvisor("AD84F88"));
+  void retrieveByAdvisor_NullId() {
+    assertThrows(IllegalArgumentException.class, () -> orderDAO.retrieveByAdvisor(null));
   }
 
   @Test
-  void retrieveByWrongAdvisor() {
-    when(dbOrderDAO.retrieveByAdvisor("CL34GBA")).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbOrderDAO.retrieveByAdvisor("CL34GBA");
-    });
+  void retrieveByAdvisor_EmptyId() {
+    assertThrows(IllegalArgumentException.class, () -> orderDAO.retrieveByAdvisor(""));
   }
 
   @Test
-  void retrieveByNullAdvisor() {
-    when(dbOrderDAO.retrieveByAdvisor(null)).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbOrderDAO.retrieveByAdvisor(null);
-    });
+  void retrieveByClient_Success() {
+    String clientID = "CLEE8BD";
+    List<Order> orders = orderDAO.retrieveByClient(clientID);
+    assertEquals(clientID, orders.get(0).getEstimate().getClient().getId());
   }
 
   @Test
-  void retrieveByEmptyAdvisor() {
-    when(dbOrderDAO.retrieveByAdvisor("")).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbOrderDAO.retrieveByAdvisor("");
-    });
+  void retrieveByClient_NullId() {
+    assertThrows(IllegalArgumentException.class, () -> orderDAO.retrieveByClient(null));
   }
 
   @Test
-  void retrieveByCorrectClient() {
-    when(dbOrderDAO.retrieveByClient("CLGT12D")).thenReturn(orderList);
-    assertEquals(orderList, dbOrderDAO.retrieveByClient("CLGT12D"));
+  void retrieveByClient_EmptyId() {
+    assertThrows(IllegalArgumentException.class, () -> orderDAO.retrieveByClient(""));
   }
 
   @Test
-  void retrieveByNonexistentClient() {
-    when(dbOrderDAO.retrieveByClient("CLGR12D")).thenReturn(null);
-    assertNull(dbOrderDAO.retrieveByClient("CLGR12D"));
+  void retrieveAll_Success() {
+    assertNotNull(orderDAO.retrieveAll());
   }
 
   @Test
-  void retrieveByWrongClient() {
-    when(dbOrderDAO.retrieveByClient("ADGT12D")).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbOrderDAO.retrieveByClient("ADGT12D");
-    });
+  void update_Success() {
+    Order order = orderDAO.retrieveById("OR1ER4T");
+    order.setVisibility(!order.isVisibility());
+    orderDAO.update(order);
+    Order updatedOrder = orderDAO.retrieveById("OR1ER4T");
+    assertEquals(order.getId(), updatedOrder.getId());
+    assertEquals(order.isVisibility(), updatedOrder.isVisibility());
   }
 
   @Test
-  void retrieveByNullClient() {
-    when(dbOrderDAO.retrieveByClient(null)).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbOrderDAO.retrieveByClient(null);
-    });
+  void update_Failure() {
+    assertThrows(EntityTamperingException.class, () -> orderDAO.update(null));
   }
 
   @Test
-  void retrieveByEmptyClient() {
-    when(dbOrderDAO.retrieveByClient("")).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbOrderDAO.retrieveByClient("");
-    });
+  void insert_Success() {
+    Order order = orderDAO.retrieveById("OR1ER4T");
+    order.setId("ORTEST1");
+    orderDAO.insert(order);
+    Order newOrder = orderDAO.retrieveById("ORTEST1");
+    assertNotNull(newOrder);
+    assertEquals(order.getId(), newOrder.getId());
+    assertEquals(order.isVisibility(), newOrder.isVisibility());
+    assertEquals(order.getStartDate(), newOrder.getStartDate());
+    orderDAO.delete(order);
   }
 
   @Test
-  void retrieveByAll() {
-    when(dbOrderDAO.retrieveAll()).thenReturn(orderList);
-    assertNotNull(orderList);
+  void insert_Failure() {
+    Order order = orderDAO.retrieveById("OR1ER4T");
+    assertThrows(EntityTamperingException.class, () -> orderDAO.insert(order));
   }
 
   @Test
-  void insertCorrectOrder() {
-    doNothing().when(dbOrderDAO).insert(order);
-    dbOrderDAO.insert(order);
-    verify(dbOrderDAO).insert(order);
+  void delete_Success() {
+    Order order = orderDAO.retrieveById("OR1ER4T");
+    order.setId("ORTEST1");
+    orderDAO.insert(order);
+    orderDAO.delete(order);
   }
 
   @Test
-  void insertIllegalOrder() {
-    Order or = null;
-    doThrow(EntityTamperingException.class).when(dbOrderDAO).insert(null);
-    assertThrows(EntityTamperingException.class, () -> {
-      dbOrderDAO.insert(null);
-    });
-  }
-
-  @Test
-  void updateCorrectOrder() {
-    doNothing().when(dbOrderDAO).update(order);
-    dbOrderDAO.update(order);
-    verify(dbOrderDAO).update(order);
-  }
-
-  @Test
-  void updateIllegalOrder() {
-    Order or = null;
-    doThrow(EntityTamperingException.class).when(dbOrderDAO).update(null);
-    assertThrows(EntityTamperingException.class, () -> {
-      dbOrderDAO.update(null);
-    });
-  }
-
-  @Test
-  void deleteCorrectOrder() {
-    doNothing().when(dbOrderDAO).delete(order);
-    dbOrderDAO.delete(order);
-    verify(dbOrderDAO).delete(order);
-  }
-
-  @Test
-  void deleteIllegalOrder() {
-    Order or = null;
-    doThrow(EntityTamperingException.class).when(dbOrderDAO).delete(null);
-    assertThrows(EntityTamperingException.class, () -> {
-      dbOrderDAO.delete(null);
-    });
+  void delete_Failure() {
+    Order order = orderDAO.retrieveById("OR1ER4T");
+    order.setId("ORTEST2");
+    assertThrows(EntityTamperingException.class, () -> orderDAO.delete(order));
   }
 }

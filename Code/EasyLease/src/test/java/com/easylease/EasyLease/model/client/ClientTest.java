@@ -2,7 +2,9 @@ package com.easylease.EasyLease.model.client;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +18,8 @@ class ClientTest {
 
   @Test
   public void testGetBirthPlace() {
-    Date bdate = new Date(1998, 9, 9);
+    Calendar calBdate = new GregorianCalendar(1998, 8, 9);
+    Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
         "Rossi", "m.rossi@gmail.com",
         "mrossi", "Avellino", bdate,
@@ -26,7 +29,8 @@ class ClientTest {
 
   @Test
   public void testSetBirthPlace() {
-    Date bdate = new Date(1998, 9, 9);
+    Calendar calBdate = new GregorianCalendar(1998, 8, 9);
+    Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
         "Rossi", "m.rossi@gmail.com",
         "mrossi", "Avellino", bdate,
@@ -37,30 +41,35 @@ class ClientTest {
 
   @Test
   public void testGetBirthDate() {
-    Date bdate = new Date(1998, 9, 9);
+    Calendar calBdate = new GregorianCalendar(1998, 8, 9);
+    Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
         "Rossi", "m.rossi@gmail.com",
         "mrossi", "Avellino", bdate,
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
-    Date expectedDate = new Date(1998, 9, 9);
+    Calendar calExpectedDate = new GregorianCalendar(1998, 8, 9);
+    Date expectedDate = calBdate.getTime();
     assertEquals(expectedDate, cliente.getBirthDate());
   }
 
   @Test
   public void testSetBirthDate() {
-    Date bdate = new Date(1998, 9, 9);
+    Calendar calBdate = new GregorianCalendar(1998, 8, 9);
+    Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
         "Rossi", "m.rossi@gmail.com",
         "mrossi", "Avellino", bdate,
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
-    Date dateToSet = new Date(1994, 5, 12);
+    Calendar calDateToSet = new GregorianCalendar(1994, 4, 12);
+    Date dateToSet = calDateToSet.getTime();
     cliente.setBirthDate(dateToSet);
     assertEquals(dateToSet, cliente.getBirthDate());
   }
 
   @Test
   public void testGetKind() {
-    Date bdate = new Date(1998, 9, 9);
+    Calendar calBdate = new GregorianCalendar(1998, 8, 9);
+    Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
         "Rossi", "m.rossi@gmail.com",
         "mrossi", "Avellino", bdate,
@@ -70,7 +79,8 @@ class ClientTest {
 
   @Test
   public void testSetKind() {
-    Date bdate = new Date(1998, 9, 9);
+    Calendar calBdate = new GregorianCalendar(1998, 8, 9);
+    Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
         "Rossi", "m.rossi@gmail.com",
         "mrossi", "Avellino", bdate,
@@ -81,7 +91,8 @@ class ClientTest {
 
   @Test
   public void testGetCity() {
-    Date bdate = new Date(1998, 9, 9);
+    Calendar calBdate = new GregorianCalendar(1998, 8, 9);
+    Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
         "Rossi", "m.rossi@gmail.com",
         "mrossi", "Avellino", bdate,
@@ -91,7 +102,8 @@ class ClientTest {
 
   @Test
   public void testSetCity() {
-    Date bdate = new Date(1998, 9, 9);
+    Calendar calBdate = new GregorianCalendar(1998, 8, 9);
+    Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
         "Rossi", "m.rossi@gmail.com",
         "mrossi", "Avellino", bdate,
@@ -102,7 +114,8 @@ class ClientTest {
 
   @Test
   public void testGetPc() {
-    Date bdate = new Date(1998, 9, 9);
+    Calendar calBdate = new GregorianCalendar(1998, 8, 9);
+    Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
         "Rossi", "m.rossi@gmail.com",
         "mrossi", "Avellino", bdate,
@@ -112,7 +125,8 @@ class ClientTest {
 
   @Test
   public void testSetPc() {
-    Date bdate = new Date(1998, 9, 9);
+    Calendar calBdate = new GregorianCalendar(1998, 8, 9);
+    Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
         "Rossi", "m.rossi@gmail.com",
         "mrossi", "Avellino", bdate,
@@ -123,7 +137,8 @@ class ClientTest {
 
   @Test
   public void testGetStreet() {
-    Date bdate = new Date(1998, 9, 9);
+    Calendar calBdate = new GregorianCalendar(1998, 8, 9);
+    Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
         "Rossi", "m.rossi@gmail.com",
         "mrossi", "Avellino", bdate,
@@ -133,7 +148,8 @@ class ClientTest {
 
   @Test
   public void testSetStreet() {
-    Date bdate = new Date(1998, 9, 9);
+    Calendar calBdate = new GregorianCalendar(1998, 8, 9);
+    Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
         "Rossi", "m.rossi@gmail.com",
         "mrossi", "Avellino", bdate,
