@@ -28,7 +28,7 @@ public class Admin extends User {
    */
   public Admin(String id, String name, String surname, String email,
                String password, String recoveryEmail) {
-    super(id, name, surname, email, password);
+    super(id, name, surname, email);
     this.recoveryEmail = recoveryEmail;
   }
 

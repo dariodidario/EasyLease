@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  * @version 0.1
  */
 
-public class DBUserDAO implements UserDAO{
+public class DBUserDAO implements UserDAO {
 
   private static Logger logger = Logger.getLogger(DBUserDAO.class.getName());
   private static DBUserDAO dao;
@@ -113,11 +113,11 @@ public class DBUserDAO implements UserDAO{
   }
 
   @Override
-  public User retrieveByEmail(String email)  {
+  public User retrieveByEmail(String email) {
     final String query = "SELECT * FROM " + DBUserDAO.TABLE_NAME + " WHERE EMAIL = ?";
     if (email == null || email.equals("")) {
       throw new IllegalArgumentException(
-          String.format("The id(%s) passed as a parameter is not valid", email));
+          String.format("The email(%s) passed as a parameter is not valid", email));
     }
     try {
       PreparedStatement stm = connection.prepareStatement(query);
@@ -196,7 +196,7 @@ public class DBUserDAO implements UserDAO{
 
   @Override
   public void update(User user) throws EntityTamperingException {
-    final String query = "UPDATE "+ DBUserDAO.TABLE_NAME+" SET name = ?, surname = ?, email = ?, password = ? WHERE ID = ?";
+    final String query = "UPDATE "+DBUserDAO.TABLE_NAME+" SET name = ?, surname = ?, email = ?, password = ? WHERE ID = ?";
 
     try {
       PreparedStatement stm = connection.prepareStatement(query);

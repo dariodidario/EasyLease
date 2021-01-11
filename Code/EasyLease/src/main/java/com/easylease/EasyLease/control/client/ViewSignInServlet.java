@@ -1,4 +1,4 @@
-package com.easylease.EasyLease.control.user;
+package com.easylease.EasyLease.control.client;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -9,18 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "LogoutServlet")
-public class LogoutServlet extends HttpServlet {
-  protected void doPost(HttpServletRequest request,
+@WebServlet(name = "ViewSignInServlet")
+public class ViewSignInServlet extends HttpServlet {
+
+  public void doPost(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     doGet(request, response);
   }
 
-  protected void doGet(HttpServletRequest request,
+  public void doGet(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
-    request.getSession().removeAttribute("user");
-    request.getSession().removeAttribute("role");
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/signInJSP.jsp");
     dispatcher.forward(request, response);
+
   }
+
 }
