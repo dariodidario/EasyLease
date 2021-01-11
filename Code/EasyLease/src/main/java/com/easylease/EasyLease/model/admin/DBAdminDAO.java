@@ -90,7 +90,6 @@ public class DBAdminDAO implements AdminDAO {
     o.setName(rs.getString("first_name"));
     o.setSurname(rs.getString("surname"));
     o.setEmail(rs.getString("email"));
-    o.setPassword(rs.getString("pwd"));
     o.setRecoveryEmail(rs.getString("recovery_mail"));
     return o;
   }

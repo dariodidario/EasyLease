@@ -1,0 +1,125 @@
+.card {
+  background: linear-gradient(
+      to bottom right,
+      rgba(255,255,255,0.2),
+      rgba(255,255,255,0.05)
+  );
+  box-shadow: 0 1rem 2rem rgba(0,0,0,0.2);
+  backdrop-filter: blur(0.8rem);
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.card__row {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+}
+
+.card__title {
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #9B334E;
+  margin: 1rem 0 1.5rem;
+  text-shadow: 0 2px 2px rgba(0,0,0,0.3);
+}
+
+.card__col {
+  padding-right: 2rem;
+}
+
+.card__input {
+  background: none;
+  border: none;
+  border-bottom: dashed 0.2rem rgba(155, 51, 78,0.15);
+  font-size: 1.2rem;
+  color: rgb(155, 51, 78);
+  text-shadow: 0 2px 2px rbga(0,0,0,0.3);
+}
+
+.card__input--large{
+  font-size: 1.5rem;
+}
+
+.card__input::placeholder {
+  color: rgb(155, 51, 78);
+  text-shadow: none;
+}
+
+.card__input:focus {
+  outline: none;
+  border-color: rgb(155, 51, 78);
+}
+
+.card__label {
+  display: block;
+  color: rgb(155, 51, 78);
+  text-shadow: 0 2px 2px rgba(0,0,0,0.4);
+  font-weight: 400;
+}
+
+.card__chip {
+  align-self: flex-end;
+}
+
+.card__chip img {
+  width: 3rem;
+}
+
+.card__brand {
+  font-size: 7rem;
+  color: #9b334e;
+  min-width: 100px;
+  min-height: 75px;
+  text-align: right;
+  text-shadow: 0 2px 2px rgba(0,0,0,0.4);
+}
+
+.table tr {
+  text-align: center;
+}
+
+
+.table td {
+  text-align: center;
+}
+
+.table-responsive {
+  max-height: 250px;
+}
+
+.btn-primary {
+  background-color: #9B334E !important;
+  border-color: #9B334E !important;
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .card__input--large{
+    font-size: 1rem;
+  }
+  .card__brand {
+    font-size: 2rem;
+    min-width: 80px;
+    min-height: 65px;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+  .card__input--large{
+    font-size: 1rem;
+  }
+  .card__brand {
+    font-size: 2rem;
+    min-width: 80px;
+    min-height: 65px;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {
+
+}
+
