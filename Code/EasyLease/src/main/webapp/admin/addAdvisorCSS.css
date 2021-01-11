@@ -1,55 +1,182 @@
- hr{
-     position: absolute;
-     bottom: 20%;
-     border: 1px solid #dec717;
-     width: 70%;
-     alignment: left;
-     margin-left: 17%;
- }
-input.advisorParameter {
-    width: 90%;
-    background: #9b334e;
-    font-size: 1vw;
-}
-input.advisorParameter:hover {
-    background: #800000;
-}
+@media (max-width: 830px) and (orientation: landscape)  {
+    hr{
+        margin-top: 15px;
+        position: relative;
+        border: 1px solid #dec717;
+        width: 70%;
+        alignment: left;
+        margin-left: 15%;
+    }
+    input.advisorParameter {
+        width: 70%;
+        background: #9b334e;
+        font-size: 3vw;
+    }
+    input.advisorParameter:hover {
+        background: #800000;
+    }
 
-label.advisorParameter{
-    font-size: 1.2vw;
-}
-.information{
-    width: 100%;
-    font-style: oblique;
-    font-size: 0.9vw;
-}
-#errore{
-    width: 100%;
-    font-style: oblique;
-    font-size: 1.1vw;
-    color: #dec717;
-}
+    label.advisorParameter{
+        font-size: 3vw;
+    }
+    .information{
+        width: 100%;
+        font-style: oblique;
+        font-size: 2vw;
+    }
+    #errore{
+        width: 100%;
+        font-style: oblique;
+        font-size: 2vw;
+        color: #dec717;
+    }
 
-table.characteristics{
-    position: absolute;
-    top: 20%;
-    right: 35%;
-    background: #9b334e;
-    width: 30%;
-    height: 50%;
-    border: medium solid #dec717;
+    table.characteristics{
+        position: relative;
+        alignment: center;
+        background: #9b334e;
+        margin-left: 15%;
+        width: 70%;
+        height: 40%;
+        border: medium solid #dec717;
+    }
+    #buttonAddAdvisor:hover{
+        background: #800000;
+    }
+    #buttonAddAdvisor{
+        background: #9b334e;
+        position: relative;
+        margin-left: 35%;
+        margin-top: 20px;
+        width: 30%;
+        font-size: 2.5vw;
+        border-bottom:medium solid #dec717;
+        border-radius: 20px;
+    }
+    h2{
+        font-size: 3vw;
+    }
 }
-#buttonAddAdvisor:hover{
-    background: #800000;
+@media (max-width: 1024px) and (orientation: portrait) {
+    hr{
+        position: absolute;
+        bottom: 25%;
+        border: 1px solid #dec717;
+        width: 70%;
+        alignment: left;
+        margin-left: 15%;
+    }
+    input.advisorParameter {
+        width: 70%;
+        background: #9b334e;
+        font-size: 4vw;
+    }
+    input.advisorParameter:hover {
+        background: #800000;
+    }
+
+    label.advisorParameter{
+        font-size: 4vw;
+    }
+    .information{
+        width: 100%;
+        font-style: oblique;
+        font-size: 3vw;
+    }
+    #errore{
+        width: 100%;
+        font-style: oblique;
+        font-size: 3vw;
+        color: #dec717;
+    }
+
+    table.characteristics{
+        position: absolute;
+        top: 20%;
+        right: 5%;
+        background: #9b334e;
+        width: 90%;
+        height: 40%;
+        border: medium solid #dec717;
+    }
+    #buttonAddAdvisor:hover{
+        background: #800000;
+    }
+    #buttonAddAdvisor{
+        background: #9b334e;
+        position: absolute;
+        right: 30%;
+        bottom: 27%;
+        width: 40%;
+        height: 6%;
+        font-size: 4vw;
+        border-bottom:medium solid #dec717;
+        border-radius: 20px;
+    }
+    h2{
+        font-size: 4vw;
+    }
 }
-#buttonAddAdvisor{
-    background: #9b334e;
-    position: absolute;
-    right: 43%;
-    bottom: 23%;
-    width: 15%;
-    height: 5%;
-    font-size: 1.5vw;
-    border-bottom:medium solid #dec717;
-    border-radius: 5px;
+@media (min-width: 831px) and (orientation: landscape){
+    hr {
+        position: absolute;
+        bottom: 20%;
+        border: 1px solid #dec717;
+        width: 70%;
+        alignment: left;
+        margin-left: 17%;
+    }
+
+    input.advisorParameter {
+        width: 90%;
+        background: #9b334e;
+        font-size: 1vw;
+    }
+
+    input.advisorParameter:hover {
+        background: #800000;
+    }
+
+    label.advisorParameter {
+        font-size: 1.2vw;
+    }
+
+    .information {
+        width: 100%;
+        font-style: oblique;
+        font-size: 0.9vw;
+    }
+
+    #errore {
+        width: 100%;
+        font-style: oblique;
+        font-size: 1.1vw;
+        color: #dec717;
+    }
+
+    table.characteristics {
+        position: absolute;
+        top: 20%;
+        right: 35%;
+        background: #9b334e;
+        width: 30%;
+        height: 50%;
+        border: medium solid #dec717;
+    }
+
+    #buttonAddAdvisor:hover {
+        background: #800000;
+    }
+
+    #buttonAddAdvisor {
+        background: #9b334e;
+        position: absolute;
+        right: 43%;
+        bottom: 23%;
+        width: 15%;
+        height: 5%;
+        font-size: 1.5vw;
+        border-bottom: medium solid #dec717;
+        border-radius: 5px;
+    }
 }
