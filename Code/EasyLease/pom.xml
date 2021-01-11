@@ -7,6 +7,18 @@
     <groupId>com.easylease</groupId>
     <artifactId>EasyLease</artifactId>
     <version>1.0</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <name>EasyLease</name>
     <packaging>war</packaging>
 
@@ -55,6 +67,18 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.8.6</version>
+
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts-core</artifactId>
+            <version>1.3.8</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+
         </dependency>
     </dependencies>
 </project>
