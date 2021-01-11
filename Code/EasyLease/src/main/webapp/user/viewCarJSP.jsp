@@ -1,9 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
-  //Car car=(Car)request.getAttribute("car");
-  Car car = new Car("CAAA111", "Peugeot", "3008", 249, "SUV", true, 5, "Automatico", 3.9f, 130, "Euro 6", 104, "Diesel", 1499, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.giordanoshop.com%2Fmacchina-elettrica-per-bambini-12v-jaguar-f-pace-blu-165431.html&psig=AOvVaw0LDHEwWDZw4MAQihxYutis&ust=1610037106337000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOjH5uDdh-4CFQAAAAAdAAAAABAD");
-  request.getSession().setAttribute("role",null);
+  Car car=(Car)request.getAttribute("car");
 %>
 
 <!DOCTYPE html>
@@ -19,185 +17,464 @@
 
 </head>
 <body>
+<%@include file="../fragments/headerJSP.jsp"%>
 <div class="center">
   <%if(request.getSession().getAttribute("role")==null){%>
-  <div style="float:right; margin:0.625em 6.25em 0.3125em 0.3125em; border-style: solid;font-size: large; font-size: 2em; background-color: lightgray;">
-    <h3>Caratteristiche</h3><br><br>
-    <div style="float:left; margin:0em 12.50em 0em 0.625em;">
-      Porte:<br><br>
-      Tipo: <br><br>
-      Trasmissione:  <br><br>
-      Consumo medio: <br><br>
-      Cavalli:       <br><br>
-      Classe di emissione:<br><br>
-      Emissione CO2:  <br><br>
-      Alimentazione:   <br><br>
-      Cilindrata:     <br><br>
-
+  <div class="container w-full">
+    <div class="row">
+      <div class="col-6" align="center">
+        <div class="car_name">
+          <%= "" + car.getBrand() + " "
+                  + car.getModel()%>
+        </div>
+      </div>
+      <div class="col-6" align="center">
+        <div class="car_spec_text">
+          Informazioni auto
+        </div>
+      </div>
     </div>
-    <div style="float:right; margin:0em 0.625em 0em 0em;">
-      <%=car.getDoors()%> <br><br>
-      <%=car.getType()%> <br><br>
-      <%=car.getTransmision()%> <br><br>
-      <%=car.getAvg_consumption()%> <br><br>
-      <%=car.getHorse_power()%> <br><br>
-      <%=car.getEmission_class()%> <br><br>
-      <%=car.getCo2_emissions()%> <br><br>
-      <%=car.getPowerSupply()%> <br><br>
-      <%=car.getCapacity()%> <br><br>
 
+    <div class="row">
+      <div class="col me-6">
+        <img alt="" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
+
+        <br/>
+        <br/>
+        <form method="POST" action="../client/signInJSP.jsp">
+          <input type="submit" class="btn btn-primary btn-lg" name="Registrati" value="Registrati">
+        </form>
+      </div>
+      <div class="col ms-6" align="center" style="background-color: lightgray; border: solid;">
+        <div class="row">
+          <div class="col">
+            <h4>Porte</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getDoors()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Tipo</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getType()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Trasmissione</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getTransmision()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Consumo medio</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getAvg_consumption()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Cavalli</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getHorse_power()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Classe di emissione</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getEmission_class()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Emissione CO2</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getCo2_emissions()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Alimentazione</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getPowerSupply()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Cilindrata</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getCapacity()%>
+            </h4>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div style="float:left; margin:0.625em 0.3125em 0.3125em 6.25em; font-size: large;">
-    <p style="font-size: 5em"><%=car.getBrand()%> <%=car.getModel()%></p>
-    <br>
-    <img src="<%=car.getImage()%>" height=700 width=700 alt="" > <br><br>
-    <div style="border-style: solid;width: 43.75em; height: 28.125em; font-size: large; align-content: center">
-      <p style="font-size: 3em">A partire da: </p><br><br>
 
-      <p style="font-size: 4em"> <%=car.getPrice()%> € </p>
-      <p style="font-size: 2em">Al mese</p>
-      <br>
-      <form method="POST" action="../client/signInJSP.jsp">
-        <input type="submit" class="btn btn-primary btn-lg" name="Registrati" value="Registrati">
-      </form>
-    </div>
-  </div>
+
   <%}else{ if(request.getSession().getAttribute("role").equals("admin")){ %>
-  <div style="float:right; margin:0.625em 6.25em 0.3125em 0.3125em; border-style: solid;font-size: large; font-size: 2em; background-color: lightgray;">
-    <h3>Caratteristiche</h3><br><br>
-    <div style="float:left; margin:0em 12.50em 0em 0.625em;">
-      Porte:<br><br>
-      Tipo: <br><br>
-      Trasmissione:  <br><br>
-      Consumo medio: <br><br>
-      Cavalli:       <br><br>
-      Classe di emissione:<br><br>
-      Emissione CO2:  <br><br>
-      Alimentazione:   <br><br>
-      Cilindrata:     <br><br>
-
+  <div class="container w-full">
+    <div class="row">
+      <div class="col-6" align="center">
+        <div class="car_name">
+          <%= "" + car.getBrand() + " "
+                  + car.getModel()%>
+        </div>
+      </div>
+      <div class="col-6" align="center">
+        <div class="car_spec_text">
+          Informazioni auto
+        </div>
+      </div>
     </div>
-    <div style="float:right; margin:0em 0.625em 0em 0em;">
-      <%=car.getDoors()%> <br><br>
-      <%=car.getType()%> <br><br>
-      <%=car.getTransmision()%> <br><br>
-      <%=car.getAvg_consumption()%> <br><br>
-      <%=car.getHorse_power()%> <br><br>
-      <%=car.getEmission_class()%> <br><br>
-      <%=car.getCo2_emissions()%> <br><br>
-      <%=car.getPowerSupply()%> <br><br>
-      <%=car.getCapacity()%> <br><br>
 
-    </div>
-  </div>
-  <div style="float:left; margin:0.625em 0.3125em 0.3125em 6.25em; font-size: large;">
-    <p style="font-size: 5em"><%=car.getBrand()%> <%=car.getModel()%></p>
-    <br>
-    <img src="<%=car.getImage()%>" height=700 width=700 alt="" > <br><br>
-    <div style="border-style: solid;width: 43.75em; height: 28.125em; font-size: large; align-content: center">
-      <p style="font-size: 3em">A partire da: </p><br><br>
+    <div class="row">
+      <div class="col me-6">
+        <img alt="" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
 
-      <p style="font-size: 4em"> <%=car.getPrice()%> € </p>
-      <p style="font-size: 2em">Al mese</p>
-      <br>
-      <form method="POST" action="../admin/updateCarJSP.jsp">
-        <input type="submit" class="btn btn-primary btn-lg" name="Modifica Auto" value="Modifica">
-      </form>
-      <form method="POST" action="jetbrains://idea/navigate/reference?project=EasyLease&fqn=com.easylease.EasyLease.control.admin.DeleteCarServlet?id=<%=car.getId()%>">
-        <input type="submit" class="btn btn-primary btn-lg" name="Elimina Auto" value="Elimina Auto">
-      </form>
+        <br/>
+        <br/>
+        <form method="POST" action="../admin/updateCarJSP.jsp">
+          <input type="submit" class="btn btn-primary btn-lg" name="Modifica Auto" value="Modifica">
+        </form>
+        <form method="POST" action="jetbrains://idea/navigate/reference?project=EasyLease&fqn=com.easylease.EasyLease.control.admin.DeleteCarServlet?id=<%=car.getId()%>">
+          <input type="submit" class="btn btn-primary btn-lg" name="Elimina Auto" value="Elimina Auto">
+        </form>
+      </div>
+      <div class="col ms-6" align="center" style="background-color: lightgray; border: solid;">
+        <div class="row">
+          <div class="col">
+            <h4>Porte</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getDoors()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Tipo</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getType()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Trasmissione</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getTransmision()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Consumo medio</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getAvg_consumption()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Cavalli</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getHorse_power()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Classe di emissione</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getEmission_class()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Emissione CO2</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getCo2_emissions()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Alimentazione</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getPowerSupply()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Cilindrata</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getCapacity()%>
+            </h4>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <%}else{ if(request.getSession().getAttribute("role").equals("client")){ %>
-    <div style="float:right; margin:0.625em 6.25em 0.3125em 0.3125em; border-style: solid;font-size: large; font-size: 2em; background-color: lightgray;">
-      <h3>Caratteristiche</h3><br><br>
-      <div style="float:left; margin:0em 12.50em 0em 0.625em;">
-        Porte:<br><br>
-        Tipo: <br><br>
-        Trasmissione:  <br><br>
-        Consumo medio: <br><br>
-        Cavalli:       <br><br>
-        Classe di emissione:<br><br>
-        Emissione CO2:  <br><br>
-        Alimentazione:   <br><br>
-        Cilindrata:     <br><br>
 
+  <div class="container w-full">
+    <div class="row">
+      <div class="col-6" align="center">
+        <div class="car_name">
+          <%= "" + car.getBrand() + " "
+                  + car.getModel()%>
+        </div>
       </div>
-      <div style="float:right; margin:0em 0.625em 0em 0em;">
-        <%=car.getDoors()%> <br><br>
-        <%=car.getType()%> <br><br>
-        <%=car.getTransmision()%> <br><br>
-        <%=car.getAvg_consumption()%> <br><br>
-        <%=car.getHorse_power()%> <br><br>
-        <%=car.getEmission_class()%> <br><br>
-        <%=car.getCo2_emissions()%> <br><br>
-        <%=car.getPowerSupply()%> <br><br>
-        <%=car.getCapacity()%> <br><br>
-
+      <div class="col-6" align="center">
+        <div class="car_spec_text">
+          Informazioni auto
+        </div>
       </div>
     </div>
-  <div style="float:left; margin:0.625em 0.3125em 0.3125em 6.25em; font-size: large;">
-    <p style="font-size: 5em"><%=car.getBrand()%> <%=car.getModel()%></p>
-    <br>
-    <img src="<%=car.getImage()%>" height=700 width=700 alt="" > <br><br>
-    <div style="border-style: solid;width: 43.75em; height: 28.125em; font-size: large; align-content: center">
-      <p style="font-size: 3em">A partire da: </p><br><br>
 
-      <p style="font-size: 4em"> <%=car.getPrice()%> € </p>
-      <p style="font-size: 2em">Al mese</p>
-    <br>
+    <div class="row">
+      <div class="col me-6">
+        <img alt="" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
+
+        <br/>
+        <br/>
         <form method="POST" action="jetbrains://idea/navigate/reference?project=EasyLease&path=advisor/estimateManagementAdvisorJSP.jsp?id=<%=car.getId()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Richiedi preventivo" value="Richiedi preventivo">
         </form>
+      </div>
+      <div class="col ms-6" align="center" style="background-color: lightgray; border: solid;">
+        <div class="row">
+          <div class="col">
+            <h4>Porte</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getDoors()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Tipo</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getType()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Trasmissione</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getTransmision()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Consumo medio</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getAvg_consumption()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Cavalli</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getHorse_power()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Classe di emissione</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getEmission_class()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Emissione CO2</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getCo2_emissions()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Alimentazione</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getPowerSupply()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Cilindrata</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getCapacity()%>
+            </h4>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <%}else{ if(request.getSession().getAttribute("role").equals("advisor")){ %>
-  <div style="float:right; margin:0.625em 6.25em 0.3125em 0.3125em; border-style: solid;font-size: large; font-size: 2em; background-color: lightgray;">
-    <h3>Caratteristiche</h3><br><br>
-    <div style="float:left; margin:0em 12.50em 0em 0.625em;">
-      Porte:<br><br>
-      Tipo: <br><br>
-      Trasmissione:  <br><br>
-      Consumo medio: <br><br>
-      Cavalli:       <br><br>
-      Classe di emissione:<br><br>
-      Emissione CO2:  <br><br>
-      Alimentazione:   <br><br>
-      Cilindrata:     <br><br>
 
+  <div class="container w-full">
+    <div class="row">
+      <div class="col-6" align="center">
+        <div class="car_name">
+          <%= "" + car.getBrand() + " "
+                  + car.getModel()%>
+        </div>
+      </div>
+      <div class="col-6" align="center">
+        <div class="car_spec_text">
+          Informazioni auto
+        </div>
+      </div>
     </div>
-    <div style="float:right; margin:0em 0.625em 0em 0em;">
-      <%=car.getDoors()%> <br><br>
-      <%=car.getType()%> <br><br>
-      <%=car.getTransmision()%> <br><br>
-      <%=car.getAvg_consumption()%> <br><br>
-      <%=car.getHorse_power()%> <br><br>
-      <%=car.getEmission_class()%> <br><br>
-      <%=car.getCo2_emissions()%> <br><br>
-      <%=car.getPowerSupply()%> <br><br>
-      <%=car.getCapacity()%> <br><br>
 
+    <div class="row">
+      <div class="col me-6">
+        <img alt="" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
+
+        <br/>
+        <br/>
+        <form method="POST" action="../index.jsp">
+          <input type="submit" class="btn btn-primary btn-lg" name="Home" value="Home" >
+        </form>
+      </div>
+      <div class="col ms-6" align="center" style="background-color: lightgray; border: solid;">
+        <div class="row">
+          <div class="col">
+            <h4>Porte</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getDoors()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Tipo</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getType()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Trasmissione</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getTransmision()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Consumo medio</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getAvg_consumption()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Cavalli</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getHorse_power()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Classe di emissione</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getEmission_class()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Emissione CO2</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getCo2_emissions()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Alimentazione</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getPowerSupply()%>
+            </h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4>Cilindrata</h4>
+          </div>
+          <div class="col">
+            <h4><%=car.getCapacity()%>
+            </h4>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div style="float:left; margin:0.625em 0.3125em 0.3125em 6.25em; font-size: large;">
-    <p style="font-size: 5em"><%=car.getBrand()%> <%=car.getModel()%></p>
-    <br>
-    <img src="<%=car.getImage()%>" height=700 width=700 alt="" > <br><br>
-    <div style="border-style: solid;width: 43.75em; height: 28.125em; font-size: large; align-content: center">
-      <p style="font-size: 3em">A partire da: </p><br><br>
 
-      <p style="font-size: 4em"> <%=car.getPrice()%> € </p>
-      <p style="font-size: 2em">Al mese</p>
-      <br>
-      <form method="POST" action="../index.jsp">
-        <input type="submit" class="btn btn-primary btn-lg" name="Home" value="Home" >
-      </form>
-    </div>
-  </div>
   <%}}}}%>
 </div>
+<%@include file="../fragments/footerJSP.jsp"%>
 </body>
 </html>

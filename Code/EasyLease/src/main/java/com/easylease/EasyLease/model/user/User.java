@@ -2,8 +2,6 @@
 package com.easylease.EasyLease.model.user;
 
 import java.io.Serializable;
-import java.util.Date;
-
 /**
  * This class models an object of type User within the system.
  *
@@ -12,11 +10,12 @@ import java.util.Date;
  * @version 0.1
  */
 
-public class User implements Serializable {
+public abstract class User implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   /** Constructor */
+
   public User() {
 
   }
@@ -25,18 +24,16 @@ public class User implements Serializable {
   /**
    * Constructor for the User object.
    *
-   * @param ID The ID who identify the User.
+   * @param id The ID who identify the User.
    * @param name The name of the User.
    * @param surname The surname of the User.
    * @param email The email of the User.
-   * @param password The password of the User.
    */
-  public User(String ID, String name, String surname, String email, String password) {
-    this.id = ID;
+  public User(String id, String name, String surname, String email) {
+    this.id = id;
     this.name = name;
     this.surname = surname;
     this.email = email;
-    this.password = password;
   }
 
 
@@ -53,10 +50,10 @@ public class User implements Serializable {
   /**
    * Set the user's id.
    *
-   * @param ID the user's identificator.
+   * @param id the user's identificator.
    */
-  public void setId(String ID) {
-    this.id = ID;
+  public void setId(String id) {
+    this.id = id;
   }
 
 
@@ -119,26 +116,6 @@ public class User implements Serializable {
     this.email = email;
   }
 
-
-  /**
-   * Get the user's password.
-   *
-   * @return ID the user's password.
-   */
-  public String getPassword() {
-    return password;
-  }
-
-
-  /**
-   * Set the user's password.
-   *
-   * @param password the user's password.
-   */
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
   /** Rapresents the user's identificator. */
   protected String id;
 
@@ -151,6 +128,4 @@ public class User implements Serializable {
   /** Rapresents the user's email. */
   protected String email;
 
-  /** Rapresents the user's password. */
-  protected String password;
 }

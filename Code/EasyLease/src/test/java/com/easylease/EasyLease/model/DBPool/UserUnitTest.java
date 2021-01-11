@@ -8,7 +8,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.easylease.EasyLease.model.user.DBUserDAO;
 import com.easylease.EasyLease.model.user.User;
 import java.util.ArrayList;
 import java.util.logging.Logger;

@@ -11,7 +11,10 @@
   <title>Login</title>
 </head>
 <body>
+<%@include file="../fragments/headerJSP.jsp"%>
 <br/>
+<center>
+  <div style="text-align: center; width: 70%;">
 <form action="jetbrains://idea/navigate/reference?project=EasyLease&fqn=com.easylease.EasyLease.control.user.LoginServlet" method="POST">
   <div class="form-group">
     <label for="exampleInputEmail1"></label><br>
@@ -26,5 +29,8 @@
   <button type="submit" class="btn btn-primary">Login</button>
   <input type="reset" class="btn btn-primary" value="Cancella">
 </form>
+  </div>
+</center>
+<%@include file="../fragments/footerJSP.jsp"%>
 </body>
 </html>

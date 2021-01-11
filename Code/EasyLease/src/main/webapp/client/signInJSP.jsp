@@ -11,7 +11,9 @@
   <title>Registrazione</title>
 </head>
 <body>
-<div style="text-align: center; border:solid;">
+<%@include file="../fragments/headerJSP.jsp"%>
+<center>
+<div style="text-align: center; width: 70%;">
   <form action="jetbrains://idea/navigate/reference?project=EasyLease&fqn=com.easylease.EasyLease.control.client.SignInServlet" method="POST">
     <br/>
     <div class="form-group">
@@ -63,5 +65,7 @@
     <br>
   </form>
 </div>
+</center>
+<%@include file="../fragments/footerJSP.jsp"%>
 </body>
 </html>

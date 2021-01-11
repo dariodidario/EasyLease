@@ -1,8 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-  //Client cliente=(Client)request.getAttribute("user");
-  Client cliente = new Client("CLABC12", "Mario", "Rossi", "m.rossi@gmail.com", "mrossi", "Avellino", new Date(), "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
-  request.getSession().setAttribute("user",cliente);
+  Client cliente=(Client)request.getAttribute("user");
 %>
 <!DOCTYPE html>
 <html>
@@ -22,7 +20,9 @@
   </style>
 </head>
 <body>
-<div style="text-align: center; border:solid;">
+<%@include file="../fragments/headerJSP.jsp"%>
+<center>
+<div style="text-align: center; width: 70%;">
   <form action="jetbrains://idea/navigate/reference?project=EasyLease&fqn=com.easylease.EasyLease.control.client.SignInServlet" method="POST">
     <br/>
     <br/>
@@ -75,5 +75,7 @@
     <br>
   </form>
 </div>
+</center>
+<%@include file="../fragments/footerJSP.jsp"%>
 </body>
 </html>
