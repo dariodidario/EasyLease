@@ -22,13 +22,14 @@ if(role==null){%>
 <%}else {
 %>
 <%
-  String brand=""; String model=""; float price=0; String car_type=""; int doors=0;
+  String id=""; String brand=""; String model=""; float price=0; String car_type=""; int doors=0;
   String trasmission=""; float avg_consumption=0; int horse_power=0; String emission_class="";
   int co2_emissions=0; String power_supply=""; int capacity=0; String image_path="";
 
   Car car=(Car) request.getSession().getAttribute("update_car");
 
   if(car!=null) {
+    id=car.getId();
     brand = car.getBrand();
     model = car.getModel();
     price = car.getPrice();
@@ -51,7 +52,7 @@ if(role==null){%>
 </head>
 <body>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="admin/updateCarJS.js"/>
+<script src="admin/updateCarJS.js"></script>
 
 <%@include file="../fragments/headerJSP.jsp"%>
 <div id="divAutoName">
@@ -67,30 +68,6 @@ if(role==null){%>
   <img id="img_carL" src="img/<%=image_path%>" onerror="this.src='admin/image/nophoto.jpg'"/>
   <img class="matita_img" src="admin/image/matita.png" onclick="confirm('img_car')">
   <br>
-</div>
-
-<div id="divButton">
-  <form action="UpdateCarServlet" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="ID_Update" value="<%=id%>">
-    <input type="hidden" id="brand" name="brand_Update" value="<%=brand%>">
-    <input type="hidden" id="model" name="model_Update" value="<%=model%>">
-    <input type="hidden" id="img_car" name="img_car_Update" value="<%=image_path%>">
-    <input type="hidden" id="car_type" name="car_type_Update" value="<%=car_type%>">
-    <input type="hidden" id="doors" name="doors_Update" value="<%=doors%>">
-    <input type="hidden" id="transmission" name="transmission_Update" value="<%=trasmission%>">
-    <input type="hidden" id="avg_consumption" name="avg_consumption_Update" value="<%=avg_consumption%>">
-    <input type="hidden" id="horse_power" name="horse_power_Update" value="<%=horse_power%>">
-    <input type="hidden" id="emission_class" name="emission_class_Update" value="<%=emission_class%>">
-    <input type="hidden" id="co2_emissions" name="co2_emissions_Update" value="<%=co2_emissions%>">
-    <input type="hidden" id="power_supply" name="power_supply_Update" value="<%=power_supply%>">
-    <input type="hidden" id="capacity" name="capacity_Update" value="<%=capacity%>">
-    <input type="hidden" id="price" name="price_Update" value="<%=price%>">
-    <input type="submit" value="Conferma Modifiche" id="buttonUpdateCar">
-  </form>
-  <form action="DeleteCarServlet">
-    <input type="hidden" name="ID_Delete" value="<%=id%>">
-    <input type="submit" value="Elimina Auto" id="buttonDeleteCar">
-  </form>
 </div>
 
 
@@ -192,6 +169,32 @@ if(role==null){%>
     </td>
   </tr>
 </table>
+
+
+
+<div id="divButton">
+  <form action="UpdateCarServlet" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="ID_Update" value="<%=id%>">
+    <input type="hidden" id="brand" name="brand_Update" value="<%=brand%>">
+    <input type="hidden" id="model" name="model_Update" value="<%=model%>">
+    <input type="hidden" id="img_car" name="img_car_Update" value="<%=image_path%>">
+    <input type="hidden" id="car_type" name="car_type_Update" value="<%=car_type%>">
+    <input type="hidden" id="doors" name="doors_Update" value="<%=doors%>">
+    <input type="hidden" id="transmission" name="transmission_Update" value="<%=trasmission%>">
+    <input type="hidden" id="avg_consumption" name="avg_consumption_Update" value="<%=avg_consumption%>">
+    <input type="hidden" id="horse_power" name="horse_power_Update" value="<%=horse_power%>">
+    <input type="hidden" id="emission_class" name="emission_class_Update" value="<%=emission_class%>">
+    <input type="hidden" id="co2_emissions" name="co2_emissions_Update" value="<%=co2_emissions%>">
+    <input type="hidden" id="power_supply" name="power_supply_Update" value="<%=power_supply%>">
+    <input type="hidden" id="capacity" name="capacity_Update" value="<%=capacity%>">
+    <input type="hidden" id="price" name="price_Update" value="<%=price%>">
+    <input type="submit" value="Conferma Modifiche" id="buttonUpdateCar">
+  </form>
+  <form action="DeleteCarServlet">
+    <input type="hidden" name="ID_Delete" value="<%=id%>">
+    <input type="submit" value="Elimina Auto" id="buttonDeleteCar">
+  </form>
+</div>
 <hr>
 <%@include file="../fragments/footerJSP.jsp"%>
 <datalist id="autoBrand">
