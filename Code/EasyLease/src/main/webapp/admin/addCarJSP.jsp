@@ -27,30 +27,26 @@
 </head>
 <body>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="admin/addCarJS.js"/>
+<script src="admin/addCarJS.js"></script>
 
 <%@include file="../fragments/headerJSP.jsp"%>
 <form action="AddCarServlet" method="post" enctype="multipart/form-data">
 
   <div id="divAutoName">
-    <label for="brand">Marca:</label>
+    <label class="autoName">Marca:</label>
 
     <input type="text"  class="autoName" id="brand" name="brand" placeholder="es.(ferrari)" list="autoBrand" required>
-    <label for="model">Modello:</label>
+    <label class="autoName">Modello:</label>
     <input class="autoName" type="text" id="model" name="model" placeholder="es.(california)"  required>
   </div>
 
 
   <div id="divImage">
-    <label>Foto Auto</label>
+    <label class="autoName">Foto Auto</label>
     <br>
     <img id="img_prev" src="#" alt="your image" />
     <br>
     <input id="image_path" name="image_path" type='file' value="" maxlength="255" onchange="readURL(this); " accept=".jpg" required/>
-  </div>
-
-  <div id="divButton">
-    <input type="submit" value="Aggiungi Auto" id="buttonAddCar">
   </div>
 
 
@@ -111,6 +107,10 @@
   </table>
 
 
+
+  <div id="divButton">
+    <input type="submit" value="Aggiungi Auto" id="buttonAddCar">
+  </div>
 </form>
 <hr>
 <%@include file="../fragments/footerJSP.jsp"%>
