@@ -26,9 +26,8 @@ public class Admin extends User {
 
    * @param recoveryEmail newProperty.
    */
-  public Admin(String id, String name, String surname, String email,
-               String password, String recoveryEmail) {
-    super(id, name, surname, email, password);
+  public Admin(String id, String name, String surname, String email, String recoveryEmail) {
+    super(id, name, surname, email);
     this.recoveryEmail = recoveryEmail;
   }
 
@@ -71,7 +70,6 @@ public class Admin extends User {
         + ", name='" + name + '\''
         + ", surname='" + surname + '\''
         + ", email='" + email + '\''
-        + ", password='" + password + '\''
         + '}';
   }
 }
