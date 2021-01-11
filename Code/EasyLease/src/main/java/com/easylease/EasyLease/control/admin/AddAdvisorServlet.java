@@ -84,7 +84,7 @@ public class AddAdvisorServlet extends HttpServlet {
           //created the advisor id and checking if is it already into the database
           String advisor_id = checkID();
 
-          Advisor advisor = new Advisor(advisor_id, advisor_name, advisor_surname, advisor_email, advisor_password, hireDate);
+          Advisor advisor = new Advisor(advisor_id, advisor_name, advisor_surname, advisor_email, hireDate);
 
           advisorDAO.insert(advisor);
 
@@ -126,14 +126,14 @@ public class AddAdvisorServlet extends HttpServlet {
   private boolean checkAdvisor(String advisor_name, String advisor_surname,
                                String advisor_email, java.util.Date hireDate, String advisor_password){
 
-    List<Advisor> advisors=advisorDAO.retrieveAll();
-    boolean Advisor_ok=true;
+    List<Advisor> advisors = advisorDAO.retrieveAll();
+    boolean Advisor_ok = true;
     if(advisors!=null) {
       for (int i = 0; i < advisors.size(); i++) {
         Advisor a = advisors.get(i);
         if (a.getName().equalsIgnoreCase(advisor_name) && a.getSurname().equalsIgnoreCase(advisor_surname)
-                && a.getEmail().equalsIgnoreCase(advisor_email) && a.getHireDate().compareTo(hireDate) == 0
-                && a.getPassword().equalsIgnoreCase(advisor_password)) {
+                && a.getEmail().equalsIgnoreCase(advisor_email) && a.getHireDate().compareTo(hireDate) == 0)
+        {
           Advisor_ok = false;
         }
       }

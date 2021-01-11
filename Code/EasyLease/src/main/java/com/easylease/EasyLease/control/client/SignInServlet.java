@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "SignInServlet")
+@WebServlet(name = "SignInServlet", urlPatterns = "/SignInServlet")
 public class SignInServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
@@ -28,11 +28,10 @@ public class SignInServlet extends HttpServlet {
     client.setName(request.getParameter("name"));
     client.setSurname(request.getParameter("surname"));
     client.setEmail(request.getParameter("email"));
-    client.setBirthPlace(request.getParameter("birthplace"));
-    String password = request.getParameter("password");
+    client.setBirthPlace(request.getParameter("bithplace"));
     try {
       client.setBirthDate(new SimpleDateFormat(
-          "dd/MM/yyyy").parse((request.getParameter("birthdate"))));
+          "dd/MM/yyyy").parse((request.getParameter("bithdate"))));
     } catch (ParseException e) {
       System.out.println(e.getMessage());
     }
@@ -42,9 +41,9 @@ public class SignInServlet extends HttpServlet {
     client.setStreet(request.getParameter("street"));
 
     DBClientDAO dao = (DBClientDAO) DBClientDAO.getInstance();
-    dao.insert(client, password);
+    dao.insert(client, request.getParameter("password"));
 
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/loginJSP.jsp");
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/loginJSP.jsp");
     dispatcher.forward(request, response);
   }
 }

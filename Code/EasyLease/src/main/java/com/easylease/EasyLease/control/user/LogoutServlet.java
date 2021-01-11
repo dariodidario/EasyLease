@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "LogoutServlet")
+@WebServlet(name = "LogoutServlet", urlPatterns = "/LogoutServlet")
 public class LogoutServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
@@ -20,7 +20,7 @@ public class LogoutServlet extends HttpServlet {
       HttpServletResponse response) throws ServletException, IOException {
     request.getSession().removeAttribute("user");
     request.getSession().removeAttribute("role");
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/homePageJSP.jsp");
     dispatcher.forward(request, response);
   }
 }

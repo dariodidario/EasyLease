@@ -82,7 +82,7 @@
   Iterator<Car> it= carList.iterator();
   while(it.hasNext()){Car car = it.next();%>
   <div class="obj">
-    <a href="${pageContext.request.contextPath}/ViewCarServlet?ID=<%=car.getId() %>"><img src="./foto/<%=car.getImage() %>"></a><br>
+    <a href="${pageContext.request.contextPath}/ViewCarServlet?model=<%=car.getModel() %>"><img src="${pageContext.request.contextPath}/img/<%=car.getImage() %>"></a><br>
     <%= car.getBrand() + " " + car.getModel()%> -
       da <%= car.getPrice()%>&euro;
   </div>

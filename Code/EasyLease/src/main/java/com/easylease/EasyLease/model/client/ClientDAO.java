@@ -27,7 +27,7 @@ public interface ClientDAO {
    */
   List<Client> retrieveAll();
 
-  String retrievePasswordByMail(String mail);
+  String retrievePasswordByEmail(String mail);
 
   /**
    * This method insert in the DB a new Client.

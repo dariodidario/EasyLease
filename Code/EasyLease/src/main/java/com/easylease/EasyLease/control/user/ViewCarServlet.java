@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "ViewCarServlet")
+@WebServlet(name = "ViewCarServlet", urlPatterns = "/ViewCarServlet")
 public class ViewCarServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
@@ -20,13 +20,13 @@ public class ViewCarServlet extends HttpServlet {
 
   protected void doGet(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
-    DBCarDAO dao = DBCarDAO.getInstance();
+    DBCarDAO dao = (DBCarDAO) DBCarDAO.getInstance();
     String model = request.getParameter("model");
     request.removeAttribute("model");
     Car car;
-    car = dao.retriveByModel(model);
-    request.getSession().setAttribute("car", car);
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/viewCarJSP.jsp");
+    car = dao.retrieveByModel(model);
+    request.setAttribute("car", car);
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/viewCarJSP.jsp");
     dispatcher.forward(request, response);
   }
 }

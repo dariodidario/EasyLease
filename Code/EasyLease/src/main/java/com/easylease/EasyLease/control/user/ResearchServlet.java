@@ -26,7 +26,7 @@ public class ResearchServlet extends HttpServlet {
     List<String> listaMarche = new ArrayList<>();
     List<String> listaModelli = new ArrayList<>();
     if (tipologia != null && !tipologia.equals("0")) {
-      List<Car> carList = DBCarDAO.getInstance().retriveByType(tipologia);
+      List<Car> carList = DBCarDAO.getInstance().retrieveByType(tipologia);
       carList.removeIf(car -> !car.getVisibility());
       if (marca != null && !marca.equals("0")) {
         for (Car car : carList ) {

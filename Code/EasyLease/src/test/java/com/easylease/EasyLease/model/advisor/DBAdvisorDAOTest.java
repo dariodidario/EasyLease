@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 class DBAdvisorDAOTest {
   Advisor advisor = new Advisor("AD12DD2", "Marco", "Montemagno", "m.marco@gmail.com",
-      "password", new GregorianCalendar(2021, JANUARY, 1).getTime());
+      new GregorianCalendar(2021, JANUARY, 1).getTime());
   DBAdvisorDAO dbAdvisorDAO = mock(DBAdvisorDAO.class);
 
   @Test

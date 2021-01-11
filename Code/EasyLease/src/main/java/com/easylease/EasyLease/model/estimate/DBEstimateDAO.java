@@ -236,7 +236,7 @@ public class DBEstimateDAO implements  EstimateDAO {
       result.setPeriod(rs.getInt("period"));
       result.setAdvisor(advisor.retrieveById(rs.getString("id_advisor")));
       result.setClient(client.retrieveById(rs.getString("id_client")));
-      result.setCar(car.retriveById(rs.getString("id_car")));
+      result.setCar(car.retrieveById(rs.getString("id_car")));
       result.setState(rs.getString("state"));
       result.setRequestDate(rs.getDate("request_date")!= null ? new java.util.Date(rs.getDate("request_date").getTime()) : null);
       result.setResponseDate(rs.getDate("response_date")!= null ? new java.util.Date(rs.getDate("response_date").getTime()) : null);

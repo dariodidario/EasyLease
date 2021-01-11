@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +23,7 @@ class DBAdminDAOTest {
   @BeforeAll
   static void setUp() {
     admin = new Admin("AD12345", "Antonio", "Sarro", "test@gmail.com",
-        "testing", "testing@gmail.com");
+        "testing@gmail.com");
     admins = new ArrayList<>();
     admins.add(admin);
   }
@@ -41,20 +42,25 @@ class DBAdminDAOTest {
 
   @Test
   void retrieveByWrongId() {
-    when(dbAdminDAO.retrieveById("AP12345")).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> dbAdminDAO.retrieveById("AP12345"));
+    when(dbAdminDAO.retrieveById("AP12345")).thenThrow(
+        IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class,
+        () -> dbAdminDAO.retrieveById("AP12345"));
   }
 
   @Test
   void retrieveByNullId() {
-    when(dbAdminDAO.retrieveById(null)).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> dbAdminDAO.retrieveById(null));
+    when(dbAdminDAO.retrieveById(null)).thenThrow(
+        IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class,
+        () -> dbAdminDAO.retrieveById(null));
   }
 
   @Test
   void retrieveByEmptyId() {
     when(dbAdminDAO.retrieveById("")).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> dbAdminDAO.retrieveById(""));
+    assertThrows(IllegalArgumentException.class,
+        () -> dbAdminDAO.retrieveById(""));
   }
 
   @Test
@@ -71,20 +77,26 @@ class DBAdminDAOTest {
 
   @Test
   void retrieveByWrongEmail() {
-    when(dbAdminDAO.retrieveByEmail("testgmailcom")).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> dbAdminDAO.retrieveByEmail("testgmailcom"));
+    when(dbAdminDAO.retrieveByEmail("testgmailcom")).thenThrow(
+        IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class,
+        () -> dbAdminDAO.retrieveByEmail("testgmailcom"));
   }
 
   @Test
   void retrieveByNullEmail() {
-    when(dbAdminDAO.retrieveByEmail(null)).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> dbAdminDAO.retrieveByEmail(null));
+    when(dbAdminDAO.retrieveByEmail(null)).thenThrow(
+        IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class,
+        () -> dbAdminDAO.retrieveByEmail(null));
   }
 
   @Test
   void retrieveByEmptyEmail() {
-    when(dbAdminDAO.retrieveByEmail("")).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> dbAdminDAO.retrieveByEmail(""));
+    when(dbAdminDAO.retrieveByEmail("")).thenThrow(
+        IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class,
+        () -> dbAdminDAO.retrieveByEmail(""));
   }
 
   @Test

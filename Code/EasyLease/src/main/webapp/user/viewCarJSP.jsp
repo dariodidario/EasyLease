@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
-  Car car=(Car)request.getAttribute("car");
+  Car car=(Car) request.getAttribute("car");
 %>
 
 <!DOCTYPE html>
@@ -69,7 +69,7 @@
             <h4>Trasmissione</h4>
           </div>
           <div class="col">
-            <h4><%=car.getTransmision()%>
+            <h4><%=car.getTransmission()%>
             </h4>
           </div>
         </div>
@@ -185,7 +185,7 @@
             <h4>Trasmissione</h4>
           </div>
           <div class="col">
-            <h4><%=car.getTransmision()%>
+            <h4><%=car.getTransmission()%>
             </h4>
           </div>
         </div>
@@ -298,7 +298,7 @@
             <h4>Trasmissione</h4>
           </div>
           <div class="col">
-            <h4><%=car.getTransmision()%>
+            <h4><%=car.getTransmission()%>
             </h4>
           </div>
         </div>
@@ -411,7 +411,7 @@
             <h4>Trasmissione</h4>
           </div>
           <div class="col">
-            <h4><%=car.getTransmision()%>
+            <h4><%=car.getTransmission()%>
             </h4>
           </div>
         </div>

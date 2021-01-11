@@ -10,7 +10,7 @@
             maxIdle="30"
             maxWait="10000"
             username="root"
-            password="master"
+            password="root"
             url="jdbc:mysql://localhost:3306/easylease?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"
     />
 </Context>

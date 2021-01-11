@@ -1,6 +1,7 @@
 package com.easylease.EasyLease.model.admin;
 
 import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.client.Client;
 
 
 import java.sql.Connection;
@@ -54,6 +55,35 @@ public class DBAdminDAO implements AdminDAO {
   public Admin retrieveByEmail(String email) {
     final String query = "SELECT * FROM users WHERE email = ?";
     return getAdmin(email, query);
+  }
+
+  @Override
+  public String retrievePasswordByEmail(String email) {
+    if((email==null)){
+      throw new IllegalArgumentException();
+    }
+    PreparedStatement preparedStatement = null;
+    Admin admin = new Admin();
+    String result = "";
+    final String query = "SELECT pwd FROM users WHERE account_type = ? AND email = ?";
+
+    try{
+      preparedStatement = connection.prepareStatement(query);
+      preparedStatement.setString(1, "Amministratore");
+      preparedStatement.setString(2, email);
+      ResultSet rs = preparedStatement.executeQuery();
+
+      if(rs.next()){
+        result = rs.getString("pwd");
+      } else{
+        result = null;
+      }
+
+      return result;
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+      return null;
+    }
   }
 
   @Override

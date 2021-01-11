@@ -37,7 +37,7 @@ public class HistoryClientServlet extends HttpServlet {
     HttpSession session = request.getSession();
     if (!(session == null)) {
       try {
-        if (!(session.getAttribute("role").equals("Client"))
+        if (!(session.getAttribute("role").equals("client"))
             || session.getAttribute("role") == null) {
           throw new ServletException("Section dedicated to a registered user "
               + "on the platform correctly as a Client");
@@ -47,7 +47,7 @@ public class HistoryClientServlet extends HttpServlet {
         //Client client = clDao.retrieveById("CLcapNK");
         String role = (String) request.getSession().getAttribute("role");
         //role = "Cliente";
-        if (!(client == null) && role.equals("Cliente")) {
+        if (!(client == null) && role.equals("client")) {
           try {
             DBOrderDAO dbOrderDao = (DBOrderDAO) DBOrderDAO.getInstance();
             DBEstimateDAO dbEstimateDao = (DBEstimateDAO) DBEstimateDAO.getInstance();

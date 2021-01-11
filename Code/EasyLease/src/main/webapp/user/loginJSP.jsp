@@ -15,16 +15,16 @@
 <br/>
 <center>
   <div style="text-align: center; width: 70%;">
-<form action="jetbrains://idea/navigate/reference?project=EasyLease&fqn=com.easylease.EasyLease.control.user.LoginServlet" method="POST">
+<form action="${pageContext.request.contextPath}/LoginServlet" method="post">
   <div class="form-group">
-    <label for="exampleInputEmail1"></label><br>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <label for="email"></label><br>
+    <input type="email" name="userEmail" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1"></label> <br>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    <label for="password"></label> <br>
+    <input type="password" class="form-control" id="password" placeholder="Password" name="userPassword">
   </div> <br>
-  <a href="../client/signInJSP.jsp">Registrati</a>
+  <a href="${pageContext.request.contextPath}/client/signInJSP.jsp">Registrati</a>
   <br><br>
   <button type="submit" class="btn btn-primary">Login</button>
   <input type="reset" class="btn btn-primary" value="Cancella">

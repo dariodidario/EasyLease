@@ -79,7 +79,7 @@ public class DBClientDAO implements ClientDAO {
     }
     PreparedStatement preparedStatement = null;
     Client c = new Client();
-    final String query = "SELECT * FROM client WHERE email = ?";
+    final String query = "SELECT * FROM users WHERE email = ?";
     try {
       preparedStatement = connection.prepareStatement(query);
       preparedStatement.setString(1, email);
@@ -135,7 +135,7 @@ public class DBClientDAO implements ClientDAO {
   }
 
   @Override
-  public String retrievePasswordByMail(String mail){
+  public String retrievePasswordByEmail(String mail){
     if((mail==null)){
       throw new IllegalArgumentException();
     }

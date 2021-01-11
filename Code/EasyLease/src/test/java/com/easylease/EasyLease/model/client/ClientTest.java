@@ -21,8 +21,7 @@ class ClientTest {
     Calendar calBdate = new GregorianCalendar(1998, 8, 9);
     Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
-        "Rossi", "m.rossi@gmail.com",
-        "mrossi", "Avellino", bdate,
+        "Rossi", "m.rossi@gmail.com", "Avellino", bdate,
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
     assertEquals("Avellino", cliente.getBirthPlace());
   }
@@ -32,8 +31,7 @@ class ClientTest {
     Calendar calBdate = new GregorianCalendar(1998, 8, 9);
     Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
-        "Rossi", "m.rossi@gmail.com",
-        "mrossi", "Avellino", bdate,
+        "Rossi", "m.rossi@gmail.com", "Avellino", bdate,
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
     cliente.setBirthPlace("Atripalda");
     assertEquals("Atripalda", cliente.getBirthPlace());
@@ -44,8 +42,7 @@ class ClientTest {
     Calendar calBdate = new GregorianCalendar(1998, 8, 9);
     Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
-        "Rossi", "m.rossi@gmail.com",
-        "mrossi", "Avellino", bdate,
+        "Rossi", "m.rossi@gmail.com", "Avellino", bdate,
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
     Calendar calExpectedDate = new GregorianCalendar(1998, 8, 9);
     Date expectedDate = calBdate.getTime();
@@ -57,8 +54,7 @@ class ClientTest {
     Calendar calBdate = new GregorianCalendar(1998, 8, 9);
     Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
-        "Rossi", "m.rossi@gmail.com",
-        "mrossi", "Avellino", bdate,
+        "Rossi", "m.rossi@gmail.com", "Avellino", bdate,
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
     Calendar calDateToSet = new GregorianCalendar(1994, 4, 12);
     Date dateToSet = calDateToSet.getTime();
@@ -71,8 +67,7 @@ class ClientTest {
     Calendar calBdate = new GregorianCalendar(1998, 8, 9);
     Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
-        "Rossi", "m.rossi@gmail.com",
-        "mrossi", "Avellino", bdate,
+        "Rossi", "m.rossi@gmail.com", "Avellino", bdate,
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
     assertEquals("Uomo", cliente.getKind());
   }
@@ -82,8 +77,7 @@ class ClientTest {
     Calendar calBdate = new GregorianCalendar(1998, 8, 9);
     Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
-        "Rossi", "m.rossi@gmail.com",
-        "mrossi", "Avellino", bdate,
+        "Rossi", "m.rossi@gmail.com", "Avellino", bdate,
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
     cliente.setKind("Altro");
     assertEquals("Altro", cliente.getKind());
@@ -94,8 +88,7 @@ class ClientTest {
     Calendar calBdate = new GregorianCalendar(1998, 8, 9);
     Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
-        "Rossi", "m.rossi@gmail.com",
-        "mrossi", "Avellino", bdate,
+        "Rossi", "m.rossi@gmail.com", "Avellino", bdate,
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
     assertEquals("Avellino", cliente.getCity());
   }
@@ -105,8 +98,7 @@ class ClientTest {
     Calendar calBdate = new GregorianCalendar(1998, 8, 9);
     Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
-        "Rossi", "m.rossi@gmail.com",
-        "mrossi", "Avellino", bdate,
+        "Rossi", "m.rossi@gmail.com", "Avellino", bdate,
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
     cliente.setCity("Nola");
     assertEquals("Nola", cliente.getCity());
@@ -117,8 +109,7 @@ class ClientTest {
     Calendar calBdate = new GregorianCalendar(1998, 8, 9);
     Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
-        "Rossi", "m.rossi@gmail.com",
-        "mrossi", "Avellino", bdate,
+        "Rossi", "m.rossi@gmail.com", "Avellino", bdate,
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
     assertEquals("83020", cliente.getPc());
   }
@@ -128,8 +119,7 @@ class ClientTest {
     Calendar calBdate = new GregorianCalendar(1998, 8, 9);
     Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
-        "Rossi", "m.rossi@gmail.com",
-        "mrossi", "Avellino", bdate,
+        "Rossi", "m.rossi@gmail.com", "Avellino", bdate,
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
     cliente.setPc("89090");
     assertEquals("89090", cliente.getPc());
@@ -140,8 +130,7 @@ class ClientTest {
     Calendar calBdate = new GregorianCalendar(1998, 8, 9);
     Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
-        "Rossi", "m.rossi@gmail.com",
-        "mrossi", "Avellino", bdate,
+        "Rossi", "m.rossi@gmail.com", "Avellino", bdate,
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
     assertEquals("Contrada Petrulli 3", cliente.getStreet());
   }
@@ -151,8 +140,7 @@ class ClientTest {
     Calendar calBdate = new GregorianCalendar(1998, 8, 9);
     Date bdate = calBdate.getTime();
     Client cliente = new Client("CLABC12", "Mario",
-        "Rossi", "m.rossi@gmail.com",
-        "mrossi", "Avellino", bdate,
+        "Rossi", "m.rossi@gmail.com", "Avellino", bdate,
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
     cliente.setStreet("Via Provinciale 28");
     assertEquals("Via Provinciale 28", cliente.getStreet());

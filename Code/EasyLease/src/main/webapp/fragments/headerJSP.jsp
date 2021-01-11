@@ -17,7 +17,7 @@
 <nav class="navbar navbar-expand-sm bg-dangers navbar-danger">
   <!-- Brand -->
   <a class="navbar-brand" href="${pageContext.request.contextPath}/user/homePageJSP.jsp">
-      <div class="headerLogo"> <img src="${pageContext.request.contextPath}/foto/logoTrasparente.png"></div></a>
+      <div class="headerLogo"> <img src="${pageContext.request.contextPath}/img/misc/logoTrasparente.png"></div></a>
 
   <!-- Links -->
   <ul class="navbar-nav">
@@ -31,40 +31,38 @@
     <!-- Dropdown -->
 
           <%
-              User user = new User();
-              user.setName("name");
-          if (user == null){%>
+              String roleUser = (String) request.getSession().getAttribute("role");
+          if (roleUser == null){%>
       <ul class="navbar-nav">
           <li class="nav-item">
-              <a class="nav-link" href="#">Login</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="#">Registrati</a>
-          </li><%}
-          else{%>
+              <a class="nav-link" href="${pageContext.request.contextPath}/ViewLoginServlet">Login</a>
+        </li>
+      <li class="nav-item">
+        <a class="nav-link" href="${pageContext.request.contextPath}/ViewSignInServlet">Registrati</a>
+      </li><%}
+    else{%>
       <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-           <img src="${pageContext.request.contextPath}/foto/userImage3.png" class="userImg">
+           <img src="${pageContext.request.contextPath}/img/misc/userImage3.png" class="userImg">
           </a>
-      <%if (user instanceof Client) {%>
-                  }
+      <%if (roleUser.equals("client")) {%>
               <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Area Utente</a>
-              <a class="dropdown-item" href="#">Ordini e Preventivi</a>
-              <a class="dropdown-item" href="#">Logout</a><%}
-          else if (user instanceof Advisor) {%>
+              <a class="dropdown-item" href="">Area Utente</a>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/HistoryClientServlet">Ordini e Preventivi</a>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/LogoutServlet">Logout</a><%}
+          else if (roleUser.equals("advisor")) {%>
                   <div class="dropdown-menu">
                   <a class="dropdown-item" href="#">Area Utente</a>
-              <a class="dropdown-item" href="#">Ordini e Preventivi</a>
-              <a class="dropdown-item" href="#">Visualizza Clienti</a>
-              <a class="dropdown-item" href="#">Logout</a><%}
-          else {%>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/HistoryAdvisorServlet">Ordini e Preventivi</a>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/ClientsServlet">Visualizza Clienti</a>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/LogoutServlet">Logout</a><%}
+          else if (roleUser.equals("admin")){%>
                       <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Area Utente</a>
-              <a class="dropdown-item" href="#">Aggiungi consulente</a>
-              <a class="dropdown-item" href="#">Aggiungi auto</a>
-              <a class="dropdown-item" href="#">Visualizza Consulenti</a>
-              <a class="dropdown-item" href="#">Logout</a><%}}%>
+                        <a class="dropdown-item" href="#">Area Utente</a>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/ViewAddAdvisorServlet">Aggiungi consulente</a>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/ViewAddCarServlet">Aggiungi auto</a>
+              <a class="dropdown-item" href="">Visualizza Consulenti</a>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/LogoutServlet">Logout</a><%}}%>
     </li>
   </ul>
 </nav>

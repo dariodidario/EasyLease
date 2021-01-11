@@ -28,6 +28,14 @@ public interface AdminDAO {
    */
   Admin retrieveByEmail(String email);
 
+  /***
+   * Retrieve the hashed psw of Admin from the DB.
+   *
+   * @param email of the {@link Admin}
+   * @return the hashed psw from the DB.
+   */
+  String retrievePasswordByEmail(String email);
+
   /**
    * Search for all {@link Admin}s in the Database.
    *

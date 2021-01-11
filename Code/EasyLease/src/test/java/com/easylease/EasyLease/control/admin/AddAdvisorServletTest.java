@@ -37,7 +37,7 @@ class AddAdvisorServletTest {
         session= mock(HttpSession.class);
         advisorDAO= mock(AdvisorDAO.class);
         advisors=new ArrayList<>();
-        advisors.add(new Advisor("ADJdybc", "Clementina", "Rossa", "rossa.clementina@frutta.com", "pass", Date.valueOf("2020-08-12")));
+        advisors.add(new Advisor("ADJdybc", "Clementina", "Rossa", "rossa.clementina@frutta.com", Date.valueOf("2020-08-12")));
         when(advisorDAO.retrieveAll()).thenReturn(advisors);
         doAnswer(invocation -> {
             return null;
@@ -246,7 +246,6 @@ class AddAdvisorServletTest {
         when(request.getParameter("date_valid")).thenReturn("true");
         when(request.getParameter("password_valid")).thenReturn("true");
         when(request.getParameter("confirm_valid")).thenReturn("true");
-        when(servlet.checkAdvisor(any(),any(),any(),any(),any())).thenReturn(false);
 
         servlet.doGet(request, response);
         assertEquals("admin",request.getSession().getAttribute("role"));

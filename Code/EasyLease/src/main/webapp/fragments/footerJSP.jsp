@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" %>
 <html>
 <head>
     <style>
@@ -32,7 +32,7 @@
 
 <body>
 <div class="footer" id="footer">
-    <div class="nOrder"> Sono stati effettuati già <label id="numOrder"></label> ordini su EasyLease quest'anno!</div>
+    <div class="nOrder"> Sono stati effettuati gia' <label id="numOrder"></label> ordini su EasyLease quest'anno!</div>
     <div class="text"> <br>
         © 2021 EasyLease - created by C11 team and lead by Dario di Dario
     </div>

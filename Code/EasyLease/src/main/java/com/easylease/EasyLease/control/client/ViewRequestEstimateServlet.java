@@ -23,7 +23,7 @@ public class ViewRequestEstimateServlet extends HttpServlet {
     else {
       String idCar = request.getParameter("idCar");
       request.getSession()
-          .setAttribute("car", DBCarDAO.getInstance().retriveById(idCar));
+          .setAttribute("car", DBCarDAO.getInstance().retrieveById(idCar));
       request.getSession().setAttribute("optionalCarList",
           DBOptionalDAO.getInstance().retrieveByType("Auto"));
       request.getSession().setAttribute("optionalContractList",

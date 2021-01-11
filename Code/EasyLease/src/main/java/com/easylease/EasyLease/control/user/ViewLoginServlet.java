@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "ViewLoginServlet")
+@WebServlet(name = "ViewLoginServlet", urlPatterns = "/ViewLoginServlet")
 public class ViewLoginServlet extends HttpServlet {
 
   public void doPost(HttpServletRequest request,
@@ -19,7 +19,7 @@ public class ViewLoginServlet extends HttpServlet {
 
   public void doGet(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/loginJSP.jsp");
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/loginJSP.jsp");
     dispatcher.forward(request, response);
 
   }

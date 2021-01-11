@@ -1,5 +1,6 @@
 package com.easylease.EasyLease.control.user;
 
+import com.easylease.EasyLease.control.utility.PasswordHashing;
 import com.easylease.EasyLease.model.admin.DBAdminDAO;
 import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
 import com.easylease.EasyLease.model.client.DBClientDAO;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "LoginServlet")
+@WebServlet(name = "LoginServlet", urlPatterns = "/LoginServlet")
 public class LoginServlet extends HttpServlet {
 
   public void doPost(HttpServletRequest request,
@@ -26,41 +27,41 @@ public class LoginServlet extends HttpServlet {
     DBAdminDAO adminDao = (DBAdminDAO) DBAdminDAO.getInstance();
     DBAdvisorDAO advisorDao = (DBAdvisorDAO) DBAdvisorDAO.getIstance();
     DBClientDAO clientDao = (DBClientDAO) DBClientDAO.getInstance();
-    String email = (String) request.getAttribute("email");
-    String password = (String) request.getAttribute("password");
+    String email = (String) request.getParameter("userEmail");
+    String password = (String) request.getParameter("userPassword");
     try {
       String passwordAd = adminDao.retrievePasswordByEmail(email);
       if (passwordAd != null) {
-        if (passwordAd.equals(password)) {
+        if (PasswordHashing.passwordAuthenticator(password, passwordAd, "SHA-1")) {
           request.getSession().setAttribute("role", "admin");
           request.getSession().setAttribute("user", adminDao.retrieveByEmail(email));
           request.removeAttribute("email");
           request.removeAttribute("password");
-          RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+          RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/homePageJSP.jsp");
           dispatcher.forward(request, response);
         }
       }
       else {
         String passwordAdv = advisorDao.retrievePasswordByEmail(email);
         if (passwordAdv != null) {
-          if (passwordAdv.equals(password)) {
+          if (PasswordHashing.passwordAuthenticator(password, passwordAdv, "SHA-1")) {
             request.getSession().setAttribute("role", "advisor");
             request.getSession().setAttribute("user", advisorDao.retrieveByEmail(email));
             request.removeAttribute("email");
             request.removeAttribute("password");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/homePageJSP.jsp");
             dispatcher.forward(request, response);
           }
         }
         else {
           String passwordCl = clientDao.retrievePasswordByEmail(email);
           if (passwordCl != null) {
-            if (passwordCl.equals(password)) {
+            if (PasswordHashing.passwordAuthenticator(password, passwordCl, "SHA-1")) {
               request.getSession().setAttribute("role", "client");
               request.getSession().setAttribute("user", clientDao.retrieveByEmail(email));
               request.removeAttribute("email");
               request.removeAttribute("password");
-              RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+              RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/homePageJSP.jsp");
               dispatcher.forward(request, response);
             }
           }
@@ -68,7 +69,7 @@ public class LoginServlet extends HttpServlet {
             request.removeAttribute("email");
             request.removeAttribute("password");
             RequestDispatcher dispatcher;
-            dispatcher = getServletContext().getRequestDispatcher("/loginJSP.jsp");
+            dispatcher = getServletContext().getRequestDispatcher("/user/homePageJSP.jsp");
             dispatcher.forward(request, response);
           }
         }

@@ -13,7 +13,7 @@ class DBClientDAOTest {
   Calendar calBdate = new GregorianCalendar(1998, 8, 9);
   Date bdate = calBdate.getTime();
   Client cliente = new Client("CLABC12", "Mario", "Rossi", "m.rossi@gmail.com",
-      "mrossi", "Avellino", bdate, "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
+      "Avellino", bdate, "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
 
   DBClientDAO dbClientDao = Mockito.mock(DBClientDAO.class);
 
@@ -83,35 +83,34 @@ class DBClientDAOTest {
 
   @Test
   public void insert_CorrectClientGiven_ExpectedTrue() {
-    Mockito.doNothing().when(dbClientDao).insert(cliente);
-    dbClientDao.insert(cliente);
-    Mockito.verify(dbClientDao).insert(cliente);
+    Mockito.doNothing().when(dbClientDao).insert(cliente, "mrossi2");
+    dbClientDao.insert(cliente, "mrossi2");
+    Mockito.verify(dbClientDao).insert(cliente, "mrossi2");
     Mockito.verifyNoMoreInteractions(dbClientDao);
   }
 
   @Test
   public void insert_NullClientGiven_ExpectedException() {
-    Client nullClient = null;
-    Mockito.doThrow(IllegalArgumentException.class).when(dbClientDao).insert(null);
+    Mockito.doThrow(IllegalArgumentException.class).when(dbClientDao).insert(null, null);
     assertThrows(IllegalArgumentException.class, () -> {
-      dbClientDao.insert(nullClient);
+      dbClientDao.insert(null, null);
     });
   }
 
   @Test
   public void update_CorrectClientGiven_ExpectedTrue() {
-    Mockito.doNothing().when(dbClientDao).update(cliente);
-    dbClientDao.update(cliente);
-    Mockito.verify(dbClientDao).update(cliente);
+    Mockito.doNothing().when(dbClientDao).update(cliente, "mrossi2");
+    dbClientDao.update(cliente, "mrossi2");
+    Mockito.verify(dbClientDao).update(cliente, "mrossi2");
     Mockito.verifyNoMoreInteractions(dbClientDao);
   }
 
   @Test
   public void update_NullClientGiven_ExpectedException() {
-    Client nullClient = null;
-    Mockito.doThrow(IllegalArgumentException.class).when(dbClientDao).update(null);
+
+    Mockito.doThrow(IllegalArgumentException.class).when(dbClientDao).update(null, null);
     assertThrows(IllegalArgumentException.class, () -> {
-      dbClientDao.update(nullClient);
+      dbClientDao.update(null,null);
     });
   }
 
@@ -125,10 +124,9 @@ class DBClientDAOTest {
 
   @Test
   public void delete_NullClientGiven_ExpectedException() {
-    Client nullClient = null;
     Mockito.doThrow(IllegalArgumentException.class).when(dbClientDao).delete(null);
     assertThrows(IllegalArgumentException.class, () -> {
-      dbClientDao.delete(nullClient);
+      dbClientDao.delete(null);
     });
   }
 }

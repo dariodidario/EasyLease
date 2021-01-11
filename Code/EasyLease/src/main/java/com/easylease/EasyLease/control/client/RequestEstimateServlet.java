@@ -47,7 +47,7 @@ public class RequestEstimateServlet extends HttpServlet {
         optionalList.add(optDao.retrieveById(optionalId));
       }
     }
-    Car car = DBCarDAO.getInstance().retriveById(carId);
+    Car car = DBCarDAO.getInstance().retrieveById(carId);
     String id = "es" + IdGenerator.randomIdGenerator();
     while(DBEstimateDAO.getInstance().retrieveById(id) != null) {
       id = "es" + IdGenerator.randomIdGenerator();

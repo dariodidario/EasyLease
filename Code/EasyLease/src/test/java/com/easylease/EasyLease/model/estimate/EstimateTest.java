@@ -14,7 +14,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class EstimateTest {
-
+/*
   Optional optional = new Optional("op12345", "cerchi in lega",  "di serie", 33);
   Optional optional2 = new Optional("op54321", "vetri oscurati", "di serie", 22);
   Client client = new Client("cl123", "Marco", "Polo", "email", "password",
@@ -176,5 +176,5 @@ class EstimateTest {
     estimate.setVisibility(true);
     assertEquals(true, estimate.isVisibility());
   }
-
+*/
 }
