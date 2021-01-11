@@ -4,9 +4,21 @@
 <%@ page import="com.easylease.EasyLease.model.optional.DBOptionalDAO" %>
 <%@ page import="com.easylease.EasyLease.model.car.DBCarDAO" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.easylease.EasyLease.model.client.DBClientDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-   /* String idCar = request.getParameter("idCar");*/
+   /*
+   String role = request.getSession().getAttribute("role")
+   if (!role.equals("client")) {
+       response.sendRedirect(((HttpServletRequest)request).getContextPath()+"/HomeServlet");
+   }
+   Client client = (Client)request.getSession().getAttribute("client");
+   Car car = (Car)request.getSession().getAttribute("car");
+   List<Optional> optionalCarList = (List<Optional>)request.getSession().getAttribute("optionalCarList");
+   List<Optional> optionalContractList = (List<Optional>)request.getSession().getAttribute("optionalContractList");
+   * */
+    Client client = DBClientDAO.getInstance().retrieveAll().get(0);
+    request.getSession().setAttribute("user", client);
     request.setAttribute("idCar", "CAbj0kk");
     Car car = DBCarDAO.getInstance().retriveById("CAbj0kk");
     List<Optional> optionalCarList = DBOptionalDAO.getInstance().retrieveByType("Auto");
@@ -16,15 +28,16 @@
 <html>
 <head>
   <title>Richiedi un preventivo</title>
+  <link href="${pageContext.request.contextPath}/client/requestEstimateJSP.css" rel="stylesheet">
 </head>
 <body>
-<link href="./requestEstimateJSP.css" rel="stylesheet">
 
 <div class="RequestEstimateForm">
-    <img src="../foto/newLogo.png" class="logo">
+    <img src="${pageContext.request.contextPath}/foto/newLogo.png" class="logo">
     <div class="EstimateLabel">
         Auto scelta: <%=car.getBrand() + " " + car.getModel()%> </div>
-    <form action='RequestEstimateServlet' method="post">
+    <form action="${pageContext.request.contextPath}/RequestEstimateServlet" method="post">
+        <input type = "hidden" name="carId" value="CAbj0kk">
         <br>Mesi: <select name="Mesi" class="customselect">
             <option value="24" selected>24</option>
             <option value="36">36</option>
@@ -46,6 +59,6 @@
         <br><input type=submit name=submit value="Aggiungi Prodotto" class="EstimateButton">
     </form>
 </div>
+<%@include file="/fragments/footerJSP.jsp"%>
 </body>
-<%@include file="../fragments/footerJSP.jsp"%>
 </html>

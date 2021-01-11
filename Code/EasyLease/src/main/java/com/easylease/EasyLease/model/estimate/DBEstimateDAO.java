@@ -140,9 +140,9 @@ public class DBEstimateDAO implements  EstimateDAO {
     }
     PreparedStatement preparedStatement;
     String insertQuery = "INSERT INTO " + DBEstimateDAO.TABLE_NAME
-        + " (id_estimate, price, id_advisor, id_client, id_car, period,"
+        + "(id_estimate, price, id_advisor, id_client, id_car, period,"
         + " visibility, state, request_date, response_date)"
-        + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?))";
+        + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try {
       preparedStatement = connection.prepareStatement(insertQuery);
       preparedStatement.setString(1, e.getId());
@@ -155,7 +155,7 @@ public class DBEstimateDAO implements  EstimateDAO {
       preparedStatement.setString(8, e.getState());
       preparedStatement.setDate(9, e.getRequestDate()!=null ? new java.sql.Date(e.getRequestDate().getTime()) : null);
       preparedStatement.setDate(10, e.getResponseDate()!=null ? new java.sql.Date(e.getResponseDate().getTime()) : null);
-      preparedStatement.executeQuery();
+      preparedStatement.executeUpdate();
       for (Optional o : e.getOptionalList()) {
         insertOptional(e.getId(), o.getId());
       }
