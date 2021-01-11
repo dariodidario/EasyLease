@@ -1,3 +1,4 @@
+<%@ page import="java.awt.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String role=(String) request.getSession().getAttribute("role");
   if(role==null){%>
@@ -34,17 +35,10 @@
 
 <body>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="admin/addAdvisorJS.js"/>
+<script src="admin/addAdvisorJS.js"></script>
 
 <%@include file="../fragments/headerJSP.jsp"%>
 <form action="AddAdvisorServlet">
-
-
-  <div id="divButton">
-    <input type="submit" value="Aggiungi Consulente" id="buttonAddAdvisor">
-  </div>
-
-
 
 
   <table class="characteristics">
@@ -88,7 +82,9 @@
     </tr>
   </table>
 
-
+  <div id="divButton">
+    <input type="submit" value="Aggiungi Consulente " id="buttonAddAdvisor">
+  </div>
 </form>
 <hr>
 <%@include file="../fragments/footerJSP.jsp"%>
