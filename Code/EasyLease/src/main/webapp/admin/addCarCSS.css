@@ -1,80 +1,282 @@
+@media (max-width: 830px) and (orientation: landscape)  {
+    hr{
+        border: 1px solid #dec717;
+        width: 80%;
+        alignment: left;
+        margin-left: 20%;
+        position: relative;
+        margin-top: 30px;
+    }
+    input.carDetail {
+        width: 40%;
+        border-bottom: solid #dec717;
+        font-size: 2vw;
+    }
+    input.carDetail:hover {
+        background: #9b334e;
+    }
 
-hr{
-    border: 1px solid #dec717;
-    width: 50%;
-    alignment: left;
-    margin-left: 10%;
-    position: absolute;
-    bottom: 20%;
-}
-input.carDetail {
-    width: 40%;
-    background: #9b334e;
-    font-size: 0.8vw;
-}
-input.carDetail:hover {
-    background: #800000;
+    label.carDetail{
+        font-size: 3vw;
+    }
+
+    input.autoName{
+        margin-top: 10px;
+        width: 60%;
+        background: none;
+        border: none;
+        font-size: 3vw;
+        border-bottom: solid #dec717;
+    }
+
+    label.autoName{
+        margin-top: 10px;
+        font-size: 3vw;
+    }
+
+    table.characteristics{
+        position: relative;
+        margin-top: 15px;
+        margin-left: 25%;
+        background: white;
+        width: 70%;
+        height: 30%;
+        border: 2px solid #dec717;
+
+    }
+    #buttonAddCar:hover{
+        background: #800000;
+    }
+    #buttonAddCar{
+        background: #9b334e;
+        color: #d0d0d0;
+        position: relative;
+        margin-left: 45%;
+        margin-top: 50px;
+        width: 30%;
+        font-size: 2.5vw;
+        border-bottom:2px solid #dec717;
+        border-radius: 15px;
+        padding: 10px;
+    }
+    #divAutoName{
+        position: relative;
+        margin-top: 10px;
+        margin-left: 25%;
+        width: 40%;
+    }
+    #divImage{
+        margin-top: 20px;
+        position: relative;
+        margin-left: 25%;
+        width: 100%;
+    }
+    #img_prev{
+        margin-top: 5px;
+        margin-bottom: 15px;
+        max-width: 100%;
+        max-height: 80%;
+        position: relative;
+        left: 5%;
+    }
+    input[type=file]{
+        font-size: 2vw;
+        font-family: Arial;
+        font-style: normal;
+    }
+    input[type=file]::-webkit-file-upload-button {
+        border-bottom: medium solid #dec717;
+        border-radius: 20px;
+        width: 70%;
+        font-size: 3vw;
+        color: #d0d0d0;
+        padding: 10px;
+        background-color: #9b334e;
+    }
+    input[type=file]::-webkit-file-upload-button:hover {
+        background-color: #800000;
+    }
 }
 
-label.carDetail{
-    font-size: 1.5vw;
-}
-input.autoName{
-    width: 15%;
-    background: none;
-    border: none;
-    border-bottom: solid #dec717;
+
+@media (max-width: 1024px) and (orientation: portrait) {
+    hr{
+        border: 1px solid #dec717;
+        width: 80%;
+        alignment: left;
+        margin-left: 20%;
+        position: relative;
+        margin-top: 30px;
+    }
+    input.carDetail {
+        width: 40%;
+        border-bottom: solid #dec717;
+        font-size: 2vw;
+    }
+    input.carDetail:hover {
+        background: #9b334e;
+    }
+
+    label.carDetail{
+        font-size: 3vw;
+    }
+
+    input.autoName{
+        margin-top: 10px;
+        width: 60%;
+        background: none;
+        border: none;
+        font-size: 3vw;
+        border-bottom: solid #dec717;
+    }
+
+    label.autoName{
+        margin-top: 10px;
+        font-size: 3vw;
+    }
+
+    table.characteristics{
+        position: relative;
+        margin-top: 15px;
+        margin-left: 25%;
+        background: white;
+        width: 70%;
+        height: 30%;
+        border: 2px solid #dec717;
+
+    }
+    #buttonAddCar:hover{
+        background: #800000;
+    }
+    #buttonAddCar{
+        background: #9b334e;
+        color: #ffffff;
+        position: relative;
+        margin-left: 45%;
+        margin-top: 50px;
+        width: 30%;
+        font-size: 2.5vw;
+        border-bottom:2px solid #dec717;
+        border-radius: 15px;
+        padding: 10px;
+    }
+    #divAutoName{
+        position: relative;
+        margin-top: 10px;
+        margin-left: 25%;
+        width: 40%;
+    }
+    #divImage{
+        margin-top: 20px;
+        position: relative;
+        margin-left: 25%;
+        width: 100%;
+    }
+    #img_prev{
+        margin-top: 5px;
+        margin-bottom: 15px;
+        max-width: 100%;
+        max-height: 80%;
+        position: relative;
+        left: 5%;
+    }
+    input[type=file]{
+        font-size: 2vw;
+        font-family: Arial;
+        font-style: normal;
+    }
+    input[type=file]::-webkit-file-upload-button {
+        border-bottom: medium solid #dec717;
+        border-radius: 20px;
+        width: 70%;
+        font-size: 3vw;
+        color: #ffffff;
+        padding: 10px;
+        background-color: #9b334e;
+    }
+    input[type=file]::-webkit-file-upload-button:hover {
+        background-color: #800000;
+    }
 }
 
-table.characteristics{
-    position: absolute;
-    top: 20.5%;
-    right: 1%;
-    background: #9b334e;
-    width: 30%;
-    height: 59%;
-    border-right: medium solid #dec717;
-    border-top: medium solid #dec717;
-    border-bottom: medium solid #dec717;
-}
-#buttonAddCar:hover{
-    background: #800000;
-}
-#buttonAddCar{
-    background: #9b334e;
-    position: absolute;
-    left: 30%;
-    top: 72%;
-    width: 15%;
-    height: 5%;
-    font-size: 1.5vw;
-    border-bottom:medium solid #dec717;
-    border-radius: 5px;
-}
-#divAutoName{
-    position: absolute;
-    top: 20.5%;
-    left: 5%;
-    width: 64%;
-}
-#divImage{
-    top: 30%;
-    position: absolute;
-    left: 5%;
-    width: 64%;
-}
-#img_prev{
-    margin-top: 5px;
-    max-width: 30%;
-    max-height: 20%;
-    position: relative;
-    left: 5%;
-}
-input[type=file]::-webkit-file-upload-button {
-    border-bottom: medium solid #dec717;
-    border-radius: 5px;
-    background-color: #9b334e;
-}
-input[type=file]::-webkit-file-upload-button:hover {
-    background-color: #800000;
+@media (min-width: 831px) and (orientation: landscape){
+    hr{
+        border: 1px solid #dec717;
+        width: 50%;
+        alignment: left;
+        margin-left: 10%;
+        position: absolute;
+        bottom: 20%;
+    }
+    input.carDetail {
+        width: 40%;
+        background: #9b334e;
+        font-size: 0.8vw;
+    }
+    input.carDetail:hover {
+        background: #800000;
+    }
+
+    label.carDetail{
+        font-size: 1.5vw;
+    }
+    input.autoName{
+        width: 15%;
+        background: none;
+        border: none;
+        border-bottom: solid #dec717;
+    }
+
+    table.characteristics{
+        position: absolute;
+        top: 20.5%;
+        right: 1%;
+        background: #9b334e;
+        width: 30%;
+        height: 59%;
+        border-right: medium solid #dec717;
+        border-top: medium solid #dec717;
+        border-bottom: medium solid #dec717;
+    }
+    #buttonAddCar:hover{
+        background: #800000;
+    }
+    #buttonAddCar{
+        background: #9b334e;
+        position: absolute;
+        left: 30%;
+        top: 72%;
+        width: 15%;
+        height: 5%;
+        font-size: 1.5vw;
+        border-bottom:medium solid #dec717;
+        border-radius: 5px;
+    }
+    #divAutoName{
+        position: absolute;
+        top: 20.5%;
+        left: 5%;
+        width: 64%;
+    }
+    #divImage{
+        top: 30%;
+        position: absolute;
+        left: 5%;
+        width: 64%;
+    }
+    #img_prev{
+        margin-top: 5px;
+        max-width: 30%;
+        max-height: 20%;
+        position: relative;
+        left: 5%;
+    }
+    input[type=file]::-webkit-file-upload-button {
+        border-bottom: medium solid #dec717;
+        border-radius: 5px;
+        background-color: #9b334e;
+    }
+    input[type=file]::-webkit-file-upload-button:hover {
+        background-color: #800000;
+    }
 }
