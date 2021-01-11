@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 
 @WebServlet(name = "OrderValidationServlet", urlPatterns = "/OrderValidationServlet")
 public class OrderValidationServlet extends HttpServlet {
-  SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
   SimpleDateFormat htmlFormat = new SimpleDateFormat("yyyy/MM/dd");
   private final Logger logger = Logger.getLogger(OrderValidationServlet.class.getName());
   @Override
@@ -44,14 +43,13 @@ public class OrderValidationServlet extends HttpServlet {
         if(!order.getState().equals("Pagato")){
           throw new ServletException("The chosen order cannot be validated");
         }
-        order.setPickupDate(format.parse(format.format(
-            htmlFormat.parse(request.getParameter("date")))));
+        order.setPickupDate(htmlFormat.parse(request.getParameter("date")));
         order.setStartDate(order.getPickupDate());
         GregorianCalendar endDate = new GregorianCalendar();
         endDate.setTime(order.getPickupDate());
         endDate.add(Calendar.MONTH, order.getEstimate().getPeriod());
-        order.setEndDate(format.parse(String.valueOf(endDate)));
-        System.out.println(format.format(endDate));
+        order.setEndDate(endDate.getTime());
+        System.out.println(htmlFormat.format(endDate));
         order.setState("Convalidato");
         dbOrderDao.update(order);
         //TODO cambiare la redirect dopo aver aggiunto i controlli sulla jsp
