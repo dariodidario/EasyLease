@@ -9,18 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "LogoutServlet")
-public class LogoutServlet extends HttpServlet {
-  protected void doPost(HttpServletRequest request,
+@WebServlet(name = "ViewLoginServlet")
+public class ViewLoginServlet extends HttpServlet {
+
+  public void doPost(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     doGet(request, response);
   }
 
-  protected void doGet(HttpServletRequest request,
+  public void doGet(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
-    request.getSession().removeAttribute("user");
-    request.getSession().removeAttribute("role");
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/loginJSP.jsp");
     dispatcher.forward(request, response);
+
   }
+
 }
