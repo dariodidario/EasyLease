@@ -1,0 +1,30 @@
+
+.headerLogo{
+    width: 100%;
+}
+.headerLogo>img{
+    max-width: 24%;
+}
+:root .bg-dangers{
+    --danger: #8b0000;
+}
+.dropdown-menu{
+    background-color: var(--danger) !important;
+}
+.dropdown-item{
+    color: #FFFFFF !important;
+}
+.dropdown-item:hover{
+    color:#FFFFFF !important;
+    background-color: var(--danger) !important;
+}
+.bg-dangers{
+    background-color: var(--danger) !important;
+}
+.navbar{
+    border-bottom: 1px solid gainsboro; !important;
+}
+
+.nav-link{
+    color: white;
+}

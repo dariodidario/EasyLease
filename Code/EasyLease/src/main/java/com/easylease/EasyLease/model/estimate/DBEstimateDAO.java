@@ -45,7 +45,7 @@ public class DBEstimateDAO implements  EstimateDAO {
 
   @Override
   public Estimate retrieveById(String id) {
-    Estimate result;
+    Estimate result = null;
     PreparedStatement preparedStatement;
     String selectQuery = "SELECT * FROM " + DBEstimateDAO.TABLE_NAME + " WHERE id_estimate = ?";
     if (id == null || id.equals("")) {
@@ -55,7 +55,9 @@ public class DBEstimateDAO implements  EstimateDAO {
       preparedStatement = connection.prepareStatement(selectQuery);
       preparedStatement.setString(1, id);
       ResultSet rs = preparedStatement.executeQuery();
-      result = getResultFromRs(rs);
+      if (rs.next()) {
+        result = getResultFromRs(rs);
+      }
     } catch (SQLException e) {
       logger.log(Level.SEVERE, e.getMessage());
       return null;
@@ -67,7 +69,7 @@ public class DBEstimateDAO implements  EstimateDAO {
   public List<Estimate> retrieveByAdvisor(String id) {
     List<Estimate> results = new ArrayList<>();
     PreparedStatement preparedStatement;
-    String selectQuery = "SELECT * FROM " + DBEstimateDAO.TABLE_NAME + "WHERE id_advisor = ? ";
+    String selectQuery = "SELECT * FROM " + DBEstimateDAO.TABLE_NAME + " WHERE id_advisor = ? ";
     if (id == null || id.equals("")) {
       throw new IllegalArgumentException("The id passed is not valid");
     }
@@ -89,7 +91,7 @@ public class DBEstimateDAO implements  EstimateDAO {
   public List<Estimate> retrieveByClient(String id) {
     List<Estimate> results = new ArrayList<>();
     PreparedStatement preparedStatement;
-    String selectQuery = "SELECT * FROM " + DBEstimateDAO.TABLE_NAME + "WHERE id_client=?";
+    String selectQuery = "SELECT * FROM " + DBEstimateDAO.TABLE_NAME + " WHERE id_client = ?";
     if (id == null || id.equals("")) {
       throw new IllegalArgumentException("The id passed is not valid");
     }
@@ -127,17 +129,8 @@ public class DBEstimateDAO implements  EstimateDAO {
 
   @Override
   public void delete(Estimate e) {
-    if (e == null) {
-      throw new IllegalArgumentException("The estimate passed is not valid");
-    }
-    PreparedStatement preparedStatement;
-    String deleteQuery = "DELETE FROM " + DBEstimateDAO.TABLE_NAME + "WHERE id_estimate = ?";
-    try {
-      preparedStatement = connection.prepareStatement(deleteQuery);
-      preparedStatement.setString(1, e.getId());
-    } catch (SQLException sqlException) {
-      logger.log(Level.SEVERE, sqlException.getMessage());
-    }
+    e.setVisibility(false);
+    update(e);
   }
 
   @Override
@@ -147,18 +140,22 @@ public class DBEstimateDAO implements  EstimateDAO {
     }
     PreparedStatement preparedStatement;
     String insertQuery = "INSERT INTO " + DBEstimateDAO.TABLE_NAME
-        + " (id_estimate, price, id_advisor, id_client, id_car, period, visibility)"
-        + "VALUES(?,?,?,?,?,?,?))";
+        + "(id_estimate, price, id_advisor, id_client, id_car, period,"
+        + " visibility, state, request_date, response_date)"
+        + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try {
       preparedStatement = connection.prepareStatement(insertQuery);
       preparedStatement.setString(1, e.getId());
       preparedStatement.setFloat(2, e.getPrice());
-      preparedStatement.setString(3, e.getAdvisor().getId());
+      preparedStatement.setString(3, e.getAdvisor() != null ? e.getAdvisor().getId() : null);
       preparedStatement.setString(4, e.getClient().getId());
       preparedStatement.setString(5, e.getCar().getId());
       preparedStatement.setInt(6, e.getPeriod());
       preparedStatement.setBoolean(7, e.isVisibility());
-      preparedStatement.executeQuery();
+      preparedStatement.setString(8, e.getState());
+      preparedStatement.setDate(9, e.getRequestDate()!=null ? new java.sql.Date(e.getRequestDate().getTime()) : null);
+      preparedStatement.setDate(10, e.getResponseDate()!=null ? new java.sql.Date(e.getResponseDate().getTime()) : null);
+      preparedStatement.executeUpdate();
       for (Optional o : e.getOptionalList()) {
         insertOptional(e.getId(), o.getId());
       }
@@ -173,8 +170,9 @@ public class DBEstimateDAO implements  EstimateDAO {
       throw new IllegalArgumentException("The estimate passed is not valid");
     }
     PreparedStatement preparedStatement;
-    String updateQuery = "UPDATE" + DBEstimateDAO.TABLE_NAME
-        + " SET price = ?, period = ?, visibility = ?, id_client = ?, id_advisor = ?, id_car = ?"
+    String updateQuery = "UPDATE " + DBEstimateDAO.TABLE_NAME
+        + " SET price = ?, period = ?, visibility = ?, id_client = ?, id_advisor = ?,"
+        + " id_car = ?, state = ?, request_date = ?, response_date = ?"
         + " WHERE id_estimate = ?";
     try {
       preparedStatement = connection.prepareStatement(updateQuery);
@@ -184,6 +182,29 @@ public class DBEstimateDAO implements  EstimateDAO {
       preparedStatement.setString(4, e.getClient().getId());
       preparedStatement.setString(5, e.getAdvisor().getId());
       preparedStatement.setString(6, e.getCar().getId());
+      preparedStatement.setString(7, e.getState());
+      preparedStatement.setDate(8, e.getRequestDate()!=null ? new java.sql.Date(e.getRequestDate().getTime()) : null);
+      preparedStatement.setDate(9, e.getResponseDate()!=null ? new java.sql.Date(e.getResponseDate().getTime()) : null);
+      preparedStatement.setString(10, e.getId());
+      preparedStatement.executeUpdate();
+      for (Optional o : e.getOptionalList()) {
+        updateOptional(e.getId(), o.getId(), o.getPrice());
+      }
+    } catch (SQLException sqlException) {
+      logger.log(Level.SEVERE, sqlException.getMessage());
+    }
+  }
+
+  private void updateOptional(String id,  String optional_code, float price) {
+    PreparedStatement preparedStatement;
+    String updateQuery = "UPDATE included"
+        + " SET price = ?"
+        + " WHERE id_estimate = ? AND optional_code = ?";
+    try {
+      preparedStatement = connection.prepareStatement(updateQuery);
+      preparedStatement.setFloat(1, price);
+      preparedStatement.setString(2, id);
+      preparedStatement.setString(3, optional_code);
       preparedStatement.executeUpdate();
     } catch (SQLException sqlException) {
       logger.log(Level.SEVERE, sqlException.getMessage());
@@ -216,6 +237,9 @@ public class DBEstimateDAO implements  EstimateDAO {
       result.setAdvisor(advisor.retrieveById(rs.getString("id_advisor")));
       result.setClient(client.retrieveById(rs.getString("id_client")));
       result.setCar(car.retriveById(rs.getString("id_car")));
+      result.setState(rs.getString("state"));
+      result.setRequestDate(rs.getDate("request_date")!= null ? new java.util.Date(rs.getDate("request_date").getTime()) : null);
+      result.setResponseDate(rs.getDate("response_date")!= null ? new java.util.Date(rs.getDate("response_date").getTime()) : null);
       result.setOptionalList(getOptionalList(result.getId()));
     } catch (SQLException e) {
       logger.log(Level.SEVERE, e.getMessage());
