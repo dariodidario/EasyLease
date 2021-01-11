@@ -28,11 +28,11 @@ public class SignInServlet extends HttpServlet {
     client.setName(request.getParameter("name"));
     client.setSurname(request.getParameter("surname"));
     client.setEmail(request.getParameter("email"));
-    client.setPassword(request.getParameter("password"));
-    client.setBirthPlace(request.getParameter("bithplace"));
+    client.setBirthPlace(request.getParameter("birthplace"));
+    String password = request.getParameter("password");
     try {
       client.setBirthDate(new SimpleDateFormat(
-          "dd/MM/yyyy").parse((request.getParameter("bithdate"))));
+          "dd/MM/yyyy").parse((request.getParameter("birthdate"))));
     } catch (ParseException e) {
       System.out.println(e.getMessage());
     }
@@ -42,7 +42,7 @@ public class SignInServlet extends HttpServlet {
     client.setStreet(request.getParameter("street"));
 
     DBClientDAO dao = (DBClientDAO) DBClientDAO.getInstance();
-    dao.insert(client);
+    dao.insert(client, password);
 
     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/loginJSP.jsp");
     dispatcher.forward(request, response);
