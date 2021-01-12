@@ -70,7 +70,7 @@
                     <h4>Cambio</h4>
                 </div>
                 <div class="col">
-                    <h4><%= estimate.getCar().getTransmision()%>
+                    <h4><%= estimate.getCar().getTransmission()%>
                     </h4>
                 </div>
             </div>

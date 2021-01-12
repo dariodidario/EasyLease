@@ -37,12 +37,8 @@ public class OrderManagementClientServlet extends HttpServlet {
               + "on the platform correctly as a Client");
         }
         Client currentClient = (Client) session.getAttribute("user");
-        String id = currentClient.getId();
-        //String id = (String) request.getParameter("id_order");
-        //Client client = clDao.retrieveById("CLEE8BD");
-        //Client client = clDao.retrieveById("CLcapNK");
-        String role = (String) request.getSession().getAttribute("role");
-        //role = "Cliente";
+        String id = request.getParameter("id_order");
+        System.out.println(id);
         if (id.length() != 7 || !id.startsWith("OR")) {
           throw new ServletException("Wrong id");
         }

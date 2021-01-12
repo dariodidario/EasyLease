@@ -39,10 +39,6 @@ public class EstimateManagementClientServlet extends HttpServlet {
         }
         Client currentClient = (Client) session.getAttribute("user");
         String id = request.getParameter("id_estimate");
-        //Client client = clDao.retrieveById("CLEE8BD");
-        //Client client = clDao.retrieveById("CLcapNK");
-        String role = (String) request.getSession().getAttribute("role");
-        //role = "Cliente";
         if (id.length() != 7 || !id.startsWith("ES")) {
           throw new ServletException("Section dedicated to a registered user "
               + "on the platform correctly as a Client");
