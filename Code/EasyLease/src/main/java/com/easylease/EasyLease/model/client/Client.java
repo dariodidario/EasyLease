@@ -42,12 +42,12 @@ public class Client extends User {
                 String birthPlace, Date birthDate, String kind,
                 String city, String pc, String street) {
     super(id, name, surname, email);
-    this.birthPlace = birthPlace;
-    this.birthDate = birthDate;
-    this.kind = kind;
-    this.city = city;
-    this.pc = pc;
-    this.street = street;
+    setBirthPlace(birthPlace);
+    setBirthDate(birthDate);
+    setKind(kind);
+    setCity(city);
+    setPc(pc);
+    setStreet(street);
   }
 
   /**
@@ -163,6 +163,11 @@ public class Client extends User {
    */
   public void setStreet(String street) {
     this.street = street;
+  }
+
+  @Override
+  public String toString() {
+    return "Nome = " + this.getName();
   }
 
 }

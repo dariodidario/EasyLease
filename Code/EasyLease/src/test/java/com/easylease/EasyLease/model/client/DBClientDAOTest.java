@@ -1,132 +1,307 @@
 package com.easylease.EasyLease.model.client;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
+import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.mysql.cj.jdbc.MysqlDataSource;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DBClientDAOTest {
-  Calendar calBdate = new GregorianCalendar(1998, 8, 9);
-  Date bdate = calBdate.getTime();
-  Client cliente = new Client("CLABC12", "Mario", "Rossi", "m.rossi@gmail.com",
-      "Avellino", bdate, "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
+public class DBClientDAOTest {
+  private ClientDAO clientDao;
+  private static DBConnection dbConnection;
 
-  DBClientDAO dbClientDao = Mockito.mock(DBClientDAO.class);
+  @BeforeAll
+  static void init() throws Exception{
+    dbConnection = DBConnection.getInstance();
+    MysqlDataSource mysqlDataSource = new MysqlDataSource();
+    mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
+    mysqlDataSource.setUser("root");
+    mysqlDataSource.setPassword("root");
+    mysqlDataSource.setServerTimezone("UTC");
+    mysqlDataSource.setVerifyServerCertificate(false);
+    mysqlDataSource.setUseSSL(false);
+    dbConnection.setDataSource(mysqlDataSource);
+  }
 
-  @Test
-  public void retrieveById_CorrectIdGiven_ExpectedTrue() {
-    Mockito.when(dbClientDao.retrieveById("CLABC12")).thenReturn(cliente);
-    assertEquals(cliente, dbClientDao.retrieveById("CLABC12"));
+  @BeforeEach
+  void setUp() throws SQLException {
+    clientDao = DBClientDAO.getInstance();
+    dbConnection.getConnection().setAutoCommit(false);
+  }
+
+  @AfterEach
+  void tearDown() throws SQLException {
+    dbConnection.getConnection().rollback();
+    dbConnection.getConnection().setAutoCommit(true);
   }
 
   @Test
-  public void retrieveById_UnexistingIdGiven_ExpectedNull() {
-    Mockito.when(dbClientDao.retrieveById("CLABC22")).thenReturn(null);
-    assertNull(dbClientDao.retrieveById("CLABC22"));
+  void retrieveById_ExistingId_Success() {
+    String clientId = "CLEE8BD";
+    Client client = clientDao.retrieveById(clientId);
+    System.out.println(client);
+    assertEquals(clientId, client.getId());
   }
 
   @Test
-  public void retrieveById_WrongIdGiven_ExpectedException() {
-    Mockito.when(dbClientDao.retrieveById("ADABC22")).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbClientDao.retrieveById("ADABC22");
-    });
+  void retrieveById_NullId_ExceptionThrown() {
+    String clientId = null;
+    assertThrows(IllegalArgumentException.class, () ->
+        clientDao.retrieveById(clientId));
   }
 
   @Test
-  public void retrieveById_NullIdGiven_ExpectedException() {
-    Mockito.when(dbClientDao.retrieveById(null)).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbClientDao.retrieveById(null);
-    });
+  void retrieveById_EmptyId_ExceptionThrown() {
+    String clientId = "";
+    assertThrows(IllegalArgumentException.class, () ->
+        clientDao.retrieveById(clientId));
   }
 
   @Test
-  public void retrieveById_EmptyIdGiven_ExpectedException() {
-    Mockito.when(dbClientDao.retrieveById("")).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbClientDao.retrieveById("");
-    });
+  void retrieveById_WrongId_ExceptionThrown() {
+    String clientId = "ADJdybc";
+    assertThrows(IllegalArgumentException.class, () ->
+        clientDao.retrieveById(clientId));
   }
 
   @Test
-  public void retrieveByEmail_CorrectEmailGiven_ExpectedTrue() {
-    Mockito.when(dbClientDao.retrieveByEmail("m.rossi@gmail.com")).thenReturn(cliente);
-    assertEquals(cliente, dbClientDao.retrieveByEmail("m.rossi@gmail.com"));
+  void retrieveById_NonexistentId_ExpectedNull() {
+    String clientId = "CL11111";
+    assertNull(clientDao.retrieveById(clientId));
   }
 
   @Test
-  public void retrieveByEmail_UnexistingEmailGiven_ExpectedNull() {
-    Mockito.when(dbClientDao.retrieveByEmail("r.bianchi@gmail.com")).thenReturn(null);
-    assertNull(dbClientDao.retrieveByEmail("r.bianchi@gmail.com"));
+  void retrieveByEmail_ExistingEmail_Success() {
+    String email = "mattia.caprio@unisa.com";
+    Client client = clientDao.retrieveByEmail(email);
+    assertEquals(email, client.getEmail());
   }
 
   @Test
-  public void retrieveByEmail_EmptyEmailGiven_ExpectedException() {
-    Mockito.when(dbClientDao.retrieveByEmail("")).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbClientDao.retrieveByEmail("");
-    });
+  void retrieveByEmail_NullEmail_ExceptionThrown() {
+    String email = null;
+    assertThrows(IllegalArgumentException.class, () ->
+        clientDao.retrieveByEmail(email));
   }
 
   @Test
-  public void retrieveByEmail_NullEmailGiven_ExpectedException() {
-    Mockito.when(dbClientDao.retrieveByEmail(null)).thenThrow(IllegalArgumentException.class);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbClientDao.retrieveByEmail(null);
-    });
+  void retrieveByEmail_EmptyEmail_ExceptionThrown() {
+    String email = "";
+    assertThrows(IllegalArgumentException.class, () ->
+        clientDao.retrieveByEmail(email));
   }
 
   @Test
-  public void insert_CorrectClientGiven_ExpectedTrue() {
-    Mockito.doNothing().when(dbClientDao).insert(cliente, "mrossi2");
-    dbClientDao.insert(cliente, "mrossi2");
-    Mockito.verify(dbClientDao).insert(cliente, "mrossi2");
-    Mockito.verifyNoMoreInteractions(dbClientDao);
+  void retrieveByEmail_NonexistentEmail_ExpectedNull() {
+    String email = "mario.rossi.unisa@gmail.com";
+    assertNull(clientDao.retrieveByEmail(email));
   }
 
   @Test
-  public void insert_NullClientGiven_ExpectedException() {
-    Mockito.doThrow(IllegalArgumentException.class).when(dbClientDao).insert(null, null);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbClientDao.insert(null, null);
-    });
+  void retrieveAll_Success() {
+    assertNotNull(clientDao.retrieveAll());
   }
 
   @Test
-  public void update_CorrectClientGiven_ExpectedTrue() {
-    Mockito.doNothing().when(dbClientDao).update(cliente, "mrossi2");
-    dbClientDao.update(cliente, "mrossi2");
-    Mockito.verify(dbClientDao).update(cliente, "mrossi2");
-    Mockito.verifyNoMoreInteractions(dbClientDao);
+  void retrievePasswordByMail_ExistingMail_Success() {
+    String email = "mattia.caprio@unisa.com";
+    String password = "9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684";
+    assertEquals(password, clientDao.retrievePasswordByEmail(email));
   }
 
   @Test
-  public void update_NullClientGiven_ExpectedException() {
-
-    Mockito.doThrow(IllegalArgumentException.class).when(dbClientDao).update(null, null);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbClientDao.update(null,null);
-    });
+  void retrievePasswordByMail_NullEmail_ExceptionThrown() {
+    String email = null;
+    assertThrows(IllegalArgumentException.class, () ->
+        clientDao.retrievePasswordByEmail(email));
   }
 
   @Test
-  public void delete_CorrectClientGiven_ExpectedException() {
-    Mockito.doNothing().when(dbClientDao).delete(cliente);
-    dbClientDao.delete(cliente);
-    Mockito.verify(dbClientDao).delete(cliente);
-    Mockito.verifyNoMoreInteractions(dbClientDao);
+  void retrievePasswordByMail_NonexistingEmail_ExpectedNull() {
+    String email = "m.m@m.com";
+    assertNull(clientDao.retrievePasswordByEmail(email));
   }
 
   @Test
-  public void delete_NullClientGiven_ExpectedException() {
-    Mockito.doThrow(IllegalArgumentException.class).when(dbClientDao).delete(null);
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbClientDao.delete(null);
-    });
+  void insert_CorrectInsert_Success() throws ParseException {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String dateInString = "31-08-1982";
+    Date date = sdf.parse(dateInString);
+    Client client = new Client();
+    String password = "pass";
+    client.setId("CL12345");
+    client.setName("Alberto");
+    client.setSurname("Angela");
+    client.setEmail("alberto.angela@rai.it");
+    client.setPc("83020");
+    client.setStreet("Via dei sommi");
+    client.setCity("Roma");
+    client.setKind("Uomo");
+    client.setBirthPlace("Roma");
+    client.setBirthDate(date);
+    clientDao.insert(client, password);
+    Client toCheck = clientDao.retrieveById("CL12345");
+    assertEquals(client.getId(), toCheck.getId());
+    assertEquals(client.getName(), toCheck.getName());
+    assertEquals(client.getSurname(), toCheck.getSurname());
+    assertEquals(client.getEmail(), toCheck.getEmail());
+    assertEquals(client.getPc(), toCheck.getPc());
+    assertEquals(client.getStreet(), toCheck.getStreet());
+    assertEquals(client.getCity(), toCheck.getCity());
+    assertEquals(client.getKind(), toCheck.getKind());
+    assertEquals(client.getBirthPlace(), toCheck.getBirthPlace());
+    assertEquals(client.getBirthDate(), toCheck.getBirthDate());
+    clientDao.delete(client);
+  }
+
+  @Test
+  void insert_AlreadyExistingClient_ExceptionThrown() {
+    Client client = clientDao.retrieveById("CLEE8BD");
+    assertThrows(IllegalArgumentException.class, () ->
+        clientDao.insert(client, "pass"));
+  }
+
+  @Test
+  void insert_NullClient_ExceptionThrown() {
+    Client client = null;
+    assertThrows(IllegalArgumentException.class, () ->
+        clientDao.insert(client, "pass"));
+  }
+
+  @Test
+  void insert_NullPassword_ExceptionThrown() throws ParseException {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String dateInString = "31-08-1982";
+    Date date = sdf.parse(dateInString);
+    Client client = new Client();
+    String password = null;
+    client.setId("CL12345");
+    client.setName("Alberto");
+    client.setSurname("Angela");
+    client.setEmail("alberto.angela@rai.it");
+    client.setPc("83020");
+    client.setStreet("Via dei sommi");
+    client.setCity("Roma");
+    client.setKind("Uomo");
+    client.setBirthPlace("Roma");
+    client.setBirthDate(date);
+    assertThrows(IllegalArgumentException.class, () ->
+        clientDao.insert(client, password));
+  }
+
+  @Test
+  void update_CorrectInsert_Success() throws ParseException {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String dateInString = "1982-08-31";
+    Date date = sdf.parse(dateInString);
+    Client client = new Client();
+    String password = "pass";
+    client.setId("CLEE8BD");
+    client.setName("Alberto");
+    client.setSurname("Angela");
+    client.setEmail("alberto.angela@rai.it");
+    client.setPc("83020");
+    client.setStreet("Via dei sommi");
+    client.setCity("Roma");
+    client.setKind("Uomo");
+    client.setBirthPlace("Roma");
+    client.setBirthDate(date);
+    clientDao.update(client, "pass");
+    Client toCheck = clientDao.retrieveById("CLEE8BD");
+    assertEquals(client.getId(), toCheck.getId());
+    assertEquals(client.getName(), toCheck.getName());
+    assertEquals(client.getSurname(), toCheck.getSurname());
+    assertEquals(client.getEmail(), toCheck.getEmail());
+    assertEquals(client.getPc(), toCheck.getPc());
+    assertEquals(client.getStreet(), toCheck.getStreet());
+    assertEquals(client.getCity(), toCheck.getCity());
+    assertEquals(client.getKind(), toCheck.getKind());
+    assertEquals(client.getBirthPlace(), toCheck.getBirthPlace());
+    assertEquals(client.getBirthDate(), toCheck.getBirthDate());
+  }
+
+  @Test
+  void update_nullClient_ExceptionThrown() {
+    Client client = null;
+    String password = "pass";
+    assertThrows(IllegalArgumentException.class, () ->
+        clientDao.update(client, password));
+  }
+
+  @Test
+  void update_nullPassword_ExceptionThrown() throws ParseException {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String dateInString = "1982-08-31";
+    Date date = sdf.parse(dateInString);
+    Client client = new Client();
+    String password = null;
+    client.setId("CLEE8BD");
+    client.setName("Alberto");
+    client.setSurname("Angela");
+    client.setEmail("alberto.angela@rai.it");
+    client.setPc("83020");
+    client.setStreet("Via dei sommi");
+    client.setCity("Roma");
+    client.setKind("Uomo");
+    client.setBirthPlace("Roma");
+    client.setBirthDate(date);
+    assertThrows(IllegalArgumentException.class, () ->
+        clientDao.update(client, password));
+  }
+
+  @Test
+  void update_NonexistingClient_ExceptionThrown() throws ParseException {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String dateInString = "1982-08-31";
+    Date date = sdf.parse(dateInString);
+    Client client = new Client();
+    String password = "pass";
+    client.setId("CL12345");
+    client.setName("Alberto");
+    client.setSurname("Angela");
+    client.setEmail("alberto.angela@rai.it");
+    client.setPc("83020");
+    client.setStreet("Via dei sommi");
+    client.setCity("Roma");
+    client.setKind("Uomo");
+    client.setBirthPlace("Roma");
+    client.setBirthDate(date);
+    assertThrows(IllegalArgumentException.class, () ->
+        clientDao.update(client, password));
+  }
+
+  @Test
+  void delete_ExistingClient_Success() throws ParseException {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String dateInString = "1998-09-08";
+    Date date = sdf.parse(dateInString);
+    Client client = new Client();
+    client.setId("CLEE8BD");
+    client.setName("Mattia");
+    client.setSurname("Caprio");
+    client.setEmail("mattia.caprio@unisa.com");
+    client.setPc("83020");
+    client.setStreet("Via Nazionale");
+    client.setCity("Patierno");
+    client.setKind("Uomo");
+    client.setBirthPlace("Avellino");
+    client.setBirthDate(date);
+    clientDao.delete(client);
+    assertNull(clientDao.retrieveById("CLEE8BD"));
+  }
+
+  @Test
+  void delete_NullClient_ExceptionThrown() {
+    Client client = null;
+    assertThrows(IllegalArgumentException.class, () ->
+        clientDao.delete(client));
   }
 }
