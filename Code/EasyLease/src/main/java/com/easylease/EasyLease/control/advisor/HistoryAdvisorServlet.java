@@ -5,7 +5,6 @@ import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
 import com.easylease.EasyLease.model.estimate.Estimate;
 import com.easylease.EasyLease.model.order.DBOrderDAO;
 import com.easylease.EasyLease.model.order.Order;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "HistoryAdvisorServlet" , urlPatterns = "/HistoryAdvisorServlet")
+@WebServlet(name = "HistoryAdvisorServlet", urlPatterns = "/HistoryAdvisorServlet")
+
+/**
+ * @since 0.1
+ * @version 0.6
+ * @author Caprio Mattia
+ */
 
 public class HistoryAdvisorServlet extends HttpServlet {
   private final Logger logger = Logger.getLogger(HistoryAdvisorServlet.class.getName());
@@ -38,17 +43,17 @@ public class HistoryAdvisorServlet extends HttpServlet {
         DBOrderDAO dbOrderDao = (DBOrderDAO) DBOrderDAO.getInstance();
         DBEstimateDAO dbEstimateDao = (DBEstimateDAO) DBEstimateDAO.getInstance();
         List<Object> list = new ArrayList<>();
-        List<Order> orders = dbOrderDao.retrieveByAdvisor(advisor.getId()); //ADJdybc
-        for(Order o : orders)
-          if(o.isVisibility())
+        for (Order o : dbOrderDao.retrieveByAdvisor(advisor.getId())) {
+          if (o.isVisibility()) {
             list.add(o);
-        List<Estimate> estimates = dbEstimateDao.retrieveByAdvisor(advisor.getId()); //ADJdybc
-        for(Estimate e : estimates){
-
-          if(e.isVisibility())
-            list.add(e);
-
           }
+        }
+        //TODO effettuare richiesta retrieveByAdvisor dei preventivi associati a nessuno e aggiungere alla lista estimates
+        for (Estimate e : dbEstimateDao.retrieveByAdvisor(advisor.getId())) {
+          if (e.isVisibility()) {
+            list.add(e);
+          }
+        }
         request.setAttribute("list", list);
         request.getRequestDispatcher("/advisor/historyAdvisorJSP.jsp")
             .forward(request, response);
@@ -62,6 +67,6 @@ public class HistoryAdvisorServlet extends HttpServlet {
   protected void doGet(
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
-   doPost(request, response);
+    doPost(request, response);
   }
 }

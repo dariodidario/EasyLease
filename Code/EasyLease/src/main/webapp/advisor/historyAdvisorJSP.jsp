@@ -7,16 +7,21 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%
     //SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    if(request.getSession() == null){
+        response.sendRedirect(request.getContextPath() + "/LoginViewServlet");
+    }
     List<Object> list = (List<Object>) request.getAttribute("list");
+    if (list == null) {
+        response.sendRedirect(request.getContextPath() + "/HistoryAdvisorServlet");
+        return;
+    }
     List<Order> orderList = new ArrayList<>();
     List<Estimate> estimateList = new ArrayList<>();
-    if (!(list == null)) {
-        for (Object o : list) {
-            if (o instanceof Order && ((Order) o).isVisibility()) {
-                orderList.add((Order) o);
-            } else if (o instanceof Estimate && ((Estimate) o).isVisibility()) {
-                estimateList.add((Estimate) o);
-            }
+    for (Object o : list) {
+        if (o instanceof Order && ((Order) o).isVisibility()) {
+            orderList.add((Order) o);
+        } else if (o instanceof Estimate && ((Estimate) o).isVisibility()) {
+            estimateList.add((Estimate) o);
         }
     }
 %>
@@ -27,6 +32,7 @@
     <link rel = "stylesheet" href = "${pageContext.request.contextPath}/advisor/historyAdvisor.css"/>
 </head>
 <body>
+<div><%@include file="/fragments/headerJSP.jsp"%></div>
 <section class = "body_section">
 <div class = "table_space">
     <table class = "table">
@@ -122,5 +128,6 @@
     </table>
 </div>
 </section>
+<div><%@include file="/fragments/footerJSP.jsp"%></div>
 </body>
 </html>

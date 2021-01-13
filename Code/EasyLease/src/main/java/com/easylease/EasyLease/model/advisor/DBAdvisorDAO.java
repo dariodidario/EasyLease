@@ -70,7 +70,7 @@ public class DBAdvisorDAO implements AdvisorDAO {
   @Override
   public String retrievePasswordByEmail(String email) throws SQLException {
     final String query = "SELECT pwd FROM users WHERE account_type ='Consulente' AND email = ?";
-    if(email == null || email.equals("")){
+    if (email == null || email.equals("")) {
       throw new IllegalArgumentException(
           String.format("The email(%s) passed as a parameter is not valid", email));
     }
@@ -81,7 +81,7 @@ public class DBAdvisorDAO implements AdvisorDAO {
     if (!rs.next()) {
       return null;
     }
-     return rs.getString("pwd");
+    return rs.getString("pwd");
   }
 
   @Override
