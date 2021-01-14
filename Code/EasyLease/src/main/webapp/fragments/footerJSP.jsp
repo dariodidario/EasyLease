@@ -4,7 +4,7 @@
     <style>
 
         .footer{
-            background-color: darkred;
+            background-color: #9B334E;
             border-top: 1px solid darkgrey;
             height: 8em;
             margin-top:10%;
@@ -32,9 +32,9 @@
 
 <body>
 <div class="footer" id="footer">
-    <div class="nOrder"> Sono stati effettuati gia' <label id="numOrder"></label> ordini su EasyLease quest'anno!</div>
+    <div class="nOrder"> Sono stati effettuati gi&agrave; <label id="numOrder"></label> ordini su EasyLease quest'anno!</div>
     <div class="text"> <br>
-        © 2021 EasyLease - created by C11 team and lead by Dario di Dario
+        &#169; 2021 EasyLease - created by C11 team and lead by Dario di Dario
     </div>
 </div>
 </body>

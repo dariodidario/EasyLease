@@ -13,42 +13,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "HomePageServet", value = "/HomePageServlet")
-public class HomePageServet extends HttpServlet {
+@WebServlet(name = "HomePageServlet", value = "/HomePageServlet")
+public class HomePageServlet extends HttpServlet {
   protected void doPost(
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
-
+    doGet(request, response);
   }
 
   protected void doGet(
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
-      String tipologia = request.getParameter("tipologia");
-      String marca = request.getParameter("marca");
       String modello = request.getParameter("modello");
-      List<Car> carList;
-      if ((tipologia == null && marca == null && modello == null) ||
-          (tipologia!= null && tipologia.equals("0") && marca !=null &&
-              marca.equals("0") && modello!=null && modello.equals("0"))
-      ) {
-        carList = DBCarDAO.getInstance().retrieveAll();
-        carList.removeIf(c -> !c.getVisibility());
-      }
-      else if (modello != null && !modello.equals("0")) {
-        carList = new ArrayList<>();
+      List<Car> carList = new ArrayList<>();
+      if(modello != null && !modello.equals("Modello")){
         carList.add(DBCarDAO.getInstance().retrieveByModel(modello));
       }
-      else if (marca != null && !marca.equals("0")) {
-        carList = DBCarDAO.getInstance().retrieveByBrand(marca);
-        carList.removeIf(c -> !c.getVisibility());
-        if (tipologia != null) {
-          carList.removeIf(t -> !t.getType().equals(tipologia));
-        }
-      }
-      else {
-        carList = DBCarDAO.getInstance().retrieveByType(tipologia);
-        carList.removeIf(c -> !c.getVisibility());
+      else{
+        carList = DBCarDAO.getInstance().retrieveAll();
       }
     request.setAttribute("carList", carList);
     RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/user/homePageJSP.jsp");
