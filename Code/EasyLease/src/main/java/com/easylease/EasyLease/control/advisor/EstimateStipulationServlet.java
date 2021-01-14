@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * @since 0.1
- * @version 0.4
+ * @version 0.5
  * @author Caprio Mattia
  */
 
@@ -61,8 +61,7 @@ public class EstimateStipulationServlet extends HttpServlet {
         estimate.setState("Stipulato");
         dbEstimateDao.update(estimate);
         request.setAttribute("estimate", estimate);
-        //TODO chiamare funzione che aggiorna il prezzo degli optional
-        request.getRequestDispatcher("/EstimateManagementAdvisorJSP.jsp")
+        request.getRequestDispatcher("/advisor/estimateManagementAdvisorJSP.jsp")
             .forward(request, response);
       } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());

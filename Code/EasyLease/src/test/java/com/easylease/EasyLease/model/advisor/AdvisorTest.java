@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 class AdvisorTest {
   Calendar calendar = new GregorianCalendar(2021, JANUARY, 1);
+
   @Test
   public void testConstructorEmpty() {
     Advisor advisor = new Advisor();

@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Caprio Mattia
  * @since 0.1
- * @version 0.3
+ * @version 0.4
  */
 public interface AdvisorDAO {
   /**
@@ -33,7 +33,7 @@ public interface AdvisorDAO {
    * Search for the hashed password of an Advisor based on his email.
    *
    * @param email of the {@link Advisor} you are looking for.
-   * @return the {@link String} of the hashed password with that email
+   * @return the {@link String} of the hashed password with that email.
    *      or null if not present in Database.
    */
   String retrievePasswordByEmail(String email) throws SQLException;
@@ -48,16 +48,18 @@ public interface AdvisorDAO {
   /**
    * Inserts the {@link Advisor} that is passed as a parameter in the DataBase.
    *
+   * @param password {@link String} of the normal password.
    * @param advisor {@link Advisor} to insert.
    */
-  void update(Advisor advisor);
+  void update(Advisor advisor, String password);
 
   /**
    * Updates the {@link Advisor} that is passed as a parameter in the DataBase.
    *
+   * @param password {@link String} of the normal password.
    * @param advisor {@link Advisor} to update.
    */
-  void insert(Advisor advisor);
+  void insert(Advisor advisor, String password);
 
   /**
    * Deletes the {@link Advisor} that is passed as a parameter in the DataBase.

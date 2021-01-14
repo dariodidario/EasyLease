@@ -50,10 +50,7 @@ public class EstimateManagementAdvisorServlet extends HttpServlet {
         if (estimate == null) {
           throw new ServletException("The estimate doesn't exist");
         }
-        if (estimate.getState().equals("Richiesto")) {
-          estimate.setAdvisor((Advisor) session.getAttribute("user"));
-          estimate.setState("Preso in carico");
-        }
+        estimate = checkestimate(session, estimate);
         dbEstimateDao.update(estimate);
         request.setAttribute("estimate", estimate);
         request.getRequestDispatcher("/advisor/estimateManagementAdvisorJSP.jsp")
@@ -63,5 +60,13 @@ public class EstimateManagementAdvisorServlet extends HttpServlet {
         request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
       }
     }
+  }
+
+  private synchronized Estimate checkestimate(HttpSession session, Estimate estimate) {
+    if (estimate.getState().equals("Richiesto")) {
+        estimate.setAdvisor((Advisor) session.getAttribute("user"));
+        estimate.setState("Preso in carico");
+    }
+    return estimate;
   }
 }

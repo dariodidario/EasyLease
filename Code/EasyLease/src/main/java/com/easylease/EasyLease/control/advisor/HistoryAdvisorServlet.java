@@ -24,7 +24,6 @@ import javax.servlet.http.HttpSession;
  * @version 0.6
  * @author Caprio Mattia
  */
-
 public class HistoryAdvisorServlet extends HttpServlet {
   private final Logger logger = Logger.getLogger(HistoryAdvisorServlet.class.getName());
 
@@ -48,7 +47,9 @@ public class HistoryAdvisorServlet extends HttpServlet {
             list.add(o);
           }
         }
-        //TODO effettuare richiesta retrieveByAdvisor dei preventivi associati a nessuno e aggiungere alla lista estimates
+        for (Estimate e : dbEstimateDao.retrieveByAdvisor("ADfake0")) {
+          list.add(e);
+        }
         for (Estimate e : dbEstimateDao.retrieveByAdvisor(advisor.getId())) {
           if (e.isVisibility()) {
             list.add(e);
@@ -59,7 +60,7 @@ public class HistoryAdvisorServlet extends HttpServlet {
             .forward(request, response);
       } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/client/homePageJSP.jsp").forward(request, response);
+        request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
       }
     }
   }

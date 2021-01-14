@@ -1,5 +1,7 @@
 package com.easylease.EasyLease.model.advisor;
 
+import com.easylease.EasyLease.control.utility.PasswordHashing;
+import com.easylease.EasyLease.control.utility.exception.EntityTamperingException;
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.admin.DBAdminDAO;
 import java.sql.Connection;
@@ -18,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author Caprio Mattia
  * @since 0.1
- * @version 0.3
+ * @version 0.4
  */
 public class DBAdvisorDAO implements AdvisorDAO {
   private static final Logger logger = Logger.getLogger(DBAdminDAO.class.getName());
@@ -31,7 +33,7 @@ public class DBAdvisorDAO implements AdvisorDAO {
    * @return the {@link DBAdvisorDAO} Object that accesses the {@link Advisor}
    *     object in the DataBase.
    */
-  public static AdvisorDAO getIstance() {
+  public static AdvisorDAO getInstance() {
     if (dao == null) {
       dao = new DBAdvisorDAO(DBConnection.getInstance().getConnection());
     }
@@ -50,7 +52,7 @@ public class DBAdvisorDAO implements AdvisorDAO {
   @Override
   public Advisor retrieveById(String id) {
     final String query = "SELECT * FROM users WHERE account_type ='Consulente' AND id_user = ?";
-    if (id == null || id.equals("")) {
+    if (id == null || id.equals("") || !id.startsWith("AD") || id.length() != 7) {
       throw new IllegalArgumentException(
           String.format("The id(%s) passed as a parameter is not valid", id));
     }
@@ -93,7 +95,12 @@ public class DBAdvisorDAO implements AdvisorDAO {
       stm.execute();
       ResultSet rs = stm.getResultSet();
       while (rs.next()) {
-        advisors.add(getAdvisorFromRs(rs));
+        String id = rs.getString("id_user");
+        String name = rs.getString("first_name");
+        String surname = rs.getString("surname");
+        String email = rs.getString("email");
+        Date hireDate = rs.getDate("hire_date");
+        advisors.add(new Advisor(id, name, surname, email, hireDate));
       }
       return advisors;
     } catch (SQLException throwables) {
@@ -103,24 +110,51 @@ public class DBAdvisorDAO implements AdvisorDAO {
   }
 
   @Override
-  public void update(Advisor advisor) {
-    final String query = "INSERT INTO users (id_user, first_name, surname, email, pwd,"
-        + "account_type, hire_date, birth_place, birth_date, kind, street, city, pc"
-        + ") VALUES (?, ?, ?, ?, ?, ?, ?, null, null, null, null, null, null)";
+  public void insert(Advisor advisor, String password) {
+    if (advisor == null || password == null) {
+      throw new IllegalArgumentException();
+    }
+    if(DBAdvisorDAO.getInstance().retrieveById(advisor.getId()) != null){
+      throw new EntityTamperingException("Advisor already exitsts.");
+    }
+    final String query = "INSERT INTO users (id_user, first_name, surname, email,"
+        + " pwd, account_type, hire_date) VALUES (?, ?, ?, ?, ?, ?, ?)";
     try {
-      executeQuery(advisor, query);
+      PreparedStatement stm = connection.prepareStatement(query);
+      stm.setString(1, advisor.getId());
+      stm.setString(2, advisor.getName());
+      stm.setString(3, advisor.getSurname());
+      stm.setString(4, advisor.getEmail());
+      stm.setString(5, PasswordHashing.generatePassword(password, "SHA-1"));
+      stm.setString(6, "Consulente");
+      stm.setDate(7, (java.sql.Date) advisor.getHireDate());
+      stm.executeUpdate();
     } catch (SQLException e) {
       logger.log(Level.SEVERE, e.getMessage());
     }
   }
 
   @Override
-  public void insert(Advisor advisor) {
-    final String query = "INSERT INTO users (id_user, first_name, surname, email, pwd,"
-        + "account_type, hire_date, birth_place, birth_date, kind, street, city, pc"
-        + ") VALUES (?, ?, ?, ?, ?, ?, ?, null, null, null, null, null, null)";
+  public void update(Advisor advisor, String password) {
+    if (advisor == null || password == null) {
+      throw new IllegalArgumentException();
+    }
+    if(DBAdvisorDAO.getInstance().retrieveById(advisor.getId()) == null){
+      throw new EntityTamperingException("Advisor doesn't exitst.");
+    }
+    String hashedPassword = PasswordHashing.generatePassword(password, "SHA-1");
+    final String query = "UPDATE users "
+        + "SET first_name = ?, surname = ?, email = ?, pwd = ?, hire_date = ? "
+        + "WHERE id_user = ?";
     try {
-      executeQuery(advisor, query);
+      PreparedStatement stm = connection.prepareStatement(query);
+      stm.setString(1, advisor.getName());
+      stm.setString(2, advisor.getSurname());
+      stm.setString(3, advisor.getEmail());
+      stm.setString(4, hashedPassword);
+      stm.setDate(5, (java.sql.Date) advisor.getHireDate());
+      stm.setString(6, advisor.getId());
+      stm.executeUpdate();
     } catch (SQLException e) {
       logger.log(Level.SEVERE, e.getMessage());
     }
@@ -128,6 +162,12 @@ public class DBAdvisorDAO implements AdvisorDAO {
 
   @Override
   public void delete(Advisor advisor) {
+    if (advisor == null) {
+      throw new IllegalArgumentException();
+    }
+    if(DBAdvisorDAO.getInstance().retrieveById(advisor.getId()) == null){
+      throw new EntityTamperingException("Advisor doesn't exitst.");
+    }
     final String query = "DELETE FROM users WHERE id_user = ?";
     try {
       PreparedStatement stm = connection.prepareStatement(query);
@@ -138,46 +178,13 @@ public class DBAdvisorDAO implements AdvisorDAO {
     }
   }
 
-  /**
-   * Returns the {@link Advisor} object created by the ResultSet.
-   *
-   * @param rs the {@link ResultSet}.
-   * @return the {@link Advisor} returned from the ResultSet.
-   * @throws SQLException if the ResultSet is null.
-   */
-  private Advisor getAdvisorFromRs(ResultSet rs) throws SQLException {
-    String id = rs.getString("id_user");
-    String name = rs.getString("first_name");
-    String surname = rs.getString("surname");
-    String email = rs.getString("email");
-    Date hireDate = rs.getDate("hire_date");
-    return new Advisor(id, name, surname, email, hireDate);
-  }
 
   /**
-   * Executes the update and insert queries passed.
+   * Returns the {@link Advisor} object present in Database.
    *
-   * @param advisor the {@link Advisor}.
-   * @param query the String of the query to do.
-   * @throws SQLException if cant set an attribute on the PreparedStatement.
-   */
-  private void executeQuery(Advisor advisor, String query) throws SQLException {
-    PreparedStatement stm = connection.prepareStatement(query);
-    stm.setString(1, advisor.getId());
-    stm.setString(2, advisor.getName());
-    stm.setString(3, advisor.getSurname());
-    stm.setString(4, advisor.getEmail());
-    stm.setString(5, "Advisor");
-    stm.setDate(6, (java.sql.Date) advisor.getHireDate());
-    stm.executeUpdate();
-  }
-
-  /**
-   * Returns the {@link Advisor} object returned by {@link #getAdvisorFromRs(ResultSet) method}.
-   *
-   * @param query the String of the query to do.
-   * @param s the String to set in the {@link PreparedStatement}.
-   * @return the {@link Advisor} object returned by {@link #getAdvisorFromRs(ResultSet) method}.
+   * @param query the {@link String} of the query to do.
+   * @param s the {@link String} to set in the {@link PreparedStatement}.
+   * @return the {@link Advisor} object present in Database..
    */
   private Advisor singleRetrieve(String query, String s) {
     try {
@@ -188,7 +195,13 @@ public class DBAdvisorDAO implements AdvisorDAO {
       if (!rs.next()) {
         return null;
       }
-      return getAdvisorFromRs(rs);
+
+      String id = rs.getString("id_user");
+      String name = rs.getString("first_name");
+      String surname = rs.getString("surname");
+      String email = rs.getString("email");
+      Date hireDate = rs.getDate("hire_date");
+      return new Advisor(id, name, surname, email, hireDate);
     } catch (SQLException e) {
       logger.log(Level.SEVERE, e.getMessage());
       return null;
