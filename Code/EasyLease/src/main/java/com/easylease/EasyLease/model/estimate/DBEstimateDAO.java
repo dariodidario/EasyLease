@@ -147,7 +147,7 @@ public class DBEstimateDAO implements  EstimateDAO {
       preparedStatement = connection.prepareStatement(insertQuery);
       preparedStatement.setString(1, e.getId());
       preparedStatement.setFloat(2, e.getPrice());
-      preparedStatement.setString(3, e.getAdvisor() != null ? e.getAdvisor().getId() : "ADfake");
+      preparedStatement.setString(3, e.getAdvisor() != null ? e.getAdvisor().getId() : "ADfake0");
       preparedStatement.setString(4, e.getClient().getId());
       preparedStatement.setString(5, e.getCar().getId());
       preparedStatement.setInt(6, e.getPeriod());
@@ -180,7 +180,7 @@ public class DBEstimateDAO implements  EstimateDAO {
       preparedStatement.setInt(2, e.getPeriod());
       preparedStatement.setBoolean(3, e.isVisibility());
       preparedStatement.setString(4, e.getClient().getId());
-      preparedStatement.setString(5, e.getAdvisor() != null ? e.getAdvisor().getId() : "ADfake");
+      preparedStatement.setString(5, e.getAdvisor() != null ? e.getAdvisor().getId() : "ADfake0");
       preparedStatement.setString(6, e.getCar().getId());
       preparedStatement.setString(7, e.getState());
       preparedStatement.setDate(8, e.getRequestDate()!=null ? new java.sql.Date(e.getRequestDate().getTime()) : null);
