@@ -158,7 +158,7 @@ public class DBOrderDAO implements OrderDAO {
             +
             "pickup_date, visibility, state, creation_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     if(DBOrderDAO.getInstance().retrieveById(order.getId()) != null) {
-      throw new EntityTamperingException("Order does not exist!");
+      throw new EntityTamperingException("Order already exist!");
     }
     try {
       PreparedStatement stm = connection.prepareStatement(query);

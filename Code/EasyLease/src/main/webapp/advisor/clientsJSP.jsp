@@ -1,15 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.Collection" %>
 <%@ page import="com.easylease.EasyLease.model.client.Client" %>
-<%@ page import="java.util.Iterator" %>
-
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %>
 <%
-  Collection<?> clients = (Collection<?>) request.getAttribute("clients");
+  Map<Client, Boolean> clients = (HashMap<Client, Boolean>) request.getAttribute("clients");
   if(clients == null) {
     response.sendRedirect(request.getContextPath() + "/ClientsServlet");
     return;
   }
-%>
 %>
 <html lang="en">
 <head>
@@ -19,47 +17,64 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
 </head>
 <body>
-
-    <div class="container">
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
-        <table class="table table-bordered ">
-          <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Cognome</th>
-            <th>E-Mail</th>
-          </tr>
-          </thead>
-          <tbody>
+<%@include file="/fragments/headerJSP.jsp"%>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-auto table-responsive ">
+      <table class="table table-bordered caption-top">
+        <caption>Lista dei Clienti</caption>
+        <thead>
+        <tr>
+          <th class="text-center">ID</th>
+          <th class="text-center">Nome</th>
+          <th class="text-center">Cognome</th>
+          <th class="text-center">E-Mail</th>
+          <th class="text-center"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <%
+          if(clients.size() != 0) {
+            for(Map.Entry<Client, Boolean> entry : clients.entrySet()) {
+              Client client = entry.getKey();
+              boolean visibility = entry.getValue();
+        %>
+        <tr>
+          <td><%=client.getId()%></td>
+          <td><%=client.getName()%></td>
+          <td><%=client.getSurname()%></td>
+          <td><%=client.getEmail()%></td>
           <%
-            if (clients.size() != 0) {
-              Iterator<?> it = clients.iterator();
-              while (it.hasNext()) {
-                Client client = (Client) it.next();
+            if (visibility){
           %>
-          <tr>
-            <td><%=client.getId()%></td>
-            <td><%=client.getName()%></td>
-            <td><%=client.getSurname()%></td>
-            <td><%=client.getEmail()%></td>
-          </tr>
+          <td>
+            <button type="button" class="btn btn-outline-primary">
+              <a href="HistoryAdvisorClientServlet?id_client=<%=client.getId()%>">Visualizza</a>
+            </button>
+          </td>
+          <%
+          }else {
+          %>
+          <td><button type="button" class="btn btn-outline-primary" disabled>Visualizza</button></td>
           <%
             }
-          } else {
           %>
-          <tr>
-            <td colspan="3">Nessun cliente disponibile.</td>
-          </tr>
-          <%
-            }
-          %>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-md-3"></div>
+        </tr>
+        <%
+          }
+        } else {
+        %>
+        <tr>
+          <td colspan="5">Nessun cliente disponibile.</td>
+        </tr>
+        <%
+          }
+        %>
+        </tbody>
+      </table>
     </div>
-
+  </div>
+</div>
+<%@include file="/fragments/footerJSP.jsp"%>
 </body>
 </html>

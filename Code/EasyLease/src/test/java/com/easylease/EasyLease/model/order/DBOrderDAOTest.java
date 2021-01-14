@@ -115,6 +115,8 @@ public class DBOrderDAOTest {
     Order updatedOrder = orderDAO.retrieveById("OR1ER4T");
     assertEquals(order.getId(), updatedOrder.getId());
     assertEquals(order.isVisibility(), updatedOrder.isVisibility());
+    order.setVisibility(!order.isVisibility());
+    orderDAO.update(order);
   }
 
   @Test

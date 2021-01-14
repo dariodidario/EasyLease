@@ -18,27 +18,28 @@ public class OrderCheckoutServlet extends HttpServlet {
   protected void doGet(
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
-      doPost(request,response);
+    doPost(request, response);
   }
 
   @Override
   protected void doPost(
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
-      if(request.getSession() != null && request.getSession().getAttribute("user") instanceof Client){
-        Client client = (Client) request.getSession().getAttribute("user");
-        if (client != null) {
-          order = dbOrderDAO.retrieveById(request.getParameter("submit"));
-          if (order != null) {
-              order.setState("Pagato");
-              dbOrderDAO.update(order);
-          }
-          request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
+    if (request.getSession() != null &&
+        request.getSession().getAttribute("user") instanceof Client) {
+      Client client = (Client) request.getSession().getAttribute("user");
+      if (client != null) {
+        order = dbOrderDAO.retrieveById(request.getParameter("submit"));
+        if (order != null) {
+          order.setState("Pagato");
+          dbOrderDAO.update(order);
         }
-      } else {
-        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        response.sendError(HttpServletResponse.SC_FORBIDDEN, "X-Authenticated-Client not available");
+        request.getRequestDispatcher("/user/homePageJSP.jsp")
+            .forward(request, response);
       }
-
+    } else {
+      request.getRequestDispatcher("/user/homePageJSP.jsp")
+          .forward(request, response);
+    }
   }
 }
