@@ -14,7 +14,85 @@
 <head>
   <meta charset="ISO-8859-1">
   <title>View Car</title>
+  <style>
+    .btn-lg{
+      background-color: #800000 !important;
+    }
 
+    .center {
+      text-align: center;
+    }
+
+    .container{
+      margin-top: 2% !important;
+    }
+    .car_name{
+      font-size: 45px;
+      font-weight: bold;
+    }
+
+    img, svg{
+      max-width: 700px !important;
+      max-height: 700px !important;
+      margin: auto !important;
+      display: block !important;
+    }
+
+    .contract_link{
+      display: block;
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .car_spec_text{
+      font-size: 45px;
+      font-weight: bold;
+    }
+
+    .car_spec td{
+      font-size: 30px;
+    }
+
+    .car_optional_text{
+      font-size: 40px;
+      font-weight: bold;
+    }
+
+    .car_optionals td{
+      font-size: 30px;
+    }
+
+    .car_optionals th{
+      font-size: 30px;
+    }
+
+    .no_optionals_text{
+      font-size: 30px;
+    }
+
+    .price{
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .btn-check:active+.btn-primary, .btn-check:checked+.btn-primary,
+    .btn-primary.active, .btn-primary:active, .show>.btn-primary.dropdown-toggle{
+      background-color: #9B334E !important;
+      border-color: #9B334E !important;
+
+    }
+
+    html,body{
+      height:100%;
+    }
+    div#footer{
+      bottom:0;
+      height:100px;
+      position:absolute;
+      width:100%;
+      text-align:center;
+    }
+  </style>
 </head>
 <body>
 <%@include file="../fragments/headerJSP.jsp"%>
@@ -28,7 +106,7 @@
                   + car.getModel()%>
         </div>
       </div>
-      <div class="col-6" align="center">
+      <div class="col-6" >
         <div class="car_spec_text">
           Informazioni auto
         </div>
@@ -37,11 +115,11 @@
 
     <div class="row">
       <div class="col me-6">
-        <img alt="" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
+        <img alt="" width="500" height="300" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
 
         <br/>
         <br/>
-        <form method="POST" action="../client/signInJSP.jsp">
+        <form method="POST" action="${pageContext.request.contextPath}/ViewSignInServlet">
           <input type="submit" class="btn btn-primary btn-lg" name="Registrati" value="Registrati">
         </form>
       </div>
@@ -150,14 +228,14 @@
 
     <div class="row">
       <div class="col me-6">
-        <img alt="" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
+        <img alt="" width="500" height="300" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
 
         <br/>
         <br/>
-        <form method="POST" action="../admin/updateCarJSP.jsp">
+        <form method="POST" action="${pageContext.request.contextPath}./ViewUpdateCarServlet?=<%=car.getId()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Modifica Auto" value="Modifica">
         </form>
-        <form method="POST" action="jetbrains://idea/navigate/reference?project=EasyLease&fqn=com.easylease.EasyLease.control.admin.DeleteCarServlet?id=<%=car.getId()%>">
+        <form method="POST" action="${pageContext.request.contextPath}/DeleteCarServlet?id=<%=car.getId()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Elimina Auto" value="Elimina Auto">
         </form>
       </div>
@@ -266,11 +344,11 @@
 
     <div class="row">
       <div class="col me-6">
-        <img alt="" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
+        <img alt="" width="500" height="300" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
 
         <br/>
         <br/>
-        <form method="POST" action="jetbrains://idea/navigate/reference?project=EasyLease&path=advisor/estimateManagementAdvisorJSP.jsp?id=<%=car.getId()%>">
+        <form method="POST" action="${pageContext.request.contextPath}./estimateManagementAdvisorJSP.jsp?id=<%=car.getId()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Richiedi preventivo" value="Richiedi preventivo">
         </form>
       </div>
@@ -379,7 +457,7 @@
 
     <div class="row">
       <div class="col me-6">
-        <img alt="" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
+        <img alt="" width="500" height="300" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
 
         <br/>
         <br/>
@@ -475,6 +553,7 @@
 
   <%}}}}%>
 </div>
-<%@include file="../fragments/footerJSP.jsp"%>
+<div id="footer"><%@include file="../fragments/footerJSP.jsp"%></div>
+
 </body>
 </html>
