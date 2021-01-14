@@ -51,7 +51,7 @@ public class DBOptionalDAO implements OptionalDAO {
         result.setId(id);
         result.setType(rs.getString("optional_type"));
         result.setName(rs.getString("optional_name"));
-        result.setPrice(rs.getFloat("price"));
+        result.setPrice(0);
       }
 
     } catch (SQLException e) {
@@ -77,7 +77,7 @@ public class DBOptionalDAO implements OptionalDAO {
         optional.setId(rs.getString("optional_code"));
         optional.setType(rs.getString("optional_type"));
         optional.setName(rs.getString("optional_name"));
-        optional.setPrice(rs.getFloat("price"));
+        optional.setPrice(0);
         results.add(optional);
       }
     } catch (SQLException e) {
