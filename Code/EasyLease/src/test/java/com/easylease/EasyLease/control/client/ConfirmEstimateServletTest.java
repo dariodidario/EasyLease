@@ -63,7 +63,7 @@ class ConfirmEstimateServletTest {
     clientDao = DBClientDAO.getInstance();
     estimateDao = DBEstimateDAO.getInstance();
     orderDao = DBOrderDAO.getInstance();
-    advisorDao = DBAdvisorDAO.getIstance();
+    advisorDao = DBAdvisorDAO.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");

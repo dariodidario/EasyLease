@@ -54,7 +54,7 @@ class ClientsServletTest {
   void setUp() {
     MockitoAnnotations.openMocks(this);
     servlet = new ClientsServlet();
-    advisorDAO = DBAdvisorDAO.getIstance();
+    advisorDAO = DBAdvisorDAO.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");

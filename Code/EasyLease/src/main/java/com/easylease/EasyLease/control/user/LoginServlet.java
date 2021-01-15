@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
   public void doGet(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     DBAdminDAO adminDao = (DBAdminDAO) DBAdminDAO.getInstance();
-    DBAdvisorDAO advisorDao = (DBAdvisorDAO) DBAdvisorDAO.getIstance();
+    DBAdvisorDAO advisorDao = (DBAdvisorDAO) DBAdvisorDAO.getInstance();
     DBClientDAO clientDao = (DBClientDAO) DBClientDAO.getInstance();
     String email = (String) request.getParameter("userEmail");
     String password = (String) request.getParameter("userPassword");
