@@ -15,7 +15,7 @@
 <div class="css-slider">
     <input id="slide-1" type="radio" name="slides" checked>
     <section class="slide slide-one">
-        <a href="${pageContext.request.contextPath}/ViewCarServlet?ID=<%="CAurRpN"%>"><h1 class="carContainer">Volvo v60 - da 379 euro al mese!
+        <a href="${pageContext.request.contextPath}/ViewCarServlet?model=<%="v60"%>"><h1 class="carContainer">Volvo v60 - da 379 euro al mese!
             <img src="${pageContext.request.contextPath}/img/volvo_v60.jpg" class="carImage"></h1></a>
         <nav class="navImg">
             <label for="slide-3" class="prev">&#10094;</label>
@@ -24,7 +24,7 @@
     </section>
     <input id="slide-2" type="radio" name="slides">
     <section class="slide slide-two">
-        <a href="${pageContext.request.contextPath}/ViewCarServlet?ID=<%="CA18700"%>"><h1 class="carContainer">Opel Corsa - da 199 euro al mese!
+        <a href="${pageContext.request.contextPath}/ViewCarServlet?model=<%="corsa"%>"><h1 class="carContainer">Opel Corsa - da 199 euro al mese!
             <img src="${pageContext.request.contextPath}/img/opel_corsa.jpg" class="carImage"></h1></a>
         <nav class="navImg">
             <label for="slide-1" class="prev">&#10094;</label>
@@ -33,7 +33,7 @@
     </section>
     <input id="slide-3" type="radio" name="slides">
     <section class="slide slide-three">
-        <a href="${pageContext.request.contextPath}/ViewCarServlet?ID=<%="CAbj0kk"%>"><h1 class="carContainer">Peugeot 3008 - da 249 euro al mese!
+        <a href="${pageContext.request.contextPath}/ViewCarServlet?model=<%="3008"%>"><h1 class="carContainer">Peugeot 3008 - da 249 euro al mese!
             <img src="${pageContext.request.contextPath}/img/peugeot_3008.jpg" class="carImage"></h1></a>
         <nav class="navImg">
             <label for="slide-2" class="prev">&#10094;</label>

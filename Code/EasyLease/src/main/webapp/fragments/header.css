@@ -6,7 +6,7 @@
     max-width: 24%;
 }
 :root .bg-dangers{
-    --danger: #8b0000;
+    --danger: #9B334E;
 }
 .dropdown-menu{
     background-color: var(--danger) !important;
@@ -22,9 +22,14 @@
     background-color: var(--danger) !important;
 }
 .navbar{
-    border-bottom: 1px solid gainsboro; !important;
+    border-bottom: 1px solid gainsboro !important;
+    margin-bottom: 0px !important;
 }
 
 .nav-link{
     color: white;
+}
+
+.nav-link:hover{
+    color: white !important;
 }

@@ -12,28 +12,25 @@ function funct() {
     url : contextPath+"/ResearchServlet?tipologia="+tipologia+"&marca="+marca,
     success : function(data) {
       $("#BrandList option").remove(); // Remove all <option> child tags.
-      $("#ModelList option").remove(); // Remove all <option> child tags.
       var flag = false;
       var list = $.parseJSON(data);
       for (var i=0; i<list.length; i++){
-        if(list[i]==="STOP"){
+        if(list[i] === "MODELLI") {
+          $("#ModelList option").remove();
+          $("#ModelList").prop("disabled", false);
           flag=true;
+        }
+        else if (!flag) {
           $("#BrandList").append( // Append an object to the inside of the select box
-              $("<option></option>") // Yes you can do this.
-                  .text("Marca").val("0")
+              $("<option selected></option>") // Yes you can do this.
+                  .text(list[i]).val(list[i])
           );
         }
-        if (!flag) {
+        else if (flag) {
           $("#ModelList").append( // Append an object to the inside of the select box
-              $("<option></option>") // Yes you can do this.
+              $("<option selected></option>")
                   .text(list[i]).val(list[i])
           );}
-        else if (flag && list[i] !== "STOP") {
-          $("#BrandList").append( // Append an object to the inside of the select box
-              $("<option></option>") // Yes you can do this.
-                  .text(list[i]).val(list[i])
-          );
-        }
       };
     },
     error: function() {

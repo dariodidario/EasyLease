@@ -23,34 +23,39 @@ public class ResearchServlet extends HttpServlet {
       HttpServletResponse response) throws ServletException, IOException {
     String tipologia = request.getParameter("tipologia");
     String marca = request.getParameter("marca");
-    List<String> listaMarche = new ArrayList<>();
-    List<String> listaModelli = new ArrayList<>();
-    if (tipologia != null && !tipologia.equals("0")) {
+    List<String> output = new ArrayList<>();
+    if (marca != null && !marca.equals("Marca")) {
+      List<Car> carList = DBCarDAO.getInstance().retrieveAll();
+      carList.removeIf(car -> !car.getVisibility());
+      if (tipologia!=null && !tipologia.equals("Tipologia")) {
+        carList.removeIf(car -> !car.getType().equals(tipologia));
+      }
+      for (Car car : carList) {
+        if (!output.contains(car.getBrand()) && !car.getBrand().equals(marca)) {
+          output.add(car.getBrand());
+        }
+      }
+      output.add(marca);
+      output.add("MODELLI");
+      carList.removeIf(car-> !car.getBrand().equals(marca));
+      for (Car car : carList) {
+        output.add(car.getModel());
+      }
+      output.add("Modello");
+    }
+    else {
       List<Car> carList = DBCarDAO.getInstance().retrieveByType(tipologia);
       carList.removeIf(car -> !car.getVisibility());
-      if (marca != null && !marca.equals("0")) {
-        for (Car car : carList ) {
-          if (car.getBrand().equals(marca)) {
-            listaModelli.add(car.getModel());
-          }
+      for (Car car : carList) {
+        if (!output.contains(car.getBrand())){
+          output.add(car.getBrand());
         }
       }
-      else {
-        for (Car car : carList) {
-          listaModelli.add(car.getModel());
-          if (!listaMarche.contains(car.getBrand())) {
-            listaMarche.add(car.getBrand());
-          }
-        }
-      }
-      listaModelli.add("STOP");
-      if (listaMarche.size()>0) {
-        listaModelli.addAll(listaMarche);
-      }
+      output.add("Marca");
     }
     Gson gson = new Gson();
     PrintWriter out = response.getWriter();
-    out.print(gson.toJson(listaModelli));
+    out.print(gson.toJson(output));
     out.flush();
     out.close();
   }
@@ -59,7 +64,7 @@ public class ResearchServlet extends HttpServlet {
   protected void doPost(
       HttpServletRequest req,
       HttpServletResponse resp) throws ServletException, IOException {
-
+    doGet(req, resp);
   }
 
 }

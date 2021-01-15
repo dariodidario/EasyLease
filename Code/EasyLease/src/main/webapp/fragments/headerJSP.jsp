@@ -17,7 +17,7 @@
 <nav class="navbar navbar-expand-sm bg-dangers navbar-danger">
   <!-- Brand -->
   <a class="navbar-brand" href="${pageContext.request.contextPath}/user/homePageJSP.jsp">
-      <div class="headerLogo"> <img src="${pageContext.request.contextPath}/img/misc/logoTrasparente.png"></div></a>
+      <div class="headerLogo"> <img src="${pageContext.request.contextPath}/img/misc/logo2Trasparente.png"></div></a>
 
   <!-- Links -->
   <ul class="navbar-nav">
@@ -46,22 +46,18 @@
            <img src="${pageContext.request.contextPath}/img/misc/userImage3.png" class="userImg">
           </a>
       <%if (roleUser.equals("client")) {%>
-              <div class="dropdown-menu">
-              <a class="dropdown-item" href="">Area Utente</a>
+              <div class="dropdown-menu dropdown-menu-right">
               <a class="dropdown-item" href="${pageContext.request.contextPath}/HistoryClientServlet">Ordini e Preventivi</a>
               <a class="dropdown-item" href="${pageContext.request.contextPath}/LogoutServlet">Logout</a><%}
           else if (roleUser.equals("advisor")) {%>
                   <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">Area Utente</a>
               <a class="dropdown-item" href="${pageContext.request.contextPath}/HistoryAdvisorServlet">Ordini e Preventivi</a>
               <a class="dropdown-item" href="${pageContext.request.contextPath}/ClientsServlet">Visualizza Clienti</a>
               <a class="dropdown-item" href="${pageContext.request.contextPath}/LogoutServlet">Logout</a><%}
           else if (roleUser.equals("admin")){%>
                       <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Area Utente</a>
               <a class="dropdown-item" href="${pageContext.request.contextPath}/ViewAddAdvisorServlet">Aggiungi consulente</a>
               <a class="dropdown-item" href="${pageContext.request.contextPath}/ViewAddCarServlet">Aggiungi auto</a>
-              <a class="dropdown-item" href="">Visualizza Consulenti</a>
               <a class="dropdown-item" href="${pageContext.request.contextPath}/LogoutServlet">Logout</a><%}}%>
     </li>
   </ul>

@@ -14,11 +14,11 @@
 
 .RequestEstimateForm>h1{
     padding: 0.5em 1em 1em;
-    color: darkred;
+    color: #9B334E;
 }
 
 .EstimateButton{
-    background-color: darkred;
+    background-color: #9B334E;
     border: none;
     color: white;
     padding: 1em 6em;

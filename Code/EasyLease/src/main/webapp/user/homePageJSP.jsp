@@ -22,7 +22,7 @@
 <div class="Ricerca">
 <form action='${pageContext.request.contextPath}/HomePageServlet' method='GET'>
   <select class="selectpicker" name="tipologia" id="TypeList" onchange="funct()">
-    <option value="0" selected>Tipologia</option>
+    <option value="Tipologia" selected>Tipologia</option>
     <option>SUV</option>
     <option>Berlina</option>
     <option>Cabriolet</option>
@@ -31,7 +31,7 @@
   </select>
 
   <select class="selectpicker" name="marca" id="BrandList" onchange="funct()">
-    <option value="0" selected> Marca</option>
+    <option value="Marca" selected> Marca</option>
     <option value="Fiat">Fiat</option>
     <option value="Renault">Renault</option>
     <option value="Opel">Opel</option>
@@ -49,8 +49,8 @@
     <option value="Jaguar">Jaguar</option>
   </select>
 
-  <select class="selectpicker" name="modello" id="ModelList">
-    <option value="0" selected>Modello</option>
+  <select class="selectpicker" name="modello" id="ModelList" disabled>
+    <option value="Modello" selected>Modello</option>
     <option value="Spider 124">Spider 124</option>
     <option value="Sporter">Sporter</option>
     <option value="Clio">Clio</option>
