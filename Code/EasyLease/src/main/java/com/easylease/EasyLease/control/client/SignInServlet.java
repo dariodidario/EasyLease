@@ -1,5 +1,6 @@
 package com.easylease.EasyLease.control.client;
 
+import com.easylease.EasyLease.control.utility.IdGenerator;
 import com.easylease.EasyLease.model.client.Client;
 import com.easylease.EasyLease.model.client.DBClientDAO;
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class SignInServlet extends HttpServlet {
       HttpServletResponse response)
       throws ServletException, IOException {
     Client client = new Client();
-    client.setId(request.getParameter("id"));
+    client.setId("CL"+ IdGenerator.randomIdGenerator());
     client.setName(request.getParameter("name"));
     client.setSurname(request.getParameter("surname"));
     client.setEmail(request.getParameter("email"));

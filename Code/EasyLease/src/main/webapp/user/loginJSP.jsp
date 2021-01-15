@@ -12,6 +12,7 @@
   <style>
     .btn-primary{
       background-color: #800000 !important;
+      border: none !important;
     }
 
     html,body{
@@ -51,7 +52,7 @@
   }
 </script>
 <center>
-  <div style="text-align: center; width: 70%;">
+  <div style="text-align: center; width: 30%;">
 <form action="${pageContext.request.contextPath}/LoginServlet" method="post" onSubmit="return controllo()">
   <div class="form-group">
 

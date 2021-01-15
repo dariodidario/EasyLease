@@ -18,6 +18,7 @@
   <style>
     .btn-primary{
       background-color: #800000 !important;
+      border: none !important;
     }
   </style>
 </head>
