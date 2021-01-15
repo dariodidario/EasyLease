@@ -25,15 +25,22 @@ public class HomePageServlet extends HttpServlet {
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
       String modello = request.getParameter("modello");
+      String marca = request.getParameter("marca");
+      String tipologia = request.getParameter("tipologia");
       List<Car> carList = new ArrayList<>();
       if(modello != null && !modello.equals("Modello")){
         carList.add(DBCarDAO.getInstance().retrieveByModel(modello));
+      }
+      else if(marca != null && !marca.equals("Marca")){
+        carList = DBCarDAO.getInstance().retrieveByBrand(marca);
+      }
+      else if(tipologia != null && !tipologia.equals("Tipologia")) {
+        carList = DBCarDAO.getInstance().retrieveByType(tipologia);
       }
       else{
         carList = DBCarDAO.getInstance().retrieveAll();
       }
     request.setAttribute("carList", carList);
-    RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/user/homePageJSP.jsp");
-    requestDispatcher.forward(request, response);
+    request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
   }
 }
