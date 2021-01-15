@@ -114,6 +114,7 @@
 </form>
 <hr>
 <%@include file="../fragments/footerJSP.jsp"%>
+
 <datalist id="autoBrand">
   <option value="Abarth">
   <option value="Alfa Romeo">
