@@ -1,0 +1,71 @@
+
+.container {
+    margin: 5%;
+    border-radius: 3px;
+    border-color: #9B334E;
+}
+
+.row {
+    display: block !important;
+}
+
+a {
+    float: right;
+    background-color: #9B334E !important;
+    color: #f2f2f2 !important;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.contact-container input[type="text"], .contact-container input[type="email"], input[type="password"], .contact-container input[type="telefono"], .contact-container input[type="number"], .contact-container input[type="file"], .contact-container textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    resize: none;
+}
+
+.contact-container label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+.contact-container input[type="submit"] {
+    background-color: #9B334E;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-top: 10px;
+}
+
+.contact-container input[type="submit"]:hover {
+    background-color: white;
+    color: #9B334E;
+}
+
+.contact-container .col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.contact-container .col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+.contact-container .row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+h5.check {
+    margin-bottom: 0;
+    margin-top: 5px;
+}

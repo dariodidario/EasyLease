@@ -1,0 +1,60 @@
+.container{
+    margin-left: 10%;
+}
+
+.card.FAQ{
+    display: flow-root;
+    width: 100%;
+    margin-top: 5%;
+    border-radius: 3px;
+    border-color: #9B334E;
+}
+
+.card h3{
+    text-align: center;
+}
+
+.FAQ .up{
+    float: right;
+}
+
+.FAQ a{
+    background-color: #9B334E;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 15px;
+    text-align: center;
+}
+
+.FAQ a:hover{
+    background-color: white;
+    color: #9B334E;
+}
+
+.FAQ p{
+    display: none;
+    text-align: justify;
+    background-color: #9B334E;
+    border-radius: 6px;
+    padding: 10px;
+    color: white;
+    margin-top: 0;
+}
+
+.FAQ button{
+    background-color: #9B334E;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.FAQ button:hover{
+    background-color: white;
+    color: #9B334E;
+}
