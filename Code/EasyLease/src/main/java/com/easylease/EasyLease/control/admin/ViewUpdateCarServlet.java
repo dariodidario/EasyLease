@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ViewUpdateCarServlet")
+@WebServlet(name = "ViewUpdateCarServlet", urlPatterns = "/ViewUpdateCarServlet")
 public class ViewUpdateCarServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
@@ -27,7 +27,7 @@ public class ViewUpdateCarServlet extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/error403.jsp");
             dispatcher.forward(request, response);
         } else {
-            String id=(String) request.getSession().getAttribute("Car_id");
+            String id=(String) request.getParameter("Car_id");
 
             if(id!=null&&id.equalsIgnoreCase("")==false) {
                 CarDAO carDAO = DBCarDAO.getInstance();
