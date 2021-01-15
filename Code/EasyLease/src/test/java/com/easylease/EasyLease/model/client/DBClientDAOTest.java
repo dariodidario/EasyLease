@@ -203,7 +203,7 @@ public class DBClientDAOTest {
     String dateInString = "1982-08-31";
     Date date = sdf.parse(dateInString);
     Client client = new Client();
-    String password = "pass";
+    Client originalClient = clientDao.retrieveById("CLEE8BD");
     client.setId("CLEE8BD");
     client.setName("Alberto");
     client.setSurname("Angela");
@@ -226,6 +226,7 @@ public class DBClientDAOTest {
     assertEquals(client.getKind(), toCheck.getKind());
     assertEquals(client.getBirthPlace(), toCheck.getBirthPlace());
     assertEquals(client.getBirthDate(), toCheck.getBirthDate());
+    clientDao.update(originalClient, "pass");
   }
 
   @Test
@@ -279,23 +280,11 @@ public class DBClientDAOTest {
   }
 
   @Test
-  void delete_ExistingClient_Success() throws ParseException {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    String dateInString = "1998-09-08";
-    Date date = sdf.parse(dateInString);
-    Client client = new Client();
-    client.setId("CLEE8BD");
-    client.setName("Mattia");
-    client.setSurname("Caprio");
-    client.setEmail("mattia.caprio@unisa.com");
-    client.setPc("83020");
-    client.setStreet("Via Nazionale");
-    client.setCity("Patierno");
-    client.setKind("Uomo");
-    client.setBirthPlace("Avellino");
-    client.setBirthDate(date);
+  void delete_ExistingClient_Success() {
+    Client client = clientDao.retrieveById("CLEE8BD");
     clientDao.delete(client);
     assertNull(clientDao.retrieveById("CLEE8BD"));
+    clientDao.insert(client, "pass");
   }
 
   @Test
