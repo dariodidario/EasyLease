@@ -232,10 +232,10 @@
 
         <br/>
         <br/>
-        <form method="POST" action="${pageContext.request.contextPath}./ViewUpdateCarServlet?=<%=car.getId()%>">
+        <form method="GET" action="${pageContext.request.contextPath}./ViewUpdateCarServlet?=<%=car.getId()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Modifica Auto" value="Modifica">
         </form>
-        <form method="POST" action="${pageContext.request.contextPath}/DeleteCarServlet?id=<%=car.getId()%>">
+        <form method="GET" action="${pageContext.request.contextPath}/DeleteCarServlet?id=<%=car.getId()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Elimina Auto" value="Elimina Auto">
         </form>
       </div>
@@ -348,7 +348,7 @@
 
         <br/>
         <br/>
-        <form method="POST" action="${pageContext.request.contextPath}./estimateManagementAdvisorJSP.jsp?id=<%=car.getId()%>">
+        <form method="GET" action="${pageContext.request.contextPath}./estimateManagementAdvisorJSP.jsp?id=<%=car.getId()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Richiedi preventivo" value="Richiedi preventivo">
         </form>
       </div>

@@ -28,10 +28,10 @@ public class SignInServlet extends HttpServlet {
     client.setName(request.getParameter("name"));
     client.setSurname(request.getParameter("surname"));
     client.setEmail(request.getParameter("email"));
-    client.setBirthPlace(request.getParameter("bithplace"));
+    client.setBirthPlace(request.getParameter("birthplace"));
     try {
       client.setBirthDate(new SimpleDateFormat(
-          "dd/MM/yyyy").parse((request.getParameter("bithdate"))));
+          "dd/MM/yyyy").parse((request.getParameter("birthdate"))));
     } catch (ParseException e) {
       System.out.println(e.getMessage());
     }
