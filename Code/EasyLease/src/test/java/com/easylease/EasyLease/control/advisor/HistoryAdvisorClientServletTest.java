@@ -1,17 +1,14 @@
-package com.easylease.EasyLease.control.client;
+package com.easylease.EasyLease.control.advisor;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.easylease.EasyLease.model.advisor.Advisor;
+import com.easylease.EasyLease.model.advisor.AdvisorDAO;
+import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
-import com.easylease.EasyLease.model.order.Order;
-import com.easylease.EasyLease.model.order.OrderDAO;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,14 +26,16 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
 
+
+
 /**
- * Test of the OrderCheckoutServlet class.
+ * Test of the HistoryAdvisorClientServlet class.
  *
  * @author Antonio Sarro
  * @version 0.1
  * @since 0.1
  */
-class OrderCheckoutServletTest {
+class HistoryAdvisorClientServletTest {
   @Mock
   private HttpServletRequest request;
   @Mock
@@ -48,16 +47,15 @@ class OrderCheckoutServletTest {
   @Mock
   private RequestDispatcher dispatcher;
 
-  private OrderDAO orderDAO;
-  private OrderCheckoutServlet servlet;
+  private HistoryAdvisorClientServlet servlet;
+  private AdvisorDAO advisorDAO;
   private final Map<String, Object> attributes = new HashMap<>();
-  private Order orderStub;
 
   @BeforeEach
-  void setUp() {
+  void setUp() throws Exception {
     MockitoAnnotations.openMocks(this);
-    servlet = new OrderCheckoutServlet();
-    orderDAO = DBOrderDAO.getInstance();
+    servlet = new HistoryAdvisorClientServlet();
+    advisorDAO = DBAdvisorDAO.getIstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");
@@ -83,32 +81,30 @@ class OrderCheckoutServletTest {
   }
 
   @Test
-  void orderCheckoutServletTestSuccess() throws ServletException, IOException {
-    orderStub = orderDAO.retrieveById("ORbG567");
-    when(request.getSession().getAttribute("user")).thenReturn(new Client());
-    when(request.getParameter("submit")).thenReturn("ORbG567");
+  void historyAdvisorClientServletTestSuccess() throws ServletException, IOException {
+    Advisor advisor = advisorDAO.retrieveById("ADJdybc");
+    when(request.getSession().getAttribute("user")).thenReturn(advisor);
+    when(request.getParameter("id_client")).thenReturn("CLEE8BD");
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
-    assertEquals("Pagato", orderDAO.retrieveById("ORbG567").getState());
-    orderDAO.update(orderStub);
+    verify(request).getRequestDispatcher("/advisor/historyAdvisorJSP.jsp");
   }
 
   @Test
-  void orderCheckoutServletTestNullSession() throws ServletException, IOException {
+  void historyAdvisorClientServletTestNullSession() throws ServletException, IOException {
     when(request.getSession()).thenReturn(null);
     servlet.doGet(request, response);
     verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
   @Test
-  void orderCheckoutServletTestWrongUser() throws ServletException, IOException {
-    when(request.getSession().getAttribute("user")).thenReturn(new Advisor());
+  void historyAdvisorClientServletTestWrongUser() throws ServletException, IOException {
+    when(request.getSession().getAttribute("user")).thenReturn(new Client());
     servlet.doGet(request, response);
     verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
   @Test
-  void orderCheckoutServletTestNullUser() throws ServletException, IOException {
+  void historyAdvisorClientServletTestNullUser() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(null);
     servlet.doGet(request, response);
     verify(request).getRequestDispatcher("/user/homePageJSP.jsp");

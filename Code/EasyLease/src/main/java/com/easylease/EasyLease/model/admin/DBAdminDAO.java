@@ -1,9 +1,6 @@
 package com.easylease.EasyLease.model.admin;
 
 import com.easylease.EasyLease.model.DBPool.DBConnection;
-import com.easylease.EasyLease.model.client.Client;
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,21 +14,22 @@ import java.util.logging.Logger;
  * This class implements the AdminDAO interface, using the singleton DBConnection
  * as the database.
  *
- * @since 0.1
  * @author Antonio Sarro
  * @version 0.1
+ * @since 0.1
  */
 public class DBAdminDAO implements AdminDAO {
 
-  private static Logger logger = Logger.getLogger(DBAdminDAO.class.getName());
+  private static final Logger logger = Logger.getLogger(
+      DBAdminDAO.class.getName());
   private static DBAdminDAO dao;
-  private Connection connection;
+  private final Connection connection;
 
   /**
    * Returns a DBAdminDAO Singleton Object.
    *
    * @return the {@link DBAdminDAO} Object that accesses the {@link Admin} object
-   *      in the Database.
+   *     in the Database.
    */
   public static AdminDAO getInstance() {
     if (dao == null) {
@@ -46,64 +44,72 @@ public class DBAdminDAO implements AdminDAO {
 
   @Override
   public Admin retrieveById(String id) {
-    final String query = "SELECT * FROM users WHERE id_user = ?";
-
+    final String query = "SELECT * FROM users WHERE id_user = ? AND account_type = ?";
     return getAdmin(id, query);
   }
 
   @Override
   public Admin retrieveByEmail(String email) {
-    final String query = "SELECT * FROM users WHERE email = ?";
+    final String query = "SELECT * FROM users WHERE email = ? AND account_type = ?";
     return getAdmin(email, query);
   }
 
   @Override
   public String retrievePasswordByEmail(String email) {
-    if((email==null)){
-      throw new IllegalArgumentException();
-    }
-    PreparedStatement preparedStatement = null;
-    Admin admin = new Admin();
-    String result = "";
     final String query = "SELECT pwd FROM users WHERE account_type = ? AND email = ?";
+    PreparedStatement stm;
+    ResultSet rs;
 
-    try{
-      preparedStatement = connection.prepareStatement(query);
-      preparedStatement.setString(1, "Amministratore");
-      preparedStatement.setString(2, email);
-      ResultSet rs = preparedStatement.executeQuery();
+    if (email == null) {
+      throw new IllegalArgumentException("The email entered is null!");
+    }
 
-      if(rs.next()){
-        result = rs.getString("pwd");
-      } else{
-        result = null;
+    try {
+      stm = connection.prepareStatement(query);
+      stm.setString(1, "Amministratore");
+      stm.setString(2, email);
+
+      rs = stm.executeQuery();
+
+      if (rs == null) {
+        return null;
       }
 
-      return result;
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
-      return null;
+      if (!rs.next()) {
+        return null;
+      }
+
+      return rs.getString("pwd");
+
+    } catch (SQLException exception) {
+      logger.log(Level.SEVERE, exception.getMessage());
     }
+    return null;
   }
 
   @Override
   public List<Admin> retrieveAll() {
-    final String query = "SELECT * FROM user WHERE accountType = ?";
+    final String query = "SELECT * FROM users WHERE account_type = ?";
+    PreparedStatement stm;
+    ResultSet rs;
 
     List<Admin> admins = new ArrayList<>();
+
     try {
-      PreparedStatement stm = connection.prepareStatement(query);
-      stm.setString(1, "Admin");
+      stm = connection.prepareStatement(query);
+      stm.setString(1, "Amministratore");
       stm.execute();
-      ResultSet rs = stm.getResultSet();
+
+      rs = stm.getResultSet();
       while (rs.next()) {
         admins.add(getAdminFromRs(rs));
       }
+
       return admins;
-    } catch (SQLException ex) {
-      logger.log(Level.SEVERE, ex.getMessage());
-      return null;
+    } catch (SQLException exception) {
+      logger.log(Level.SEVERE, exception.getMessage());
     }
+    return null;
   }
 
   /**
@@ -114,7 +120,6 @@ public class DBAdminDAO implements AdminDAO {
    * @throws SQLException if the ResultSet is null.
    */
   private Admin getAdminFromRs(ResultSet rs) throws SQLException {
-    AdminDAO adminDAO = DBAdminDAO.getInstance();
     Admin o = new Admin();
     o.setId(rs.getString("id_user"));
     o.setName(rs.getString("first_name"));
@@ -130,26 +135,33 @@ public class DBAdminDAO implements AdminDAO {
    * @param param used in the query.
    * @param query for retrieveById or retrieveByEmail
    * @return the admin get from the query
-
    */
   private Admin getAdmin(String param, String query) {
+    PreparedStatement stm;
+    ResultSet rs;
+
     if (param == null || param.equals("")) {
       throw new IllegalArgumentException(
-          String.format("The id(%s) passed as a parameter is not valid", param));
+          String.format("The param (%s) passed as a parameter is not valid",
+              param));
     }
+
     try {
-      PreparedStatement stm = connection.prepareStatement(query);
+      stm = connection.prepareStatement(query);
       stm.setString(1, param);
+      stm.setString(2, "Amministratore");
       stm.execute();
 
-      ResultSet rs = stm.getResultSet();
+      rs = stm.getResultSet();
       if (!rs.next()) {
         return null;
       }
+
       return getAdminFromRs(rs);
-    } catch (SQLException ex) {
-      logger.log(Level.SEVERE, ex.getMessage());
-      return null;
+    } catch (SQLException exception) {
+      logger.log(Level.SEVERE, exception.getMessage());
     }
+    return null;
   }
 }
+

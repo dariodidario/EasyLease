@@ -5,21 +5,28 @@ import com.easylease.EasyLease.model.client.Client;
 import com.easylease.EasyLease.model.client.DBClientDAO;
 import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
 import com.easylease.EasyLease.model.estimate.Estimate;
-
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+
+/**
+ * Servlet that takes care of returning a list of all customers, where
+ * the customers of the Advisor calling the servlet are flagged to true.
+ *
+ * @author Antonio Sarro
+ * @version 0.2
+ * @since 0.1
+ */
 @WebServlet(name = "ClientsServlet", urlPatterns = "/ClientsServlet")
 public class ClientsServlet extends HttpServlet {
   DBClientDAO dbClientDAO = (DBClientDAO) DBClientDAO.getInstance();
@@ -36,6 +43,7 @@ public class ClientsServlet extends HttpServlet {
           throw new ServletException("Section dedicated to a registered user"
               + "on the platform correctly as an Advisor");
         }
+
         Advisor advisor = (Advisor) session.getAttribute("user");
 
         Map<Client, Boolean> clients = new HashMap<>();
@@ -55,11 +63,14 @@ public class ClientsServlet extends HttpServlet {
         request.getRequestDispatcher("/advisor/clientsJSP.jsp")
             .forward(request, response);
       } catch (ServletException ex) {
-        Logger.getLogger(ClientsServlet.class.getName()).
-            log(Level.SEVERE, ex.getMessage());
+        Logger.getLogger(ClientsServlet.class.getName())
+            .log(Level.SEVERE, ex.getMessage());
         request.getRequestDispatcher("/user/homePageJSP.jsp")
             .forward(request, response);
       }
+    } else {
+      request.getRequestDispatcher("/user/homePageJSP.jsp")
+          .forward(request, response);
     }
   }
 

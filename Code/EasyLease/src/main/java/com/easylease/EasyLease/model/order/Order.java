@@ -8,7 +8,7 @@ import java.util.Date;
  *
  * @since 0.1
  * @author Antonio Sarro
- * @version 0.1
+ * @version 0.2
  */
 public class Order {
 
@@ -24,9 +24,9 @@ public class Order {
   private Date pickupDate;
   /** Indicates whether the order is visible or not. */
   private boolean visibility;
-  /** Current status of the Order */
+  /** Current status of the Order. */
   private String state;
-  /** Order creation date */
+  /** Order creation date. */
   private Date creationDate;
 
   public Order() {
@@ -217,15 +217,15 @@ public class Order {
 
   @Override
   public String toString() {
-    return "Order{" +
-        "id='" + id + '\'' +
-        ", estimate=" + estimate +
-        ", startDate=" + startDate +
-        ", endDate=" + endDate +
-        ", pickupDate=" + pickupDate +
-        ", visibility=" + visibility +
-        ", state='" + state + '\'' +
-        ", creationDate=" + creationDate +
-        '}';
+    return "Order{"
+        + "id='" + id + '\''
+        + ", estimate=" + estimate
+        + ", startDate=" + startDate
+        + ", endDate=" + endDate
+        + ", pickupDate=" + pickupDate
+        + ", visibility=" + visibility
+        + ", state='" + state + '\''
+        + ", creationDate=" + creationDate
+        + '}';
   }
 }

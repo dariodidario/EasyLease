@@ -13,6 +13,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test of the DBConnection model.
+ *
+ * @author Antonio Sarro
+ * @version 0.1
+ * @since 0.1
+ */
 public class DBConnectionTest {
   private static DataSource dataSource;
   private DBConnection dbConnection;

@@ -5,6 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test of the IdGenerator utility class.
+ *
+ * @author Antonio Sarro
+ * @version 0.1
+ * @since 0.1
+ */
 public class IdGeneratorTest {
 
   @Test

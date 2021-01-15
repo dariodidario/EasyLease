@@ -1,11 +1,24 @@
 package com.easylease.EasyLease.control.advisor;
 
-import com.easylease.EasyLease.control.client.OrderCheckoutServlet;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.advisor.AdvisorDAO;
 import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,23 +27,13 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
+/**
+ * Test of the ClientsServlet class.
+ *
+ * @author Antonio Sarro
+ * @version 0.1
+ * @since 0.1
+ */
 class ClientsServletTest {
   @Mock
   private HttpServletRequest request;
@@ -48,7 +51,7 @@ class ClientsServletTest {
   private final Map<String, Object> attributes = new HashMap<>();
 
   @BeforeEach
-  void setUp() throws Exception {
+  void setUp() {
     MockitoAnnotations.openMocks(this);
     servlet = new ClientsServlet();
     advisorDAO = DBAdvisorDAO.getIstance();
@@ -77,7 +80,7 @@ class ClientsServletTest {
   }
 
   @Test
-  void Success() throws ServletException, IOException {
+  void clientsServletTestSuccess() throws ServletException, IOException {
     Advisor advisor = advisorDAO.retrieveById("ADJdybc");
     when(request.getSession().getAttribute("user")).thenReturn(advisor);
     servlet.doGet(request, response);
@@ -85,7 +88,21 @@ class ClientsServletTest {
   }
 
   @Test
-  void sessionNull() throws ServletException, IOException {
+  void clientsServletTestNullSession() throws ServletException, IOException {
+    when(request.getSession()).thenReturn(null);
+    servlet.doGet(request, response);
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+  }
+
+  @Test
+  void clientsServletTestWrongUser() throws ServletException, IOException {
+    when(request.getSession().getAttribute("user")).thenReturn(new Client());
+    servlet.doGet(request, response);
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+  }
+
+  @Test
+  void clientsServletTestNullUser() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(null);
     servlet.doGet(request, response);
     verify(request).getRequestDispatcher("/user/homePageJSP.jsp");

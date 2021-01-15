@@ -9,9 +9,9 @@ import java.util.logging.Logger;
 /**
  * This class defines the methods for hashing password.
  *
- * @since 0.1
  * @author Antonio Sarro
- * @version 0.1
+ * @version 0.2
+ * @since 0.1
  */
 public class PasswordHashing {
 
@@ -22,6 +22,8 @@ public class PasswordHashing {
    *
    * @param password of which to hash.
    * @return the hash of password.
+   * @version 0.2
+   * @since 0.1
    */
   public static String generatePassword(String password, String algorithm) {
 
@@ -31,8 +33,8 @@ public class PasswordHashing {
       md.update(password.getBytes(StandardCharsets.UTF_8));
       return toHex(md.digest());
     } catch (NoSuchAlgorithmException ex) {
-        logger.log(Level.SEVERE, ex.getMessage());
-        return null;
+      logger.log(Level.SEVERE, ex.getMessage());
+      return null;
     }
   }
 
@@ -42,6 +44,8 @@ public class PasswordHashing {
    * @param password entered by the client.
    * @param hash of client retrieved from the Database.
    * @return true if correct, false if wrong.
+   * @version 0.2
+   * @since 0.1
    */
 
   public static boolean passwordAuthenticator(String password, String hash, String algorithm) {
@@ -53,6 +57,8 @@ public class PasswordHashing {
    *
    * @param data the result of the password hashing.
    * @return the hash string.
+   * @version 0.2
+   * @since 0.1
    */
   private static String toHex(byte[] data) {
     StringBuilder sb = new StringBuilder();

@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 <body>
-
+<%@include file="/fragments/headerJSP.jsp"%>
 <div class="container">
   <div class="row mt-3 mx-2">
     <div class="col-md-6">
@@ -142,7 +142,7 @@
   </div>
 </div>
 <div class="col-md-3"></div>
-
+<%@include file="/fragments/footerJSP.jsp"%>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/cleave.js@1.6.0/dist/cleave.min.js"></script>
 <script src="${pageContext.request.contextPath}/client/orderCheckout.js"></script>
