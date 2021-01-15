@@ -201,24 +201,24 @@
 
 @media (min-width: 831px) and (orientation: landscape){
     hr{
-        border: 1px solid #dec717;
-        width: 50%;
-        alignment: left;
-        margin-left: 10%;
-        position: absolute;
-        bottom: 20%;
+        border: medium solid #dec717; !important;
+        width: 50%; !important;
+        alignment: left; !important;
+        margin-left: 10%; !important;
+        position: absolute; !important;
+        bottom: 21%; !important;
     }
     input.carDetail {
         width: 40%;
         background: #9b334e;
-        font-size: 0.8vw;
+        font-size: 0.5vw;
     }
     input.carDetail:hover {
         background: #800000;
     }
 
     label.carDetail{
-        font-size: 1.5vw;
+        font-size: 1vw;
     }
     input.autoName{
         width: 15%;
@@ -229,11 +229,11 @@
 
     table.characteristics{
         position: absolute;
-        top: 20.5%;
+        top: 20%;
         right: 1%;
         background: #9b334e;
         width: 30%;
-        height: 59%;
+        height: 51%;
         border-right: medium solid #dec717;
         border-top: medium solid #dec717;
         border-bottom: medium solid #dec717;
@@ -245,12 +245,14 @@
         background: #9b334e;
         position: absolute;
         left: 30%;
-        top: 72%;
+        top: 69%;
         width: 15%;
         height: 5%;
+        text-align: center;
         font-size: 1.5vw;
         border-bottom:medium solid #dec717;
-        border-radius: 5px;
+        border-radius: 20px;
+        padding-bottom: 5px;
     }
     #divAutoName{
         position: absolute;
@@ -273,10 +275,18 @@
     }
     input[type=file]::-webkit-file-upload-button {
         border-bottom: medium solid #dec717;
-        border-radius: 5px;
+        border-radius: 20px;
         background-color: #9b334e;
+
     }
     input[type=file]::-webkit-file-upload-button:hover {
         background-color: #800000;
     }
+    .footer{
+        position: absolute; !important;
+        bottom: 0%; !important;
+        width: 100%; !important;
+        height: 4em; !important;
+    }
+
 }
