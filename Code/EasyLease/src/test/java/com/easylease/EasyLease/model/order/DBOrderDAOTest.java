@@ -1,17 +1,27 @@
 package com.easylease.EasyLease.model.order;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import com.easylease.EasyLease.control.utility.exception.EntityTamperingException;
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.mysql.cj.jdbc.MysqlDataSource;
+import java.sql.SQLException;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.sql.SQLException;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Test of the DBOrderDAO model.
+ *
+ * @author Antonio Sarro
+ * @version 0.1
+ * @since 0.1
+ */
 public class DBOrderDAOTest {
   private static DBConnection dbConnection;
   private OrderDAO orderDAO;
@@ -50,7 +60,7 @@ public class DBOrderDAOTest {
 
   @Test
   void retrieveById_NullId() {
-      assertThrows(IllegalArgumentException.class, () -> orderDAO.retrieveById(null));
+    assertThrows(IllegalArgumentException.class, () -> orderDAO.retrieveById(null));
   }
 
   @Test
@@ -65,7 +75,7 @@ public class DBOrderDAOTest {
 
   @Test
   void retrieveById_NullRs() {
-    assertNull(orderDAO.retrieveById("OR12345"));
+    assertNull(orderDAO.retrieveById("ORXXXXX"));
   }
 
   @Test
@@ -115,11 +125,20 @@ public class DBOrderDAOTest {
     Order updatedOrder = orderDAO.retrieveById("OR1ER4T");
     assertEquals(order.getId(), updatedOrder.getId());
     assertEquals(order.isVisibility(), updatedOrder.isVisibility());
+    order.setVisibility(!order.isVisibility());
+    orderDAO.update(order);
   }
 
   @Test
-  void update_Failure() {
+  void update_NullOrder() {
     assertThrows(EntityTamperingException.class, () -> orderDAO.update(null));
+  }
+
+  @Test
+  void update_NotPresentOrder() {
+    Order order = orderDAO.retrieveById("OR1ER4T");
+    order.setId("ORXXXXX");
+    assertThrows(EntityTamperingException.class, () -> orderDAO.update(order));
   }
 
   @Test
@@ -136,7 +155,12 @@ public class DBOrderDAOTest {
   }
 
   @Test
-  void insert_Failure() {
+  void insert_NullOrder() {
+    assertThrows(EntityTamperingException.class, () -> orderDAO.insert(null));
+  }
+
+  @Test
+  void insert_AlreadyPresentOrder() {
     Order order = orderDAO.retrieveById("OR1ER4T");
     assertThrows(EntityTamperingException.class, () -> orderDAO.insert(order));
   }
@@ -146,13 +170,20 @@ public class DBOrderDAOTest {
     Order order = orderDAO.retrieveById("OR1ER4T");
     order.setId("ORTEST1");
     orderDAO.insert(order);
+    assertNotNull(orderDAO.retrieveById("ORTEST1"));
     orderDAO.delete(order);
+    assertNull(orderDAO.retrieveById("ORTEST1"));
   }
 
   @Test
-  void delete_Failure() {
+  void delete_NullOrder() {
+    assertThrows(EntityTamperingException.class, () -> orderDAO.delete(null));
+  }
+
+  @Test
+  void delete_NotPresentOrder() {
     Order order = orderDAO.retrieveById("OR1ER4T");
-    order.setId("ORTEST2");
+    order.setId("ORXXXXX");
     assertThrows(EntityTamperingException.class, () -> orderDAO.delete(order));
   }
 }

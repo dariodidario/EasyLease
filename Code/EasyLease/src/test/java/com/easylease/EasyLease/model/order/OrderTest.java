@@ -11,6 +11,13 @@ import com.easylease.EasyLease.model.estimate.Estimate;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test of the Order model.
+ *
+ * @author Antonio Sarro
+ * @version 0.1
+ * @since 0.1
+ */
 class OrderTest {
 
   @Test
@@ -118,6 +125,13 @@ class OrderTest {
   }
 
   @Test
+  void testOrderEquals() {
+    Order order = new Order("OR12RT4", new Estimate(), new Date(),
+        new Date(), new Date(), new Date(), true, "Attesa");
+    assertEquals(order, order);
+  }
+
+  @Test
   void testOrderNotEquals() {
     Order order = new Order("OR12RT4", new Estimate(), new Date(),
         new Date(), new Date(), new Date(), true, "Attesa");
@@ -135,16 +149,16 @@ class OrderTest {
   void testOrderToString() {
     Order order = new Order("OR12RT4", new Estimate(), new Date(),
         new Date(), new Date(), new Date(), true, "Attesa");
-    String toString = "Order{" +
-        "id='" + order.getId() + '\'' +
-        ", estimate=" + order.getEstimate() +
-        ", startDate=" + order.getStartDate() +
-        ", endDate=" + order.getEndDate() +
-        ", pickupDate=" + order.getPickupDate() +
-        ", visibility=" + order.isVisibility() +
-        ", state='" + order.getState() + '\'' +
-        ", creationDate=" + order.getCreationDate() +
-        '}';
+    String toString = "Order{"
+        + "id='" + order.getId() + '\''
+        + ", estimate=" + order.getEstimate()
+        + ", startDate=" + order.getStartDate()
+        + ", endDate=" + order.getEndDate()
+        + ", pickupDate=" + order.getPickupDate()
+        + ", visibility=" + order.isVisibility()
+        + ", state='" + order.getState() + '\''
+        + ", creationDate=" + order.getCreationDate()
+        + '}';
     assertEquals(order.toString(), toString);
   }
 

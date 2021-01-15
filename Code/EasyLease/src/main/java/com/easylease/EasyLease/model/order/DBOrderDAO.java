@@ -7,13 +7,10 @@ import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.client.Client;
 import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
 import com.easylease.EasyLease.model.estimate.EstimateDAO;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,9 +27,10 @@ import java.util.logging.Logger;
  */
 public class DBOrderDAO implements OrderDAO {
 
-  private static Logger logger = Logger.getLogger(DBOrderDAO.class.getName());
+  private static final Logger logger = Logger.getLogger(
+      DBOrderDAO.class.getName());
   private static DBOrderDAO dao;
-  private Connection connection;
+  private final Connection connection;
 
   /**
    * Returns a DBOrderDAO Singleton Object.
@@ -55,28 +53,33 @@ public class DBOrderDAO implements OrderDAO {
   @Override
   public Order retrieveById(String id) {
     final String query = "SELECT * FROM orders WHERE id_order = ?";
+    PreparedStatement stm;
+    ResultSet rs;
 
     if (id == null || id.equals("") || !id.startsWith("OR")) {
       throw new IllegalArgumentException(
           String.format("The id(%s) passed as a parameter is not valid", id));
     }
     try {
-      PreparedStatement stm = connection.prepareStatement(query);
+      stm = connection.prepareStatement(query);
       stm.setString(1, id);
       stm.execute();
 
-      ResultSet rs = stm.getResultSet();
+      rs = stm.getResultSet();
+
       if (rs == null) {
         return null;
       }
       if (!rs.next()) {
         return null;
       }
+
       return getOrderFromRs(rs);
-    } catch (SQLException ex) {
-      logger.log(Level.SEVERE, ex.getMessage());
-      return null;
+
+    } catch (SQLException exception) {
+      logger.log(Level.SEVERE, exception.getMessage());
     }
+    return null;
   }
 
   @Override
@@ -98,12 +101,15 @@ public class DBOrderDAO implements OrderDAO {
   @Override
   public List<Order> retrieveAll() {
     final String query = "SELECT * FROM orders";
+    PreparedStatement stm;
+    ResultSet rs;
 
     List<Order> orders = new ArrayList<>();
     try {
-      PreparedStatement stm = connection.prepareStatement(query);
+      stm = connection.prepareStatement(query);
       stm.execute();
-      ResultSet rs = stm.getResultSet();
+
+      rs = stm.getResultSet();
 
       if (rs == null) {
         return null;
@@ -112,10 +118,10 @@ public class DBOrderDAO implements OrderDAO {
         orders.add(getOrderFromRs(rs));
       }
       return orders;
-    } catch (SQLException ex) {
-      logger.log(Level.SEVERE, ex.getMessage());
-      return null;
+    } catch (SQLException exception) {
+      logger.log(Level.SEVERE, exception.getMessage());
     }
+    return null;
   }
 
   @Override
@@ -124,30 +130,35 @@ public class DBOrderDAO implements OrderDAO {
         +
         "start_date = ?, end_date = ?, pickup_date = ?, visibility = ?, state = ?,"
         + " creation_date = ? WHERE id_order = ?";
+    PreparedStatement stm;
     if (order == null) {
-      throw new EntityTamperingException("Order does not exist!");
+      throw new EntityTamperingException("Order is null!");
     }
+    if (DBOrderDAO.getInstance().retrieveById(order.getId()) == null) {
+      throw new EntityTamperingException("Order does not exist in database!");
+    }
+
     try {
-      PreparedStatement stm = connection.prepareStatement(query);
+      stm = connection.prepareStatement(query);
       stm.setString(1, order.getEstimate().getId());
-      stm.setDate(2, order.getStartDate() != null ?
-          new java.sql.Date(order.getStartDate().getTime()) :
+      stm.setDate(2, order.getStartDate() != null
+          ? new java.sql.Date(order.getStartDate().getTime()) :
           null);
-      stm.setDate(3, order.getEndDate() != null ?
-          new java.sql.Date(order.getEndDate().getTime()) :
+      stm.setDate(3, order.getEndDate() != null
+          ? new java.sql.Date(order.getEndDate().getTime()) :
           null);
-      stm.setDate(4, order.getPickupDate() != null ?
-          new java.sql.Date(order.getPickupDate().getTime()) :
+      stm.setDate(4, order.getPickupDate() != null
+          ? new java.sql.Date(order.getPickupDate().getTime()) :
           null);
       stm.setBoolean(5, order.isVisibility());
       stm.setString(6, order.getState());
-      stm.setDate(7, order.getCreationDate() != null ?
-          new java.sql.Date(order.getCreationDate().getTime()) :
+      stm.setDate(7, order.getCreationDate() != null
+          ? new java.sql.Date(order.getCreationDate().getTime()) :
           null);
       stm.setString(8, order.getId());
       stm.executeUpdate();
-    } catch (SQLException ex) {
-      logger.log(Level.SEVERE, ex.getMessage());
+    } catch (SQLException exception) {
+      logger.log(Level.SEVERE, exception.getMessage());
     }
   }
 
@@ -157,75 +168,91 @@ public class DBOrderDAO implements OrderDAO {
         "INSERT INTO orders (id_order, id_estimate, start_date, end_date,"
             +
             "pickup_date, visibility, state, creation_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    if(DBOrderDAO.getInstance().retrieveById(order.getId()) != null) {
-      throw new EntityTamperingException("Order does not exist!");
+    PreparedStatement stm;
+    if (order == null) {
+      throw new EntityTamperingException("Order is null!");
     }
+    if (DBOrderDAO.getInstance().retrieveById(order.getId()) != null) {
+      throw new EntityTamperingException("Order already exist!");
+    }
+
     try {
-      PreparedStatement stm = connection.prepareStatement(query);
+      stm = connection.prepareStatement(query);
       stm.setString(1, order.getId());
       stm.setString(2, order.getEstimate().getId());
-      stm.setDate(3, order.getStartDate() != null ?
-          new java.sql.Date(order.getStartDate().getTime()) :
+      stm.setDate(3, order.getStartDate() != null
+          ? new java.sql.Date(order.getStartDate().getTime()) :
           null);
-      stm.setDate(4, order.getEndDate() != null ?
-          new java.sql.Date(order.getEndDate().getTime()) :
+      stm.setDate(4, order.getEndDate() != null
+          ? new java.sql.Date(order.getEndDate().getTime()) :
           null);
-      stm.setDate(5, order.getPickupDate() != null ?
-          new java.sql.Date(order.getPickupDate().getTime()) :
+      stm.setDate(5, order.getPickupDate() != null
+          ? new java.sql.Date(order.getPickupDate().getTime()) :
           null);
       stm.setBoolean(6, order.isVisibility());
       stm.setString(7, order.getState());
-      stm.setDate(8, order.getCreationDate() != null ?
-          new java.sql.Date(order.getCreationDate().getTime()) :
+      stm.setDate(8, order.getCreationDate() != null
+          ? new java.sql.Date(order.getCreationDate().getTime()) :
           null);
       stm.executeUpdate();
-    } catch (SQLException ex) {
-      logger.log(Level.SEVERE, ex.getMessage());
+    } catch (SQLException exception) {
+      logger.log(Level.SEVERE, exception.getMessage());
     }
   }
 
   @Override
   public void delete(Order order) throws EntityTamperingException {
     final String query = "DELETE FROM orders WHERE id_order = ?";
-    if(DBOrderDAO.getInstance().retrieveById(order.getId()) == null) {
+    PreparedStatement stm;
+    if (order == null) {
+      throw new EntityTamperingException("Order is null!");
+    }
+    if (DBOrderDAO.getInstance().retrieveById(order.getId()) == null) {
       throw new EntityTamperingException("Order does not exist!");
     }
+
     try {
-      PreparedStatement stm = connection.prepareStatement(query);
+      stm = connection.prepareStatement(query);
       stm.setString(1, order.getId());
       stm.executeUpdate();
-    } catch (SQLException ex) {
-      logger.log(Level.SEVERE, ex.getMessage());
+    } catch (SQLException exception) {
+      logger.log(Level.SEVERE, exception.getMessage());
     }
   }
 
   /**
    * Returns a list of {@link Client} or {@link Advisor} {@link Order}s.
    *
-   * @param id    of the {@link Advisor} or {@link Client}.
+   * @param id of the {@link Advisor} or {@link Client}.
    * @param query of the {@link Advisor} or {@link Client}.
    * @return a {@link List} or {@link Order}.
+   * @version 0.2
+   * @since 0.1
    */
   private List<Order> getOrders(String id, String query) {
     List<Order> orders = new ArrayList<>();
+    PreparedStatement stm;
+    ResultSet rs;
+
     if (id == null || id.equals("")) {
       throw new IllegalArgumentException(
           String.format("The id(%s) passed as a parameter is not valid", id));
     }
     try {
-      PreparedStatement stm = connection.prepareStatement(query);
+      stm = connection.prepareStatement(query);
       stm.setString(1, id);
       stm.execute();
 
-      ResultSet rs = stm.getResultSet();
+      rs = stm.getResultSet();
+
       while (rs.next()) {
         orders.add(getOrderFromRs(rs));
       }
       return orders;
-    } catch (SQLException ex) {
-      logger.log(Level.SEVERE, ex.getMessage());
-      return null;
+    } catch (SQLException exception) {
+      logger.log(Level.SEVERE, exception.getMessage());
     }
+    return null;
   }
 
   /**
@@ -234,26 +261,28 @@ public class DBOrderDAO implements OrderDAO {
    * @param rs the {@link ResultSet}.
    * @return the {@link Order} returned from the ResultSet.
    * @throws SQLException if the ResultSet is null.
+   * @version 0.2
+   * @since 0.1
    */
   private Order getOrderFromRs(ResultSet rs) throws SQLException {
     EstimateDAO estimateDao = DBEstimateDAO.getInstance();
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     Order o = new Order();
+
     o.setId(rs.getString("id_order"));
     o.setEstimate(estimateDao.retrieveById(rs.getString("id_estimate")));
-    o.setStartDate(rs.getDate("start_date") != null ?
-        new Date(rs.getDate("start_date").getTime()) :
+    o.setStartDate(rs.getDate("start_date") != null
+        ? new Date(rs.getDate("start_date").getTime()) :
         null);
-    o.setEndDate(rs.getDate("end_date") != null ?
-        new Date(rs.getDate("end_date").getTime()) :
+    o.setEndDate(rs.getDate("end_date") != null
+        ? new Date(rs.getDate("end_date").getTime()) :
         null);
-    o.setPickupDate(rs.getDate("pickup_date") != null ?
-        new Date(rs.getDate("pickup_date").getTime()) :
+    o.setPickupDate(rs.getDate("pickup_date") != null
+        ? new Date(rs.getDate("pickup_date").getTime()) :
         null);
     o.setVisibility(rs.getBoolean("visibility"));
     o.setState(rs.getString("state"));
-    o.setCreationDate(rs.getDate("creation_date") != null ?
-        new Date(rs.getDate("creation_date").getTime()) :
+    o.setCreationDate(rs.getDate("creation_date") != null
+        ? new Date(rs.getDate("creation_date").getTime()) :
         null);
     return o;
   }

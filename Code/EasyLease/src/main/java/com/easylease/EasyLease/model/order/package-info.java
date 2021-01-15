@@ -7,6 +7,6 @@
  *
  * @since 0.1
  * @author Antonio Sarro
- * @version 0.1
+ * @version 0.2
  */
 package com.easylease.EasyLease.model.order;

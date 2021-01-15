@@ -7,6 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test of the Admin model.
+ *
+ * @author Antonio Sarro
+ * @version 0.1
+ * @since 0.1
+ */
 class AdminTest {
 
   @Test
@@ -35,6 +42,13 @@ class AdminTest {
         "test@gmail.com", "recovery@gmail.com");
     admin.setRecoveryEmail("recovery2@gmail.com");
     assertEquals("recovery2@gmail.com", admin.getRecoveryEmail());
+  }
+
+  @Test
+  void testAdminEquals() {
+    Admin admin = new Admin("1234567", "Antonio", "Sarro",
+        "test@gmail.com", "recovery@gmail.com");
+    assertEquals(admin, admin);
   }
 
   @Test
