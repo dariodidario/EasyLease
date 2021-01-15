@@ -22,7 +22,8 @@ class AdvisorTest {
   @Test
   public void testGetHireDate() {
     Date hireDate = calendar.getTime();
-    Advisor advisor = new Advisor("AD12DD2", "Marco", "Montemagno", "m.marco@gmail.com", hireDate);
+    Advisor advisor = new Advisor("AD12DD2", "Marco", "Montemagno",
+        "m.marco@gmail.com", hireDate);
     Date expectedDate = calendar.getTime();
     assertEquals(expectedDate, advisor.getHireDate());
   }
@@ -30,7 +31,8 @@ class AdvisorTest {
   @Test
   public void testSetHireDate() {
     Date hireDate = calendar.getTime();
-    Advisor advisor = new Advisor("AD12DD2", "Marco", "Montemagno", "m.marco@gmail.com", hireDate);
+    Advisor advisor = new Advisor("AD12DD2", "Marco", "Montemagno",
+        "m.marco@gmail.com", hireDate);
     Date hireDateToSet = calendar.getTime();
     advisor.setHireDate(hireDateToSet);
     assertEquals(hireDateToSet, advisor.getHireDate());

@@ -34,7 +34,7 @@
 <body>
 <div><%@include file="/fragments/headerJSP.jsp"%></div>
 <section class = "body_section">
-<div class = "table_space">
+<div class = "table_space table-responsive">
     <table class = "table">
         <div id = "order_list_text">Ordini</div>
         <thead>

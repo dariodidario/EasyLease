@@ -4,6 +4,7 @@ import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
 import com.easylease.EasyLease.model.estimate.Estimate;
 import com.easylease.EasyLease.model.optional.Optional;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.logging.Level;
@@ -15,16 +16,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author Caprio Mattia
+ * @version 0.6
+ * @since 0.1
+ */
 @WebServlet(name = "EstimateStipulationServlet", value = "/EstimateStipulationServlet")
 
-/**
- * @since 0.1
- * @version 0.5
- * @author Caprio Mattia
- */
-
 public class EstimateStipulationServlet extends HttpServlet {
-  private final Logger logger = Logger.getLogger(EstimateStipulationServlet.class.getName());
+  private final Logger logger = Logger.getLogger(
+      EstimateStipulationServlet.class.getName());
 
   @Override
   protected void doGet(
@@ -33,13 +34,12 @@ public class EstimateStipulationServlet extends HttpServlet {
     HttpSession session = request.getSession();
     if (session != null) {
       try {
-        if (!(session.getAttribute("user") instanceof Advisor)
-            || session.getAttribute("user") == null) {
+        if (!(session.getAttribute("user") instanceof Advisor)) {
           throw new ServletException("Section dedicated to a registered user"
-              + "on the platform correctly as an Advisor");
+              + " on the platform correctly as an Advisor");
         }
         String id = request.getParameter("id");
-        if (id.length() != 7 || !id.startsWith("ES")) {
+        if (id == null || id.length() != 7 || !id.startsWith("ES")) {
           throw new ServletException("The id sent is incorrect");
         }
         DBEstimateDAO dbEstimateDao = (DBEstimateDAO) DBEstimateDAO.getInstance();
@@ -48,7 +48,8 @@ public class EstimateStipulationServlet extends HttpServlet {
           throw new ServletException("The estimate doesn't exist");
         }
         if (!estimate.getState().equals("Preso in carico")) {
-          throw new ServletException("The chosen estimate cannot be stipulated");
+          throw new ServletException(
+              "The chosen estimate cannot be stipulated");
         }
         estimate.setResponseDate(new Date());
         estimate.setPrice(0);
@@ -61,13 +62,17 @@ public class EstimateStipulationServlet extends HttpServlet {
         estimate.setState("Stipulato");
         dbEstimateDao.update(estimate);
         request.setAttribute("estimate", estimate);
-        request.getRequestDispatcher("/advisor/estimateManagementAdvisorJSP.jsp")
+        request.getRequestDispatcher(
+            "/advisor/estimateManagementAdvisorJSP.jsp")
             .forward(request, response);
       } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
+        request.getRequestDispatcher("/user/homePageJSP.jsp")
+            .forward(request, response);
       }
-    }
+    } else
+      request.getRequestDispatcher("/user/homePageJSP.jsp")
+          .forward(request, response);
   }
 
   @Override

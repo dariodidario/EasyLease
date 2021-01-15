@@ -9,10 +9,12 @@ import com.easylease.EasyLease.control.utility.exception.EntityTamperingExceptio
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
+
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,7 +52,6 @@ class DBAdvisorDAOTest {
   @Test
   public void retrieveById_CorrectIdGiven() {
     Advisor advisor = dbAdvisorDAO.retrieveById("ADJdybc");
-    System.out.println(advisor);
     assertEquals("ADJdybc", advisor.getId());
   }
 
@@ -61,22 +62,26 @@ class DBAdvisorDAOTest {
 
   @Test
   public void retrieveById_WrongIdGiven_ExceptedNull() {
-    assertThrows(IllegalArgumentException.class, () -> dbAdvisorDAO.retrieveById("CLcapNk"));
+    assertThrows(IllegalArgumentException.class,
+        () -> dbAdvisorDAO.retrieveById("CLcapNk"));
   }
 
   @Test
   public void retrieveById_NullIdGiven_ExceptedNull() {
-    assertThrows(IllegalArgumentException.class, () -> dbAdvisorDAO.retrieveById(null));
+    assertThrows(IllegalArgumentException.class,
+        () -> dbAdvisorDAO.retrieveById(null));
   }
 
   @Test
   public void retrieveById_EmptyIdGiven_ExceptedNull() {
-    assertThrows(IllegalArgumentException.class, () -> dbAdvisorDAO.retrieveById(""));
+    assertThrows(IllegalArgumentException.class,
+        () -> dbAdvisorDAO.retrieveById(""));
   }
 
   @Test
   public void retrieveByEmail_CorrectEmailGiven_ExpectedTrue() {
-    Advisor advisor = dbAdvisorDAO.retrieveByEmail("rossa.clementina@frutta.com");
+    Advisor advisor = dbAdvisorDAO.retrieveByEmail(
+        "rossa.clementina@frutta.com");
     assertEquals("rossa.clementina@frutta.com", advisor.getEmail());
   }
 
@@ -87,12 +92,14 @@ class DBAdvisorDAOTest {
 
   @Test
   public void retrieveByEmail_EmptyEmailGiven_ExpectedException() {
-    assertThrows(IllegalArgumentException.class, () -> dbAdvisorDAO.retrieveByEmail(""));
+    assertThrows(IllegalArgumentException.class,
+        () -> dbAdvisorDAO.retrieveByEmail(""));
   }
 
   @Test
   public void retrieveByEmail_NullEmailGiven_ExpectedException() {
-    assertThrows(IllegalArgumentException.class, () -> dbAdvisorDAO.retrieveByEmail(null));
+    assertThrows(IllegalArgumentException.class,
+        () -> dbAdvisorDAO.retrieveByEmail(null));
   }
 
   @Test
@@ -116,7 +123,7 @@ class DBAdvisorDAOTest {
   void retrieveAll_Success() {
     assertNotNull(dbAdvisorDAO.retrieveAll());
   }
-//TODO Controllare perché checkadvisor esce null a seguito dell'insert
+
   @Test
   public void insert_CorrectAdvisorGiven_ExpectedTrue() {
     Advisor advisor = dbAdvisorDAO.retrieveById("ADfake0");
@@ -131,7 +138,7 @@ class DBAdvisorDAOTest {
     assertEquals(advisor.getHireDate(), advisorToCheck.getHireDate());
     dbAdvisorDAO.delete(dbAdvisorDAO.retrieveById("ADn21xz"));
   }
-//TODO chiedere come mai se aggiungo un controllo dice che la parte di codice successivo non viene controllata
+
   @Test
   void insert_ExistingAdvisorGivern_ExceptionThrown() {
     assertThrows(EntityTamperingException.class, () ->
@@ -178,7 +185,7 @@ class DBAdvisorDAOTest {
     assertThrows(IllegalArgumentException.class, () ->
         dbAdvisorDAO.update(null, "pass"));
   }
-  //TODO chiedere come mai se aggiungo un controllo dice che la parte di codice successivo non viene controllata
+
   @Test
   public void update_UnexistingAdvisorGiven_ExpectedException() throws ParseException {
     SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -195,8 +202,9 @@ class DBAdvisorDAOTest {
   @Test
   public void delete_CorrectAdvisorGiven_ExpectedTrue() throws ParseException {
     Advisor advisor = dbAdvisorDAO.retrieveById("ADFake0");
-    dbAdvisorDAO.delete(advisor);
+    advisor.setId("ADfake1");
     dbAdvisorDAO.insert(advisor, "pass");
+    dbAdvisorDAO.delete(advisor);
   }
 
   @Test

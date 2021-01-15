@@ -5,6 +5,7 @@ import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
 import com.easylease.EasyLease.model.estimate.Estimate;
 import com.easylease.EasyLease.model.order.DBOrderDAO;
 import com.easylease.EasyLease.model.order.Order;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author Caprio Mattia
+ * @version 0.7
+ * @since 0.1
+ */
 @WebServlet(name = "HistoryAdvisorServlet", urlPatterns = "/HistoryAdvisorServlet")
 
-/**
- * @since 0.1
- * @version 0.6
- * @author Caprio Mattia
- */
 public class HistoryAdvisorServlet extends HttpServlet {
-  private final Logger logger = Logger.getLogger(HistoryAdvisorServlet.class.getName());
+  private final Logger logger = Logger.getLogger(
+      HistoryAdvisorServlet.class.getName());
 
   protected void doPost(
       HttpServletRequest request,
@@ -33,10 +35,9 @@ public class HistoryAdvisorServlet extends HttpServlet {
     HttpSession session = request.getSession();
     if (session != null) {
       try {
-        if (!(session.getAttribute("user") instanceof Advisor)
-            || session.getAttribute("user") == null) {
+        if (!(session.getAttribute("user") instanceof Advisor)) {
           throw new ServletException("Section dedicated to a registered user"
-              + "on the platform correctly as an Advisor");
+              + " on the platform correctly as an Advisor");
         }
         Advisor advisor = (Advisor) session.getAttribute("user");
         DBOrderDAO dbOrderDao = (DBOrderDAO) DBOrderDAO.getInstance();
@@ -47,9 +48,7 @@ public class HistoryAdvisorServlet extends HttpServlet {
             list.add(o);
           }
         }
-        for (Estimate e : dbEstimateDao.retrieveByAdvisor("ADfake0")) {
-          list.add(e);
-        }
+        list.addAll(dbEstimateDao.retrieveByAdvisor("ADfake0"));
         for (Estimate e : dbEstimateDao.retrieveByAdvisor(advisor.getId())) {
           if (e.isVisibility()) {
             list.add(e);
@@ -60,9 +59,12 @@ public class HistoryAdvisorServlet extends HttpServlet {
             .forward(request, response);
       } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
+        request.getRequestDispatcher("/user/homePageJSP.jsp")
+            .forward(request, response);
       }
-    }
+    } else
+      request.getRequestDispatcher("/user/homePageJSP.jsp")
+          .forward(request, response);
   }
 
   protected void doGet(

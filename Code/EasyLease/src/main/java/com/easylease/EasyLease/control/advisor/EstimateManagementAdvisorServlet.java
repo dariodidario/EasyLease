@@ -3,6 +3,7 @@ package com.easylease.EasyLease.control.advisor;
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
 import com.easylease.EasyLease.model.estimate.Estimate;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,16 +14,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author Caprio Mattia
+ * @version 0.6
+ * @since 0.1
+ */
 @WebServlet(name = "EstimateManagementAdvisorServlet",
     urlPatterns = "/EstimateManagementAdvisorServlet")
 
-/**
- * @since 0.1
- * @version 0.5
- * @author Caprio Mattia
- */
 public class EstimateManagementAdvisorServlet extends HttpServlet {
-  private final Logger logger = Logger.getLogger(EstimateManagementAdvisorServlet.class.getName());
+  private final Logger logger = Logger.getLogger(
+      EstimateManagementAdvisorServlet.class.getName());
 
   protected void doPost(
       HttpServletRequest request,
@@ -39,10 +41,10 @@ public class EstimateManagementAdvisorServlet extends HttpServlet {
         if (!(session.getAttribute("user") instanceof Advisor)
             || session.getAttribute("user") == null) {
           throw new ServletException("Section dedicated to a registered user"
-              + "on the platform correctly as an Advisor");
+              + " on the platform correctly as an Advisor");
         }
         String id = request.getParameter("id_estimate");
-        if (id.length() != 7 || !id.startsWith("ES")) {
+        if (id == null || id.length() != 7 || !id.startsWith("ES")) {
           throw new ServletException("The id sent is incorrect");
         }
         DBEstimateDAO dbEstimateDao = (DBEstimateDAO) DBEstimateDAO.getInstance();
@@ -53,19 +55,24 @@ public class EstimateManagementAdvisorServlet extends HttpServlet {
         estimate = checkestimate(session, estimate);
         dbEstimateDao.update(estimate);
         request.setAttribute("estimate", estimate);
-        request.getRequestDispatcher("/advisor/estimateManagementAdvisorJSP.jsp")
+        request.getRequestDispatcher(
+            "/advisor/estimateManagementAdvisorJSP.jsp")
             .forward(request, response);
       } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
+        request.getRequestDispatcher("/user/homePageJSP.jsp")
+            .forward(request, response);
       }
-    }
+    } else
+      request.getRequestDispatcher("/user/homePageJSP.jsp")
+          .forward(request, response);
   }
 
-  private synchronized Estimate checkestimate(HttpSession session, Estimate estimate) {
+  private synchronized Estimate checkestimate(
+      HttpSession session, Estimate estimate) {
     if (estimate.getState().equals("Richiesto")) {
-        estimate.setAdvisor((Advisor) session.getAttribute("user"));
-        estimate.setState("Preso in carico");
+      estimate.setAdvisor((Advisor) session.getAttribute("user"));
+      estimate.setState("Preso in carico");
     }
     return estimate;
   }

@@ -3,6 +3,7 @@ package com.easylease.EasyLease.control.advisor;
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.order.DBOrderDAO;
 import com.easylease.EasyLease.model.order.Order;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,17 +18,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "OrderValidationServlet", urlPatterns = "/OrderValidationServlet")
-
 /**
- * @since 0.1
- * @version 0.7
  * @author Caprio Mattia
+ * @version 0.8
+ * @since 0.1
  */
+@WebServlet(name = "OrderValidationServlet", urlPatterns = "/OrderValidationServlet")
 
 public class OrderValidationServlet extends HttpServlet {
   SimpleDateFormat htmlFormat = new SimpleDateFormat("yyyy-MM-dd");
-  private final Logger logger = Logger.getLogger(OrderValidationServlet.class.getName());
+  private final Logger logger = Logger.getLogger(
+      OrderValidationServlet.class.getName());
 
   @Override
   protected void doGet(
@@ -36,13 +37,12 @@ public class OrderValidationServlet extends HttpServlet {
     HttpSession session = request.getSession();
     if (session != null) {
       try {
-        if (!(session.getAttribute("user") instanceof Advisor)
-            || session.getAttribute("user") == null) {
+        if (!(session.getAttribute("user") instanceof Advisor)) {
           throw new ServletException("Section dedicated to a registered user"
-              + "on the platform correctly as an Advisor");
+              + " on the platform correctly as an Advisor");
         }
         String id = request.getParameter("id");
-        if (id.length() != 7 || !id.startsWith("OR")) {
+        if (id == null || id.length() != 7 || !id.startsWith("OR")) {
           throw new ServletException("The id sent is incorrect");
         }
         DBOrderDAO dbOrderDao = (DBOrderDAO) DBOrderDAO.getInstance();
@@ -53,7 +53,12 @@ public class OrderValidationServlet extends HttpServlet {
         if (!order.getState().equals("Pagato")) {
           throw new ServletException("The chosen order cannot be validated");
         }
-        order.setPickupDate(htmlFormat.parse(request.getParameter("date")));
+        try {
+          order.setPickupDate(htmlFormat.parse(request.getParameter("date")));
+        } catch (ParseException e) {
+          request.getRequestDispatcher("/advisor/orderValidationJSP.jsp")
+              .forward(request, response);
+        }
         order.setStartDate(order.getPickupDate());
         GregorianCalendar endDate = new GregorianCalendar();
         endDate.setTime(order.getPickupDate());
@@ -64,11 +69,14 @@ public class OrderValidationServlet extends HttpServlet {
         request.setAttribute("order", order);
         request.getRequestDispatcher("/advisor/orderManagementAdvisorJSP.jsp")
             .forward(request, response);
-      } catch (ServletException | ParseException e) {
+      } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
+        request.getRequestDispatcher("/user/homePageJSP.jsp")
+            .forward(request, response);
       }
-    }
+    } else
+      request.getRequestDispatcher("/user/homePageJSP.jsp")
+          .forward(request, response);
   }
 
   @Override

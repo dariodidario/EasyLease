@@ -3,6 +3,7 @@ package com.easylease.EasyLease.control.advisor;
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
 import com.easylease.EasyLease.model.estimate.Estimate;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,18 +14,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author Caprio Mattia
+ * @version 0.3S
+ * @since 0.1
+ */
 
 @WebServlet(name = "EstimateStipulationViewServlet",
     urlPatterns = "/EstimateStipulationViewServlet")
 
-/**
- * @since 0.1
- * @version 0.2
- * @author Caprio Mattia
- */
-
 public class EstimateStipulationViewServlet extends HttpServlet {
-  private final Logger logger = Logger.getLogger(EstimateStipulationViewServlet.class.getName());
+  private final Logger logger = Logger.getLogger(
+      EstimateStipulationViewServlet.class.getName());
 
   protected void doPost(
       HttpServletRequest request,
@@ -38,15 +39,13 @@ public class EstimateStipulationViewServlet extends HttpServlet {
     HttpSession session = request.getSession();
     if (session != null) {
       try {
-        if (!(session.getAttribute("user") instanceof Advisor)
-            || session.getAttribute("user") == null) {
+        if (!(session.getAttribute("user") instanceof Advisor)) {
           throw new ServletException("Section dedicated to a registered user"
-              + "on the platform correctly as an Advisor");
+              + " on the platform correctly as an Advisor");
         }
 
-
         String id = request.getParameter("id");
-        if (id.length() != 7 || !id.startsWith("ES")) {
+        if (id == null || id.length() != 7 || !id.startsWith("ES")) {
           throw new ServletException("The id sent is incorrect");
         }
         DBEstimateDAO dbEstimateDao = (DBEstimateDAO) DBEstimateDAO.getInstance();
@@ -62,8 +61,11 @@ public class EstimateStipulationViewServlet extends HttpServlet {
             .forward(request, response);
       } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
+        request.getRequestDispatcher("/user/homePageJSP.jsp")
+            .forward(request, response);
       }
-    }
+    } else
+      request.getRequestDispatcher("/user/homePageJSP.jsp")
+          .forward(request, response);
   }
 }
