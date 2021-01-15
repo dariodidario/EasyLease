@@ -4,6 +4,7 @@ import com.easylease.EasyLease.model.client.Client;
 import com.easylease.EasyLease.model.client.DBClientDAO;
 import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
 import com.easylease.EasyLease.model.estimate.Estimate;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,33 +31,25 @@ public class EstimateManagementClientServlet extends HttpServlet {
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     HttpSession session = request.getSession();
-    if (!(session == null)) {
-      try {
-        if (!(session.getAttribute("user") instanceof Client)
-            || session.getAttribute("user") == null) {
-          throw new ServletException("Section dedicated to a registered user "
-              + "on the platform correctly as a Client");
-        }
-        Client currentClient = (Client) session.getAttribute("user");
-        String id = request.getParameter("id_estimate");
-        //Client client = clDao.retrieveById("CLEE8BD");
-        //Client client = clDao.retrieveById("CLcapNK");
-        String role = (String) request.getSession().getAttribute("role");
-        //role = "Cliente";
-        if (id.length() != 7 || !id.startsWith("ES")) {
-          throw new ServletException("Section dedicated to a registered user "
-              + "on the platform correctly as a Client");
-        }
-        Estimate estimate = estimateDao.retrieveById(id);
-        request.setAttribute("estimate", estimate);
-        request.getRequestDispatcher("/client/estimateManagementClientJSP.jsp")
-            .forward(request, response);
-      } catch (ServletException e) {
-        Logger logger = Logger.getLogger(
-            EstimateManagementClientServlet.class.getName());
-        logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/user/homePageJSP.jsp");
+    try {
+      if (!(session.getAttribute("user") instanceof Client)) {
+        throw new ServletException("Section dedicated to a registered user "
+            + "on the platform correctly as a Client");
       }
+      String id = request.getParameter("id_estimate");
+      if (id.length() != 7 || !id.startsWith("ES")) {
+        throw new ServletException("Section dedicated to a registered user "
+            + "on the platform correctly as a Client");
+      }
+      Estimate estimate = estimateDao.retrieveById(id);
+      request.setAttribute("estimate", estimate);
+      request.getRequestDispatcher("/client/estimateManagementClientJSP.jsp")
+          .forward(request, response);
+    } catch (ServletException e) {
+      Logger logger = Logger.getLogger(
+          EstimateManagementClientServlet.class.getName());
+      logger.log(Level.SEVERE, e.getMessage());
+      request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
     }
   }
 }
