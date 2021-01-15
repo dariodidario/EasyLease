@@ -156,7 +156,7 @@
 
     table.characteristics {
         position: absolute;
-        top: 20%;
+        top: 18%;
         right: 35%;
         background: #9b334e;
         width: 30%;
@@ -172,11 +172,18 @@
         background: #9b334e;
         position: absolute;
         right: 43%;
-        bottom: 23%;
+        bottom: 23.5%;
         width: 15%;
-        height: 5%;
+        height: 5.5%;
         font-size: 1.5vw;
         border-bottom: medium solid #dec717;
-        border-radius: 5px;
+        border-radius: 20px;
+        padding-bottom: 10px;
+    }
+    .footer{
+        position: absolute; !important;
+        bottom: 0%; !important;
+        width: 100%; !important;
+        height: 4em; !important;
     }
 }
