@@ -1,7 +1,6 @@
 package com.easylease.EasyLease.control.admin;
 
 import com.easylease.EasyLease.model.user.User;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

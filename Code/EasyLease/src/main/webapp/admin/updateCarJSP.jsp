@@ -26,7 +26,7 @@ if(role==null){%>
   String trasmission=""; float avg_consumption=0; int horse_power=0; String emission_class="";
   int co2_emissions=0; String power_supply=""; int capacity=0; String image_path="";
 
-  Car car=(Car) request.getSession().getAttribute("update_car");
+  Car car=(Car) request.getSession().getAttribute("car_to_update");
 
   if(car!=null) {
     id=car.getId();

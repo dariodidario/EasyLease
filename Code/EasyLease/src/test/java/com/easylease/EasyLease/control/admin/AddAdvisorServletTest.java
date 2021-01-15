@@ -4,11 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,12 +28,18 @@ class AddAdvisorServletTest {
     private HttpSession session;
     private AdvisorDAO advisorDAO;
     private List<Advisor> advisors;
+    private RequestDispatcher dispatcher;
+    private ServletContext context;
+    private ServletConfig config;
+
 
 
 
     @BeforeEach
-    public void setUp() throws IOException {
+    public void setUp() throws IOException, ServletException {
         servlet = new AddAdvisorServlet();
+        config =mock(ServletConfig.class);
+        servlet.init(config);
         request = mock(HttpServletRequest.class);
         response = mock(HttpServletResponse.class);
         session= mock(HttpSession.class);
@@ -41,44 +49,30 @@ class AddAdvisorServletTest {
         when(advisorDAO.retrieveAll()).thenReturn(advisors);
         doAnswer(invocation -> {
             return null;
-        }).when(advisorDAO).insert(any());
+        }).when(advisorDAO).insert(any(),any() );
         when(request.getSession()).thenReturn(session);
-
+        context =mock(ServletContext.class);
+        dispatcher= mock(RequestDispatcher.class);
+        when(servlet.getServletContext()).thenReturn(context);
+        when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
     }
 
 
     @Test
-    void testRoleNull() {
-
+    void testRoleNull() throws ServletException, IOException {
         when(request.getSession().getAttribute("role")).thenReturn(null);
-        when(request.getParameter("advisor_name")).thenReturn("Michele");
-        when(request.getParameter("advisor_surname")).thenReturn("Iodice");
-        when(request.getParameter("advisor_email")).thenReturn("M.iodice21@studenti.unisa.it");
-        when(request.getParameter("advisor_date")).thenReturn("2021-01-21");
-        when(request.getParameter("advisor_password")).thenReturn("Michele123");
-        when(request.getParameter("email_valid")).thenReturn("true");
-        when(request.getParameter("date_valid")).thenReturn("true");
-        when(request.getParameter("password_valid")).thenReturn("true");
-        when(request.getParameter("confirm_valid")).thenReturn("false");
 
-        assertThrows(IllegalStateException.class,()->{servlet.doGet(request,response);});
+        servlet.doGet(request,response);
+        verify(context).getRequestDispatcher("/fragments/error403.jsp");
+
     }
 
     @Test
-    void testRoleNotAdmin() {
-
+    void testRoleNotAdmin() throws ServletException, IOException {
         when(request.getSession().getAttribute("role")).thenReturn("client");
-        when(request.getParameter("advisor_name")).thenReturn("Michele");
-        when(request.getParameter("advisor_surname")).thenReturn("Iodice");
-        when(request.getParameter("advisor_email")).thenReturn("M.iodice21@studenti.unisa.it");
-        when(request.getParameter("advisor_date")).thenReturn("2021-01-21");
-        when(request.getParameter("advisor_password")).thenReturn("Michele123");
-        when(request.getParameter("email_valid")).thenReturn("true");
-        when(request.getParameter("date_valid")).thenReturn("true");
-        when(request.getParameter("password_valid")).thenReturn("true");
-        when(request.getParameter("confirm_valid")).thenReturn("false");
 
-        assertThrows(IllegalStateException.class,()->{servlet.doGet(request,response);});
+        servlet.doGet(request,response);
+        verify(context).getRequestDispatcher("/fragments/error403.jsp");
     }
 
 
@@ -164,8 +158,7 @@ class AddAdvisorServletTest {
 
 
     @Test
-    void testEmailValidFalse() {
-
+    void testEmailValidFalse() throws ServletException, IOException {
         when(request.getSession().getAttribute("role")).thenReturn("admin");
         when(request.getParameter("advisor_name")).thenReturn("Michele");
         when(request.getParameter("advisor_surname")).thenReturn("Iodice");
@@ -177,12 +170,12 @@ class AddAdvisorServletTest {
         when(request.getParameter("password_valid")).thenReturn("true");
         when(request.getParameter("confirm_valid")).thenReturn("true");
 
-        assertThrows(IllegalStateException.class,()->{servlet.doGet(request,response);});
+        servlet.doGet(request,response);
+        verify(context).getRequestDispatcher("/admin/addAdvisorJSP.jsp");
     }
 
     @Test
-    void testDateValidFalse() {
-
+    void testDateValidFalse() throws ServletException, IOException {
         when(request.getSession().getAttribute("role")).thenReturn("admin");
         when(request.getParameter("advisor_name")).thenReturn("Michele");
         when(request.getParameter("advisor_surname")).thenReturn("Iodice");
@@ -194,12 +187,12 @@ class AddAdvisorServletTest {
         when(request.getParameter("password_valid")).thenReturn("true");
         when(request.getParameter("confirm_valid")).thenReturn("true");
 
-        assertThrows(IllegalStateException.class,()->{servlet.doGet(request,response);});
+        servlet.doGet(request,response);
+        verify(context).getRequestDispatcher("/admin/addAdvisorJSP.jsp");
     }
 
     @Test
-    void testPasswordValidFalse() {
-
+    void testPasswordValidFalse() throws ServletException, IOException {
         when(request.getSession().getAttribute("role")).thenReturn("admin");
         when(request.getParameter("advisor_name")).thenReturn("Michele");
         when(request.getParameter("advisor_surname")).thenReturn("Iodice");
@@ -211,13 +204,13 @@ class AddAdvisorServletTest {
         when(request.getParameter("password_valid")).thenReturn("false");
         when(request.getParameter("confirm_valid")).thenReturn("true");
 
-        assertThrows(IllegalStateException.class,()->{servlet.doGet(request,response);});
+        servlet.doGet(request,response);
+        verify(context).getRequestDispatcher("/admin/addAdvisorJSP.jsp");
     }
 
 
     @Test
-    void testConfirmValidFalse() {
-
+    void testConfirmValidFalse() throws ServletException, IOException {
         when(request.getSession().getAttribute("role")).thenReturn("admin");
         when(request.getParameter("advisor_name")).thenReturn("Michele");
         when(request.getParameter("advisor_surname")).thenReturn("Iodice");
@@ -229,7 +222,8 @@ class AddAdvisorServletTest {
         when(request.getParameter("password_valid")).thenReturn("true");
         when(request.getParameter("confirm_valid")).thenReturn("false");
 
-        assertThrows(IllegalStateException.class,()->{servlet.doGet(request,response);});
+        servlet.doGet(request,response);
+        verify(context).getRequestDispatcher("/admin/addAdvisorJSP.jsp");
     }
 
 

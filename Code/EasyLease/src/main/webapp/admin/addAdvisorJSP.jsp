@@ -54,19 +54,19 @@
     </tr>
     <tr>
       <td><label class="advisorParameter">E-mail</label></td>
-      <td><input class="advisorParameter" type="email" id="advisor_email" name="advisor_email" placeholder="es.(pippo@gmail.com)" onkeypress="checkEmail(this)" required>
+      <td><input class="advisorParameter" type="email" id="advisor_email" name="advisor_email" placeholder="es.(pippo@gmail.com)" onkeypress="checkEmail(this)" onchange="checkEmail(this)" required>
         <input type="hidden" id="email_valid" name="email_valid" value="false">
       </td>
     </tr>
     <tr>
       <td><label class="advisorParameter">Data assunzione</label></td>
-      <td><input class="advisorParameter" type="date" id="advisor_date" name="advisor_date" placeholder="es.(21/01/2021)" onchange="checkDate(this)" required>
+      <td><input class="advisorParameter" type="date" id="advisor_date" name="advisor_date" placeholder="es.(21/01/2021)" onchange="checkDate(this)" onkeypress="checkDate(this)" required>
         <input type="hidden" id="date_valid" name="date_valid" value="false">
       </td>
     </tr>
     <tr>
       <td><label class="advisorParameter">Password</label></td>
-      <td><input class="advisorParameter" type="password" id="advisor_password" name="advisor_password" placeholder="es.(marioR99)" onkeypress="checkPassword(this)" required>
+      <td><input class="advisorParameter" type="password" id="advisor_password" name="advisor_password" placeholder="es.(marioR99)" onkeypress="checkPassword(this)"  required>
         <input type="hidden" id="password_valid" name="password_valid" value="false">
       </td>
     </tr>
@@ -76,7 +76,7 @@
     </tr>
     <tr>
       <td><label class="advisorParameter">Conferma Password</label></td>
-      <td><input class="advisorParameter" type="password" id="advisor_confirm_password" name="advisor_confirm_password" placeholder="//" onkeypress="checkConfirm(this)" required>
+      <td><input class="advisorParameter" type="password" id="advisor_confirm_password" name="advisor_confirm_password" placeholder="//" onkeypress="checkConfirm(this)"  required>
         <input type="hidden" id="confirm_valid" name="confirm_valid" value="false">
       </td>
     </tr>
