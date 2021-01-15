@@ -18,10 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "HistoryAdvisorServlet" , urlPatterns = "/HistoryAdvisorServlet")
+/**
+ * @author Caprio Mattia
+ * @version 0.7
+ * @since 0.1
+ */
+@WebServlet(name = "HistoryAdvisorServlet", urlPatterns = "/HistoryAdvisorServlet")
 
 public class HistoryAdvisorServlet extends HttpServlet {
-  private final Logger logger = Logger.getLogger(HistoryAdvisorServlet.class.getName());
+  private final Logger logger = Logger.getLogger(
+      HistoryAdvisorServlet.class.getName());
 
   protected void doPost(
       HttpServletRequest request,
@@ -29,39 +35,41 @@ public class HistoryAdvisorServlet extends HttpServlet {
     HttpSession session = request.getSession();
     if (session != null) {
       try {
-        if (!(session.getAttribute("user") instanceof Advisor)
-            || session.getAttribute("user") == null) {
+        if (!(session.getAttribute("user") instanceof Advisor)) {
           throw new ServletException("Section dedicated to a registered user"
-              + "on the platform correctly as an Advisor");
+              + " on the platform correctly as an Advisor");
         }
         Advisor advisor = (Advisor) session.getAttribute("user");
         DBOrderDAO dbOrderDao = (DBOrderDAO) DBOrderDAO.getInstance();
         DBEstimateDAO dbEstimateDao = (DBEstimateDAO) DBEstimateDAO.getInstance();
         List<Object> list = new ArrayList<>();
-        List<Order> orders = dbOrderDao.retrieveByAdvisor(advisor.getId()); //ADJdybc
-        for(Order o : orders)
-          if(o.isVisibility())
+        for (Order o : dbOrderDao.retrieveByAdvisor(advisor.getId())) {
+          if (o.isVisibility()) {
             list.add(o);
-        List<Estimate> estimates = dbEstimateDao.retrieveByAdvisor(advisor.getId()); //ADJdybc
-        for(Estimate e : estimates){
-
-          if(e.isVisibility())
-            list.add(e);
-
           }
+        }
+        list.addAll(dbEstimateDao.retrieveByAdvisor("ADfake0"));
+        for (Estimate e : dbEstimateDao.retrieveByAdvisor(advisor.getId())) {
+          if (e.isVisibility()) {
+            list.add(e);
+          }
+        }
         request.setAttribute("list", list);
         request.getRequestDispatcher("/advisor/historyAdvisorJSP.jsp")
             .forward(request, response);
       } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/client/homePageJSP.jsp").forward(request, response);
+        request.getRequestDispatcher("/user/homePageJSP.jsp")
+            .forward(request, response);
       }
-    }
+    } else
+      request.getRequestDispatcher("/user/homePageJSP.jsp")
+          .forward(request, response);
   }
 
   protected void doGet(
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
-   doPost(request, response);
+    doPost(request, response);
   }
 }

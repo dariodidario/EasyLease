@@ -6,7 +6,14 @@
 <%@ page import="java.util.Iterator" %>
 
 <%
+  if(request.getSession() == null){
+    response.sendRedirect(request.getContextPath() + "/LoginViewServlet");
+  }
   Estimate estimate = (Estimate) request.getAttribute("estimate");
+  if (estimate == null) {
+    response.sendRedirect(request.getContextPath() + "/EstimateStipulationViewServlet");
+    return;
+  }
   List<Optional> optionalList = estimate.getOptionalList();
 %>
 <html>
@@ -16,6 +23,7 @@
   <link rel = "stylesheet" href = "${pageContext.request.contextPath}/advisor/estimateStipulationJSP.css"/>
 </head>
 <body>
+<%@include file="/fragments/headerJSP.jsp"%>
 <div class = "container">
   <div class = "row mt-3">
     <div class = "col md-5">
@@ -53,5 +61,7 @@
     </div>
   </div>
 </div>
+</div>
+<div><%@include file="/fragments/footerJSP.jsp"%></div>
 </body>
 </html>

@@ -3,20 +3,25 @@
 <%@ page import="com.easylease.EasyLease.model.optional.Optional" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
-<%@ page import="java.text.SimpleDateFormat" %>
 
 <%
+  if(request.getSession() == null){
+    response.sendRedirect(request.getContextPath() + "/LoginViewServlet");
+  }
   Estimate estimate = (Estimate) request.getAttribute("estimate");
+  if (estimate == null) {
+    response.sendRedirect(request.getContextPath() + "/EstimateManagementAdvisorServlet");
+    return;
+  }
   ArrayList<Optional> caroptionals = new ArrayList<Optional>();
   ArrayList<Optional> contractoptionals = new ArrayList<Optional>();
-  if(estimate != null){
     for(Optional o : estimate.getOptionalList()){
       if(o.getType().equals("Auto"))
         caroptionals.add(o);
       else if (o.getType().equals("Contratto"))
         contractoptionals.add(o);
     }
-  }
+
 %>
 <html>
 <head>
@@ -25,6 +30,7 @@
   <link rel = "stylesheet" href = "${pageContext.request.contextPath}/advisor/estimateManagementAdvisorJSP.css"/>
 </head>
 <body>
+<%@include file="/fragments/headerJSP.jsp"%>
 <div class = "container w-full">
   <div class = "row">
     <div class = "col-6" align = "center">
@@ -177,5 +183,6 @@
     </div>
   </div>
 </div>
+<div><%@include file="/fragments/footerJSP.jsp"%></div>
 </body>
 </html>

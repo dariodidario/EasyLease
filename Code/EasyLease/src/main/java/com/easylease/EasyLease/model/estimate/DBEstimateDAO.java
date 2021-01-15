@@ -28,7 +28,6 @@ public class DBEstimateDAO implements  EstimateDAO {
 
   /**
    * Returns a DBEstimateDAO Singleton Object.
-
    * @return the {@link DBEstimateDAO} Object that accesses the {@link Estimate} object
    *      in the Database.
    */
@@ -147,7 +146,7 @@ public class DBEstimateDAO implements  EstimateDAO {
       preparedStatement = connection.prepareStatement(insertQuery);
       preparedStatement.setString(1, e.getId());
       preparedStatement.setFloat(2, e.getPrice());
-      preparedStatement.setString(3, e.getAdvisor() != null ? e.getAdvisor().getId() : null);
+      preparedStatement.setString(3, e.getAdvisor() != null ? e.getAdvisor().getId() : "ADfake0");
       preparedStatement.setString(4, e.getClient().getId());
       preparedStatement.setString(5, e.getCar().getId());
       preparedStatement.setInt(6, e.getPeriod());
@@ -157,7 +156,7 @@ public class DBEstimateDAO implements  EstimateDAO {
       preparedStatement.setDate(10, e.getResponseDate()!=null ? new java.sql.Date(e.getResponseDate().getTime()) : null);
       preparedStatement.executeUpdate();
       for (Optional o : e.getOptionalList()) {
-        insertOptional(e.getId(), o.getId());
+        insertOptional(e.getId(), o.getId(), o.getPrice());
       }
     } catch (SQLException sqlException) {
       logger.log(Level.SEVERE, sqlException.getMessage());
@@ -180,7 +179,7 @@ public class DBEstimateDAO implements  EstimateDAO {
       preparedStatement.setInt(2, e.getPeriod());
       preparedStatement.setBoolean(3, e.isVisibility());
       preparedStatement.setString(4, e.getClient().getId());
-      preparedStatement.setString(5, e.getAdvisor().getId());
+      preparedStatement.setString(5, e.getAdvisor() != null ? e.getAdvisor().getId() : "ADfake0");
       preparedStatement.setString(6, e.getCar().getId());
       preparedStatement.setString(7, e.getState());
       preparedStatement.setDate(8, e.getRequestDate()!=null ? new java.sql.Date(e.getRequestDate().getTime()) : null);
@@ -211,13 +210,14 @@ public class DBEstimateDAO implements  EstimateDAO {
     }
   }
 
-  private void insertOptional(String idEstimate, String idOptional) {
+  private void insertOptional(String idEstimate, String idOptional, float price) {
     PreparedStatement preparedStatement;
-    String insertQuery = "INSERT INTO included (optional_code, id_estimate)  VALUES(?,?))";
+    String insertQuery = "INSERT INTO included (optional_code, id_estimate, price)  VALUES(?, ?, ?))";
     try {
       preparedStatement = connection.prepareStatement(insertQuery);
       preparedStatement.setString(2, idEstimate);
       preparedStatement.setString(1, idOptional);
+      preparedStatement.setFloat(3, price);
       preparedStatement.executeQuery();
     } catch (SQLException sqlException) {
       logger.log(Level.SEVERE, sqlException.getMessage());
@@ -226,7 +226,7 @@ public class DBEstimateDAO implements  EstimateDAO {
 
   private Estimate getResultFromRs(ResultSet rs) throws SQLException {
     Estimate result = new Estimate();
-    AdvisorDAO advisor = DBAdvisorDAO.getIstance();
+    AdvisorDAO advisor = DBAdvisorDAO.getInstance();
     ClientDAO client = DBClientDAO.getInstance();
     CarDAO car = DBCarDAO.getInstance();
     try {
@@ -249,7 +249,7 @@ public class DBEstimateDAO implements  EstimateDAO {
   }
 
   private List<Optional> getOptionalList(String id) throws SQLException {
-    String selectQuery = "SELECT optional_code FROM included WHERE id_estimate = ?";
+    String selectQuery = "SELECT * FROM included WHERE id_estimate = ?";
     List<Optional> optionals = new ArrayList<>();
     PreparedStatement preparedStatement;
     OptionalDAO opt = DBOptionalDAO.getInstance();
@@ -258,7 +258,9 @@ public class DBEstimateDAO implements  EstimateDAO {
       preparedStatement.setString(1, id);
       ResultSet rs = preparedStatement.executeQuery();
       while (rs.next()) {
-        optionals.add(opt.retrieveById(rs.getString("optional_code")));
+        Optional optional = opt.retrieveById(rs.getString("optional_code"));
+        optional.setPrice(rs.getFloat("price"));
+        optionals.add(optional);
       }
     } catch (SQLException e) {
       logger.log(Level.SEVERE, e.getMessage());
