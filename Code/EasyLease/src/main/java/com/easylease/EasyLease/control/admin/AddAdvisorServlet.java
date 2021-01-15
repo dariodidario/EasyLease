@@ -20,7 +20,7 @@ import java.util.List;
 
 @WebServlet("/AddAdvisorServlet")
 public class AddAdvisorServlet extends HttpServlet {
-  static AdvisorDAO advisorDAO= DBAdvisorDAO.getIstance();
+  static AdvisorDAO advisorDAO= DBAdvisorDAO.getInstance();
   protected void doPost(
           HttpServletRequest request,
           HttpServletResponse response) throws ServletException, IOException {
@@ -72,7 +72,7 @@ public class AddAdvisorServlet extends HttpServlet {
         String advisor_password = request.getParameter("advisor_password");
 
         //check if the advisor is already into the database
-        boolean Advisor_ok = checkAdvisor(advisor_name, advisor_surname, advisor_email, hireDate, advisor_password);
+        boolean Advisor_ok = checkAdvisor(advisor_name, advisor_surname, advisor_email, hireDate);
 
         if (Advisor_ok == false) {//case is already present
           request.getSession().setAttribute("error", "Consulente già esistente");
@@ -84,9 +84,9 @@ public class AddAdvisorServlet extends HttpServlet {
           //created the advisor id and checking if is it already into the database
           String advisor_id = checkID();
 
-          Advisor advisor = new Advisor(advisor_id, advisor_name, advisor_surname, advisor_email, advisor_password, hireDate);
+          Advisor advisor = new Advisor(advisor_id, advisor_name, advisor_surname, advisor_email, hireDate);
 
-          advisorDAO.insert(advisor);
+          advisorDAO.insert(advisor, advisor_password);
 
           //defined the session parameters
           User user = (User) request.getSession().getAttribute("user");
@@ -124,16 +124,16 @@ public class AddAdvisorServlet extends HttpServlet {
   /**this method check if an advisor with these specified parameters is already in database
    * @return false if there's an other advisor with the specified parameters*/
   private boolean checkAdvisor(String advisor_name, String advisor_surname,
-                               String advisor_email, java.util.Date hireDate, String advisor_password){
+                               String advisor_email, java.util.Date hireDate){
 
-    List<Advisor> advisors=advisorDAO.retrieveAll();
-    boolean Advisor_ok=true;
+    List<Advisor> advisors = advisorDAO.retrieveAll();
+    boolean Advisor_ok = true;
     if(advisors!=null) {
       for (int i = 0; i < advisors.size(); i++) {
         Advisor a = advisors.get(i);
         if (a.getName().equalsIgnoreCase(advisor_name) && a.getSurname().equalsIgnoreCase(advisor_surname)
-                && a.getEmail().equalsIgnoreCase(advisor_email) && a.getHireDate().compareTo(hireDate) == 0
-                && a.getPassword().equalsIgnoreCase(advisor_password)) {
+                && a.getEmail().equalsIgnoreCase(advisor_email) && a.getHireDate().compareTo(hireDate) == 0)
+        {
           Advisor_ok = false;
         }
       }
