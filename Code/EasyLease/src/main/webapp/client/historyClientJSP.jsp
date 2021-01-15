@@ -25,16 +25,13 @@
 <html>
 <head>
     <title>HistoryClientJSP</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-          crossorigin="anonymous">
+    <jsp:include page="/fragments/headerJSP.jsp"></jsp:include>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/client/historyClientJSP.css"/>
 </head>
 <body>
-<section class="body_section">
-    <div class="table_space">
 
+<div class="container">
+    <div class="table-responsive">
         <table class="table">
             <div id="order_list_text">Ordini</div>
             <thead>
@@ -46,10 +43,10 @@
                 <th scope="col">Visualizza</th>
             </tr>
             </thead>
-          <%
-            if (orderList != null && orderList.size() != 0) {
-              for (Order order : orderList) {
-          %>
+            <%
+                if (orderList != null && orderList.size() != 0) {
+                    for (Order order : orderList) {
+            %>
             <tbody>
             <tr>
                 <td data-th="Foto">
@@ -97,8 +94,8 @@
             </thead>
             <tbody>
             <%
-              if (estimateList != null && estimateList.size() != 0) {
-                for (Estimate estimate : estimateList) {
+                if (estimateList != null && estimateList.size() != 0) {
+                    for (Estimate estimate : estimateList) {
             %>
             <tr>
                 <td data-th="Foto">
@@ -131,6 +128,7 @@
             </tbody>
         </table>
     </div>
-</section>
+</div>
+<jsp:include page="/fragments/footerJSP.jsp"></jsp:include>
 </body>
 </html>

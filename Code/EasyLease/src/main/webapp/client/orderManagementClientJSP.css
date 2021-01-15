@@ -5,13 +5,13 @@
     font-size: 45px;
     font-weight: bold;
 }
-
-img, svg{
+/*
+.container img{
     max-width: 700px !important;
     max-height: 700px !important;
     margin: auto !important;
     display: block !important;
-}
+}*/
 
 .contract_link{
     display: block;
@@ -20,8 +20,10 @@ img, svg{
 }
 
 .car_spec_text{
-    font-size: 45px;
+    font-size: 35px;
     font-weight: bold;
+    margin-top: 5% !important;
+    margin-bottom: 5% !important;
 }
 
 .car_spec td{
@@ -29,8 +31,10 @@ img, svg{
 }
 
 .car_optional_text{
-    font-size: 40px;
+    font-size: 35px;
     font-weight: bold;
+    margin-top: 5% !important;
+    margin-bottom: 5% !important;
 }
 
 .car_optionals td{
@@ -48,6 +52,10 @@ img, svg{
 .price{
     font-size: 30px;
     font-weight: bold;
+}
+
+#price_section{
+    margin-top: 5% !important;
 }
 
 .btn-check:active+.btn-primary, .btn-check:checked+.btn-primary,

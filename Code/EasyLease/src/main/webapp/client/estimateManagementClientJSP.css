@@ -5,17 +5,19 @@
     font-size: 45px;
     font-weight: bold;
 }
-
-img{
-    max-width: 700px;
-    max-height: 700px;
-    margin: auto;
-    display: block;
-}
+/*
+.container img{
+    max-width: 700px !important;
+    max-height: 700px !important;
+    margin: auto !important;
+    display: block !important;
+}*/
 
 .car_spec_text{
-    font-size: 45px;
+    font-size: 35px;
     font-weight: bold;
+    margin-top: 5% !important;
+    margin-bottom: 5% !important;
 }
 
 .car_spec td{
@@ -23,16 +25,10 @@ img{
 }
 
 .car_optional_text{
-    font-size: 40px;
+    font-size: 35px;
     font-weight: bold;
-}
-
-.car_optionals td{
-    font-size: 30px;
-}
-
-.car_optionals th{
-    font-size: 30px;
+    margin-top: 5% !important;
+    margin-bottom: 5% !important;
 }
 
 .no_optionals_text{
@@ -44,6 +40,9 @@ img{
     font-weight: bold;
 }
 
+#price_section{
+    margin-top: 5% !important;
+}
 .btn-check:active+.btn-primary, .btn-check:checked+.btn-primary,
 .btn-primary.active, .btn-primary:active, .show>.btn-primary.dropdown-toggle{
     background-color: #9B334E !important;
