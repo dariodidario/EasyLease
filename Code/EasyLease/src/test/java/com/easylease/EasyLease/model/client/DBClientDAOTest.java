@@ -280,11 +280,25 @@ public class DBClientDAOTest {
   }
 
   @Test
-  void delete_ExistingClient_Success() {
-    Client client = clientDao.retrieveById("CLEE8BD");
+  void delete_ExistingClient_Success() throws ParseException {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String dateInString = "31-08-1982";
+    Date date = sdf.parse(dateInString);
+    Client client = new Client();
+    String password = "pass";
+    client.setId("CL12345");
+    client.setName("Alberto");
+    client.setSurname("Angela");
+    client.setEmail("alberto.angela@rai.it");
+    client.setPc("83020");
+    client.setStreet("Via dei sommi");
+    client.setCity("Roma");
+    client.setKind("Uomo");
+    client.setBirthPlace("Roma");
+    client.setBirthDate(date);
+    clientDao.insert(client, password);
     clientDao.delete(client);
-    assertNull(clientDao.retrieveById("CLEE8BD"));
-    clientDao.insert(client, "pass");
+    assertNull(clientDao.retrieveById("CL12345"));
   }
 
   @Test
