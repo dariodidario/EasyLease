@@ -46,6 +46,17 @@ public interface OrderDAO {
   List<Order> retrieveByClient(String id);
 
   /**
+   *  Search for an Order based on its state.
+   *
+   * @param state of the Order.
+   * @return a {@link List} of {@link Order}s or null if there are none.
+   * @since 0.2
+   * @version 0.1
+   * @throws IllegalArgumentException if the state is null or equal to "".
+   */
+  List<Order> retrieveByState(String state);
+
+  /**
    * Search for all {@link Order}s in the Database.
    *
    * @return a {@link List} of {@link Order}
