@@ -31,33 +31,43 @@ public class RequestEstimateServlet extends HttpServlet {
 
     String role = (String) request.getSession().getAttribute("role");
     if (role == null || (role != null && !role.equals("client"))) {
-      RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/homePageJSP.jsp");
-      dispatcher.forward(request, response);
+      request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
     }
+    else {
+      User user = (User) request.getSession().getAttribute("user");
+      String carId = request.getParameter("carId");
+      String m = request.getParameter("Mesi");
 
-    User user = (User) request.getSession().getAttribute("user");
-    String carId = request.getParameter("carId");
-    String m = request.getParameter( "Mesi" );
-    int months = Integer.parseInt(m);
-    String[] optionals = request.getParameterValues("optionals");
-    List<Optional> optionalList = new ArrayList<>();
-    if (optionals != null && optionals.length !=0) {
-      OptionalDAO optDao = DBOptionalDAO.getInstance();
-      for (String optionalId : optionals) {
-        optionalList.add(optDao.retrieveById(optionalId));
+      if (m==null || user == null || carId == null ) {
+        request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
+      }
+
+      else {
+        int months = Integer.parseInt(m);
+        String[] optionals = request.getParameterValues("optionals");
+        List<Optional> optionalList = new ArrayList<>();
+        if (optionals != null && optionals.length != 0) {
+          OptionalDAO optDao = DBOptionalDAO.getInstance();
+          for (String optionalId : optionals) {
+            optionalList.add(optDao.retrieveById(optionalId));
+          }
+        }
+        Car car = DBCarDAO.getInstance().retrieveById(carId);
+        String id = "es" + IdGenerator.randomIdGenerator();
+        while (DBEstimateDAO.getInstance().retrieveById(id) != null) {
+          id = "es" + IdGenerator.randomIdGenerator();
+        }
+
+        Estimate estimate = new Estimate(id, 0, (Client) user, null, car,
+            months, optionalList, true, "Attesa",
+            new Date(System.currentTimeMillis()), null);
+
+        DBEstimateDAO.getInstance().insert(estimate);
+
+        request.getRequestDispatcher("/user/homePageJSP.jsp")
+            .forward(request, response);
       }
     }
-    Car car = DBCarDAO.getInstance().retrieveById(carId);
-    String id = "es" + IdGenerator.randomIdGenerator();
-    while(DBEstimateDAO.getInstance().retrieveById(id) != null) {
-      id = "es" + IdGenerator.randomIdGenerator();
-    }
-
-    Estimate estimate = new Estimate(id, 0, (Client) user, null, car, months, optionalList, true, "Attesa", new Date(System.currentTimeMillis()), null);
-
-    DBEstimateDAO.getInstance().insert(estimate);
-
-    response.sendRedirect(request.getContextPath() + "/user/homePageJSP.jsp");
   }
 
   protected void doGet(
