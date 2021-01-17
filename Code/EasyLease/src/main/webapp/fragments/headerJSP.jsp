@@ -1,67 +1,97 @@
-<%@ page import="com.easylease.EasyLease.model.user.User" %>
-<%@ page import="com.easylease.EasyLease.model.client.Client" %>
-<%@ page import="com.easylease.EasyLease.model.advisor.Advisor" %>
-<!DOCTYPE html>
+<%--
+  Created by IntelliJ IDEA.
+  User: user
+  Date: 17/01/2021
+  Time: 17:24
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/fragments/header.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .navbar-inverse .navbar-nav>li>a {
+            color: white;
+        }
+
+        .container-fluid{
+            background-color: #9B334E;
+        }
+
+        .navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
+            color: #fff;
+            background-color: #9B334E;
+        }
+        .navbar-brand>img{
+            margin-top:-4px;
+        }
+        .navbar {
+            border-radius: 0;
+            background-color: #9B334E;
+        }
+        .navbar-inverse {
+            background-color: #9B334E;
+            border-color: #9B334E;
+        }
+        .open>.dropdown-menu {
+            display: block;
+            background-color: #9B334E;
+        }
+        .dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+            color: white;
+            text-decoration: none;
+            background-color: #9B3340;
+        }
+        .dropdown-menu>li>a {
+            color: white;
+        }
+    </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-sm bg-dangers navbar-danger">
-  <!-- Brand -->
-  <a class="navbar-brand" href="${pageContext.request.contextPath}/user/homePageJSP.jsp">
-      <div class="headerLogo"> <img src="${pageContext.request.contextPath}/img/misc/logo2Trasparente.png"></div></a>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"><img src="${pageContext.request.contextPath}/img/misc/Transparent_Logo.png"></a>
+        </div>
 
-  <!-- Links -->
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" href="#">Contatti</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">FAQ</a>
-    </li>
-
-    <!-- Dropdown -->
-
-          <%
-              String roleUser = (String) request.getSession().getAttribute("role");
-          if (roleUser == null){%>
-      <ul class="navbar-nav">
-          <li class="nav-item">
-              <a class="nav-link" href="${pageContext.request.contextPath}/ViewLoginServlet">Login</a>
-        </li>
-      <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/ViewSignInServlet">Registrati</a>
-      </li><%}
-    else{%>
-      <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-           <img src="${pageContext.request.contextPath}/img/misc/userImage3.png" class="userImg">
-          </a>
-      <%if (roleUser.equals("client")) {%>
-              <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" href="${pageContext.request.contextPath}/HistoryClientServlet">Ordini e Preventivi</a>
-              <a class="dropdown-item" href="${pageContext.request.contextPath}/LogoutServlet">Logout</a><%}
-          else if (roleUser.equals("advisor")) {%>
-                  <div class="dropdown-menu">
-              <a class="dropdown-item" href="${pageContext.request.contextPath}/HistoryAdvisorServlet">Ordini e Preventivi</a>
-              <a class="dropdown-item" href="${pageContext.request.contextPath}/ClientsServlet">Visualizza Clienti</a>
-              <a class="dropdown-item" href="${pageContext.request.contextPath}/LogoutServlet">Logout</a><%}
-          else if (roleUser.equals("admin")){%>
-                      <div class="dropdown-menu">
-              <a class="dropdown-item" href="${pageContext.request.contextPath}/ViewAddAdvisorServlet">Aggiungi consulente</a>
-              <a class="dropdown-item" href="${pageContext.request.contextPath}/ViewAddCarServlet">Aggiungi auto</a>
-              <a class="dropdown-item" href="${pageContext.request.contextPath}/LogoutServlet">Logout</a><%}}%>
-    </li>
-  </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"> Contatti</a></li>
+            <li><a href="#">FAQ </a></li>
+            <%
+                String roleUser = (String) request.getSession().getAttribute("role");
+                if (roleUser == null){%>
+            <li><a href="#"> Login</a></li>
+            <li><a href="#">Registrati</a></li><%}
+        else if(roleUser.equals("client")){%>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="${pageContext.request.contextPath}/HistoryClientServlet">Ordini e Preventivi</a></li>
+                    <li><a href="${pageContext.request.contextPath}/LogoutServlet">Logout</a></li>
+                </ul>
+            </li><%}
+        else if (roleUser.equals("advisor")){%>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="${pageContext.request.contextPath}/HistoryAdvisorServlet">Ordini e Preventivi</a></li>
+                    <li><a href="${pageContext.request.contextPath}/ClientsServlet">Visualizza Clienti</a></li>
+                    <li><a href="${pageContext.request.contextPath}/LogoutServlet">Logout</a></li>
+                </ul>
+            </li><%}
+        else if (roleUser.equals("admin")){%>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="${pageContext.request.contextPath}/ViewAddAdvisorServlet">Aggiungi consulente</a></li>
+                    <li><a href="${pageContext.request.contextPath}/ViewAddCarServlet">Aggiungi auto</a></li>
+                    <li><a href="${pageContext.request.contextPath}/LogoutServlet">Logout</a></li>
+                </ul>
+            </li><%}%>
+        </ul>
+    </div>
 </nav>
-<br>
 </body>
 </html>

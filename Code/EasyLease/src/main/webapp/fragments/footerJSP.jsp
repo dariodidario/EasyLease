@@ -11,12 +11,14 @@
         }
 
         .nOrder{
+            background-color: #9B334E;
             margin-top: 1em;
             font-family: sans-serif;
             text-align: center;
             color:white;
         }
         .text{
+            background-color: #9B334E;
             font-family: sans-serif;
             text-align: center;
             color: darkgrey;
