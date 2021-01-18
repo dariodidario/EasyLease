@@ -345,8 +345,8 @@
 
         <br/>
         <br/>
-        <form method="POST" action="${pageContext.request.contextPath}/EstimateManagementAdvisorServlet">
-          <input type="hidden" name="id_estimate" value="<%=car.getId()%>">
+        <form method="POST" action="${pageContext.request.contextPath}/ViewRequestEstimateServlet">
+          <input type="hidden" name="idCar" value="<%=car.getId()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Richiedi preventivo" value="Richiedi preventivo">
         </form>
       </div>
