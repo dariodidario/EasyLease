@@ -37,8 +37,8 @@ public class LoginServlet extends HttpServlet {
           request.getSession().setAttribute("user", adminDao.retrieveByEmail(email));
           request.removeAttribute("email");
           request.removeAttribute("password");
-          RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/homePageJSP.jsp");
-          dispatcher.forward(request, response);
+          request.getRequestDispatcher("/user/homePageJSP.jsp")
+              .forward(request, response);
         }
       }
       else {
@@ -49,8 +49,8 @@ public class LoginServlet extends HttpServlet {
             request.getSession().setAttribute("user", advisorDao.retrieveByEmail(email));
             request.removeAttribute("email");
             request.removeAttribute("password");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/homePageJSP.jsp");
-            dispatcher.forward(request, response);
+            request.getRequestDispatcher("/user/homePageJSP.jsp")
+                .forward(request, response);
           }
         }
         else {
@@ -61,16 +61,15 @@ public class LoginServlet extends HttpServlet {
               request.getSession().setAttribute("user", clientDao.retrieveByEmail(email));
               request.removeAttribute("email");
               request.removeAttribute("password");
-              RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/homePageJSP.jsp");
-              dispatcher.forward(request, response);
+              request.getRequestDispatcher("/user/homePageJSP.jsp")
+                  .forward(request, response);
             }
           }
           else {
             request.removeAttribute("email");
             request.removeAttribute("password");
-            RequestDispatcher dispatcher;
-            dispatcher = getServletContext().getRequestDispatcher("/user/homePageJSP.jsp");
-            dispatcher.forward(request, response);
+            request.getRequestDispatcher("/user/homePageJSP.jsp")
+                .forward(request, response);
           }
         }
       }

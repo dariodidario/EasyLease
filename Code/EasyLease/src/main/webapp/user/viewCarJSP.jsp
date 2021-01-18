@@ -220,11 +220,6 @@
                   + car.getModel()%>
         </div>
       </div>
-      <div class="col-6" align="center">
-        <div class="car_spec_text">
-          Informazioni auto
-        </div>
-      </div>
     </div>
 
     <div class="row">
@@ -342,11 +337,6 @@
                   + car.getModel()%>
         </div>
       </div>
-      <div class="col-6" align="center">
-        <div class="car_spec_text">
-          Informazioni auto
-        </div>
-      </div>
     </div>
 
     <div class="row">
@@ -458,11 +448,6 @@
         <div class="car_name">
           <%= "" + car.getBrand() + " "
                   + car.getModel()%>
-        </div>
-      </div>
-      <div class="col-6" align="center">
-        <div class="car_spec_text">
-          Informazioni auto
         </div>
       </div>
     </div>

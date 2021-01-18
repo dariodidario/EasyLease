@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "SignInServlet", urlPatterns = "/SignInServlet")
+@WebServlet(name = "SignInServlet", value = "/SignInServlet")
 public class SignInServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
@@ -44,7 +44,7 @@ public class SignInServlet extends HttpServlet {
     DBClientDAO dao = (DBClientDAO) DBClientDAO.getInstance();
     dao.insert(client, request.getParameter("password"));
 
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/loginJSP.jsp");
-    dispatcher.forward(request, response);
+    request.getRequestDispatcher("/user/loginJSP.jsp")
+        .forward(request, response);
   }
 }

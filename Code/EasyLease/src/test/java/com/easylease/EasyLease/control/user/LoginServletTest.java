@@ -1,11 +1,17 @@
 package com.easylease.EasyLease.control.user;
 
-import com.easylease.EasyLease.model.order.DBOrderDAO;
-import com.easylease.EasyLease.model.order.OrderDAO;
+
+import com.easylease.EasyLease.control.client.HistoryClientServlet;
+import com.easylease.EasyLease.model.admin.DBAdminDAO;
+import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
+import com.easylease.EasyLease.model.client.Client;
+import com.easylease.EasyLease.model.client.DBClientDAO;
+import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
 import javax.servlet.RequestDispatcher;
@@ -21,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-/*
+
 public class LoginServletTest {
   @Mock
   private HttpServletRequest request;
@@ -36,10 +42,16 @@ public class LoginServletTest {
 
   private LoginServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
+  private DBClientDAO dbClientDAO;
+  private DBAdminDAO dbAdminDAO;
+  private DBAdvisorDAO dbAdvisorDAO;
 
   @BeforeEach
-  void setUp() throws Exception {
+  void setUp() {
     MockitoAnnotations.openMocks(this);
+    dbClientDAO = (DBClientDAO) DBClientDAO.getInstance();
+    dbAdminDAO = (DBAdminDAO) DBAdminDAO.getInstance();
+    dbAdvisorDAO = (DBAdvisorDAO) DBAdvisorDAO.getInstance();
     servlet = new LoginServlet();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
@@ -47,15 +59,15 @@ public class LoginServletTest {
     when(session.isNew()).thenReturn(true);
     when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
 
-    doAnswer((Answer<Object>) invocation -> {
+    Mockito.doAnswer((Answer<Object>) invocation -> {
       String key = (String) invocation.getArguments()[0];
       return attributes.get(key);
     }).when(session).getAttribute(anyString());
 
-    doAnswer((Answer<Object>) invocation -> {
+    Mockito.doAnswer((Answer<Object>) invocation -> {
       String key = (String) invocation.getArguments()[0];
       Object value = invocation.getArguments()[1];
-      attributes.put(key, value);
+      attributes.put(key,value);
       return null;
     }).when(session).setAttribute(anyString(), any());
   }
@@ -66,20 +78,54 @@ public class LoginServletTest {
   }
 
   @Test
+  void SuccessAdmin() throws ServletException, IOException {
+    when(request.getParameter("userEmail")).thenReturn("giu.digiamp@giudigiamp.com");
+    when(request.getParameter("userPassword")).thenReturn("pass");
+    servlet.doPost(request,response);
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    assertEquals("admin", request.getSession().getAttribute("role"));
+  }
+
+  @Test
+  void SuccessAdvisor() throws ServletException, IOException {
+    when(request.getParameter("userEmail")).thenReturn("rossa.clementina@frutta.com");
+    when(request.getParameter("userPassword")).thenReturn("pass");
+    servlet.doPost(request,response);
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    assertEquals("admin", request.getSession().getAttribute("role"));
+  }
+
+  @Test
   void SuccessClient() throws ServletException, IOException {
-    when(request.getParameter("email")).thenReturn("mattia.caprio@unisa.com");
-    when(request.getParameter("password")).thenReturn("9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684");
-    servlet.doGet(request,response);
+    when(request.getParameter("userEmail")).thenReturn("mattia.caprio@unisa.com");
+    when(request.getParameter("userPassword")).thenReturn("pass");
+    servlet.doPost(request,response);
     verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
     assertEquals("client", request.getSession().getAttribute("role"));
   }
 
   @Test
-  void nullSession() throws ServletException, IOException {
-    when(request.getSession()).thenReturn(null);
-    servlet.doGet(request, response);
+  void unsuccess() throws ServletException, IOException {
+    when(request.getParameter("userEmail")).thenReturn("aaaa@giudigiamp.com");
+    when(request.getParameter("userPassword")).thenReturn("pass");
+    servlet.doPost(request,response);
     verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
+  @Test
+  void user_null() throws ServletException, IOException {
+    when(request.getParameter("userEmail")).thenReturn(null);
+    when(request.getParameter("userPassword")).thenReturn("pass");
+    assertThrows(NullPointerException.class,()->{servlet.doGet(request,response);});
+  }
+
+  @Test
+  void password_null() throws ServletException, IOException {
+    when(request.getParameter("userEmail")).thenReturn("giu.digiamp@giudigiamp.com");
+    when(request.getParameter("userPassword")).thenReturn(null);
+    assertThrows(NullPointerException.class,()->{servlet.doGet(request,response);});
+  }
+
+
 }
-*/
+

@@ -22,7 +22,7 @@
 </script>
 <br/>
 <center>
-<div style="text-align: center; width: 70%;">
+<div style="text-align: center; width: 30%;">
 
   <form action="${pageContext.request.contextPath}/SignInServlet" method="post" onSubmit="return controllo()">
     <br/>
