@@ -60,7 +60,7 @@ class ViewRequestEstimateServletTest {
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
-    mysqlDataSource.setPassword("S.PEPE41a");
+    mysqlDataSource.setPassword("master");
     mysqlDataSource.setServerTimezone("UTC");
     mysqlDataSource.setVerifyServerCertificate(false);
     mysqlDataSource.setUseSSL(false);
