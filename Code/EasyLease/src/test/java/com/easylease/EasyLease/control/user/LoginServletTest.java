@@ -7,6 +7,7 @@ import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
 import com.easylease.EasyLease.model.client.Client;
 import com.easylease.EasyLease.model.client.DBClientDAO;
 import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
+import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,12 +49,19 @@ public class LoginServletTest {
   private DBAdvisorDAO dbAdvisorDAO;
 
   @BeforeEach
-  void setUp() {
+  void setUp() throws SQLException {
     MockitoAnnotations.openMocks(this);
     dbClientDAO = (DBClientDAO) DBClientDAO.getInstance();
     dbAdminDAO = (DBAdminDAO) DBAdminDAO.getInstance();
     dbAdvisorDAO = (DBAdvisorDAO) DBAdvisorDAO.getInstance();
     servlet = new LoginServlet();
+    MysqlDataSource mysqlDataSource = new MysqlDataSource();
+    mysqlDataSource.setURL("jdbc:mysql//localhost:3306/easylease");
+    mysqlDataSource.setUser("root");
+    mysqlDataSource.setPassword("master");
+    mysqlDataSource.setServerTimezone("UTC");
+    mysqlDataSource.setVerifyServerCertificate(false);
+    mysqlDataSource.setUseSSL(false);
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");
@@ -116,7 +125,7 @@ public class LoginServletTest {
   void user_null() throws ServletException, IOException {
     when(request.getParameter("userEmail")).thenReturn(null);
     when(request.getParameter("userPassword")).thenReturn("pass");
-    assertThrows(NullPointerException.class,()->{servlet.doGet(request,response);});
+    assertThrows(IllegalArgumentException.class,()->{servlet.doGet(request,response);});
   }
 
   @Test

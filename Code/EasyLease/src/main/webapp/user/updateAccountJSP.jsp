@@ -1,9 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-  Client cliente = new Client("tring id", "String name", "String surname", "francesco@torino.it",
-          "String birthPlace", null, "Uomo",
-          "String city", "String pc", "String street");
-  //Client cliente=(Client)request.getAttribute("user");
+  Client cliente=(Client)request.getAttribute("user");
 %>
 <!DOCTYPE html>
 <html>
@@ -26,27 +23,31 @@
 <%@include file="../fragments/headerJSP.jsp"%>
 <script type="text/javascript">
   function controllo(){
-    var controllo=true;
-    var mail=document.getElementById("email").value;
-    var nome=document.getElementById("nome").value;
+    var cognome = document.getElementById("cognome").value;
+    var nome = document.getElementById("nome").value;
+    var conferma = document.getElementById("conferma").value;
+    var bp = document.getElementById("bp").value;
+    var bd = document.getElementById("bd").value;
+    var city = document.getElementById("city").value;
+    var pc = document.getElementById("cap").value;
+    var via = document.getElementById("street").value;
+    var email=document.getElementById("email").value;
     var password=document.getElementById("password").value;
-    var cognome=document.getElementById("cognome").value;
-    var bd=document.getElementById("bd").value;
-    var bp=document.getElementById("bp").value;
-    var kind=document.getElementById("kind").value;
-    var via=document.getElementById("via").value;
-    var cap=document.getElementById("cap").value;
-    var citta=document.getElementById("citta").value;
-    var conferma=document.getElementById("conferma").value;
     var mailformat=/^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-]{2,})+.)+([a-zA-Z0-9]{2,})+$/;
     var nomeformat=/^[a-zA-Z]+$/;
-    var cognomeformat=/^[a-zA-Z]+$/;
-    var viaformat=/^[a-zA-Z]+$/;
-    var capformat=/^[0-9]+$/;
-    var bpformat=/^[a-zA-Z]+$/;
-    var cittaformat=/^[a-zA-Z]+$/;
-    var kindformat=/^[a-zA-Z]+$/;
-    if((!mailformat.test(mail)) || (mail == "") || (mail == "undefined")){
+    var controllo;
+    controllo = true;
+    if ((nome == "") || (nome == "undefined") || (!nomeformat.test(nome))){
+      m=document.getElementById("nomelb");
+      m.style.display="block";
+      controllo=false;
+    }
+    if ((cognome == "") || (cognome == "undefined") || (!nomeformat.test(cognome))){
+      m=document.getElementById("cognomelb");
+      m.style.display="block";
+      controllo=false;
+    }
+    if((!mailformat.test(email)) || (email == "") || (email == "undefined")){
       var m=document.getElementById("emaillb");
       m.style.display="block";
       controllo=false;
@@ -56,51 +57,43 @@
       m.style.display="block";
       controllo=false;
     }
-    if((conferma == "") || (conferma == "undefined")||(conerma!=password)){
-      m=document.getElementById("passwordlb");
+    if((conferma == "") || (conferma == "undefined")){
+      m=document.getElementById("confermalb");
       m.style.display="block";
       controllo=false;
     }
-    if ((nome == "") || (nome == "undefined") || (!nomeformat.test(nome))){
-      m=document.getElementById("nomelb");
+    if((conferma != password)){
+      m=document.getElementById("confermalb2");
       m.style.display="block";
       controllo=false;
     }
-    if ((cognome == "") || (cognome == "undefined") || (!cognomeformat.test(cognome))){
-      m=document.getElementById("cognomelb");
+    if ((bp == "") || (bp == "undefined") || (!nomeformat.test(bp))){
+      m=document.getElementById("birthplacelb");
       m.style.display="block";
       controllo=false;
     }
-    if ((via == "") || (via == "undefined") || (!viaformat.test(via))){
-      m=document.getElementById("vialb");
+    if ((bd == "") || (bd == "undefined")){
+      m=document.getElementById("birthdatelb");
       m.style.display="block";
       controllo=false;
     }
-    if ((cap == "") || (cap == "undefined") || (!capformat.test(cap))){
+    if ((city == "") || (city == "undefined") || (!nomeformat.test(city))){
+      m=document.getElementById("citylb");
+      m.style.display="block";
+      controllo=false;
+    }
+    if ((pc == "") || (pc == "undefined")){
       m=document.getElementById("caplb");
       m.style.display="block";
       controllo=false;
     }
-    if ((bp == "") || (bp == "undefined") || (!bpformat.test(bp))){
-      m=document.getElementById("bplb");
+    if((via=="")||(via == "undefined")){
+      m=document.getElementById("vialb");
       m.style.display="block";
       controllo=false;
     }
-    if ((citta == "") || (citta == "undefined") || (!cittaformat.test(citta))){
-      m=document.getElementById("cittalb");
-      m.style.display="block";
-      controllo=false;
-    }
-    if ((kind == "") || (kind == "undefined") || (!kindformat.test(kind))){
-      m=document.getElementById("kindlb");
-      m.style.display="block";
-      controllo=false;
-    }
-    if (bd == ""){
-      m=document.getElementById("bdlb");
-      m.style.display="block";
-      controllo=false;
-    }
+
+
     return controllo;
   }
 </script>
@@ -110,37 +103,37 @@
     <br/>
     <br/>
     <div class="form-group">
-      <input name="name" class="form-control" id="nome" type="text" value="<%=cliente.getName()%>"/><br/>
+      <input name="name" class="form-control" id="nome" type="text" value="<%=cliente.getName()%>"/>
       <label for="nome"></label>
       <label  id="nomelb" style=" color: red; display:none;">*nome non valido</label>
     </div>
     <div class="form-group">
-      <input name="surname" class="form-control" id="cognome" type="text" value="<%=cliente.getSurname()%>"/><br/>
+      <input name="surname" class="form-control" id="cognome" type="text" value="<%=cliente.getSurname()%>"/>
       <label for="cognome"></label>
       <label  id="cognomelb" style=" color: red; display:none;">*cognome non valido</label>
     </div>
     <div class="form-group">
-      <input type="text" name = "email" class="form-control" id="email" aria-describedby="emailHelp" value="<%=cliente.getEmail()%>"><br>
+      <input type="text" name = "email" class="form-control" id="email" aria-describedby="emailHelp" value="<%=cliente.getEmail()%>">
       <label for="email"></label>
       <label  id="emaillb" style=" color: red; display:none;">*email non valida</label>
     </div>
     <div class="form-group">
-      <input type="password" name="password" class="form-control" id="password"><br>
+      <input type="password" name="password" class="form-control" id="password">
       <label for="password"></label>
       <label style=" color: red; display:none;" id="passwordlb" >*password non valida</label>
     </div>
     <div class="form-group">
-      <input type="password" name="password" class="form-control" id="conferma"><br>
+      <input type="password" name="password" class="form-control" id="conferma">
       <label for="conferma"></label>
       <label style=" color: red; display:none;" id="confermalb" >*conferma password non valida</label>
     </div>
     <div class="form-group">
-      <input name="birthplace" class="form-control" id="bp" type="text" value="<%=cliente.getBirthPlace()%>"/><br/>
+      <input name="birthplace" class="form-control" id="bp" type="text" value="<%=cliente.getBirthPlace()%>"/>
       <label for="bp"></label>
       <label  id="birthplacelb" style=" color: red; display:none;">*luogo di nascita non valido</label>
     </div>
     <div class="form-group">
-      <input name="birthdate" class="form-control" id="bd" type="date" value="<%=cliente.getBirthDate()%>"/><br/>
+      <input name="birthdate" class="form-control" id="bd" type="date" value="<%=cliente.getBirthDate()%>"/>
       <label for="bd"></label>
       <label  id="birthdatelb" style=" color: red; display:none;">*data di nascita non valido</label>
     </div>
@@ -148,22 +141,22 @@
       <option value="Uomo">uomo</option>
       <option value="Donna">donna</option>
       <option value="Preferisco non specificarlo">preferisco non specificarlo</option>
-    </select><br/>
+    </select>
     <label for="kind"></label>
     <label  id="kindlb" style=" color: red; display:none;">*genere non valido</label>
     <div class="form-group">
-      <input name="city" class="form-control" id="citta" type="text" value="<%=cliente.getCity()%>"/><br/>
-      <label for="citta"></label>
+      <input name="city" class="form-control" id="city" type="text" value="<%=cliente.getCity()%>"/>
+      <label for="city"></label>
       <label  id="citylb" style=" color: red; display:none;">*citta non valido</label>
     </div>
     <div class="form-group">
-      <input name="pc" class="form-control" id="cap" type="text" value="<%=cliente.getPc()%>"/><br/>
+      <input name="pc" class="form-control" id="cap" type="text" value="<%=cliente.getPc()%>"/>
       <label for="cap"></label>
       <label  id="caplb" style=" color: red; display:none;">*CAP non valido</label>
     </div>
     <div class="form-group">
-      <input name="street" class="form-control" id="via" type="text" value="<%=cliente.getStreet()%>"/><br/>
-      <label for="via"></label>
+      <input name="street" class="form-control" id="street" type="text" value="<%=cliente.getStreet()%>"/>
+      <label for="street"></label>
       <label  id="vialb" style=" color: red; display:none;">*via non valida</label>
     </div>
     <br>
