@@ -65,10 +65,12 @@
             <%
                 String roleUser = (String) request.getSession().getAttribute("role");
                 if (roleUser == null){%>
-            <li><a href="#"> Login</a></li>
-            <li><a href="#">Registrati</a></li><%}
+            <li><a href="${pageContext.request.contextPath}/ViewLoginServlet"> Login</a></li>
+            <li><a href="${pageContext.request.contextPath}/ViewSignInServlet">Registrati</a></li><%}
         else if(roleUser.equals("client")){%>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <span class="caret"></span></a>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <span class="glyphicon glyphicon-user"></span> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="${pageContext.request.contextPath}/HistoryClientServlet">Ordini e Preventivi</a></li>
                     <li><a href="${pageContext.request.contextPath}/LogoutServlet">Logout</a></li>
