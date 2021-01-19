@@ -35,8 +35,8 @@ public class LoginServlet extends HttpServlet {
         if (PasswordHashing.passwordAuthenticator(password, passwordAd, "SHA-1")) {
           request.getSession().setAttribute("role", "admin");
           request.getSession().setAttribute("user", adminDao.retrieveByEmail(email));
-          request.removeAttribute("email");
-          request.removeAttribute("password");
+          request.removeAttribute("userEmail");
+          request.removeAttribute("userPassword");
           request.getRequestDispatcher("/user/homePageJSP.jsp")
               .forward(request, response);
         }
@@ -47,8 +47,8 @@ public class LoginServlet extends HttpServlet {
           if (PasswordHashing.passwordAuthenticator(password, passwordAdv, "SHA-1")) {
             request.getSession().setAttribute("role", "advisor");
             request.getSession().setAttribute("user", advisorDao.retrieveByEmail(email));
-            request.removeAttribute("email");
-            request.removeAttribute("password");
+            request.removeAttribute("userEmail");
+            request.removeAttribute("userPassword");
             request.getRequestDispatcher("/user/homePageJSP.jsp")
                 .forward(request, response);
           }
@@ -59,15 +59,15 @@ public class LoginServlet extends HttpServlet {
             if (PasswordHashing.passwordAuthenticator(password, passwordCl, "SHA-1")) {
               request.getSession().setAttribute("role", "client");
               request.getSession().setAttribute("user", clientDao.retrieveByEmail(email));
-              request.removeAttribute("email");
-              request.removeAttribute("password");
+              request.removeAttribute("userEmail");
+              request.removeAttribute("userPassword");
               request.getRequestDispatcher("/user/homePageJSP.jsp")
                   .forward(request, response);
             }
           }
           else {
-            request.removeAttribute("email");
-            request.removeAttribute("password");
+            request.removeAttribute("userEmail");
+            request.removeAttribute("userPassword");
             request.getRequestDispatcher("/user/homePageJSP.jsp")
                 .forward(request, response);
           }

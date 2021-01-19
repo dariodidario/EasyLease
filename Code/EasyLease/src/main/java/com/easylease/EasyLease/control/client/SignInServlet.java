@@ -32,9 +32,9 @@ public class SignInServlet extends HttpServlet {
     client.setBirthPlace(request.getParameter("birthplace"));
     try {
       client.setBirthDate(new SimpleDateFormat(
-          "dd/MM/yyyy").parse((request.getParameter("birthdate"))));
+              "dd/MM/yyyy").parse((request.getParameter("birthdate"))));
     } catch (ParseException e) {
-      System.out.println(e.getMessage());
+      e.printStackTrace();
     }
     client.setKind(request.getParameter("kind"));
     client.setCity(request.getParameter("city"));
