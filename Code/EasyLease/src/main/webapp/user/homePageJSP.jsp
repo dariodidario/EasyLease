@@ -1,24 +1,67 @@
 <%@ page import="com.easylease.EasyLease.model.car.Car" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Iterator" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="/fragments/headerJSP.jsp"%>
 <html>
 <head>
   <title>Benvenuto su EasyLease!</title>
   <link href="${pageContext.request.contextPath}/user/homePageJSP.css" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath}/user/homePage.js">    </script>
 </head>
 <body>
-<%@include file="/fragments/headerJSP.jsp"%>
-<%@include file="ImageSlideshow.jsp"%>
+
 <%
   List<Car> carList = (List<Car>) request.getAttribute("carList");
   if (carList == null) {
     response.sendRedirect(((HttpServletRequest)request).getContextPath()+"/HomePageServlet");
   }
 %>
+
+<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="10000">
+      <a class="carLink" href="${pageContext.request.contextPath}/ViewCarServlet?model=kadjar">
+        <img src="${pageContext.request.contextPath}/img/renault_kadjar.jpg" class="d-block w-100" alt="...">
+      </a>
+      <div class="carousel-caption d-none d-md-block">
+        <h1 class="carTitle">Renault Kadjar</h1>
+        <p>A partire da 319 &euro; al mese!</p>
+      </div>
+    </div>
+    <div class="carousel-item" data-bs-interval="2000">
+      <a class="carLink" href="${pageContext.request.contextPath}/ViewCarServlet?model=3008">
+        <img src="${pageContext.request.contextPath}/img/peugeot_3008.jpg" class="d-block w-100" alt="...">
+      </a>
+      <div class="carousel-caption d-none d-md-block">
+        <h1 class="carTitle">Peugeot 3008</h1>
+        <p>A partire da 189 &euro; al mese!</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <a class="carLink" href="${pageContext.request.contextPath}/ViewCarServlet?model=corsa">
+        <img src="${pageContext.request.contextPath}/img/opel_corsa.jpg" class="d-block w-100" alt="...">
+      </a>
+      <div class="carousel-caption d-none d-md-block">
+        <h1 class="carTitle">Opel Corsa</h1>
+        <p>A partire da 189 &euro; al mese!</p>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleDark" role="button" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleDark" role="button" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </a>
+</div>
+
 <div class="Ricerca">
 <form action='${pageContext.request.contextPath}/HomePageServlet' method='GET'>
   <select class="selectpicker" name="tipologia" id="TypeList" onchange="funct()">
@@ -79,14 +122,16 @@
 <div class= "flex">
   <% if(carList==null || (carList != null && carList.size()==0)){%> No product available. <% }
   else {
-  Iterator<Car> it= carList.iterator();
-  while(it.hasNext()){Car car = it.next();%>
+  for (Car car : carList) { %>
   <div class="obj">
-    <a href="${pageContext.request.contextPath}/ViewCarServlet?model=<%=car.getModel() %>"><img src="${pageContext.request.contextPath}/img/<%=car.getImage() %>"></a><br>
-    <%= car.getBrand() + " " + car.getModel()%> -
-      da <%= car.getPrice()%>&euro;
+    <a href="${pageContext.request.contextPath}/ViewCarServlet?model=<%=car.getModel() %>">
+      <img class="CarImg" src="${pageContext.request.contextPath}/img/<%=car.getImage() %>"></a><br>
+    <div class="carInfo">
+    <%= car.getBrand() + " " + car.getModel()%> - da <%= car.getPrice()%>&euro;</div>
   </div>
-  <%}} %>
+  <%
+      }
+    } %>
 </div>
 <%@include file="/fragments/footerJSP.jsp"%>
 </body>

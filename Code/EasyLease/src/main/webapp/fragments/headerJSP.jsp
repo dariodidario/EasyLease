@@ -7,9 +7,6 @@
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
-        .Znavbar-inverse .Znavbar-nav>li>a {
-            color: white;
-        }
 
         .Zcontainer-fluid{
             background-color: #9B334E;
@@ -41,7 +38,15 @@
         }
         .Zdropdown-menu>li>a {
             color: white;
+            text-decoration: none;
         }
+        .Znavbar-inverse .Znavbar-nav>li>a {
+            font-size: 14px;
+            color: white;
+            text-decoration: none !important;
+        }
+
+
     </style>
 </head>
 <body>
