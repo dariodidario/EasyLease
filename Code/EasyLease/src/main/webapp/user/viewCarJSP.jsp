@@ -83,21 +83,27 @@
 
     }
 
-    html,body{
-      height:100%;
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
     }
-    div#footer{
-      bottom:0;
-      height:100px;
-      position:absolute;
-      width:100%;
-      text-align:center;
+
+    .Site-content {
+      flex: 1;
+    }
+
+
+    .responsive {
+      width: 100%;
+      height: auto;
     }
   </style>
 </head>
 <body>
 <%@include file="../fragments/headerJSP.jsp"%>
-<div class="center">
+<div class="center Site-content">
   <%if(request.getSession().getAttribute("role")==null){%>
   <div class="container w-full">
     <div class="row">
@@ -112,7 +118,7 @@
 
     <div class="row">
       <div class="col me-6">
-        <img alt="" width="100%" height="100%" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
+        <img alt="" class="responsive" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
 
         <br/>
         <br/>
@@ -224,7 +230,7 @@
 
     <div class="row">
       <div class="col me-6">
-        <img alt="" width="100%" height="100%" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
+        <img alt="" class="responsive" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
 
         <br/>
         <br/>
@@ -341,7 +347,7 @@
 
     <div class="row">
       <div class="col me-6">
-        <img alt="" width="100%" height="100%" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
+        <img alt="" class="responsive" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
 
         <br/>
         <br/>
@@ -454,7 +460,7 @@
 
     <div class="row">
       <div class="col me-6">
-        <img alt="" width="100%" height="100%" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
+        <img alt="" class="responsive" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
 
         <br/>
         <br/>
@@ -554,7 +560,8 @@
 
   <%}}}}%>
 </div>
-<div id="footer"><%@include file="../fragments/footerJSP.jsp"%></div>
+
+<footer><%@include file="../fragments/footerJSP.jsp"%></footer>
 
 </body>
 </html>

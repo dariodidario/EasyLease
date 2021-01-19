@@ -15,8 +15,13 @@
       border: none !important;
     }
 
-    html,body{
-      height:100%;
+    html, body {  height: 100%; }
+
+    .container {
+      min-height: 100%;
+      height: auto !important;
+      height: 100%;
+      margin: 0 auto -100px;
     }
 
     div#footer{
@@ -52,7 +57,7 @@
   }
 </script>
 <center>
-  <div style="text-align: center; width: 30%;">
+  <div class="container" style="text-align: center; width: 30%;">
 <form action="${pageContext.request.contextPath}/LoginServlet" method="post" onSubmit="return controllo()">
   <div class="form-group">
 
