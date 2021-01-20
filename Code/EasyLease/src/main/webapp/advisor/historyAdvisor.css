@@ -1,24 +1,17 @@
-.table_space{
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-top: 2%;
-}
-
-.table_space td{
+td{
     font-size: 20px;
     text-align: center;
     vertical-align: middle;
 }
 
-.table_space img{
-    max-width: 200px;
-    max-height: 100px;
-    height: auto;
-    width: auto;
+img, svg{
+    max-width: 200px; !important;
+    max-height: 100px; !important;
+    height: auto; !important;
+    width: auto; !important;
 }
 
-.table_space th{
+th{
     font-size: 30px;
     text-align: center;
     vertical-align: middle;

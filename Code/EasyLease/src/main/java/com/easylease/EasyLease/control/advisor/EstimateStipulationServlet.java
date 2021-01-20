@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * @author Caprio Mattia
- * @version 0.6
+ * @version 0.7
  * @since 0.1
  */
 @WebServlet(name = "EstimateStipulationServlet", value = "/EstimateStipulationServlet")
@@ -47,7 +47,8 @@ public class EstimateStipulationServlet extends HttpServlet {
         if (estimate == null) {
           throw new ServletException("The estimate doesn't exist");
         }
-        if (!estimate.getState().equals("Preso in carico")) {
+        if (!estimate.getState().equals("Preso in carico") ||
+            (Boolean) session.getAttribute("stipulation") != true) {
           throw new ServletException(
               "The chosen estimate cannot be stipulated");
         }
@@ -62,6 +63,7 @@ public class EstimateStipulationServlet extends HttpServlet {
         estimate.setState("Stipulato");
         dbEstimateDao.update(estimate);
         request.setAttribute("estimate", estimate);
+        session.removeAttribute("stipulation");
         request.getRequestDispatcher(
             "/advisor/estimateManagementAdvisorJSP.jsp")
             .forward(request, response);
