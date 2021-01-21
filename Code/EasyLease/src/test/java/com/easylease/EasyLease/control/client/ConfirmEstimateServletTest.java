@@ -105,7 +105,13 @@ class ConfirmEstimateServletTest {
     estimateDao.update(estimate);
     List<Order> updatedOrders = orderDao.retrieveAll();
     for (Order item : updatedOrders) {
-      if (orderList.contains(item)) {
+      boolean found = false;
+      for(Order item2 : orderList){
+        if (found == false && item.getId().equals(item2.getId())) {
+          found = true;
+        }
+      }
+      if(found == false){
         orderDao.delete(item);
       }
     }
