@@ -29,7 +29,10 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="admin/addCarJS.js"></script>
 
+<div id="header">
 <%@include file="../fragments/headerJSP.jsp"%>
+</div>
+<div id="container">
 <form action="AddCarServlet" method="post" enctype="multipart/form-data">
 
   <div id="divAutoName">
@@ -53,7 +56,7 @@
 
 
   <table class="characteristics">
-    <tr><td colspan="3" align="center"><h2>Caratteristiche</h2></td></tr>
+    <tr><td colspan="3" align="center"><label class="detailTitle"> Caratteristiche</label></td></tr>
     <tr>
       <td><label class="carDetail">Tipologia</label></td>
       <td><input class="carDetail" type="text" min="0" id="car_type" name="car_type" list="autoTipologia" required></td>
@@ -113,7 +116,10 @@
   </div>
 </form>
 <hr>
+</div>
+<div id="footer">
 <%@include file="../fragments/footerJSP.jsp"%>
+</div>
 
 <datalist id="autoBrand">
   <option value="Abarth">

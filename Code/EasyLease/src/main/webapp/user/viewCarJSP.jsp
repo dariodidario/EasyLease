@@ -17,6 +17,7 @@
   <style>
     .btn-lg{
       background-color: #800000 !important;
+      border: none !important;
     }
 
     .center {
@@ -82,21 +83,27 @@
 
     }
 
-    html,body{
-      height:100%;
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
     }
-    div#footer{
-      bottom:0;
-      height:100px;
-      position:absolute;
-      width:100%;
-      text-align:center;
+
+    .Site-content {
+      flex: 1;
+    }
+
+
+    .responsive {
+      width: 100%;
+      height: auto;
     }
   </style>
 </head>
 <body>
 <%@include file="../fragments/headerJSP.jsp"%>
-<div class="center">
+<div class="center Site-content">
   <%if(request.getSession().getAttribute("role")==null){%>
   <div class="container w-full">
     <div class="row">
@@ -106,24 +113,24 @@
                   + car.getModel()%>
         </div>
       </div>
-      <div class="col-6" >
-        <div class="car_spec_text">
-          Informazioni auto
-        </div>
-      </div>
+
     </div>
 
     <div class="row">
       <div class="col me-6">
-        <img alt="" width="500" height="300" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
+        <img alt="" class="responsive" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
 
         <br/>
         <br/>
         <form method="POST" action="${pageContext.request.contextPath}/ViewSignInServlet">
-          <input type="submit" class="btn btn-primary btn-lg" name="Registrati" value="Registrati">
+          <input type="submit" class="btn btn-primary btn-lg" name="Registrati" value="Richiedi Preventivo">
         </form>
       </div>
-      <div class="col ms-6" align="center" style="background-color: lightgray; border: solid;">
+      <div class="col ms-6" align="center" style="border: solid;">
+          <div class="car_spec_text">
+            Informazioni auto
+        </div>
+        <br><br>
         <div class="row">
           <div class="col">
             <h4>Porte</h4>
@@ -219,27 +226,29 @@
                   + car.getModel()%>
         </div>
       </div>
-      <div class="col-6" align="center">
-        <div class="car_spec_text">
-          Informazioni auto
-        </div>
-      </div>
     </div>
 
     <div class="row">
       <div class="col me-6">
-        <img alt="" width="500" height="300" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
+        <img alt="" class="responsive" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
 
         <br/>
         <br/>
-        <form method="GET" action="${pageContext.request.contextPath}./ViewUpdateCarServlet?=<%=car.getId()%>">
+        <form method="POST" action="${pageContext.request.contextPath}/ViewUpdateCarServlet">
+          <input type="hidden" name="Car_id" value="<%=car.getId()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Modifica Auto" value="Modifica">
         </form>
-        <form method="GET" action="${pageContext.request.contextPath}/DeleteCarServlet?id=<%=car.getId()%>">
+        <br>
+        <form method="POST" action="${pageContext.request.contextPath}/DeleteCarServlet">
+          <input type="hidden" name="ID_Delete" value="<%=car.getId()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Elimina Auto" value="Elimina Auto">
         </form>
       </div>
-      <div class="col ms-6" align="center" style="background-color: lightgray; border: solid;">
+      <div class="col ms-6" align="center" style="border: solid;">
+        <div class="car_spec_text">
+          Informazioni auto
+        </div>
+        <br><br>
         <div class="row">
           <div class="col">
             <h4>Porte</h4>
@@ -324,7 +333,6 @@
       </div>
     </div>
   </div>
-
   <%}else{ if(request.getSession().getAttribute("role").equals("client")){ %>
 
   <div class="container w-full">
@@ -335,24 +343,24 @@
                   + car.getModel()%>
         </div>
       </div>
-      <div class="col-6" align="center">
-        <div class="car_spec_text">
-          Informazioni auto
-        </div>
-      </div>
     </div>
 
     <div class="row">
       <div class="col me-6">
-        <img alt="" width="500" height="300" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
+        <img alt="" class="responsive" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
 
         <br/>
         <br/>
-        <form method="GET" action="${pageContext.request.contextPath}./estimateManagementAdvisorJSP.jsp?id=<%=car.getId()%>">
+        <form method="POST" action="${pageContext.request.contextPath}/ViewRequestEstimateServlet">
+          <input type="hidden" name="idCar" value="<%=car.getId()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Richiedi preventivo" value="Richiedi preventivo">
         </form>
       </div>
-      <div class="col ms-6" align="center" style="background-color: lightgray; border: solid;">
+      <div class="col ms-6" align="center" style="border: solid;">
+        <div class="car_spec_text">
+          Informazioni auto
+        </div>
+        <br><br>
         <div class="row">
           <div class="col">
             <h4>Porte</h4>
@@ -448,16 +456,11 @@
                   + car.getModel()%>
         </div>
       </div>
-      <div class="col-6" align="center">
-        <div class="car_spec_text">
-          Informazioni auto
-        </div>
-      </div>
     </div>
 
     <div class="row">
       <div class="col me-6">
-        <img alt="" width="500" height="300" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
+        <img alt="" class="responsive" src="${pageContext.request.contextPath}/img/<%=car.getImage()%>">
 
         <br/>
         <br/>
@@ -465,7 +468,11 @@
           <input type="submit" class="btn btn-primary btn-lg" name="Home" value="Home" >
         </form>
       </div>
-      <div class="col ms-6" align="center" style="background-color: lightgray; border: solid;">
+      <div class="col ms-6" align="center" style="border: solid;">
+        <div class="car_spec_text">
+          Informazioni auto
+        </div>
+        <br><br>
         <div class="row">
           <div class="col">
             <h4>Porte</h4>
@@ -553,7 +560,8 @@
 
   <%}}}}%>
 </div>
-<div id="footer"><%@include file="../fragments/footerJSP.jsp"%></div>
+
+<footer><%@include file="../fragments/footerJSP.jsp"%></footer>
 
 </body>
 </html>

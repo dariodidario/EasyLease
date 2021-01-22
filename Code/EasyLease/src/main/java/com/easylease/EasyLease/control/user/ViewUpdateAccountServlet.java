@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "ViewUpdateAccountServlet", urlPatterns = "/ViewUpdateAccountServlet")
+@WebServlet(name = "ViewUpdateAccountServlet", value = "/ViewUpdateAccountServlet")
 public class ViewUpdateAccountServlet extends HttpServlet {
 
   public void doPost(HttpServletRequest request,
@@ -20,8 +20,8 @@ public class ViewUpdateAccountServlet extends HttpServlet {
   public void doGet(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     RequestDispatcher dispatcher;
-    dispatcher = getServletContext().getRequestDispatcher("/user/updateAccountJSP.jsp");
-    dispatcher.forward(request, response);
+    request.getRequestDispatcher("/user/updateAccountJSP.jsp")
+        .forward(request, response);
 
   }
 

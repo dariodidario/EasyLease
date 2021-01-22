@@ -3,6 +3,10 @@
 <%@ page import="com.easylease.EasyLease.model.order.Order" %>
 <%@ page import="com.easylease.EasyLease.model.estimate.Estimate" %>
 <%
+    if (request.getSession() == null) {
+        response.sendRedirect(request.getContextPath() + "/LoginViewServlet");
+    }
+
     List<Object> historyList = (List<Object>) request.getAttribute("historyList");
     List<Order> orderList = new ArrayList<>();
     List<Estimate> estimateList = new ArrayList<>();

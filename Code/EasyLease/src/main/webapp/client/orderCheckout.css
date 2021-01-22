@@ -67,7 +67,7 @@
 }
 
 .card__brand {
-  font-size: 7rem;
+  font-size: 5rem;
   color: #9b334e;
   min-width: 100px;
   min-height: 75px;
@@ -93,6 +93,15 @@
   border-color: #9B334E !important;
 }
 
+.btn:focus,.btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.car__img{
+  max-width: 50%;
+  height: auto;
+}
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
@@ -112,8 +121,8 @@
     font-size: 1rem;
   }
   .card__brand {
-    font-size: 2rem;
-    min-width: 80px;
+    font-size: 3rem;
+    min-width: 30px;
     min-height: 65px;
   }
 }
@@ -122,4 +131,6 @@
 @media only screen and (max-width: 1200px) {
 
 }
+
+
 

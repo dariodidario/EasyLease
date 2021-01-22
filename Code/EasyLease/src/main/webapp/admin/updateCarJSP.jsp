@@ -54,7 +54,10 @@ if(role==null){%>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="admin/updateCarJS.js"></script>
 
+<div id="header">
 <%@include file="../fragments/headerJSP.jsp"%>
+</div>
+<div id="container">
 <div id="divAutoName">
   <label class="autoName" id="brandL"><%=brand%></label>
   <img class="matita" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('brand')">
@@ -74,7 +77,7 @@ if(role==null){%>
 
 
 <table class="characteristics">
-  <tr><td colspan="3" align="center"><h2>Caratteristiche</h2></td></tr>
+  <tr><td colspan="3" align="center"><label class="detailTitle">Caratteristiche</label></td></tr>
   <tr>
     <td>
       <img class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('car_type')">
@@ -196,7 +199,10 @@ if(role==null){%>
   </form>
 </div>
 <hr>
+</div>
+<div id="footer">
 <%@include file="../fragments/footerJSP.jsp"%>
+</div>
 <datalist id="autoBrand">
   <option value="Abarth">
   <option value="Alfa Romeo">

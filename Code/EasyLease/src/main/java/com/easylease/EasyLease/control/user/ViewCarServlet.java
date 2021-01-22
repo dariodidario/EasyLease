@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "ViewCarServlet", urlPatterns = "/ViewCarServlet")
+@WebServlet(name = "ViewCarServlet", value = "/ViewCarServlet")
 public class ViewCarServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
@@ -26,7 +26,7 @@ public class ViewCarServlet extends HttpServlet {
     Car car;
     car = dao.retrieveByModel(model);
     request.setAttribute("car", car);
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/viewCarJSP.jsp");
-    dispatcher.forward(request, response);
+    request.getRequestDispatcher("/user/viewCarJSP.jsp")
+        .forward(request, response);
   }
 }

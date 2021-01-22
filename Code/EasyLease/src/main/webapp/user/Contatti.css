@@ -1,0 +1,142 @@
+
+    .table_mail_container {
+        width: 50%;
+        height: 76%;
+        z-index: 10;
+        position: absolute;
+        top: 5%;
+        left: 0%;
+    }
+
+    .table_img{
+        width: 38%;
+        height: 76%;
+        top: 5%;
+        left: 6%;
+        position: absolute;
+    }
+    .mail_background {
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: 73%;
+        background-position-y: top;
+        background-position-x: center;
+    }
+
+    #subject {
+        height: 60%;
+        width: 30%;
+        margin-left: 35%;
+        border: none;
+
+    }
+
+    .subject_label {
+        margin-left: 35%;
+        color: white;
+    }
+
+    .subject {
+        height: 52%;
+        width: 100%;
+    }
+
+    #firstname, #lastname {
+        width: 45%;
+        font-size: 1vw;
+    }
+
+    #email, #telefono {
+        width: 65%;
+        font-size: 1vw;
+    }
+
+    .mail_table {
+        width: 100%;
+        height: 100%;
+    }
+
+    .mail_button {
+        background: #9B334E;
+        text-align: center;
+        font-size: 1vw;
+        color: white;
+        border-bottom: medium solid #dec717;
+        border-radius: 20px;
+        padding-bottom: 5px;
+        margin-left: 40%;
+    }
+
+    .mail_button:hover {
+        background: #800000;
+    }
+
+    .info {
+        margin-left: 25%;
+    }
+.TDinfo{
+    width: 100%;
+    height: 10%;
+}
+.TDmail_button{
+    width: 43%;
+    height: 38%;
+}
+.TDobject{
+    width: 57%;
+    height: 38%;
+}
+    label {
+        font-size: 1vw;
+    }
+
+
+
+    .tel1{
+        margin-right: 50%;
+        font-size: 2.5vw;
+    }
+    .tel2{
+        font-size: 1.5vw;
+    }
+
+    .tell_container {
+        width: 50%;
+        height: 70%;
+        position: absolute;
+        right: 2%;
+        top: 15%;
+    }
+
+    .tell_img {
+        max-width: 30%;
+        max-height: 60%;
+    }
+
+    .tell_button {
+        background-color: #9B334E;
+        color: #f2f2f2;
+        border-bottom: medium solid #dec717;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        border-radius: 20px;
+    }
+
+    .tell_button:hover {
+        background-color: #800000;
+        color: #f2f2f2;
+        border-bottom: medium solid #dec717;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        border-radius: 20px;
+    }
+
+    .footer{
+        position: absolute; !important;
+        bottom: 0%; !important;
+        width: 100%; !important;
+        height: 4em; !important;
+    }

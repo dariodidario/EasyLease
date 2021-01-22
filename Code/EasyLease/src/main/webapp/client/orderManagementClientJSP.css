@@ -58,6 +58,25 @@
     margin-top: 5% !important;
 }
 
+a{
+    color: #9b334e !important;
+}
+
+#contract_link{
+    color: #9B334E !important;
+    font-size: 30px !important;
+}
+
+#contract_link:active{
+    color: #9B334E !important;
+    font-size: 30px !important;
+}
+
+
+a:active{
+    color: #9b334e !important;
+}
+
 .btn-check:active+.btn-primary, .btn-check:checked+.btn-primary,
 .btn-primary.active, .btn-primary:active, .show>.btn-primary.dropdown-toggle{
     background-color: #9B334E !important;

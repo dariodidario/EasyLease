@@ -20,8 +20,8 @@ public class Order {
   private Date startDate;
   /** Data from which the contract ends. */
   private Date endDate;
-  /** Order pickup date. */
-  private Date pickupDate;
+  /** Order confirm date. */
+  private Date confirmDate;
   /** Indicates whether the order is visible or not. */
   private boolean visibility;
   /** Current status of the Order. */
@@ -40,20 +40,20 @@ public class Order {
    * @param estimate Estimate Object linked to the following Order.
    * @param startDate Date from which the contract begins.
    * @param endDate Data from which the contract ends.
-   * @param pickupDate Order pickup date.
+   * @param confirmDate Order confirm date.
    * @param creationDate Order creation date.
    * @param visibility Indicates whether the order is visible or not.
    * @param state Current state of the Order.
    */
   public Order(
-      String id, Estimate estimate, Date startDate, Date endDate, Date pickupDate,
+      String id, Estimate estimate, Date startDate, Date endDate, Date confirmDate,
       Date creationDate, boolean visibility, String state) {
 
     this.id = id;
     this.estimate = estimate;
     this.startDate = startDate;
     this.endDate = endDate;
-    this.pickupDate = pickupDate;
+    this.confirmDate = confirmDate;
     this.visibility = visibility;
     this.state = state;
     this.creationDate = creationDate;
@@ -132,21 +132,21 @@ public class Order {
   }
 
   /**
-   * Returns Order pickup date.
+   * Returns Order confirm date.
    *
-   * @return Order pickup date.
+   * @return Order confirm date.
    */
-  public Date getPickupDate() {
-    return pickupDate;
+  public Date getConfirmDate() {
+    return confirmDate;
   }
 
   /**
-   * Set the Order pickup date.
+   * Set the Order confirm date.
    *
-   * @param pickupDate Order pickup date.
+   * @param confirmDate Order confirm date.
    */
-  public void setPickupDate(Date pickupDate) {
-    this.pickupDate = pickupDate;
+  public void setConfirmDate(Date confirmDate) {
+    this.confirmDate = confirmDate;
   }
 
   /**
@@ -201,31 +201,5 @@ public class Order {
    */
   public void setCreationDate(Date creationDate) {
     this.creationDate = creationDate;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null || getClass() != obj.getClass()) {
-      return false;
-    }
-    Order order = (Order) obj;
-    return this.id.equals(order.id);
-  }
-
-  @Override
-  public String toString() {
-    return "Order{"
-        + "id='" + id + '\''
-        + ", estimate=" + estimate
-        + ", startDate=" + startDate
-        + ", endDate=" + endDate
-        + ", pickupDate=" + pickupDate
-        + ", visibility=" + visibility
-        + ", state='" + state + '\''
-        + ", creationDate=" + creationDate
-        + '}';
   }
 }

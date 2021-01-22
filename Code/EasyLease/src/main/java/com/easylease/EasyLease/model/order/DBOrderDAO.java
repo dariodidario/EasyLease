@@ -99,6 +99,37 @@ public class DBOrderDAO implements OrderDAO {
   }
 
   @Override
+  public List<Order> retrieveByState(String state) {
+    final String query = "SELECT * FROM orders WHERE state = ?";
+    PreparedStatement stm;
+    ResultSet rs;
+
+    if (state == null || state.equals("")) {
+      throw new IllegalArgumentException(
+          String.format("The id(%s) passed as a parameter is not valid", state));
+    }
+    List<Order> orders = new ArrayList<>();
+    try {
+      stm = connection.prepareStatement(query);
+      stm.setString(1, state);
+      stm.execute();
+
+      rs = stm.getResultSet();
+
+      if (rs == null) {
+        return null;
+      }
+      while (rs.next()) {
+        orders.add(getOrderFromRs(rs));
+      }
+      return orders;
+    } catch (SQLException exception) {
+      logger.log(Level.SEVERE, exception.getMessage());
+    }
+    return null;
+  }
+
+  @Override
   public List<Order> retrieveAll() {
     final String query = "SELECT * FROM orders";
     PreparedStatement stm;
@@ -128,7 +159,7 @@ public class DBOrderDAO implements OrderDAO {
   public void update(Order order) throws EntityTamperingException {
     final String query = "UPDATE orders SET id_estimate = ?, "
         +
-        "start_date = ?, end_date = ?, pickup_date = ?, visibility = ?, state = ?,"
+        "start_date = ?, end_date = ?, confirm_date = ?, visibility = ?, state = ?,"
         + " creation_date = ? WHERE id_order = ?";
     PreparedStatement stm;
     if (order == null) {
@@ -147,8 +178,8 @@ public class DBOrderDAO implements OrderDAO {
       stm.setDate(3, order.getEndDate() != null
           ? new java.sql.Date(order.getEndDate().getTime()) :
           null);
-      stm.setDate(4, order.getPickupDate() != null
-          ? new java.sql.Date(order.getPickupDate().getTime()) :
+      stm.setDate(4, order.getConfirmDate() != null
+          ? new java.sql.Date(order.getConfirmDate().getTime()) :
           null);
       stm.setBoolean(5, order.isVisibility());
       stm.setString(6, order.getState());
@@ -167,7 +198,7 @@ public class DBOrderDAO implements OrderDAO {
     final String query =
         "INSERT INTO orders (id_order, id_estimate, start_date, end_date,"
             +
-            "pickup_date, visibility, state, creation_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            "confirm_date, visibility, state, creation_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     PreparedStatement stm;
     if (order == null) {
       throw new EntityTamperingException("Order is null!");
@@ -186,8 +217,8 @@ public class DBOrderDAO implements OrderDAO {
       stm.setDate(4, order.getEndDate() != null
           ? new java.sql.Date(order.getEndDate().getTime()) :
           null);
-      stm.setDate(5, order.getPickupDate() != null
-          ? new java.sql.Date(order.getPickupDate().getTime()) :
+      stm.setDate(5, order.getConfirmDate() != null
+          ? new java.sql.Date(order.getConfirmDate().getTime()) :
           null);
       stm.setBoolean(6, order.isVisibility());
       stm.setString(7, order.getState());
@@ -276,8 +307,8 @@ public class DBOrderDAO implements OrderDAO {
     o.setEndDate(rs.getDate("end_date") != null
         ? new Date(rs.getDate("end_date").getTime()) :
         null);
-    o.setPickupDate(rs.getDate("pickup_date") != null
-        ? new Date(rs.getDate("pickup_date").getTime()) :
+    o.setConfirmDate(rs.getDate("confirm_date") != null
+        ? new Date(rs.getDate("confirm_date").getTime()) :
         null);
     o.setVisibility(rs.getBoolean("visibility"));
     o.setState(rs.getString("state"));

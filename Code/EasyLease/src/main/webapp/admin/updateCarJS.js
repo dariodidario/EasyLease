@@ -18,6 +18,14 @@ var vis = 1000;
 window.confirm = function(message) {
     var w = 400;
     var h = 350;
+    var mt=100;
+    var bm=20;
+    if(screen.width<1024){
+        w=200;
+        h=150;
+        mt=20;
+        bm=10;
+    }
     var l = Math.floor((screen.width-w)/2);
     var t = Math.floor((screen.height-h)/2);
     var a = document.createElement('div');
@@ -27,7 +35,7 @@ window.confirm = function(message) {
 
     //regole di stile CSS
     a.style.cssText = "width:"+w+"; height:"+h+"; border:1px solid #bbb; border-radius:5px; padding:10px; background:#9b334e; box-shadow:0px 0px 8px #0006; position:fixed; top:"+t+"; left:"+l+"; margin:auto; font-family: \"Arial\", sans-serif; color:black;z-index:"+ vis+ ";";
-    input.style.cssText = "width:100%; margin-top:100px;";
+    input.style.cssText = "width:100%; margin-top:"+mt+"px;";
     input.placeholder = "new "+message;
     if(message=="brand"){
         input.type="text";
@@ -70,8 +78,8 @@ window.confirm = function(message) {
         input.value="";
     }
     //buttons style
-    y.style.cssText = "position:absolute; bottom:10; right:20px; width:40%; margin:2px; margin-bottom:10px; clear:both; border-bottom: 2px solid #dec717; background-color: #800000;";
-    n.style.cssText = "position:absolute; bottom:10; left:20px; width:40%; margin:2px; margin-bottom:10px; clear:both; border-bottom: 2px solid #dec717; background-color: #800000;";
+    y.style.cssText = "position:absolute; bottom:10; right:"+bm+"px; width:40%; margin:2px; margin-bottom:10px; clear:both; border-bottom: 2px solid #dec717; background-color: #800000;";
+    n.style.cssText = "position:absolute; bottom:10; left:"+bm+"px; width:40%; margin:2px; margin-bottom:10px; clear:both; border-bottom: 2px solid #dec717; background-color: #800000;";
     a.innerHTML = "<b>Modifica "+message+"</b><br>";
     y.innerHTML = "Applica";
     n.innerHTML = "Annulla";
