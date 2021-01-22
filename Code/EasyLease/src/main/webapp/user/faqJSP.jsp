@@ -16,7 +16,6 @@
                 <div id="buttondiv">
                     <a href="#ordini"> Ordini</a>
                     <a href="#pagamenti">Pagamenti</a>
-                    <a href="#spedizioni">Spedizioni</a>
                     <a href="#registrazione"> Registrazione</a>
                 </div>
             </div>
