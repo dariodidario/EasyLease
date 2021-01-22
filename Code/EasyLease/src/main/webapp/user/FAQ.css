@@ -1,7 +1,6 @@
 .container{
     margin-left: 10%;
 }
-
 .card.FAQ{
     display: flow-root;
     width: 100%;
@@ -74,7 +73,6 @@
     margin-bottom: 5px;
     margin-left: 5px;
 }
-
 .FAQ button:hover{
     background: #800000;
     border-bottom: medium solid #dec717;

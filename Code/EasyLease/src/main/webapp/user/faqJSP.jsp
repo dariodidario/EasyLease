@@ -150,9 +150,6 @@
                 </div>
               </div>
             </div>
-
-
-
             <div class="toggle">
               <button class="buttondiv" id="m4" onclick="functionToggle(this.id)"> Registrazione</button>
               <div class="domandeContainer">
@@ -204,14 +201,11 @@
         <%@include file="/fragments/footerJSP.jsp" %>
     </body>
 </html>
-
 <script>
   function functionToggle(id) {
     console.log(id);
     $("#" + id).siblings().toggle(300, "linear");
   }
-
-
   $(document).ready(function() {
     $("a").on('click', function(event) {
       if (this.hash !== "") {
