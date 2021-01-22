@@ -22,10 +22,10 @@
   <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="#">Contatti</a>
+      <a class="nav-link" href="${pageContext.request.contextPath}/ContattiServlet">Contatti</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">FAQ</a>
+      <a class="nav-link" href="${pageContext.request.contextPath}/FAQServlet">FAQ</a>
     </li>
 
     <!-- Dropdown -->

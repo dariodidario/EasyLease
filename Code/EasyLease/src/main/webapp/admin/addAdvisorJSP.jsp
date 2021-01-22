@@ -37,12 +37,15 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="admin/addAdvisorJS.js"></script>
 
+<div id="header">
 <%@include file="../fragments/headerJSP.jsp"%>
+</div>
+<div id="container">
 <form action="AddAdvisorServlet">
 
 
   <table class="characteristics">
-    <tr><td colspan="2" align="center"><h2>Aggiungi Consulente</h2></td></tr>
+    <tr><td colspan="2" align="center"><label class="detailTitle">Aggiungi Consulente</label></td></tr>
     <tr><td colspan="2" align="center"><label id="errore"><%=error%></label></td></tr>
     <tr>
       <td><label class="advisorParameter">Nome</label></td>
@@ -87,7 +90,10 @@
   </div>
 </form>
 <hr>
+</div>
+<div id="footer">
 <%@include file="../fragments/footerJSP.jsp"%>
+</div>
 </body>
 </html>
 <%}%>

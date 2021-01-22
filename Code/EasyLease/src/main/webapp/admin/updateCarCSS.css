@@ -10,7 +10,7 @@
     }
     label.carDetail{
         font-size: 3vw;
-        border-bottom: solid #9b334e;
+        border-bottom: solid #9B334E;
     }
     .autoName{
         width: 50%;
@@ -25,6 +25,7 @@
         position: relative;
         margin-top: 30px;
         margin-left: 17%;
+        background: white;
         width: 70%;
         height: 40%;
         margin-bottom: 2px;
@@ -34,9 +35,9 @@
         background: #800000;
     }
     #buttonUpdateCar{
-        background: #9b334e;
+        background: #9B334E;
         position: relative;
-        color: #d0d0d0;
+        color: white;
         margin-left: 37.5%;
         margin-top: 50px;
         width: 30%;
@@ -49,9 +50,9 @@
         background: #800000;
     }
     #buttonDeleteCar{
-        background: #9b334e;
+        background: #9B334E;
         position: relative;
-        color: #d0d0d0;
+        color: white;
         margin-top: 5px;
         margin-left: 40%;
         width: 25%;
@@ -69,55 +70,60 @@
     #divImage{
         margin-top: 30px;
         position: relative;
-        margin-left: 17%;
-
+        margin-left: 5%;
     }
     #img_carL{
-        max-width: 150%;
-        max-height: 80%;
+        max-width: 87%;
+        max-height: 70%;
         position: relative;
-
     }
     .matita{
-        max-width: 3%;
-        max-height: 3%;
+        max-width: 4.5%;
+        max-height: 4.5%;
     }
     .matita_table{
         max-width: 8%;
         max-height: 8%;
+        margin-left: 10px;
+        transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        -moz-transform: scaleX(-1);
+        -ms-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        filter: flipH();
+        filter: alpha(opacity=30);
     }
     .matita_img{
         position: relative;
-        left: 10%;
-        max-width: 3%;
-        max-height: 3%;
+        max-width: 4%;
+        max-height: 4%;
+        margin-top: 50%;
     }
     .matita:hover{
-        max-width: 2%;
-        max-height: 2%;
         border-bottom: 2px solid #dec717;
     }
     .matita_table:hover{
-        max-width: 5%;
-        max-height: 5%;
         border-bottom: 2px solid #dec717;
     }
     .matita_img:hover{
-        position: relative;
-        left: 10%;
-
-        max-width: 2%;
-        max-height: 2%;
         border-bottom: 2px solid #dec717;
     }
 
     input[type=file]::-webkit-file-upload-button {
         border-bottom: medium solid #dec717;
         border-radius: 5px;
-        background-color: #9b334e;
+        background-color: #9B334E;
+        color: white;
     }
     input[type=file]::-webkit-file-upload-button:hover {
         background-color: #800000;
+    }
+    .footer{
+        width: 100%; !important;
+        height: 4em; !important;
+    }
+    .detailTitle{
+        font-size: 5vw;
     }
 }
 
@@ -130,11 +136,10 @@
         margin-left: 10%;
         margin-top: 30px;
         position: relative;
-
     }
     label.carDetail{
         font-size: 3vw;
-        border-bottom: solid #9b334e;
+        border-bottom: solid #9B334E;
     }
     .autoName{
         width: 50%;
@@ -149,6 +154,7 @@
         position: relative;
         margin-top: 30px;
         margin-left: 17%;
+        background: white;
         width: 70%;
         height: 40%;
         margin-bottom: 2px;
@@ -158,12 +164,12 @@
         background: #800000;
     }
     #buttonUpdateCar{
-        background: #9b334e;
+        background: #9B334E;
         position: relative;
-        color: #d0d0d0;
+        color: white;
         margin-left: 37.5%;
         margin-top: 50px;
-        width: 30%;
+        width: 32%;
         font-size: 3vw;
         border-bottom:medium solid #dec717;
         border-radius: 20px;
@@ -173,9 +179,9 @@
         background: #800000;
     }
     #buttonDeleteCar{
-        background: #9b334e;
+        background: #9B334E;
         position: relative;
-        color: #d0d0d0;
+        color: white;
         margin-top: 5px;
         margin-left: 40%;
         width: 25%;
@@ -193,55 +199,60 @@
     #divImage{
         margin-top: 30px;
         position: relative;
-        margin-left: 17%;
-
+        margin-left: 5%;
     }
     #img_carL{
-        max-width: 150%;
-        max-height: 80%;
+        max-width: 87%;
+        max-height: 70%;
         position: relative;
-
     }
     .matita{
-        max-width: 3%;
-        max-height: 3%;
+        max-width: 5%;
+        max-height: 5%;
     }
     .matita_table{
         max-width: 8%;
         max-height: 8%;
+        margin-left: 10px;
+        transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        -moz-transform: scaleX(-1);
+        -ms-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        filter: flipH();
+        filter: alpha(opacity=30);
     }
     .matita_img{
         position: relative;
-        left: 10%;
-        max-width: 3%;
-        max-height: 3%;
+        max-width: 4.5%;
+        max-height: 4.5%;
+        margin-top: 50%;
     }
     .matita:hover{
-        max-width: 2%;
-        max-height: 2%;
         border-bottom: 2px solid #dec717;
     }
     .matita_table:hover{
-        max-width: 5%;
-        max-height: 5%;
         border-bottom: 2px solid #dec717;
     }
     .matita_img:hover{
-        position: relative;
-        left: 10%;
-
-        max-width: 2%;
-        max-height: 2%;
         border-bottom: 2px solid #dec717;
     }
 
     input[type=file]::-webkit-file-upload-button {
         border-bottom: medium solid #dec717;
         border-radius: 5px;
-        background-color: #9b334e;
+        background-color: #9B334E;
+        color: white;
     }
     input[type=file]::-webkit-file-upload-button:hover {
         background-color: #800000;
+    }
+    .footer{
+        width: 100%; !important;
+        height: 4em; !important;
+    }
+    .detailTitle{
+        font-size: 5vw;
     }
 }
 
@@ -257,6 +268,7 @@
     }
     label.carDetail{
         font-size: 1vw;
+        color: white;
     }
     .autoName{
         width: 20%;
@@ -271,7 +283,7 @@
         position: absolute;
         top: 17%;
         right: 1%;
-        background: #9b334e;
+        background: #9B334E;
         width: 30%;
         height: 51%;
         border-right: medium solid #dec717;
@@ -283,13 +295,14 @@
         background: #800000;
     }
     #buttonUpdateCar{
-        background: #9b334e;
+        background: #9B334E;
         position: absolute;
         left: 30%;
         top: 63%;
         width: 15%;
         height: 5%;
         font-size: 1.5vw;
+        color: white;
         border-bottom:medium solid #dec717;
         border-radius: 20px;
         padding-bottom: 5px;
@@ -298,13 +311,14 @@
         background: #800000;
     }
     #buttonDeleteCar{
-        background: #9b334e;
+        background: #9B334E;
         position: absolute;
         top: 69%;
         left: 32%;
         width: 12%;
         height: 5%;
         font-size: 1.5vw;
+        color: white;
         border-bottom:medium solid #dec717;
         border-radius: 20px;
         padding-bottom: 5px;
@@ -316,7 +330,7 @@
         width: 59%;
     }
     #divImage{
-        top: 23%;
+        top: 25%;
         position: absolute;
         left: 5%;
         width: 59%;
@@ -332,41 +346,47 @@
         max-height: 2%;
     }
     .matita_table{
-        max-width: 5%;
-        max-height: 5%;
+        max-width: 8%;
+        max-height: 8%;
+        margin-left: 10px;
+        transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        -moz-transform: scaleX(-1);
+        -ms-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        filter: flipH();
+        filter: alpha(opacity=30);
     }
     .matita_img{
         position: relative;
-        left: 10%;
         max-width: 2%;
         max-height: 2%;
+        margin-top: 20%;
+        left: 15%;
+
     }
     .matita:hover{
-        max-width: 2%;
-        max-height: 2%;
         border-bottom: 2px solid #dec717;
     }
     .matita_table:hover{
-        max-width: 5%;
-        max-height: 5%;
         border-bottom: 2px solid #dec717;
     }
     .matita_img:hover{
-        position: relative;
-        left: 10%;
-
-        max-width: 2%;
-        max-height: 2%;
         border-bottom: 2px solid #dec717;
     }
 
     input[type=file]::-webkit-file-upload-button {
         border-bottom: medium solid #dec717;
         border-radius: 20px;
-        background-color: #9b334e;
+        background-color: #9B334E;
+        color: white;
     }
     input[type=file]::-webkit-file-upload-button:hover {
         background-color: #800000;
+    }
+    .detailTitle{
+        font-size: 2vw;
+        color: white;
     }
 
     .footer{
@@ -375,4 +395,13 @@
         width: 100%; !important;
         height: 4em; !important;
     }
+}
+#footer{
+    width: 100%;
+}
+#header{
+    width: 100%;
+}
+#container{
+    width: 100%;
 }
