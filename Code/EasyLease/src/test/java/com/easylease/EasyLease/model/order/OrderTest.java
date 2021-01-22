@@ -62,10 +62,10 @@ class OrderTest {
   }
 
   @Test
-  void testOrderGetPickupDate() {
+  void testOrderGetConfirmDate() {
     Order order = new Order("OR12RT4", new Estimate(), new Date(),
         new Date(), new Date(), new Date(), true, "Attesa");
-    assertEquals(new Date(), order.getPickupDate());
+    assertEquals(new Date(), order.getConfirmDate());
   }
 
   @Test
@@ -109,11 +109,11 @@ class OrderTest {
   }
 
   @Test
-  void testOrderSetPickupDate() {
+  void testOrderSetConfirmDate() {
     Order order = new Order("OR12RT4", new Estimate(), new Date(),
         new Date(), new Date(), new Date(), true, "Attesa");
-    order.setPickupDate(new Date());
-    assertEquals(new Date(), order.getPickupDate());
+    order.setConfirmDate(new Date());
+    assertEquals(new Date(), order.getConfirmDate());
   }
 
   @Test
@@ -123,43 +123,4 @@ class OrderTest {
     order.setVisibility(false);
     assertFalse(order.isVisibility());
   }
-
-  @Test
-  void testOrderEquals() {
-    Order order = new Order("OR12RT4", new Estimate(), new Date(),
-        new Date(), new Date(), new Date(), true, "Attesa");
-    assertEquals(order, order);
-  }
-
-  @Test
-  void testOrderNotEquals() {
-    Order order = new Order("OR12RT4", new Estimate(), new Date(),
-        new Date(), new Date(), new Date(), true, "Attesa");
-    assertNotEquals(order, new Order());
-  }
-
-  @Test
-  void testOrderEqualsNull() {
-    Order order = new Order("OR12RT4", new Estimate(), new Date(),
-        new Date(), new Date(), new Date(), true, "Attesa");
-    assertFalse(order.equals(null));
-  }
-
-  @Test
-  void testOrderToString() {
-    Order order = new Order("OR12RT4", new Estimate(), new Date(),
-        new Date(), new Date(), new Date(), true, "Attesa");
-    String toString = "Order{"
-        + "id='" + order.getId() + '\''
-        + ", estimate=" + order.getEstimate()
-        + ", startDate=" + order.getStartDate()
-        + ", endDate=" + order.getEndDate()
-        + ", pickupDate=" + order.getPickupDate()
-        + ", visibility=" + order.isVisibility()
-        + ", state='" + order.getState() + '\''
-        + ", creationDate=" + order.getCreationDate()
-        + '}';
-    assertEquals(order.toString(), toString);
-  }
-
 }
