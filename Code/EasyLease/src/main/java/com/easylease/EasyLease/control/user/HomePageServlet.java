@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "HomePageServlet", value = "/HomePageServlet")
 public class HomePageServlet extends HttpServlet {
   protected void doPost(
       HttpServletRequest request,
@@ -24,22 +23,22 @@ public class HomePageServlet extends HttpServlet {
   protected void doGet(
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
-      String modello = request.getParameter("modello");
-      String marca = request.getParameter("marca");
-      String tipologia = request.getParameter("tipologia");
-      List<Car> carList = new ArrayList<>();
-      if(modello != null && !modello.equals("Modello")){
-        carList.add(DBCarDAO.getInstance().retrieveByModel(modello));
-      }
-      else if(marca != null && !marca.equals("Marca")){
-        carList = DBCarDAO.getInstance().retrieveByBrand(marca);
-      }
-      else if(tipologia != null && !tipologia.equals("Tipologia")) {
-        carList = DBCarDAO.getInstance().retrieveByType(tipologia);
-      }
-      else{
-        carList = DBCarDAO.getInstance().retrieveAll();
-      }
+    String modello = request.getParameter("modello");
+    String marca = request.getParameter("marca");
+    String tipologia = request.getParameter("tipologia");
+    List<Car> carList = new ArrayList<>();
+    if(modello != null && !modello.equals("Modello")){
+      carList.add(DBCarDAO.getInstance().retrieveByModel(modello));
+    }
+    else if(marca != null && !marca.equals("Marca")){
+      carList = DBCarDAO.getInstance().retrieveByBrand(marca);
+    }
+    else if(tipologia != null && !tipologia.equals("Tipologia")) {
+      carList = DBCarDAO.getInstance().retrieveByType(tipologia);
+    }
+    else{
+      carList = DBCarDAO.getInstance().retrieveAll();
+    }
     request.setAttribute("carList", carList);
     request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
   }

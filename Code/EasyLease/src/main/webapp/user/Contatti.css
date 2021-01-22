@@ -1,71 +1,142 @@
 
-.container {
-    margin: 5%;
-    border-radius: 3px;
-    border-color: #9B334E;
-}
+    .table_mail_container {
+        width: 50%;
+        height: 76%;
+        z-index: 10;
+        position: absolute;
+        top: 5%;
+        left: 0%;
+    }
 
-.row {
-    display: block !important;
-}
+    .table_img{
+        width: 38%;
+        height: 76%;
+        top: 5%;
+        left: 6%;
+        position: absolute;
+    }
+    .mail_background {
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: 73%;
+        background-position-y: top;
+        background-position-x: center;
+    }
 
-a {
-    float: right;
-    background-color: #9B334E !important;
-    color: #f2f2f2 !important;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    border-radius: 4px;
-}
+    #subject {
+        height: 60%;
+        width: 30%;
+        margin-left: 35%;
+        border: none;
 
-.contact-container input[type="text"], .contact-container input[type="email"], input[type="password"], .contact-container input[type="telefono"], .contact-container input[type="number"], .contact-container input[type="file"], .contact-container textarea {
+    }
+
+    .subject_label {
+        margin-left: 35%;
+        color: white;
+    }
+
+    .subject {
+        height: 52%;
+        width: 100%;
+    }
+
+    #firstname, #lastname {
+        width: 45%;
+        font-size: 1vw;
+    }
+
+    #email, #telefono {
+        width: 65%;
+        font-size: 1vw;
+    }
+
+    .mail_table {
+        width: 100%;
+        height: 100%;
+    }
+
+    .mail_button {
+        background: #9B334E;
+        text-align: center;
+        font-size: 1vw;
+        color: white;
+        border-bottom: medium solid #dec717;
+        border-radius: 20px;
+        padding-bottom: 5px;
+        margin-left: 40%;
+    }
+
+    .mail_button:hover {
+        background: #800000;
+    }
+
+    .info {
+        margin-left: 25%;
+    }
+.TDinfo{
     width: 100%;
-    padding: 12px;
-    border-radius: 4px;
-    resize: none;
+    height: 10%;
 }
+.TDmail_button{
+    width: 43%;
+    height: 38%;
+}
+.TDobject{
+    width: 57%;
+    height: 38%;
+}
+    label {
+        font-size: 1vw;
+    }
 
-.contact-container label {
-    padding: 12px 12px 12px 0;
-    display: inline-block;
-}
 
-.contact-container input[type="submit"] {
-    background-color: #9B334E;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    float: right;
-    margin-top: 10px;
-}
 
-.contact-container input[type="submit"]:hover {
-    background-color: white;
-    color: #9B334E;
-}
+    .tel1{
+        margin-right: 50%;
+        font-size: 2.5vw;
+    }
+    .tel2{
+        font-size: 1.5vw;
+    }
 
-.contact-container .col-25 {
-    float: left;
-    width: 25%;
-    margin-top: 6px;
-}
+    .tell_container {
+        width: 50%;
+        height: 70%;
+        position: absolute;
+        right: 2%;
+        top: 15%;
+    }
 
-.contact-container .col-75 {
-    float: left;
-    width: 75%;
-    margin-top: 6px;
-}
+    .tell_img {
+        max-width: 30%;
+        max-height: 60%;
+    }
 
-.contact-container .row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
+    .tell_button {
+        background-color: #9B334E;
+        color: #f2f2f2;
+        border-bottom: medium solid #dec717;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        border-radius: 20px;
+    }
 
-h5.check {
-    margin-bottom: 0;
-    margin-top: 5px;
-}
+    .tell_button:hover {
+        background-color: #800000;
+        color: #f2f2f2;
+        border-bottom: medium solid #dec717;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        border-radius: 20px;
+    }
+
+    .footer{
+        position: absolute; !important;
+        bottom: 0%; !important;
+        width: 100%; !important;
+        height: 4em; !important;
+    }

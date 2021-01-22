@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * @author Caprio Mattia
- * @version 0.8
+ * @version 0.9
  * @since 0.1
  */
 @WebServlet(name = "OrderValidationServlet", urlPatterns = "/OrderValidationServlet")
@@ -54,14 +54,13 @@ public class OrderValidationServlet extends HttpServlet {
           throw new ServletException("The chosen order cannot be validated");
         }
         try {
-          order.setPickupDate(htmlFormat.parse(request.getParameter("date")));
+          order.setStartDate(htmlFormat.parse(request.getParameter("date")));
         } catch (ParseException e) {
           request.getRequestDispatcher("/advisor/orderValidationJSP.jsp")
               .forward(request, response);
         }
-        order.setStartDate(order.getPickupDate());
         GregorianCalendar endDate = new GregorianCalendar();
-        endDate.setTime(order.getPickupDate());
+        endDate.setTime(order.getStartDate());
         endDate.add(Calendar.MONTH, order.getEstimate().getPeriod());
         order.setEndDate(endDate.getTime());
         order.setState("Convalidato");

@@ -1,5 +1,6 @@
 package com.easylease.EasyLease.control.client;
 
+import com.easylease.EasyLease.control.utility.IdGenerator;
 import com.easylease.EasyLease.model.client.Client;
 import com.easylease.EasyLease.model.client.DBClientDAO;
 import java.io.IOException;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "SignInServlet", urlPatterns = "/SignInServlet")
+@WebServlet(name = "SignInServlet", value = "/SignInServlet")
 public class SignInServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
@@ -24,16 +25,16 @@ public class SignInServlet extends HttpServlet {
       HttpServletResponse response)
       throws ServletException, IOException {
     Client client = new Client();
-    client.setId(request.getParameter("id"));
+    client.setId("CL"+ IdGenerator.randomIdGenerator());
     client.setName(request.getParameter("name"));
     client.setSurname(request.getParameter("surname"));
     client.setEmail(request.getParameter("email"));
     client.setBirthPlace(request.getParameter("birthplace"));
     try {
       client.setBirthDate(new SimpleDateFormat(
-          "dd/MM/yyyy").parse((request.getParameter("birthdate"))));
+              "dd/MM/yyyy").parse((request.getParameter("birthdate"))));
     } catch (ParseException e) {
-      System.out.println(e.getMessage());
+      e.printStackTrace();
     }
     client.setKind(request.getParameter("kind"));
     client.setCity(request.getParameter("city"));
@@ -43,7 +44,7 @@ public class SignInServlet extends HttpServlet {
     DBClientDAO dao = (DBClientDAO) DBClientDAO.getInstance();
     dao.insert(client, request.getParameter("password"));
 
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/loginJSP.jsp");
-    dispatcher.forward(request, response);
+    request.getRequestDispatcher("/user/loginJSP.jsp")
+        .forward(request, response);
   }
 }

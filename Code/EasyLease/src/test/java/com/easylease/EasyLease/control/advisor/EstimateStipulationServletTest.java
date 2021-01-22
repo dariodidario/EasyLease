@@ -86,6 +86,7 @@ class EstimateStipulationServletTest {
     Estimate estimate = dbEstimateDAO.retrieveById("ESfn9IO");
     when(request.getSession().getAttribute("user")).thenReturn(new Advisor());
     when(request.getParameter("id")).thenReturn("ESfn9IO");
+    when(request.getSession().getAttribute("stipulation")).thenReturn(true);
     for (Optional o : estimate.getOptionalList()) {
       when(request.getParameter(o.getName())).thenReturn("100.00");
     }

@@ -13,7 +13,7 @@
         font-size: 2vw;
     }
     input.carDetail:hover {
-        background: #9b334e;
+        background: #9B334E;
     }
 
     label.carDetail{
@@ -37,7 +37,7 @@
     table.characteristics{
         position: relative;
         margin-top: 15px;
-        margin-left: 25%;
+        margin-left: 15%;
         background: white;
         width: 70%;
         height: 30%;
@@ -48,8 +48,8 @@
         background: #800000;
     }
     #buttonAddCar{
-        background: #9b334e;
-        color: #d0d0d0;
+        background: #9B334E;
+        color: white;
         position: relative;
         margin-left: 45%;
         margin-top: 50px;
@@ -68,8 +68,8 @@
     #divImage{
         margin-top: 20px;
         position: relative;
-        margin-left: 25%;
-        width: 100%;
+        margin-left: 20%;
+        width: 75%;
     }
     #img_prev{
         margin-top: 5px;
@@ -89,12 +89,19 @@
         border-radius: 20px;
         width: 70%;
         font-size: 3vw;
-        color: #d0d0d0;
+        color: white;
         padding: 10px;
-        background-color: #9b334e;
+        background-color: #9B334E;
     }
     input[type=file]::-webkit-file-upload-button:hover {
         background-color: #800000;
+    }
+    .footer{
+        width: 100%; !important;
+        height: 4em; !important;
+    }
+    .detailTitle{
+        font-size: 5vw;
     }
 }
 
@@ -114,7 +121,7 @@
         font-size: 2vw;
     }
     input.carDetail:hover {
-        background: #9b334e;
+        background: #9B334E;
     }
 
     label.carDetail{
@@ -138,7 +145,7 @@
     table.characteristics{
         position: relative;
         margin-top: 15px;
-        margin-left: 25%;
+        margin-left: 15%;
         background: white;
         width: 70%;
         height: 30%;
@@ -149,8 +156,8 @@
         background: #800000;
     }
     #buttonAddCar{
-        background: #9b334e;
-        color: #ffffff;
+        background: #9B334E;
+        color: white;
         position: relative;
         margin-left: 45%;
         margin-top: 50px;
@@ -169,8 +176,8 @@
     #divImage{
         margin-top: 20px;
         position: relative;
-        margin-left: 25%;
-        width: 100%;
+        margin-left: 20%;
+        width: 75%;
     }
     #img_prev{
         margin-top: 5px;
@@ -190,12 +197,19 @@
         border-radius: 20px;
         width: 70%;
         font-size: 3vw;
-        color: #ffffff;
+        color: white;
         padding: 10px;
-        background-color: #9b334e;
+        background-color: #9B334E;
     }
     input[type=file]::-webkit-file-upload-button:hover {
         background-color: #800000;
+    }
+    .footer{
+        width: 100%; !important;
+        height: 4em; !important;
+    }
+    .detailTitle{
+        font-size: 5vw;
     }
 }
 
@@ -210,8 +224,9 @@
     }
     input.carDetail {
         width: 40%;
-        background: #9b334e;
-        font-size: 0.5vw;
+        background: #9B334E;
+        font-size: 1vw;
+        color: white;
     }
     input.carDetail:hover {
         background: #800000;
@@ -219,6 +234,7 @@
 
     label.carDetail{
         font-size: 1vw;
+        color: white;
     }
     input.autoName{
         width: 15%;
@@ -231,7 +247,7 @@
         position: absolute;
         top: 20%;
         right: 1%;
-        background: #9b334e;
+        background: #9B334E;
         width: 30%;
         height: 51%;
         border-right: medium solid #dec717;
@@ -242,7 +258,7 @@
         background: #800000;
     }
     #buttonAddCar{
-        background: #9b334e;
+        background: #9B334E;
         position: absolute;
         left: 30%;
         top: 69%;
@@ -250,6 +266,7 @@
         height: 5%;
         text-align: center;
         font-size: 1.5vw;
+        color: white;
         border-bottom:medium solid #dec717;
         border-radius: 20px;
         padding-bottom: 5px;
@@ -276,11 +293,16 @@
     input[type=file]::-webkit-file-upload-button {
         border-bottom: medium solid #dec717;
         border-radius: 20px;
-        background-color: #9b334e;
+        background-color: #9B334E;
+        color: white;
 
     }
     input[type=file]::-webkit-file-upload-button:hover {
         background-color: #800000;
+    }
+    .detailTitle{
+        font-size: 2vw;
+        color: white;
     }
     .footer{
         position: absolute; !important;
@@ -289,4 +311,13 @@
         height: 4em; !important;
     }
 
+}
+#footer{
+    width: 100%;
+}
+#header{
+    width: 100%;
+}
+#container{
+    width: 100%;
 }

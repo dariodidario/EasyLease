@@ -1,60 +1,118 @@
 .container{
     margin-left: 10%;
 }
-
 .card.FAQ{
     display: flow-root;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 4%;
+    border-radius: 3px;
+    border-color: #9B334E;
+}
+.TitleDiv{
+    display: flow-root;
+    width: 100%;
+    margin-top: -5%;
+    text-align: center;
+    vert-align: bottom;
+}
+
+.FAQh3{
+    text-align: center;
+    font-size: 2vw;
+}
+.FAQtitle{
+    font-size: 3vw;
+}
+.FAQsubtitle{
+    font-size: 2vw;
+    display: inline-block;
+    vertical-align: bottom;
+}
+.FAQcloud{
+    font-size: 0.8vw;
+    font-style: oblique;
+    font-family: "Baskerville Old Face";
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+    border: 1px solid #dec717;
+    border-radius: 15px;
+    margin-left: -10%;
+    margin-top: -2.5%;
+}
+.imgIcon{
+    width: 25%;
+    height: 25%;
+    transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    filter: flipH();
+    filter: alpha(opacity=30);
+}
+.FAQ p{
+    display: none;
+    text-align: justify;
+    font-size: 1vw;
+    background-color: #9B334E;
+    border-radius: 6px;
+    padding: 10px;
+    color: white;
+    margin: 5px;
+}
+
+.FAQ button{
+    background-color: #9B334E;
+    font-size: 1.3vw;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 15px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+.FAQ button:hover{
+    background: #800000;
+    border-bottom: medium solid #dec717;
+}
+.domandeContainer{
+    display: none;
     width: 100%;
     margin-top: 5%;
     border-radius: 3px;
     border-color: #9B334E;
 }
-
-.card h3{
+.buttondiv{
+    background: #9B334E;
     text-align: center;
-}
-
-.FAQ .up{
-    float: right;
-}
-
-.FAQ a{
-    background-color: #9B334E;
+    font-size: 1.5vw;
     color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    text-decoration: none;
-    display: inline-block;
-    margin-left: 15px;
-    text-align: center;
+    border-bottom: medium solid #dec717;
+    border-radius: 20px;
+    padding-bottom: 5px;
 }
-
-.FAQ a:hover{
-    background-color: white;
-    color: #9B334E;
+.buttondiv:hover{
+    background: #800000;
 }
-
-.FAQ p{
-    display: none;
-    text-align: justify;
-    background-color: #9B334E;
-    border-radius: 6px;
-    padding: 10px;
-    color: white;
-    margin-top: 0;
+#m1{
+    position: relative;
+    margin-top: 10px;
+    left: 25%;
 }
-
-.FAQ button{
-    background-color: #9B334E;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    margin-bottom: 5px;
+#m2{
+    position: relative;
+    margin-top: -3.5%;
+    left: 42%;
 }
-
-.FAQ button:hover{
-    background-color: white;
-    color: #9B334E;
+#m3{
+    position: relative;
+    margin-top: -3.5%;
+    left: 50%;
+}
+#m4{
+    position: relative;
+    margin-top: -3.5%;
+    left: 60%;
 }
