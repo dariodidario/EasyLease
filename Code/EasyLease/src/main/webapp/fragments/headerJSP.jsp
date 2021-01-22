@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/fragments/headerJSP.css">
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <style>
 
         .Zcontainer-fluid{
@@ -58,8 +59,8 @@
         </div>
 
         <ul class="Znav Znavbar-nav Znavbar-right">
-            <li><a href="#"> Contatti</a></li>
-            <li><a href="#">FAQ </a></li>
+            <li><a href="${pageContext.request.contextPath}/ContattiServlet"> Contatti</a></li>
+            <li><a href="${pageContext.request.contextPath}/FAQServlet">FAQ </a></li>
             <%
                 String roleUser = (String) request.getSession().getAttribute("role");
                 if (roleUser == null){%>
