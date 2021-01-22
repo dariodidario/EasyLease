@@ -36,7 +36,6 @@ public class ConfirmEstimateServlet extends HttpServlet {
       String estimateId = request.getParameter("id_estimate");
       String choice = request.getParameter("choice");
       Estimate estimate = estimateDao.retrieveById(estimateId);
-      System.out.println(estimate);
       if (choice.equals("Confermato")) {
         estimate.setState("Confermato");
         estimate.setVisibility(false);
