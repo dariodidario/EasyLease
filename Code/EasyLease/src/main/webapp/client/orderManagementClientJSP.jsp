@@ -4,8 +4,13 @@
 <%@ page import="java.util.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    if (request.getSession() == null) {
+        response.sendRedirect(request.getContextPath() + "/LoginViewServlet");
+    }
+
     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
     Order order = (Order) request.getAttribute("order");
+
     if (order == null) {
         response.sendRedirect(request.getContextPath() + "/OrderManagementClientServlet");
         return;
@@ -97,7 +102,7 @@
                     </h4>
                 </div>
             </div>
-            <a class="contract_link" href="${pageContext.request.contextPath}/source/contract.pdf" target="_blank">Visualizza
+            <a id="contract_link" href="${pageContext.request.contextPath}/source/contract.pdf" target="_blank">Visualizza
                 l'intero contratto</a>
             <div class="car_optional_text">Optionals</div>
             <div class="table-responsive">
@@ -170,13 +175,14 @@
             <div class="img">
                 <!-- Se lo stato rientra in questi parametri, non mostra i tasti -->
                 <div class="order_status">
-                    <h2>Prezzo</h2>
-                    <h2 class="price"><%= order.getEstimate().getPrice() != 0 ?
-                            String.format("%.2f", order.getEstimate().getPrice() / order.getEstimate().getPeriod()) +
-                                    "€" :
-                            "Prezzo non disponibile"%>
+                    <h2>Prezzo totale</h2>
+                    <h2 class="price">
+                        <%=String.format("%.2f", order.getEstimate().getPrice()) + "€"%>
                     </h2>
-                    <h2>al mese</h2>
+                    <h2>Prezzo mensile</h2>
+                    <h2 class="price">
+                        <%=String.format("%.2f", order.getEstimate().getPrice() / order.getEstimate().getPeriod()) + "€"%>
+                    </h2>
                 </div>
                 <!-- Se lo stato rientra in questi parametri, mostra i tasti-->
                 <%if (order.getState().equals("Attesa")) { %>

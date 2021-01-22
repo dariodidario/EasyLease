@@ -37,7 +37,7 @@ public class DBOptionalDAO implements OptionalDAO {
 
   @Override
   public synchronized Optional retrieveById(String id) {
-    Optional result = new Optional();
+    Optional result = null;
     PreparedStatement preparedStatement;
     String selectQuery = "SELECT * FROM " + DBOptionalDAO.TABLE_NAME + " WHERE optional_code = ?";
     if (id == null || id.equals("")) {
@@ -48,6 +48,7 @@ public class DBOptionalDAO implements OptionalDAO {
       preparedStatement.setString(1, id);
       ResultSet rs = preparedStatement.executeQuery();
       if (rs.next()) {
+        result = new Optional();
         result.setId(id);
         result.setType(rs.getString("optional_type"));
         result.setName(rs.getString("optional_name"));

@@ -5,6 +5,10 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
 <%
+    if (request.getSession() == null) {
+        response.sendRedirect(request.getContextPath() + "/LoginViewServlet");
+    }
+
     Estimate estimate = (Estimate) request.getAttribute("estimate");
     List<Optional> optionalList = new ArrayList<>();
     List<Optional> carOptionalList = new ArrayList<>();
@@ -185,12 +189,14 @@
     <div class="row justify-content-md-center">
         <div class="col-12" align="center" id="price_section">
             <div class="order_status">
-                <h2>Prezzo</h2>
-                <h2 class="price"><%= estimate.getPrice() != 0 ?
-                        String.format("%.2f", estimate.getPrice() / estimate.getPeriod()) + "€" :
-                        "Prezzo non disponibile"%>
+                <h2>Prezzo totale</h2>
+                <h2 class="price">
+                    <%=String.format("%.2f", estimate.getPrice()) + "€"%>
                 </h2>
-                <h2>al mese</h2>
+                <h2>Prezzo mensile</h2>
+                <h2 class="price">
+                    <%=String.format("%.2f", estimate.getPrice() / estimate.getPeriod()) + "€"%>
+                </h2>
             </div>
             <!-- Se lo stato rientra in questi parametri, mostra i tasti-->
             <%

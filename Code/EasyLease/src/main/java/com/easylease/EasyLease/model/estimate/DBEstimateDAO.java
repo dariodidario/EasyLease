@@ -28,6 +28,7 @@ public class DBEstimateDAO implements  EstimateDAO {
 
   /**
    * Returns a DBEstimateDAO Singleton Object.
+
    * @return the {@link DBEstimateDAO} Object that accesses the {@link Estimate} object
    *      in the Database.
    */
@@ -128,6 +129,9 @@ public class DBEstimateDAO implements  EstimateDAO {
 
   @Override
   public void delete(Estimate e) {
+    if (e == null) {
+      throw new IllegalArgumentException("The estimate passed is not valid");
+    }
     e.setVisibility(false);
     update(e);
   }
@@ -226,7 +230,7 @@ public class DBEstimateDAO implements  EstimateDAO {
 
   private Estimate getResultFromRs(ResultSet rs) throws SQLException {
     Estimate result = new Estimate();
-    AdvisorDAO advisor = DBAdvisorDAO.getInstance();
+    AdvisorDAO advisor = DBAdvisorDAO.getIstance();
     ClientDAO client = DBClientDAO.getInstance();
     CarDAO car = DBCarDAO.getInstance();
     try {
@@ -268,5 +272,45 @@ public class DBEstimateDAO implements  EstimateDAO {
     }
     return optionals;
   }
+
+  public void deleteForever(Estimate e) {
+    if (e == null) {
+      throw new IllegalArgumentException("The estimate passed is not valid");
+    }
+    PreparedStatement preparedStatement;
+    String updateQuery = "DELETE FROM " + DBEstimateDAO.TABLE_NAME
+        + " WHERE id_estimate = ?";
+    try {
+      preparedStatement = connection.prepareStatement(updateQuery);
+      preparedStatement.setString(1, e.getId());
+      preparedStatement.executeUpdate();
+
+    } catch (SQLException sqlException) {
+      logger.log(Level.SEVERE, sqlException.getMessage());
+    }
+  }
+
+  @Override
+  public List<Estimate> retrieveByState(String state) {
+    List<Estimate> result = null;
+    PreparedStatement preparedStatement;
+    String selectQuery = "SELECT * FROM " + DBEstimateDAO.TABLE_NAME + " WHERE state = ?";
+    if (state == null || state.equals("")) {
+      throw new IllegalArgumentException("The state passed is not valid");
+    }
+    try {
+      preparedStatement = connection.prepareStatement(selectQuery);
+      preparedStatement.setString(1, state);
+      ResultSet rs = preparedStatement.executeQuery();
+      if (rs.next()) {
+        result.add(getResultFromRs(rs));
+      }
+    } catch (SQLException e) {
+      logger.log(Level.SEVERE, e.getMessage());
+      return null;
+    }
+    return result;
+  }
+
 
 }
