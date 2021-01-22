@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * @author Caprio Mattia
- * @version 0.3S
+ * @version 0.4
  * @since 0.1
  */
 
@@ -57,6 +57,7 @@ public class EstimateStipulationViewServlet extends HttpServlet {
           throw new ServletException("The chosen quote cannot be stipulated");
         }
         request.setAttribute("estimate", estimate);
+        session.setAttribute("stipulation", true);
         request.getRequestDispatcher("/advisor/estimateStipulationJSP.jsp")
             .forward(request, response);
       } catch (ServletException e) {
