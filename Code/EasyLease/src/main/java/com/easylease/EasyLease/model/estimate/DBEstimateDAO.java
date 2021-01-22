@@ -28,7 +28,6 @@ public class DBEstimateDAO implements  EstimateDAO {
 
   /**
    * Returns a DBEstimateDAO Singleton Object.
-
    * @return the {@link DBEstimateDAO} Object that accesses the {@link Estimate} object
    *      in the Database.
    */
@@ -162,6 +161,7 @@ public class DBEstimateDAO implements  EstimateDAO {
       for (Optional o : e.getOptionalList()) {
         insertOptional(e.getId(), o.getId(), o.getPrice());
       }
+
     } catch (SQLException sqlException) {
       logger.log(Level.SEVERE, sqlException.getMessage());
     }
@@ -216,13 +216,13 @@ public class DBEstimateDAO implements  EstimateDAO {
 
   private void insertOptional(String idEstimate, String idOptional, float price) {
     PreparedStatement preparedStatement;
-    String insertQuery = "INSERT INTO included (optional_code, id_estimate, price)  VALUES(?, ?, ?))";
+    String insertQuery = "INSERT INTO included (optional_code, id_estimate, price)  VALUES(?, ?, ?)";
     try {
       preparedStatement = connection.prepareStatement(insertQuery);
       preparedStatement.setString(2, idEstimate);
       preparedStatement.setString(1, idOptional);
       preparedStatement.setFloat(3, price);
-      preparedStatement.executeQuery();
+      preparedStatement.executeUpdate();
     } catch (SQLException sqlException) {
       logger.log(Level.SEVERE, sqlException.getMessage());
     }
@@ -230,7 +230,7 @@ public class DBEstimateDAO implements  EstimateDAO {
 
   private Estimate getResultFromRs(ResultSet rs) throws SQLException {
     Estimate result = new Estimate();
-    AdvisorDAO advisor = DBAdvisorDAO.getIstance();
+    AdvisorDAO advisor = DBAdvisorDAO.getInstance();
     ClientDAO client = DBClientDAO.getInstance();
     CarDAO car = DBCarDAO.getInstance();
     try {

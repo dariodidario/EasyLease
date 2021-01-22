@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@WebServlet( name = "HomePageServlet", urlPatterns="/HomePageServlet")
+
 public class HomePageServlet extends HttpServlet {
   protected void doPost(
       HttpServletRequest request,

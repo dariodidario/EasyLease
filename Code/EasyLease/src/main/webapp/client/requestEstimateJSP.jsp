@@ -5,13 +5,14 @@
 <%@ page import="com.easylease.EasyLease.model.car.DBCarDAO" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.easylease.EasyLease.model.client.DBClientDAO" %>
+<%@ page import="com.easylease.EasyLease.model.client.Client" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
    String role = (String)request.getSession().getAttribute("role");
    if (!role.equals("client")) {
        response.sendRedirect(((HttpServletRequest)request).getContextPath()+"/HomeServlet");
    }
-   Client client = (Client)request.getSession().getAttribute("client");
+   Client client = (Client)request.getSession().getAttribute("user");
    Car car = (Car)request.getSession().getAttribute("car");
    List<Optional> optionalCarList = (List<Optional>)request.getSession().getAttribute("optionalCarList");
    List<Optional> optionalContractList = (List<Optional>)request.getSession().getAttribute("optionalContractList");
@@ -30,7 +31,7 @@
     <div class="EstimateLabel">
         Auto scelta: <%=car.getBrand() + " " + car.getModel()%> </div>
     <form action="${pageContext.request.contextPath}/RequestEstimateServlet" method="post">
-        <input type = "hidden" name="carId" value="CAbj0kk">
+        <input type = "hidden" name="carId" value="<%=car.getId()%>">
         <br>Mesi: <select name="Mesi" class="customselect">
             <option value="24" selected>24</option>
             <option value="36">36</option>

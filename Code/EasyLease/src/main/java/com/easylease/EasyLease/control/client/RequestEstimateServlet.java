@@ -53,9 +53,9 @@ public class RequestEstimateServlet extends HttpServlet {
           }
         }
         Car car = DBCarDAO.getInstance().retrieveById(carId);
-        String id = "es" + IdGenerator.randomIdGenerator();
+        String id = "ES" + IdGenerator.randomIdGenerator();
         while (DBEstimateDAO.getInstance().retrieveById(id) != null) {
-          id = "es" + IdGenerator.randomIdGenerator();
+          id = "ES" + IdGenerator.randomIdGenerator();
         }
 
         Estimate estimate = new Estimate(id, 0, (Client) user, null, car,
