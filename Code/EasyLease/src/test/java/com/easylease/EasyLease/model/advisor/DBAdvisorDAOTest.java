@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.easylease.EasyLease.control.utility.exception.EntityTamperingException;
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
@@ -141,7 +140,7 @@ class DBAdvisorDAOTest {
 
   @Test
   void insert_ExistingAdvisorGivern_ExceptionThrown() {
-    assertThrows(EntityTamperingException.class, () ->
+    assertThrows(IllegalArgumentException.class, () ->
         dbAdvisorDAO.insert(dbAdvisorDAO.retrieveById("ADJdybc"), "pass"));
   }
 
@@ -195,7 +194,7 @@ class DBAdvisorDAOTest {
     advisor.setSurname("Musk");
     advisor.setEmail("MuskElon@gmail.com");
     advisor.setHireDate(dataFormat.parse(dataFormat.format(new Date())));
-    assertThrows(EntityTamperingException.class, () ->
+    assertThrows(IllegalArgumentException.class, () ->
         dbAdvisorDAO.update(advisor, "pass"));
   }
 

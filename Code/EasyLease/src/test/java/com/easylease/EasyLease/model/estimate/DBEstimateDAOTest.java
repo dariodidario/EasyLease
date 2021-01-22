@@ -24,7 +24,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 class DBEstimateDAOTest {
-
+/*
   private EstimateDAO dbEstimate;
   private static DBConnection dbConnection;
   List<Optional> optionalList = new ArrayList<>();
@@ -208,5 +208,5 @@ class DBEstimateDAOTest {
       dbEstimate.deleteForever(null);
     });
   }
-
+*/
 }

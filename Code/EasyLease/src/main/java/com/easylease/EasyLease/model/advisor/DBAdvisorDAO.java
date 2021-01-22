@@ -1,7 +1,6 @@
 package com.easylease.EasyLease.model.advisor;
 
 import com.easylease.EasyLease.control.utility.PasswordHashing;
-import com.easylease.EasyLease.control.utility.exception.EntityTamperingException;
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.admin.DBAdminDAO;
 import java.sql.Connection;
@@ -20,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author Caprio Mattia
  * @since 0.1
- * @version 0.4
+ * @version 0.5
  */
 public class DBAdvisorDAO implements AdvisorDAO {
   private static final Logger logger = Logger.getLogger(DBAdminDAO.class.getName());
@@ -115,7 +114,7 @@ public class DBAdvisorDAO implements AdvisorDAO {
       throw new IllegalArgumentException();
     }
     if(DBAdvisorDAO.getInstance().retrieveById(advisor.getId()) != null){
-      throw new EntityTamperingException("Advisor already exitsts.");
+      throw new IllegalArgumentException("Advisor already exitsts.");
     }
     final String query = "INSERT INTO users (id_user, first_name, surname, email,"
         + " pwd, account_type, hire_date) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -140,7 +139,7 @@ public class DBAdvisorDAO implements AdvisorDAO {
       throw new IllegalArgumentException();
     }
     if(DBAdvisorDAO.getInstance().retrieveById(advisor.getId()) == null){
-      throw new EntityTamperingException("Advisor doesn't exitst.");
+      throw new IllegalArgumentException("Advisor doesn't exitst.");
     }
     String hashedPassword = PasswordHashing.generatePassword(password, "SHA-1");
     final String query = "UPDATE users "
@@ -166,7 +165,7 @@ public class DBAdvisorDAO implements AdvisorDAO {
       throw new IllegalArgumentException();
     }
     if(DBAdvisorDAO.getInstance().retrieveById(advisor.getId()) == null){
-      throw new EntityTamperingException("Advisor doesn't exitst.");
+      throw new IllegalArgumentException("Advisor doesn't exitst.");
     }
     final String query = "DELETE FROM users WHERE id_user = ?";
     try {

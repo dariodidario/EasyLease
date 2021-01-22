@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.easylease.EasyLease.control.utility.exception.EntityTamperingException;
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import java.sql.SQLException;
@@ -131,14 +130,14 @@ public class DBOrderDAOTest {
 
   @Test
   void update_NullOrder() {
-    assertThrows(EntityTamperingException.class, () -> orderDAO.update(null));
+    assertThrows(IllegalArgumentException.class, () -> orderDAO.update(null));
   }
 
   @Test
   void update_NotPresentOrder() {
     Order order = orderDAO.retrieveById("OR1ER4T");
     order.setId("ORXXXXX");
-    assertThrows(EntityTamperingException.class, () -> orderDAO.update(order));
+    assertThrows(IllegalArgumentException.class, () -> orderDAO.update(order));
   }
 
   @Test
@@ -156,13 +155,13 @@ public class DBOrderDAOTest {
 
   @Test
   void insert_NullOrder() {
-    assertThrows(EntityTamperingException.class, () -> orderDAO.insert(null));
+    assertThrows(IllegalArgumentException.class, () -> orderDAO.insert(null));
   }
 
   @Test
   void insert_AlreadyPresentOrder() {
     Order order = orderDAO.retrieveById("OR1ER4T");
-    assertThrows(EntityTamperingException.class, () -> orderDAO.insert(order));
+    assertThrows(IllegalArgumentException.class, () -> orderDAO.insert(order));
   }
 
   @Test
@@ -177,13 +176,13 @@ public class DBOrderDAOTest {
 
   @Test
   void delete_NullOrder() {
-    assertThrows(EntityTamperingException.class, () -> orderDAO.delete(null));
+    assertThrows(IllegalArgumentException.class, () -> orderDAO.delete(null));
   }
 
   @Test
   void delete_NotPresentOrder() {
     Order order = orderDAO.retrieveById("OR1ER4T");
     order.setId("ORXXXXX");
-    assertThrows(EntityTamperingException.class, () -> orderDAO.delete(order));
+    assertThrows(IllegalArgumentException.class, () -> orderDAO.delete(order));
   }
 }

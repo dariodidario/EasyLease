@@ -1,7 +1,6 @@
 package com.easylease.EasyLease.model.order;
 
 
-import com.easylease.EasyLease.control.utility.exception.EntityTamperingException;
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.client.Client;
@@ -156,17 +155,17 @@ public class DBOrderDAO implements OrderDAO {
   }
 
   @Override
-  public void update(Order order) throws EntityTamperingException {
+  public void update(Order order) throws IllegalArgumentException {
     final String query = "UPDATE orders SET id_estimate = ?, "
         +
         "start_date = ?, end_date = ?, confirm_date = ?, visibility = ?, state = ?,"
         + " creation_date = ? WHERE id_order = ?";
     PreparedStatement stm;
     if (order == null) {
-      throw new EntityTamperingException("Order is null!");
+      throw new IllegalArgumentException("Order is null!");
     }
     if (DBOrderDAO.getInstance().retrieveById(order.getId()) == null) {
-      throw new EntityTamperingException("Order does not exist in database!");
+      throw new IllegalArgumentException("Order does not exist in database!");
     }
 
     try {
@@ -194,17 +193,17 @@ public class DBOrderDAO implements OrderDAO {
   }
 
   @Override
-  public void insert(Order order) throws EntityTamperingException {
+  public void insert(Order order) throws IllegalArgumentException {
     final String query =
         "INSERT INTO orders (id_order, id_estimate, start_date, end_date,"
             +
             "confirm_date, visibility, state, creation_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     PreparedStatement stm;
     if (order == null) {
-      throw new EntityTamperingException("Order is null!");
+      throw new IllegalArgumentException("Order is null!");
     }
     if (DBOrderDAO.getInstance().retrieveById(order.getId()) != null) {
-      throw new EntityTamperingException("Order already exist!");
+      throw new IllegalArgumentException("Order already exist!");
     }
 
     try {
@@ -232,14 +231,14 @@ public class DBOrderDAO implements OrderDAO {
   }
 
   @Override
-  public void delete(Order order) throws EntityTamperingException {
+  public void delete(Order order) throws IllegalArgumentException {
     final String query = "DELETE FROM orders WHERE id_order = ?";
     PreparedStatement stm;
     if (order == null) {
-      throw new EntityTamperingException("Order is null!");
+      throw new IllegalArgumentException("Order is null!");
     }
     if (DBOrderDAO.getInstance().retrieveById(order.getId()) == null) {
-      throw new EntityTamperingException("Order does not exist!");
+      throw new IllegalArgumentException("Order does not exist!");
     }
 
     try {

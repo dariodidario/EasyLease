@@ -139,7 +139,7 @@ class AddAdvisorServletTest {
 
         assertThrows(IllegalArgumentException.class,()->{servlet.doGet(request,response);});
     }
-
+/*
     @Test
     void testAdvisorPasswordNull() throws ServletException, IOException {
         when(request.getSession().getAttribute("role")).thenReturn("admin");
@@ -155,7 +155,7 @@ class AddAdvisorServletTest {
 
         assertThrows(NullPointerException.class,()->{servlet.doGet(request,response);});
     }
-
+*/
 
     @Test
     void testEmailValidFalse() throws ServletException, IOException {

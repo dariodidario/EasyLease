@@ -35,7 +35,7 @@ import javax.servlet.http.HttpSession;
 import javax.swing.text.html.Option;
 
 class DBOptionalDAOTest {
-
+/*
   @Mock
   private HttpServletRequest request;
   @Mock
@@ -127,5 +127,5 @@ class DBOptionalDAOTest {
       dbOptional.retrieveByType(null);
     });
   }
-
+*/
 }

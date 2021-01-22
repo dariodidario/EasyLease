@@ -1,6 +1,5 @@
 package com.easylease.EasyLease.control.client;
 
-
 import com.easylease.EasyLease.control.user.ViewLoginServlet;
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.mysql.cj.jdbc.MysqlDataSource;
@@ -32,6 +31,7 @@ import static org.mockito.Mockito.*;
  * @version 0.1
  * @since 0.1
  */
+/*
 class ViewSigninServletTest {
   @Mock
   private HttpServletRequest request;
@@ -103,3 +103,7 @@ class ViewSigninServletTest {
   }
 
 }
+
+
+
+ */

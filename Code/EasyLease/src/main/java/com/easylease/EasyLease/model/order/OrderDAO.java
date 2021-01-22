@@ -1,6 +1,6 @@
 package com.easylease.EasyLease.model.order;
 
-import com.easylease.EasyLease.control.utility.exception.EntityTamperingException;
+
 import java.util.List;
 
 /**
@@ -71,9 +71,9 @@ public interface OrderDAO {
    * @param order {@link Order} to update.
    * @since 0.1
    * @version 0.2
-   * @throws EntityTamperingException if retrieveById(order.getId()) == null.
+   * @throws IllegalArgumentException if retrieveById(order.getId()) == null.
    */
-  void update(Order order) throws EntityTamperingException;
+  void update(Order order) throws IllegalArgumentException;
 
   /**
    * Inserts the {@link Order} that is passed as a parameter in the Database.
@@ -81,9 +81,9 @@ public interface OrderDAO {
    * @param order {@link Order} to insert.
    * @since 0.1
    * @version 0.2
-   * @throws EntityTamperingException if retrieveById(order.getId()) != null.
+   * @throws IllegalArgumentException if retrieveById(order.getId()) != null.
    */
-  void insert(Order order) throws EntityTamperingException;
+  void insert(Order order) throws IllegalArgumentException;
 
   /**
    * Deletes the {@link Order} that is passed as a parameter in the Database.
@@ -91,7 +91,7 @@ public interface OrderDAO {
    * @param order {@link Order} to delete.
    * @since 0.1
    * @version 0.2
-   * @throws EntityTamperingException if retrieveById(order.getId()) == null.
+   * @throws IllegalArgumentException if retrieveById(order.getId()) == null.
    */
-  void delete(Order order) throws EntityTamperingException;
+  void delete(Order order) throws IllegalArgumentException;
 }
