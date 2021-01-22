@@ -289,4 +289,28 @@ public class DBEstimateDAO implements  EstimateDAO {
       logger.log(Level.SEVERE, sqlException.getMessage());
     }
   }
+
+  @Override
+  public List<Estimate> retrieveByState(String state) {
+    List<Estimate> result = null;
+    PreparedStatement preparedStatement;
+    String selectQuery = "SELECT * FROM " + DBEstimateDAO.TABLE_NAME + " WHERE state = ?";
+    if (state == null || state.equals("")) {
+      throw new IllegalArgumentException("The state passed is not valid");
+    }
+    try {
+      preparedStatement = connection.prepareStatement(selectQuery);
+      preparedStatement.setString(1, state);
+      ResultSet rs = preparedStatement.executeQuery();
+      if (rs.next()) {
+        result.add(getResultFromRs(rs));
+      }
+    } catch (SQLException e) {
+      logger.log(Level.SEVERE, e.getMessage());
+      return null;
+    }
+    return result;
+  }
+
+
 }

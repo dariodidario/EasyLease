@@ -75,4 +75,11 @@ public interface EstimateDAO {
    */
   void deleteForever(Estimate e);
 
+  /**
+   * Search for an Estimate based on its state.
+   *
+   * @param state of the {@link Estimate} list you are looking for.
+   * @return the {@link Estimate} list with that state or null if not present in Database.
+   **/
+  List<Estimate> retrieveByState(String state);
 }
