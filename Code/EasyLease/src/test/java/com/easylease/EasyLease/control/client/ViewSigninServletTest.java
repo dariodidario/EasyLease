@@ -1,13 +1,8 @@
-package com.easylease.EasyLease.control.user;
+package com.easylease.EasyLease.control.client;
 
+
+import com.easylease.EasyLease.control.user.ViewLoginServlet;
 import com.easylease.EasyLease.model.DBPool.DBConnection;
-import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
-import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.DBCarDAO;
-import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
-import com.easylease.EasyLease.model.estimate.Estimate;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +23,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -38,7 +32,7 @@ import static org.mockito.Mockito.*;
  * @version 0.1
  * @since 0.1
  */
-class ViewCarServletTest {
+class ViewSigninServletTest {
   @Mock
   private HttpServletRequest request;
   @Mock
@@ -52,15 +46,14 @@ class ViewCarServletTest {
   @Mock
   private PrintWriter printWriter;
 
-  private DBCarDAO dbCarDAO;
-  private ViewCarServlet servlet;
+  private ViewSignInServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
   private static DBConnection dbConnection;
 
   @BeforeEach
   void setUp() throws SQLException {
     MockitoAnnotations.openMocks(this);
-    servlet = new ViewCarServlet();
+    servlet = new ViewSignInServlet();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
@@ -70,7 +63,6 @@ class ViewCarServletTest {
     mysqlDataSource.setUseSSL(false);
     dbConnection = DBConnection.getInstance();
     dbConnection.setDataSource(mysqlDataSource);
-    dbCarDAO = (DBCarDAO) DBCarDAO.getInstance();
     when(request.getServletContext()).thenReturn(context);
     try {
       when(response.getWriter()).thenReturn(printWriter);
@@ -105,20 +97,9 @@ class ViewCarServletTest {
 
   @Test
   void Success() throws ServletException, IOException {
-    Car car = dbCarDAO.retrieveByModel("3008");
-    when(request.getParameter("model")).thenReturn(
-        "3008");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/user/viewCarJSP.jsp");
-    //assertEquals(car,
-        //request.getAttribute("car"));
+        "/client/signInJSP.jsp");
   }
 
-  @Test
-  void model_null() throws ServletException, IOException {
-    when(request.getParameter("model")).thenReturn(
-        null);
-    assertThrows(IllegalArgumentException.class,()->{servlet.doGet(request,response);});
-  }
 }

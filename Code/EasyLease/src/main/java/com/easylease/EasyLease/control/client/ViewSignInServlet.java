@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "ViewSignInServlet", urlPatterns = "/ViewSignInServlet")
+@WebServlet(name = "ViewSignInServlet", value = "/ViewSignInServlet")
 public class ViewSignInServlet extends HttpServlet {
 
   public void doPost(HttpServletRequest request,
@@ -19,9 +19,8 @@ public class ViewSignInServlet extends HttpServlet {
 
   public void doGet(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/client/signInJSP.jsp");
-    dispatcher.forward(request, response);
-
+    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/client/signInJSP.jsp");
+    requestDispatcher.forward(request, response);
   }
 
 }
