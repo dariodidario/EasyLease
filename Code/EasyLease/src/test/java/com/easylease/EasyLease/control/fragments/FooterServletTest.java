@@ -34,8 +34,6 @@ import static org.mockito.Mockito.when;
 
 
 class FooterServletTest {
-/*
-
   @Mock
   private HttpServletRequest request;
   @Mock
@@ -60,11 +58,10 @@ class FooterServletTest {
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
-    mysqlDataSource.setPassword("master");
+    mysqlDataSource.setPassword("root");
     mysqlDataSource.setServerTimezone("UTC");
     mysqlDataSource.setVerifyServerCertificate(false);
     mysqlDataSource.setUseSSL(false);
-
     dbConnection.setDataSource(mysqlDataSource);
     dbOrder = DBOrderDAO.getInstance();
     when(response.getWriter()).thenReturn(printWriter);
@@ -85,6 +82,5 @@ class FooterServletTest {
     verify(response).setContentType("text/plain");
     verify(response.getWriter()).write((dbOrder.retrieveAll().size()+936)+"");
   }
-  
- */
+
 }

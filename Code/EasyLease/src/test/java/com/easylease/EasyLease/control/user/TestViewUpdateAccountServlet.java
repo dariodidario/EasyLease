@@ -31,7 +31,7 @@ import static org.mockito.Mockito.*;
  * @version 0.1
  * @since 0.1
  */
-class ViewUpdateAccountServletTest {
+class TestViewUpdateAccountServlet {
   @Mock
   private HttpServletRequest request;
   @Mock

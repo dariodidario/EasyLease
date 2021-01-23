@@ -35,17 +35,6 @@ import javax.servlet.http.HttpSession;
 import javax.swing.text.html.Option;
 
 class DBOptionalDAOTest {
-/*
-  @Mock
-  private HttpServletRequest request;
-  @Mock
-  private HttpServletResponse response;
-  @Mock
-  private ServletContext context;
-  @Mock
-  private HttpSession session;
-  @Mock
-  private RequestDispatcher dispatcher;
 
   private OptionalDAO dbOptional;
   private ViewRequestEstimateServlet servlet;
@@ -63,7 +52,7 @@ class DBOptionalDAOTest {
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
-    mysqlDataSource.setPassword("S.PEPE41a");
+    mysqlDataSource.setPassword("root");
     mysqlDataSource.setServerTimezone("UTC");
     mysqlDataSource.setVerifyServerCertificate(false);
     mysqlDataSource.setUseSSL(false);
@@ -127,5 +116,5 @@ class DBOptionalDAOTest {
       dbOptional.retrieveByType(null);
     });
   }
-*/
+
 }

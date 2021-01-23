@@ -3,15 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/fragments/headerJSP.css">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <style>
-
         .Zcontainer-fluid{
             background-color: #9B334E;
         }
-
         .Znavbar-inverse .Znavbar-nav>.open>a, .Znavbar-inverse .Znavbar-nav>.open>a:focus, .Znavbar-inverse .Znavbar-nav>.open>a:hover {
             color: #fff;
             background-color: #9B334E;
@@ -45,7 +44,6 @@
             color: white;
             text-decoration: none !important;
         }
-
     </style>
 </head>
 <body>

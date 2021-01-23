@@ -27,7 +27,10 @@
 }
 
 .flex>.obj:hover{
-    border: 20px solid #9b334e;
+    box-shadow:  10px  10px 5px #dedede,
+    -10px -10px 5px #dedede,
+    10px -10px 5px #dedede,
+    -10px  10px 5px #dedede;
 }
 
 .carInfo{
@@ -146,13 +149,15 @@ select{
     max-width: 100%;
 }
 p{
-    font-size:1.5em;
+    font-size:0.9em;
 }
 .carTitle{
-    font-size: 3em;
+    font-size: 1.5em;
     color:#9b334e;
+    margin-bottom:0;
 }
 .carousel-caption{
+    top: 80%;
     text-shadow: none;
     left:43% !important;
 }
@@ -161,13 +166,13 @@ p{
 }
 @media (max-width:900px) {
     .carousel-caption{
-        top:80% !important;
+        top:77% !important;
     }
     p{
-        font-size:1em;
+        font-size:0.8em;
     }
     .carTitle{
-        font-size: 1.8em;
+        font-size: 1em;
         color:#9b334e;
     }
 }

@@ -7,7 +7,6 @@ import com.easylease.EasyLease.model.optional.Optional;
 import org.junit.jupiter.api.Test;
 
 class OptionalTest {
-/*
   @Test
   public void constructorTest() {
     Optional optional = new Optional("op12345", "Sensori di parcheggio", "type", 23.5F);
@@ -71,5 +70,4 @@ class OptionalTest {
     optional.setPrice(23.5F);
     assertEquals(23.5F, optional.getPrice());
   }
-*/
 }

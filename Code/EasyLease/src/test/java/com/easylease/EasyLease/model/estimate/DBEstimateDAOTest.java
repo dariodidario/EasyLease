@@ -24,7 +24,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 class DBEstimateDAOTest {
-/*
   private EstimateDAO dbEstimate;
   private static DBConnection dbConnection;
   List<Optional> optionalList = new ArrayList<>();
@@ -40,7 +39,7 @@ class DBEstimateDAOTest {
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
-    mysqlDataSource.setPassword("S.PEPE41a");
+    mysqlDataSource.setPassword("root");
     mysqlDataSource.setServerTimezone("UTC");
     mysqlDataSource.setVerifyServerCertificate(false);
     mysqlDataSource.setUseSSL(false);
@@ -48,6 +47,7 @@ class DBEstimateDAOTest {
     dbConnection.setDataSource(mysqlDataSource);
     dbEstimate = DBEstimateDAO.getInstance();
   }
+
 
   @Test
   void retrieveById_withCorrectId() {
@@ -208,5 +208,4 @@ class DBEstimateDAOTest {
       dbEstimate.deleteForever(null);
     });
   }
-*/
 }
