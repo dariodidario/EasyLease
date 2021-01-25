@@ -99,7 +99,7 @@
       m.style.display="block";
       controllo=false;
     }
-    if((via=="")||(via == "undefined")){
+    if((via=="")||(via == "undefined") || (!nomeformat.test(via))){
       m=document.getElementById("vialb");
       m.style.display="block";
       controllo=false;
@@ -175,7 +175,7 @@
       <label  id="vialb" style=" color: red; display:none;">*via non valida</label>
     </div>
     <div class="form-check" style="width: 15%">
-      <input class="form-check-input" type="checkbox" value="" id="checkPrivacy">
+      <input class="form-check-input" type="checkbox" value="" id="checkPrivacy" required>
       <label class="form-check-label" for="checkPrivacy">
         Privacy
       </label>
