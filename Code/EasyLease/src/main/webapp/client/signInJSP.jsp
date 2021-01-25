@@ -174,9 +174,15 @@
       <label for="street"></label>
       <label  id="vialb" style=" color: red; display:none;">*via non valida</label>
     </div>
+    <div class="form-check" style="width: 15%">
+      <input class="form-check-input" type="checkbox" value="" id="checkPrivacy">
+      <label class="form-check-label" for="checkPrivacy">
+        Privacy
+      </label>
+    </div>
     <br>
-    <button type="submit" class="btn btn-primary">Registrati</button>
-    <input type="reset" class="btn btn-primary" value="Cancella">
+    <button type="submit" id="registrati" class="btn btn-primary">Registrati</button>
+    <input type="reset" id="cancella" class="btn btn-primary" value="Cancella">
     <br>
     <br>
   </form>
