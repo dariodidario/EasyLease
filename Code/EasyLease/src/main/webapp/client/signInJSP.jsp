@@ -36,14 +36,18 @@
     var conferma = document.getElementById("conferma").value;
     var bp = document.getElementById("bp").value;
     var bd = document.getElementById("bd").value;
+    var data = Date.parse(bd);
     var city = document.getElementById("city").value;
     var pc = document.getElementById("cap").value;
     var via = document.getElementById("street").value;
     var email=document.getElementById("email").value;
     var password=document.getElementById("password").value;
     var mailformat=/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-    var nomeformat=/^[a-zA-Z]+$/;
+    var nomeformat=/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%?&*(){}|~<>;:[\]]{2,}$/;
+    var passwordformat = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
+    var capformat =/^\d{5}$/;
     var controllo;
+    var oggi = new Date();
     controllo = true;
     if ((nome == "") || (nome == "undefined") || (!nomeformat.test(nome))){
       m=document.getElementById("nomelb");
@@ -60,7 +64,7 @@
       m.style.display="block";
       controllo=false;
     }
-    if((password == "") || (password == "undefined")){
+    if((password == "") || (password == "undefined") || (!passwordformat.test(password))){
       m=document.getElementById("passwordlb");
       m.style.display="block";
       controllo=false;
@@ -80,7 +84,7 @@
       m.style.display="block";
       controllo=false;
     }
-    if ((bd == "") || (bd == "undefined")){
+    if ((bd == "") || (bd == "undefined") || (data>oggi)){
       m=document.getElementById("birthdatelb");
       m.style.display="block";
       controllo=false;
@@ -90,7 +94,7 @@
       m.style.display="block";
       controllo=false;
     }
-    if ((pc == "") || (pc == "undefined")){
+    if ((pc == "") || (pc == "undefined") || (!capformat.test(pc))){
       m=document.getElementById("caplb");
       m.style.display="block";
       controllo=false;

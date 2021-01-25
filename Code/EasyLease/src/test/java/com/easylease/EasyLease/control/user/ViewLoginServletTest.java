@@ -1,5 +1,10 @@
 package com.easylease.EasyLease.control.user;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.mysql.cj.jdbc.MysqlDataSource;
@@ -22,16 +27,14 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+
 
 /**
  * @author Torino Francesco Maria
  * @version 0.1
  * @since 0.1
  */
-class ViewLoginServletTest {
+public class ViewLoginServletTest {
   @Mock
   private HttpServletRequest request;
   @Mock
@@ -95,7 +98,7 @@ class ViewLoginServletTest {
   }
 
   @Test
-  void Success() throws ServletException, IOException {
+  void success() throws ServletException, IOException {
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
         "/user/loginJSP.jsp");

@@ -80,8 +80,8 @@
   </div> <br>
   <a href="${pageContext.request.contextPath}/client/signInJSP.jsp">Registrati</a>
   <br><br>
-  <button type="submit" class="btn btn-primary">Login</button>
-  <input type="reset" class="btn btn-primary" value="Cancella">
+  <button type="submit" id="loginButton" class="btn btn-primary">Login</button>
+  <input type="reset" id="deleteButton" class="btn btn-primary" value="Cancella">
 </form>
   </div>
 </center>
