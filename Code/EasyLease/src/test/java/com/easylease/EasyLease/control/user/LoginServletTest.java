@@ -98,7 +98,8 @@ public class LoginServletTest {
     servlet.doPost(request,response);
     verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
     //assertEquals("admin", request.getSession().getAttribute("role"));
-    request.getSession().invalidate();
+    request.getSession().removeAttribute("userEmail");
+    request.getSession().removeAttribute("userPassword");
   }
 
   @Test
@@ -126,18 +127,42 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("aaaa@giudigiamp.com");
     when(request.getParameter("userPassword")).thenReturn("pass");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
   }
 
   @Test
-  void user_null() throws ServletException, IOException {
+  void unsuccessClient() throws ServletException, IOException {
+    when(request.getParameter("userEmail")).thenReturn("mattia.caprio@unisa.com");
+    when(request.getParameter("userPassword")).thenReturn("a");
+    servlet.doPost(request,response);
+    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
+  }
+
+  @Test
+  void unsuccessAdvisor() throws ServletException, IOException {
+    when(request.getParameter("userEmail")).thenReturn("rossa.clementina@frutta.com");
+    when(request.getParameter("userPassword")).thenReturn("a");
+    servlet.doPost(request,response);
+    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
+  }
+
+  @Test
+  void unsuccessAdmin() throws ServletException, IOException {
+    when(request.getParameter("userEmail")).thenReturn("giu.digiamp@giudigiamp.com");
+    when(request.getParameter("userPassword")).thenReturn("a");
+    servlet.doPost(request,response);
+    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
+  }
+
+  @Test
+  void user_null(){
     when(request.getParameter("userEmail")).thenReturn(null);
     when(request.getParameter("userPassword")).thenReturn("pass");
     assertThrows(IllegalArgumentException.class,()->{servlet.doGet(request,response);});
   }
 
   @Test
-  void password_null() throws ServletException, IOException {
+  void password_null(){
     when(request.getParameter("userEmail")).thenReturn("giu.digiamp@giudigiamp.com");
     when(request.getParameter("userPassword")).thenReturn(null);
     assertThrows(NullPointerException.class,()->{servlet.doGet(request,response);});

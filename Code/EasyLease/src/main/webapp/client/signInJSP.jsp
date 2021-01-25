@@ -30,7 +30,7 @@
     var via = document.getElementById("street").value;
     var email=document.getElementById("email").value;
     var password=document.getElementById("password").value;
-    var mailformat=/^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-]{2,})+.)+([a-zA-Z0-9]{2,})+$/;
+    var mailformat=/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     var nomeformat=/^[a-zA-Z]+$/;
     var controllo;
     controllo = true;

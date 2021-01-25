@@ -20,7 +20,6 @@
     .container {
       min-height: 100%;
       height: auto !important;
-      height: 100%;
       margin: 0 auto -100px;
     }
 
@@ -40,7 +39,7 @@
   function controllo(){
     var email=document.getElementById("email").value;
     var password=document.getElementById("password").value;
-    var mailformat=/^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-]{2,})+.)+([a-zA-Z0-9]{2,})+$/;
+    var mailformat=/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     var controllo;
     controllo = true;
     if((!mailformat.test(email)) || (email == "") || (email == "undefined")){

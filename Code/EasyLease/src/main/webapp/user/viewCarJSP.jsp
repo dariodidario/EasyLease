@@ -39,12 +39,6 @@
       display: block !important;
     }
 
-    .contract_link{
-      display: block;
-      font-size: 25px;
-      font-weight: bold;
-    }
-
     .car_spec_text{
       font-size: 45px;
       font-weight: bold;
@@ -54,10 +48,6 @@
       font-size: 30px;
     }
 
-    .car_optional_text{
-      font-size: 40px;
-      font-weight: bold;
-    }
 
     .car_optionals td{
       font-size: 30px;
@@ -67,17 +57,8 @@
       font-size: 30px;
     }
 
-    .no_optionals_text{
-      font-size: 30px;
-    }
-
-    .price{
-      font-size: 30px;
-      font-weight: bold;
-    }
-
     .btn-check:active+.btn-primary, .btn-check:checked+.btn-primary,
-    .btn-primary.active, .btn-primary:active, .show>.btn-primary.dropdown-toggle{
+     .btn-primary:active, .show>{
       background-color: #9B334E !important;
       border-color: #9B334E !important;
 
@@ -107,7 +88,7 @@
   <%if(request.getSession().getAttribute("role")==null){%>
   <div class="container w-full">
     <div class="row">
-      <div class="col-6" align="center">
+      <div class="col-6">
         <div class="car_name">
           <%= "" + car.getBrand() + " "
                   + car.getModel()%>
@@ -122,11 +103,11 @@
 
         <br/>
         <br/>
-        <form method="POST" action="${pageContext.request.contextPath}/ViewSignInServlet">
+        <form method="POST" action="${pageContext.request.contextPath}/ViewLoginServlet">
           <input type="submit" class="btn btn-primary btn-lg" name="Registrati" value="Richiedi Preventivo">
         </form>
       </div>
-      <div class="col ms-6" align="center" style="border: solid;">
+      <div class="col ms-6" style="border: solid;">
           <div class="car_spec_text">
             Informazioni auto
         </div>
@@ -220,7 +201,7 @@
   <%}else{ if(request.getSession().getAttribute("role").equals("admin")){ %>
   <div class="container w-full">
     <div class="row">
-      <div class="col-6" align="center">
+      <div class="col-6">
         <div class="car_name">
           <%= "" + car.getBrand() + " "
                   + car.getModel()%>
@@ -244,7 +225,7 @@
           <input type="submit" class="btn btn-primary btn-lg" name="Elimina Auto" value="Elimina Auto">
         </form>
       </div>
-      <div class="col ms-6" align="center" style="border: solid;">
+      <div class="col ms-6" style="border: solid;">
         <div class="car_spec_text">
           Informazioni auto
         </div>
@@ -337,7 +318,7 @@
 
   <div class="container w-full">
     <div class="row">
-      <div class="col-6" align="center">
+      <div class="col-6">
         <div class="car_name">
           <%= "" + car.getBrand() + " "
                   + car.getModel()%>
@@ -356,7 +337,7 @@
           <input type="submit" class="btn btn-primary btn-lg" name="Richiedi preventivo" value="Richiedi preventivo">
         </form>
       </div>
-      <div class="col ms-6" align="center" style="border: solid;">
+      <div class="col ms-6" style="border: solid;">
         <div class="car_spec_text">
           Informazioni auto
         </div>
@@ -450,7 +431,7 @@
 
   <div class="container w-full">
     <div class="row">
-      <div class="col-6" align="center">
+      <div class="col-6">
         <div class="car_name">
           <%= "" + car.getBrand() + " "
                   + car.getModel()%>
@@ -464,11 +445,11 @@
 
         <br/>
         <br/>
-        <form method="POST" action="../index.jsp">
+        <form method="POST" action="./homePageJSP.jsp">
           <input type="submit" class="btn btn-primary btn-lg" name="Home" value="Home" >
         </form>
       </div>
-      <div class="col ms-6" align="center" style="border: solid;">
+      <div class="col ms-6" style="border: solid;">
         <div class="car_spec_text">
           Informazioni auto
         </div>
