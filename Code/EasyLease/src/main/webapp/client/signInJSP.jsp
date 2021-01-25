@@ -49,6 +49,17 @@
     var controllo;
     var oggi = new Date();
     controllo = true;
+    document.getElementById("nomelb").style.display="none";
+    document.getElementById("cognomelb").style.display="none";
+    document.getElementById("emaillb").style.display="none";
+    document.getElementById("passwordlb").style.display="none";
+    document.getElementById("confermalb").style.display="none";
+    document.getElementById("confermalb2").style.display="none";
+    document.getElementById("birthplacelb").style.display="none";
+    document.getElementById("birthdatelb").style.display="none";
+    document.getElementById("citylb").style.display="none";
+    document.getElementById("caplb").style.display="none";
+    document.getElementById("vialb").style.display="none";
     if ((nome == "") || (nome == "undefined") || (!nomeformat.test(nome))){
       m=document.getElementById("nomelb");
       m.style.display="block";
