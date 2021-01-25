@@ -12,6 +12,17 @@
   <style>
     .btn-primary{
       background-color: #800000 !important;
+      border: none !important;
+    }
+
+
+    #divCont{
+      text-align: center; width: 30%;
+    }
+    @media screen and (max-width: 600px) {
+      #divCont{
+        text-align: center; width: 60%;
+      }
     }
   </style>
 
@@ -97,7 +108,7 @@
 </script>
 <br/>
 <center>
-<div style="text-align: center; width: 30%;">
+<div id="divCont">
 
   <form action="${pageContext.request.contextPath}/SignInServlet" method="post" onSubmit="return controllo()">
     <br/>

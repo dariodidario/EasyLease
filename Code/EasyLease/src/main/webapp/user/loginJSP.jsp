@@ -15,6 +15,15 @@
       border: none !important;
     }
 
+    #divCont{
+      text-align: center; width: 30%;
+    }
+    @media screen and (max-width: 600px) {
+      #divCont{
+        text-align: center; width: 60%;
+      }
+    }
+
     html, body {  height: 100%; }
 
     .container {
@@ -56,7 +65,7 @@
   }
 </script>
 <center>
-  <div class="container" style="text-align: center; width: 30%;">
+  <div class="container" id="divCont">
 <form action="${pageContext.request.contextPath}/LoginServlet" method="post" onSubmit="return controllo()">
   <div class="form-group">
 
