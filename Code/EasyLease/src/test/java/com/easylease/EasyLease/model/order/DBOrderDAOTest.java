@@ -112,6 +112,22 @@ public class DBOrderDAOTest {
   }
 
   @Test
+  void retrieveByState_Success() {
+    List<Order> orders = orderDAO.retrieveByState("Confermato");
+    assertNotNull(orders);
+  }
+
+  @Test
+  void retrieveByState_NullState() {
+    assertThrows(IllegalArgumentException.class, () -> orderDAO.retrieveByState(null));
+  }
+
+  @Test
+  void retrieveByState_EmptyState() {
+    assertThrows(IllegalArgumentException.class, () -> orderDAO.retrieveByState(""));
+  }
+
+  @Test
   void retrieveAll_Success() {
     assertNotNull(orderDAO.retrieveAll());
   }

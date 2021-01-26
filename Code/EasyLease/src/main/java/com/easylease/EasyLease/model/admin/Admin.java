@@ -48,28 +48,4 @@ public class Admin extends User {
   public void setRecoveryEmail(String recoveryEmail) {
     this.recoveryEmail = recoveryEmail;
   }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null || getClass() != obj.getClass()) {
-      return false;
-    }
-    Admin admin = (Admin) obj;
-
-    return this.id.equals(admin.id);
-  }
-
-  @Override
-  public String toString() {
-    return "Admin{"
-        + "recoveryEmail='" + recoveryEmail + '\''
-        + ", id='" + id + '\''
-        + ", name='" + name + '\''
-        + ", surname='" + surname + '\''
-        + ", email='" + email + '\''
-        + '}';
-  }
 }

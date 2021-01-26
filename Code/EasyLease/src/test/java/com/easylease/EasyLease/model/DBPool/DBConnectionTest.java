@@ -2,6 +2,7 @@ package com.easylease.EasyLease.model.DBPool;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
@@ -44,6 +45,27 @@ public class DBConnectionTest {
 
   @Test
   void testConnection() {
+    assertNotNull(dbConnection.getConnection());
+  }
+
+  @Test
+  void testGetDataSource() {
+    assertNotNull(dbConnection.getDataSource());
+  }
+
+  @Test
+  void testGetConnection_DataSourceNull() {
+    dbConnection.setDataSource(null);
+    assertNull(dbConnection.getConnection());
+  }
+
+  @Test
+  void testGetConnection_NullConnection() {
+    MysqlDataSource mysqlDataSource = new MysqlDataSource();
+    mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
+    mysqlDataSource.setUser("root");
+    mysqlDataSource.setPassword("prova123");
+    dbConnection.setDataSource(mysqlDataSource);
     assertNotNull(dbConnection.getConnection());
   }
 

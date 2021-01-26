@@ -57,6 +57,13 @@ class DBAdminDAOTest {
   }
 
   @Test
+  void retrieveById_NotPresent() {
+    String adminID = "00CfRSI";
+    Admin admin = adminDAO.retrieveById(adminID);
+    assertNull(admin);
+  }
+
+  @Test
   void retrieveById_NullId() {
     assertThrows(IllegalArgumentException.class, () -> adminDAO.retrieveById(null));
   }

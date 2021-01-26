@@ -95,6 +95,8 @@ public class DBConnection {
    */
   public void setDataSource(DataSource dataSource) {
     this.dataSource = dataSource;
-    resetConnection();
+    if (this.dataSource != null){
+      resetConnection();
+    }
   }
 }

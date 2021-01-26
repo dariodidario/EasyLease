@@ -71,9 +71,6 @@ public class DBAdminDAO implements AdminDAO {
 
       rs = stm.executeQuery();
 
-      if (rs == null) {
-        return null;
-      }
 
       if (!rs.next()) {
         return null;
