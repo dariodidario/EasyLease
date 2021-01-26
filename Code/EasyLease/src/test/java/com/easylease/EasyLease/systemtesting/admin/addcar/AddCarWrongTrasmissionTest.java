@@ -1,8 +1,5 @@
 package com.easylease.EasyLease.systemtesting.admin.addcar;
 
-import java.io.File;
-import java.util.concurrent.TimeUnit;
-
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.car.CarDAO;
 import com.easylease.EasyLease.model.car.DBCarDAO;
@@ -11,15 +8,19 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.UnexpectedAlertBehaviour;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.File;
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class AddCarSuccessTest {
-  private CarDAO carDAO;
+public class AddCarWrongTrasmissionTest {
   private WebDriver driver;
   private static DBConnection dbConnection;
   private String baseUrl;
@@ -41,7 +42,6 @@ public class AddCarSuccessTest {
 
   @BeforeEach
   public void setUp() throws Exception {
-    carDAO = DBCarDAO.getInstance();
     dbConnection.getConnection().setAutoCommit(false);
     System.setProperty("webdriver.edge.driver",
         "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
@@ -83,7 +83,7 @@ public class AddCarSuccessTest {
         .click();
     driver.findElement(By.id("transmission")).click();
     driver.findElement(By.id("transmission")).clear();
-    driver.findElement(By.id("transmission")).sendKeys("Manuale");
+    driver.findElement(By.id("transmission")).sendKeys("13da");
     driver.findElement(By.id("avg_consumption")).click();
     driver.findElement(By.id("avg_consumption")).clear();
     driver.findElement(By.id("avg_consumption")).sendKeys("5.3");
@@ -112,8 +112,6 @@ public class AddCarSuccessTest {
     driver.findElement(By.id("buttonAddCar")).click();
     driver.findElement(By.xpath("//a[contains(@href, '#')]")).click();
     driver.findElement(By.linkText("Logout")).click();
-    /* ROLLBACK */
-    carDAO.delete(carDAO.retrieveByModel("Giulietta"));
   }
 
   @AfterEach
@@ -127,4 +125,3 @@ public class AddCarSuccessTest {
     dbConnection.getConnection().setAutoCommit(true);
   }
 }
-
