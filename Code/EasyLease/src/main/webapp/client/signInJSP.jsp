@@ -45,6 +45,7 @@
     var mailformat=/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     var nomeformat=/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%?&*(){}|~<>;:[\]]{2,}$/;
     var passwordformat = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
+    var streetformat = /^[\w'\-,.][^_!¡?÷?¿/\\+=@#$%?&*(){}|~<>;:[\]]{2,}$/;
     var capformat =/^\d{5}$/;
     var controllo;
     var oggi = new Date();
@@ -110,7 +111,7 @@
       m.style.display="block";
       controllo=false;
     }
-    if((via=="")||(via == "undefined") || (!nomeformat.test(via))){
+    if((via=="")||(via == "undefined") || (!streetformat.test(via))){
       m=document.getElementById("vialb");
       m.style.display="block";
       controllo=false;

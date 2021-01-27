@@ -50,6 +50,8 @@
     var password=document.getElementById("password").value;
     var mailformat=/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     var controllo;
+    document.getElementById("emaillb").style.display="none"
+    document.getElementById("passwordlb").style.display="none"
     controllo = true;
     if((!mailformat.test(email)) || (email == "") || (email == "undefined")){
       var m=document.getElementById("emaillb");
