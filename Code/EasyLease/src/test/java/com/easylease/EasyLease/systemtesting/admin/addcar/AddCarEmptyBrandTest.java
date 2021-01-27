@@ -3,10 +3,7 @@ package com.easylease.EasyLease.systemtesting.admin.addcar;
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.car.DBCarDAO;
 import com.mysql.cj.jdbc.MysqlDataSource;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
@@ -53,7 +50,8 @@ public class AddCarEmptyBrandTest {
   }
 
   @Test
-  public void testAddCarSuccess() {
+  @DisplayName("ST_ADMIN_1_01")
+  public void testAddCarEmptyBrand() {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
     driver.findElement(By.linkText("Login")).click();
     driver.findElement(By.id("email")).click();
@@ -67,43 +65,46 @@ public class AddCarEmptyBrandTest {
     driver.findElement(By.linkText("Aggiungi auto")).click();
     driver.findElement(By.id("model")).click();
     driver.findElement(By.id("model")).clear();
-    driver.findElement(By.id("model")).sendKeys("Giulietta");
+    driver.findElement(By.id("model")).sendKeys("Serie 3");
     driver.findElement(By.id("car_type")).click();
     driver.findElement(By.id("car_type")).clear();
     driver.findElement(By.id("car_type")).sendKeys("Berlina");
     driver.findElement(By.id("doors")).click();
     driver.findElement(By.id("doors")).clear();
     driver.findElement(By.id("doors")).sendKeys("5");
+    driver.findElement(
+        By.xpath("//div[@id='container']/form/table/tbody/tr[3]/td[2]"))
+        .click();
     driver.findElement(By.id("transmission")).click();
     driver.findElement(By.id("transmission")).clear();
-    driver.findElement(By.id("transmission")).sendKeys("Manuale");
+    driver.findElement(By.id("transmission")).sendKeys("Automatico");
     driver.findElement(By.id("avg_consumption")).click();
     driver.findElement(By.id("avg_consumption")).clear();
-    driver.findElement(By.id("avg_consumption")).sendKeys("6");
+    driver.findElement(By.id("avg_consumption")).sendKeys("3.6");
     driver.findElement(By.id("horses")).click();
     driver.findElement(By.id("horses")).clear();
     driver.findElement(By.id("horses")).sendKeys("130");
     driver.findElement(By.id("emission_class")).click();
     driver.findElement(By.id("emission_class")).clear();
-    driver.findElement(By.id("emission_class")).sendKeys("Euro6");
+    driver.findElement(By.id("emission_class")).sendKeys("Euro 6");
     driver.findElement(By.id("co2_emissions")).click();
     driver.findElement(By.id("co2_emissions")).clear();
-    driver.findElement(By.id("co2_emissions")).sendKeys("96");
+    driver.findElement(By.id("co2_emissions")).sendKeys("129");
     driver.findElement(By.id("power_supply")).click();
     driver.findElement(By.id("power_supply")).clear();
-    driver.findElement(By.id("power_supply")).sendKeys("Benzina");
+    driver.findElement(By.id("power_supply")).sendKeys("Diesel");
     driver.findElement(By.id("capacity")).click();
     driver.findElement(By.id("capacity")).clear();
-    driver.findElement(By.id("capacity")).sendKeys("1500");
+    driver.findElement(By.id("capacity")).sendKeys("1600");
     driver.findElement(By.id("price")).click();
     driver.findElement(By.id("price")).clear();
-    driver.findElement(By.id("price")).sendKeys("200");
+    driver.findElement(By.id("price")).sendKeys("300");
     driver.findElement(By.id("image_path"))
         .sendKeys(new File(
-            "src/test/java/com/easylease/EasyLease/systemtesting/admin/giulietta.jpg")
+            "src/test/java/com/easylease/EasyLease/systemtesting/admin/serie3.jpg")
             .getAbsolutePath());
     driver.findElement(By.id("buttonAddCar")).click();
-    driver.findElement(By.xpath("//div[@id='header']/nav/div/ul/li[3]/a/span")).click();
+    driver.findElement(By.xpath("//a[contains(@href, '#')]")).click();
     driver.findElement(By.linkText("Logout")).click();
   }
 

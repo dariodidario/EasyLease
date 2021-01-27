@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class AddCarEmptyTrasmissionTest {
+public class AddCarWrongBrandTest {
   private WebDriver driver;
   private static DBConnection dbConnection;
   private String baseUrl;
@@ -51,8 +51,8 @@ public class AddCarEmptyTrasmissionTest {
   }
 
   @Test
-  @DisplayName("ST_ADMIN_1_22")
-  public void testAddCarEmptyTrasmission() {
+  @DisplayName("ST_ADMIN_1_02")
+  public void testAddCarWrongBrand() {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
     driver.findElement(By.linkText("Login")).click();
     driver.findElement(By.id("email")).click();
@@ -66,7 +66,7 @@ public class AddCarEmptyTrasmissionTest {
     driver.findElement(By.linkText("Aggiungi auto")).click();
     driver.findElement(By.id("brand")).click();
     driver.findElement(By.id("brand")).clear();
-    driver.findElement(By.id("brand")).sendKeys("BMW");
+    driver.findElement(By.id("brand")).sendKeys("56BMW");
     driver.findElement(By.id("model")).click();
     driver.findElement(By.id("model")).clear();
     driver.findElement(By.id("model")).sendKeys("Serie 3");
@@ -79,6 +79,9 @@ public class AddCarEmptyTrasmissionTest {
     driver.findElement(
         By.xpath("//div[@id='container']/form/table/tbody/tr[3]/td[2]"))
         .click();
+    driver.findElement(By.id("transmission")).click();
+    driver.findElement(By.id("transmission")).clear();
+    driver.findElement(By.id("transmission")).sendKeys("Automatico");
     driver.findElement(By.id("avg_consumption")).click();
     driver.findElement(By.id("avg_consumption")).clear();
     driver.findElement(By.id("avg_consumption")).sendKeys("3.6");

@@ -107,7 +107,7 @@ public class AddCarEmissionTest {
     driver.findElement(By.id("price")).sendKeys("260");
     driver.findElement(By.id("image_path"))
         .sendKeys(new File(
-            "src/test/java/com/easylease/EasyLease/systemtesting/admin/giulietta.jpg")
+            "src/test/java/com/easylease/EasyLease/systemtesting/admin/serie3.jpg")
             .getAbsolutePath());
     driver.findElement(By.id("buttonAddCar")).click();
     driver.findElement(By.xpath("//a[contains(@href, '#')]")).click();
