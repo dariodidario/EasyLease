@@ -1,7 +1,5 @@
 package com.easylease.EasyLease.systemtesting.admin.addadvisor;
 
-
-import java.util.concurrent.TimeUnit;
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.advisor.AdvisorDAO;
 import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
@@ -10,15 +8,18 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.UnexpectedAlertBehaviour;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class AddAdvisorSuccessTest {
-  private AdvisorDAO advisorDAO;
+public class AddAdvisorAllEmptyTest {
   private WebDriver driver;
   private static DBConnection dbConnection;
   private String baseUrl;
@@ -40,7 +41,6 @@ public class AddAdvisorSuccessTest {
 
   @BeforeEach
   public void setUp() throws Exception {
-    advisorDAO = DBAdvisorDAO.getInstance();
     dbConnection.getConnection().setAutoCommit(false);
     System.setProperty("webdriver.edge.driver",
         "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
@@ -65,32 +65,9 @@ public class AddAdvisorSuccessTest {
     driver.findElement(By.xpath("//button[@type='submit']")).click();
     driver.findElement(By.xpath("//li[3]/a/img")).click();
     driver.findElement(By.linkText("Aggiungi consulente")).click();
-    driver.findElement(By.id("advisor_name")).click();
-    driver.findElement(By.id("advisor_name")).clear();
-    driver.findElement(By.id("advisor_name")).sendKeys("Piero");
-    driver.findElement(By.id("advisor_surname")).click();
-    driver.findElement(By.id("advisor_surname")).clear();
-    driver.findElement(By.id("advisor_surname")).sendKeys("Angela");
-    driver.findElement(By.id("advisor_email")).click();
-    driver.findElement(By.id("advisor_email")).clear();
-    driver.findElement(By.id("advisor_email"))
-        .sendKeys("p.angela@rai.it");
-    driver.findElement(By.id("advisor_date")).click();
-    driver.findElement(By.id("advisor_date")).clear();
-    driver.findElement(By.id("advisor_date")).sendKeys("2021-01-20");
-    driver.findElement(By.id("advisor_password")).click();
-    driver.findElement(By.id("advisor_password")).clear();
-    driver.findElement(By.id("advisor_password")).sendKeys("PieroAngela98");
-    driver.findElement(By.id("advisor_confirm_password")).click();
-    driver.findElement(By.id("advisor_confirm_password")).clear();
-    driver.findElement(By.id("advisor_confirm_password"))
-        .sendKeys("PieroAngela98");
     driver.findElement(By.id("buttonAddAdvisor")).click();
     driver.findElement(By.xpath("//li[3]/a/img")).click();
     driver.findElement(By.linkText("Logout")).click();
-
-    /* ROLLBACK */
-    advisorDAO.delete(advisorDAO.retrieveByEmail("p.angela@rai.it"));
   }
 
   @AfterEach
