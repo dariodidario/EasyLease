@@ -5,13 +5,6 @@
     font-size: 45px;
     font-weight: bold;
 }
-/*
-.container img{
-    max-width: 700px !important;
-    max-height: 700px !important;
-    margin: auto !important;
-    display: block !important;
-}*/
 
 .contract_link{
     display: block;
@@ -58,10 +51,6 @@
     margin-top: 5% !important;
 }
 
-a{
-    color: #9b334e !important;
-}
-
 #contract_link{
     color: #9B334E !important;
     font-size: 30px !important;
@@ -72,14 +61,10 @@ a{
     font-size: 30px !important;
 }
 
-
-a:active{
-    color: #9b334e !important;
-}
-
 .btn-check:active+.btn-primary, .btn-check:checked+.btn-primary,
 .btn-primary.active, .btn-primary:active, .show>.btn-primary.dropdown-toggle{
     background-color: #9B334E !important;
     border-color: #9B334E !important;
+    color: white !important;
 
 }
