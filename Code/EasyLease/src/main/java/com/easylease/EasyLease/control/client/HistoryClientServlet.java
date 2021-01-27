@@ -86,7 +86,7 @@ public class HistoryClientServlet extends HttpServlet {
           historyList.addAll(orderList);
           Iterator<Object> iterator = historyList.iterator();
           request.setAttribute("historyList", historyList);
-          request.getRequestDispatcher("/client/historyClient.jsp")
+          request.getRequestDispatcher("/client/historyClientJSP.jsp")
               .forward(request, response);
         } else{
         throw new ServletException();
@@ -95,7 +95,7 @@ public class HistoryClientServlet extends HttpServlet {
       Logger logger = Logger.getLogger(
           EstimateManagementClientServlet.class.getName());
       logger.log(Level.SEVERE, e.getMessage());
-      request.getRequestDispatcher("/user/homePage.jsp");
+      request.getRequestDispatcher("/user/homePageJSP.jsp");
     }
   }
 }

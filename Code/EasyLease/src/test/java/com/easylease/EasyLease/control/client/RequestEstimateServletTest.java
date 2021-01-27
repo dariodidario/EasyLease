@@ -89,7 +89,7 @@ class RequestEstimateServletTest {
     when(request.getParameter("Mesi")).thenReturn("24");
     when(request.getParameterValues("optionals")).thenReturn(optionals);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size()+1, estimateNewList.size());
 
@@ -116,7 +116,7 @@ class RequestEstimateServletTest {
     when(request.getParameter("Mesi")).thenReturn("24");
     when(request.getParameterValues("optionals")).thenReturn(optionals);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size()+1, estimateNewList.size());
 
@@ -136,7 +136,7 @@ class RequestEstimateServletTest {
     }
     when(request.getSession().getAttribute("role")).thenReturn("admin");
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size(), estimateNewList.size());
   }
@@ -149,7 +149,7 @@ class RequestEstimateServletTest {
     }
     when(request.getSession().getAttribute("role")).thenReturn(null);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size(), estimateNewList.size());
   }
@@ -169,7 +169,7 @@ class RequestEstimateServletTest {
     when(request.getParameter("Mesi")).thenReturn("24");
     when(request.getParameterValues("optionals")).thenReturn(optionals);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size(), estimateNewList.size());
   }
@@ -190,7 +190,7 @@ class RequestEstimateServletTest {
     when(request.getParameter("Mesi")).thenReturn(null);
     when(request.getParameterValues("optionals")).thenReturn(optionals);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size(), estimateNewList.size());
   }
@@ -210,7 +210,7 @@ class RequestEstimateServletTest {
     when(request.getParameter("Mesi")).thenReturn("24");
     when(request.getParameterValues("optionals")).thenReturn(optionals);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size(), estimateNewList.size());
   }

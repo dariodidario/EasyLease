@@ -37,13 +37,13 @@ public class LoginServlet extends HttpServlet {
           request.getSession().setAttribute("user", adminDao.retrieveByEmail(email));
           request.removeAttribute("userEmail");
           request.removeAttribute("userPassword");
-          request.getRequestDispatcher("/user/homePage.jsp")
+          request.getRequestDispatcher("/user/homePageJSP.jsp")
               .forward(request, response);
         }
         else {
           request.removeAttribute("userEmail");
           request.removeAttribute("userPassword");
-          request.getRequestDispatcher("/user/login.jsp")
+          request.getRequestDispatcher("/user/loginJSP.jsp")
               .forward(request, response);
         }
       }
@@ -55,13 +55,13 @@ public class LoginServlet extends HttpServlet {
             request.getSession().setAttribute("user", advisorDao.retrieveByEmail(email));
             request.removeAttribute("userEmail");
             request.removeAttribute("userPassword");
-            request.getRequestDispatcher("/user/homePage.jsp")
+            request.getRequestDispatcher("/user/homePageJSP.jsp")
                 .forward(request, response);
           }
           else {
             request.removeAttribute("userEmail");
             request.removeAttribute("userPassword");
-            request.getRequestDispatcher("/user/login.jsp")
+            request.getRequestDispatcher("/user/loginJSP.jsp")
                 .forward(request, response);
           }
         }
@@ -73,13 +73,13 @@ public class LoginServlet extends HttpServlet {
               request.getSession().setAttribute("user", clientDao.retrieveByEmail(email));
               request.removeAttribute("userEmail");
               request.removeAttribute("userPassword");
-              request.getRequestDispatcher("/user/homePage.jsp")
+              request.getRequestDispatcher("/user/homePageJSP.jsp")
                   .forward(request, response);
             }
             else {
               request.removeAttribute("userEmail");
               request.removeAttribute("userPassword");
-              request.getRequestDispatcher("/user/login.jsp")
+              request.getRequestDispatcher("/user/loginJSP.jsp")
                   .forward(request, response);
             }
 
@@ -87,7 +87,7 @@ public class LoginServlet extends HttpServlet {
           else {
             request.removeAttribute("userEmail");
             request.removeAttribute("userPassword");
-            request.getRequestDispatcher("/user/login.jsp")
+            request.getRequestDispatcher("/user/loginJSP.jsp")
                 .forward(request, response);
           }
         }

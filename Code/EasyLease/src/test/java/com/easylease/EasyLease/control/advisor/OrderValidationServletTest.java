@@ -85,7 +85,7 @@ class OrderValidationServletTest {
     when(request.getParameter("date")).thenReturn("2021-01-17");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/advisor/orderManagementAdvisor.jsp");
+        "/advisor/orderManagementAdvisorJSP.jsp");
     dbOrderDAO.update(order);
   }
 
@@ -95,14 +95,14 @@ class OrderValidationServletTest {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn("ORlk7Bn");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
   @Test
   void nullSession() throws ServletException, IOException {
     when(request.getSession()).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
   @Test
@@ -110,7 +110,7 @@ class OrderValidationServletTest {
     when(request.getSession().getAttribute("user")).thenReturn(new Client());
     when(request.getParameter("id")).thenReturn("ORlk7Bn");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
   @Test
@@ -119,7 +119,7 @@ class OrderValidationServletTest {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
   @Test
@@ -128,6 +128,6 @@ class OrderValidationServletTest {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn("ORxxxxx");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 }

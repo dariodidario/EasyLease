@@ -19,7 +19,7 @@ public class ViewSignInServlet extends HttpServlet {
 
   public void doGet(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
-    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/client/signIn.jsp");
+    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/client/signInJSP.jsp");
     requestDispatcher.forward(request, response);
   }
 

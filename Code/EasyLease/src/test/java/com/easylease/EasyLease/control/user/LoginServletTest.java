@@ -96,7 +96,7 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("giu.digiamp@giudigiamp.com");
     when(request.getParameter("userPassword")).thenReturn("pass");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
     //assertEquals("admin", request.getSession().getAttribute("role"));
     request.getSession().removeAttribute("userEmail");
     request.getSession().removeAttribute("userPassword");
@@ -107,7 +107,7 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("rossa.clementina@frutta.com");
     when(request.getParameter("userPassword")).thenReturn("pass");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
     //assertEquals("advisor", request.getSession().getAttribute("role"));
     request.getSession().invalidate();
   }
@@ -117,7 +117,7 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("mattia.caprio@unisa.com");
     when(request.getParameter("userPassword")).thenReturn("pass");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
     //assertEquals("client", request.getSession().getAttribute("role"));
     request.getSession().invalidate();
   }
@@ -127,7 +127,7 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("aaaa@giudigiamp.com");
     when(request.getParameter("userPassword")).thenReturn("pass");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/login.jsp");
+    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
   }
 
   @Test
@@ -135,7 +135,7 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("mattia.caprio@unisa.com");
     when(request.getParameter("userPassword")).thenReturn("a");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/login.jsp");
+    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
   }
 
   @Test
@@ -143,7 +143,7 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("rossa.clementina@frutta.com");
     when(request.getParameter("userPassword")).thenReturn("a");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/login.jsp");
+    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
   }
 
   @Test
@@ -151,7 +151,7 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("giu.digiamp@giudigiamp.com");
     when(request.getParameter("userPassword")).thenReturn("a");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/login.jsp");
+    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
   }
 
   @Test

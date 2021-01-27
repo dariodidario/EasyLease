@@ -82,7 +82,7 @@ class LogoutServletTest {
     request.getSession().setAttribute("role", "admin");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/user/homePage.jsp");
+        "/user/homePageJSP.jsp");
     assertNull(request.getSession().getAttribute("user"));
     assertNull(request.getSession().getAttribute("role"));
   }

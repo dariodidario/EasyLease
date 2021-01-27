@@ -52,7 +52,7 @@ public class DeleteCarServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<script type=\"text/javascript\">");
         out.println("alert('Auto eliminata con successo');");
-        out.println("location='user/homePage.jsp';");
+        out.println("location='user/homePageJSP.jsp';");
         out.println("</script>");
 
       } else {
@@ -61,7 +61,7 @@ public class DeleteCarServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<script type=\"text/javascript\">");
         out.println("alert('Impossibile eliminare, Id null error!');");
-        out.println("location='user/updateCar.jsp';");
+        out.println("location='user/updateCarJSP.jsp';");
         out.println("</script>");
       }
     }

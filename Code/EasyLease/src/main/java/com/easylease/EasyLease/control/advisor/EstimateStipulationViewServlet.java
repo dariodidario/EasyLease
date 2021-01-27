@@ -58,15 +58,15 @@ public class EstimateStipulationViewServlet extends HttpServlet {
         }
         request.setAttribute("estimate", estimate);
         session.setAttribute("stipulation", true);
-        request.getRequestDispatcher("/advisor/estimateStipulation.jsp")
+        request.getRequestDispatcher("/advisor/estimateStipulationJSP.jsp")
             .forward(request, response);
       } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/user/homePage.jsp")
+        request.getRequestDispatcher("/user/homePageJSP.jsp")
             .forward(request, response);
       }
     } else
-      request.getRequestDispatcher("/user/homePage.jsp")
+      request.getRequestDispatcher("/user/homePageJSP.jsp")
           .forward(request, response);
   }
 }

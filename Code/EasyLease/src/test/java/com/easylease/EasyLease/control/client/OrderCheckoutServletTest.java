@@ -88,7 +88,7 @@ class OrderCheckoutServletTest {
     when(request.getSession().getAttribute("user")).thenReturn(new Client());
     when(request.getParameter("submit")).thenReturn("ORbG567");
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
     assertEquals("Pagato", orderDAO.retrieveById("ORbG567").getState());
     orderDAO.update(orderStub);
   }
@@ -97,20 +97,20 @@ class OrderCheckoutServletTest {
   void orderCheckoutServletTestNullSession() throws ServletException, IOException {
     when(request.getSession()).thenReturn(null);
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
   @Test
   void orderCheckoutServletTestWrongUser() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(new Advisor());
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
   @Test
   void orderCheckoutServletTestNullUser() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(null);
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 }

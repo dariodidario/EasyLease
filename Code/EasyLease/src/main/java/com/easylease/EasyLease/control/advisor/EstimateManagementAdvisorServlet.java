@@ -56,15 +56,15 @@ public class EstimateManagementAdvisorServlet extends HttpServlet {
         dbEstimateDao.update(estimate);
         request.setAttribute("estimate", estimate);
         request.getRequestDispatcher(
-            "/advisor/estimateManagementAdvisor.jsp")
+            "/advisor/estimateManagementAdvisorJSP.jsp")
             .forward(request, response);
       } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/user/homePage.jsp")
+        request.getRequestDispatcher("/user/homePageJSP.jsp")
             .forward(request, response);
       }
     } else
-      request.getRequestDispatcher("/user/homePage.jsp")
+      request.getRequestDispatcher("/user/homePageJSP.jsp")
           .forward(request, response);
   }
 

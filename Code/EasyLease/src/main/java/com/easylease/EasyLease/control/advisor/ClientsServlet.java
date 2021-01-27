@@ -60,16 +60,16 @@ public class ClientsServlet extends HttpServlet {
               }
             }));
         request.setAttribute("clients", clients);
-        request.getRequestDispatcher("/advisor/clients.jsp")
+        request.getRequestDispatcher("/advisor/clientsJSP.jsp")
             .forward(request, response);
       } catch (ServletException ex) {
         Logger.getLogger(ClientsServlet.class.getName())
             .log(Level.SEVERE, ex.getMessage());
-        request.getRequestDispatcher("/user/homePage.jsp")
+        request.getRequestDispatcher("/user/homePageJSP.jsp")
             .forward(request, response);
       }
     } else {
-      request.getRequestDispatcher("/user/homePage.jsp")
+      request.getRequestDispatcher("/user/homePageJSP.jsp")
           .forward(request, response);
     }
   }

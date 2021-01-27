@@ -58,7 +58,7 @@ class ViewAddCarServletTest {
         when(request.getSession().getAttribute("role")).thenReturn("admin");
 
         servlet.doGet(request,response);
-        verify(context).getRequestDispatcher("/admin/addCar.jsp");
+        verify(context).getRequestDispatcher("/admin/addCarJSP.jsp");
     }
 
 }

@@ -92,7 +92,7 @@ class EstimateStipulationServletTest {
     }
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/advisor/estimateManagementAdvisor.jsp");
+        "/advisor/estimateManagementAdvisorJSP.jsp");
     assertEquals("Stipulato", dbEstimateDAO.retrieveById("ESfn9IO").getState());
     dbEstimateDAO.update(estimate);
   }
@@ -102,14 +102,14 @@ class EstimateStipulationServletTest {
     when(request.getSession().getAttribute("user")).thenReturn(new Advisor());
     when(request.getParameter("id")).thenReturn("ESdnA9G");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
   @Test
   void nullSession() throws ServletException, IOException {
     when(request.getSession()).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
   @Test
@@ -117,7 +117,7 @@ class EstimateStipulationServletTest {
     when(request.getSession().getAttribute("user")).thenReturn(new Client());
     when(request.getParameter("id")).thenReturn("ESgY65R");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
   @Test
@@ -126,7 +126,7 @@ class EstimateStipulationServletTest {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
   @Test
@@ -135,6 +135,6 @@ class EstimateStipulationServletTest {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn("ESxxxxx");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 }

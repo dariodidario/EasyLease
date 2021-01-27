@@ -43,13 +43,13 @@ public class EstimateManagementClientServlet extends HttpServlet {
       }
       Estimate estimate = estimateDao.retrieveById(id);
       request.setAttribute("estimate", estimate);
-      request.getRequestDispatcher("/client/estimateManagementClient.jsp")
+      request.getRequestDispatcher("/client/estimateManagementClientJSP.jsp")
           .forward(request, response);
     } catch (ServletException e) {
       Logger logger = Logger.getLogger(
           EstimateManagementClientServlet.class.getName());
       logger.log(Level.SEVERE, e.getMessage());
-      request.getRequestDispatcher("/user/homePage.jsp").forward(request, response);
+      request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
     }
   }
 }

@@ -78,14 +78,14 @@ class TestOrderManagementClientServlet {
     when(session.getAttribute("user")).thenReturn(client);
     when(request.getParameter("id_order")).thenReturn("ORhfga2");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/client/orderManagementClient.jsp");
+    verify(request).getRequestDispatcher("/client/orderManagementClientJSP.jsp");
   }
 
   @Test
   void orderManagementClientServletTest_WrongUser_ExceptionThrown() throws ServletException, IOException {
     when(session.getAttribute("user")).thenReturn("ADgjksf");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
   @Test
@@ -94,7 +94,7 @@ class TestOrderManagementClientServlet {
     when(session.getAttribute("user")).thenReturn(client);
     when(request.getParameter("id_order")).thenReturn("HHhKs85");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
   @Test
@@ -103,6 +103,6 @@ class TestOrderManagementClientServlet {
     when(session.getAttribute("user")).thenReturn(client);
     when(request.getParameter("id_order")).thenReturn("HH");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 }

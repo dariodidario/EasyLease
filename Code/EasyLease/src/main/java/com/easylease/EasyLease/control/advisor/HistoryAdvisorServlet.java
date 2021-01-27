@@ -55,15 +55,15 @@ public class HistoryAdvisorServlet extends HttpServlet {
           }
         }
         request.setAttribute("list", list);
-        request.getRequestDispatcher("/advisor/historyAdvisor.jsp")
+        request.getRequestDispatcher("/advisor/historyAdvisorJSP.jsp")
             .forward(request, response);
       } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/user/homePage.jsp")
+        request.getRequestDispatcher("/user/homePageJSP.jsp")
             .forward(request, response);
       }
     } else
-      request.getRequestDispatcher("/user/homePage.jsp")
+      request.getRequestDispatcher("/user/homePageJSP.jsp")
           .forward(request, response);
   }
 

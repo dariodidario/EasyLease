@@ -25,7 +25,7 @@ public class ContattiServlet extends HttpServlet {
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     RequestDispatcher requestDispatcher = request.getRequestDispatcher(
-        "/user/contatti.jsp");
+        "/user/contattiJSP.jsp");
     requestDispatcher.forward(request, response);
   }
 }

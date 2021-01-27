@@ -57,6 +57,6 @@ class ViewAddAdvisorServletTest {
         when(request.getSession().getAttribute("role")).thenReturn("admin");
 
         servlet.doGet(request,response);
-        verify(context).getRequestDispatcher("/admin/addAdvisor.jsp");
+        verify(context).getRequestDispatcher("/admin/addAdvisorJSP.jsp");
     }
 }

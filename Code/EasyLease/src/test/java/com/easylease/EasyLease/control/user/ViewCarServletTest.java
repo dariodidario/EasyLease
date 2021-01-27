@@ -109,7 +109,7 @@ public class ViewCarServletTest {
         "3008");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/user/viewCar.jsp");
+        "/user/viewCarJSP.jsp");
   }
 
   @Test

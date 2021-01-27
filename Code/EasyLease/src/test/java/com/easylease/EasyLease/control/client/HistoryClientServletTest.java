@@ -90,7 +90,7 @@ class HistoryClientServletTest {
     when(session.getAttribute("user")).thenReturn(client);
     when(session.getAttribute("role")).thenReturn("client");
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/client/historyClient.jsp");
+    verify(request).getRequestDispatcher("/client/historyClientJSP.jsp");
 
     //rollback
     List<Estimate> updatedEstimate = estimateDao.retrieveAll();
@@ -118,14 +118,14 @@ class HistoryClientServletTest {
   void historyServletTest_NullSession_ExceptionThrown() throws ServletException, IOException {
     when(request.getSession()).thenReturn(null);
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
   @Test
   void historyServletTest_WrongRole_ExceptionThrown() throws ServletException, IOException {
     when(session.getAttribute("role")).thenReturn("advisor");
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
   @Test
@@ -133,7 +133,7 @@ class HistoryClientServletTest {
     when(session.getAttribute("role")).thenReturn("client");
     when(session.getAttribute("user")).thenReturn(null);
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
 }

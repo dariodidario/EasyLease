@@ -91,14 +91,14 @@ class ViewRequestEstimateServletTest {
     when(request.getSession().getAttribute("role")).thenReturn("client");
     when(request.getParameter("idCar")).thenReturn("CAaaaa2");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/client/requestEstimate.jsp");
+    verify(request).getRequestDispatcher("/client/requestEstimateJSP.jsp");
   }
 
   @Test
   void doPostWrongRole() throws ServletException, IOException {
     when(request.getSession().getAttribute("role")).thenReturn("user");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/homePage.jsp");
+    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
   }
 
 }

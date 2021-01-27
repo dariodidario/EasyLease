@@ -67,7 +67,7 @@ public class AddCarServlet extends HttpServlet {
 
               PrintWriter out = response.getWriter();
               out.println("alert('Auto già esistente');");
-              out.println("location='admin/addCar.jsp';");
+              out.println("location='admin/addCarJSP.jsp';");
               out.println("</script>");
           } else {//case if isn't already present
 
@@ -96,7 +96,7 @@ public class AddCarServlet extends HttpServlet {
               PrintWriter out = response.getWriter();
               out.println("<script type=\"text/javascript\">");
               out.println("alert('Auto aggiunta con successo');");
-              out.println("location='user/homePage.jsp';");
+              out.println("location='user/homePageJSP.jsp';");
               out.println("</script>");
           }
       }

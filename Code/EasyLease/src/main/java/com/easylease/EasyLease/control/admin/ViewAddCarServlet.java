@@ -27,7 +27,7 @@ public class ViewAddCarServlet extends HttpServlet {
             User user = (User) request.getSession().getAttribute("user");
             request.getSession().setAttribute("user", user);
             request.getSession().setAttribute("role", "admin");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addCar.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addCarJSP.jsp");
             dispatcher.forward(request, response);
         }
     }

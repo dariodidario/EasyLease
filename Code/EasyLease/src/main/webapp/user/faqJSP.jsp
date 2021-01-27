@@ -7,7 +7,7 @@
         <title>FAQ</title>
     </head>
     <p>
-        <%@include file="/fragments/header.jsp" %>
+        <%@include file="/fragments/headerJSP.jsp" %>
         <div class="container">
             <label class="FAQtitle">FAQ</label>
               <div class="TitleDiv">
@@ -198,7 +198,7 @@
               </div>
             </div>
         </div>
-        <%@include file="/fragments/footer.jsp" %>
+        <%@include file="/fragments/footerJSP.jsp" %>
     </body>
 </html>
 <script>

@@ -20,7 +20,7 @@ public class LogoutServlet extends HttpServlet {
       HttpServletResponse response) throws ServletException, IOException {
     request.getSession().removeAttribute("user");
     request.getSession().removeAttribute("role");
-    request.getRequestDispatcher("/user/homePage.jsp")
+    request.getRequestDispatcher("/user/homePageJSP.jsp")
         .forward(request, response);
   }
 }
