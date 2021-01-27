@@ -72,6 +72,6 @@ class FAQServletTest {
   @Test
   void success() throws ServletException, IOException {
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/faq.jsp");
+    verify(request).getRequestDispatcher("/user/faqJSP.jsp");
   }
 }

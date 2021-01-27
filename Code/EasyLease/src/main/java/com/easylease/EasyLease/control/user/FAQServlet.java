@@ -21,7 +21,7 @@ public class FAQServlet extends HttpServlet {
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     RequestDispatcher requestDispatcher = request.getRequestDispatcher(
-        "/user/faq.jsp");
+        "/user/faqJSP.jsp");
     requestDispatcher.forward(request, response);
   }
 
