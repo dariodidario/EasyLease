@@ -96,7 +96,7 @@ class RequestEstimateServletTest {
     //rollback
     for (Estimate estimate : estimateNewList) {
       if (!estimateOldList.contains(estimate.getId())) {
-        dbEstimate.deleteForever(estimate);
+        dbEstimate.delete(estimate);
       }
     }
   }
@@ -123,7 +123,7 @@ class RequestEstimateServletTest {
     //rollback
     for (Estimate estimate : estimateNewList) {
       if (!estimateOldList.contains(estimate.getId())) {
-        dbEstimate.deleteForever(estimate);
+        dbEstimate.delete(estimate);
       }
     }
   }

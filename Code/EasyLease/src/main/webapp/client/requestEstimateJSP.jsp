@@ -33,7 +33,8 @@
     <form action="${pageContext.request.contextPath}/RequestEstimateServlet" method="post">
         <input type = "hidden" name="carId" value="<%=car.getId()%>">
         <br>Mesi: <select name="Mesi" class="customselect">
-            <option value="24" selected>24</option>
+            <option value="18" selected>18</option>
+            <option value="24">24</option>
             <option value="36">36</option>
             <option value="48">48</option>
             <option value="60">60</option>

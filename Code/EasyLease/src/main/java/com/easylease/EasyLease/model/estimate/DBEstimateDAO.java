@@ -127,15 +127,6 @@ public class DBEstimateDAO implements  EstimateDAO {
   }
 
   @Override
-  public void delete(Estimate e) {
-    if (e == null) {
-      throw new IllegalArgumentException("The estimate passed is not valid");
-    }
-    e.setVisibility(false);
-    update(e);
-  }
-
-  @Override
   public void insert(Estimate e) {
     if (e == null) {
       throw new IllegalArgumentException("The estimate passed is not valid");
@@ -273,7 +264,7 @@ public class DBEstimateDAO implements  EstimateDAO {
     return optionals;
   }
 
-  public void deleteForever(Estimate e) {
+  public void delete(Estimate e) {
     if (e == null) {
       throw new IllegalArgumentException("The estimate passed is not valid");
     }
