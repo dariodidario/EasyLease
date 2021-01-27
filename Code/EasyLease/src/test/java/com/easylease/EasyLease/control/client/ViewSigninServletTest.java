@@ -99,7 +99,7 @@ class ViewSigninServletTest {
   void Success() throws ServletException, IOException {
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/client/signInJSP.jsp");
+        "/client/signIn.jsp");
   }
 
 }

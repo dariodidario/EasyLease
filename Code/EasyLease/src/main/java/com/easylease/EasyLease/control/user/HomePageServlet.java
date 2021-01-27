@@ -42,6 +42,6 @@ public class HomePageServlet extends HttpServlet {
       carList = DBCarDAO.getInstance().retrieveAll();
     }
     request.setAttribute("carList", carList);
-    request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
+    request.getRequestDispatcher("/user/homePage.jsp").forward(request, response);
   }
 }

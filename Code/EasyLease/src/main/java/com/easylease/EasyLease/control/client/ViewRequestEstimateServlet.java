@@ -17,7 +17,7 @@ public class ViewRequestEstimateServlet extends HttpServlet {
       HttpServletResponse response) throws ServletException, IOException {
     String role = (String) request.getSession().getAttribute("role");
     if ( !role.equals("client") ) {
-      request.getRequestDispatcher("/user/homePageJSP.jsp")
+      request.getRequestDispatcher("/user/homePage.jsp")
           .forward(request, response);
     }
     else {
@@ -28,7 +28,7 @@ public class ViewRequestEstimateServlet extends HttpServlet {
           DBOptionalDAO.getInstance().retrieveByType("Auto"));
       request.getSession().setAttribute("optionalContractList",
           DBOptionalDAO.getInstance().retrieveByType("Contratto"));
-      request.getRequestDispatcher("/client/requestEstimateJSP.jsp")
+      request.getRequestDispatcher("/client/requestEstimate.jsp")
           .forward(request, response);
     }
   }

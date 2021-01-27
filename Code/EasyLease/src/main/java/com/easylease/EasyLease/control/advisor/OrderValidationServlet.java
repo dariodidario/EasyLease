@@ -56,7 +56,7 @@ public class OrderValidationServlet extends HttpServlet {
         try {
           order.setStartDate(htmlFormat.parse(request.getParameter("date")));
         } catch (ParseException e) {
-          request.getRequestDispatcher("/advisor/orderValidationJSP.jsp")
+          request.getRequestDispatcher("/advisor/orderValidation.jsp")
               .forward(request, response);
         }
         GregorianCalendar endDate = new GregorianCalendar();
@@ -66,15 +66,15 @@ public class OrderValidationServlet extends HttpServlet {
         order.setState("Convalidato");
         dbOrderDao.update(order);
         request.setAttribute("order", order);
-        request.getRequestDispatcher("/advisor/orderManagementAdvisorJSP.jsp")
+        request.getRequestDispatcher("/advisor/orderManagementAdvisor.jsp")
             .forward(request, response);
       } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/user/homePageJSP.jsp")
+        request.getRequestDispatcher("/user/homePage.jsp")
             .forward(request, response);
       }
     } else
-      request.getRequestDispatcher("/user/homePageJSP.jsp")
+      request.getRequestDispatcher("/user/homePage.jsp")
           .forward(request, response);
   }
 

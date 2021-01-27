@@ -1,0 +1,57 @@
+@charset "ISO-8859-1";
+
+.RequestEstimateForm{
+    width:50%;
+    height:100%;
+    text-align:center;
+    item-align:center;
+    background-color:#FFFFFF;
+    display:block;
+    margin: 0 auto;
+    font-family:Verdana, sans-serif;
+    border: 2px solid darkgrey;
+}
+
+.RequestEstimateForm>h1{
+    padding: 0.5em 1em 1em;
+    color: #9B334E;
+}
+
+.EstimateButton{
+    background-color: #9B334E;
+    border: none;
+    color: white;
+    padding: 1em 6em;
+    text-decoration: none;
+    border-radius:0.5em;
+    font-size:1em;
+    margin-bottom:1em;
+}
+
+.EstimateCheckbox{
+    transform: scale(2);}
+
+.EstimateLabel{
+    margin-right:0.8em;
+    font-size:1.5em;}
+
+.customselect{
+    position: relative;
+    min-width: 18%;
+    margin: 0 auto;
+    border: 0.07em solid black;
+    background-color: #FFFFFF;
+    outline: none;
+    padding: 0.9em 3.5em 0.9em 0.9em;
+    font-size: 0.9em;
+    color: black;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.logo{
+    max-width: 80%;
+}

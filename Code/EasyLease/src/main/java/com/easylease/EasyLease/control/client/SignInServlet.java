@@ -44,12 +44,12 @@ public class SignInServlet extends HttpServlet {
     DBClientDAO dao = (DBClientDAO) DBClientDAO.getInstance();
 
     if (dao.retrieveByEmail(client.getEmail()) != null) {
-      request.getRequestDispatcher("/user/loginJSP.jsp")
+      request.getRequestDispatcher("/user/login.jsp")
           .forward(request, response);
     }
     else{
       dao.insert(client, request.getParameter("password"));
-      request.getRequestDispatcher("/user/loginJSP.jsp")
+      request.getRequestDispatcher("/user/login.jsp")
           .forward(request, response);
     }
 

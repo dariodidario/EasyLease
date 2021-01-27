@@ -43,22 +43,22 @@ public class AddAdvisorServlet extends HttpServlet {
       if (Boolean.valueOf(request.getParameter("email_valid")) == false) {//case invalid email
         request.getSession().setAttribute("error", "l'email non è valida");
         request.getSession().setAttribute("role", "admin");
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisorJSP.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisor.jsp");
         dispatcher.forward(request, response);
       } else if (Boolean.valueOf(request.getParameter("date_valid")) == false) {//case invalid date
         request.getSession().setAttribute("error", "la data non può essere superiore ad oggi");
         request.getSession().setAttribute("role", "admin");
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisorJSP.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisor.jsp");
         dispatcher.forward(request, response);
       } else if (Boolean.valueOf(request.getParameter("password_valid")) == false) {//case invalid password
         request.getSession().setAttribute("error", "la password non è valida");
         request.getSession().setAttribute("role", "admin");
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisorJSP.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisor.jsp");
         dispatcher.forward(request, response);
       } else if (Boolean.valueOf(request.getParameter("confirm_valid")) == false) {//case invalid password confirm
         request.getSession().setAttribute("error", "le password non corrispondono");
         request.getSession().setAttribute("role", "admin");
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisorJSP.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisor.jsp");
         dispatcher.forward(request, response);
       } else {//case correct parameters
 
@@ -77,7 +77,7 @@ public class AddAdvisorServlet extends HttpServlet {
         if (Advisor_ok == false) {//case is already present
           request.getSession().setAttribute("error", "Consulente già esistente");
           request.getSession().setAttribute("role", "admin");
-          RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisorJSP.jsp");
+          RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisor.jsp");
           dispatcher.forward(request, response);
         } else {//case isn't already present
 
@@ -99,7 +99,7 @@ public class AddAdvisorServlet extends HttpServlet {
           PrintWriter out = response.getWriter();
           out.println("<script type=\"text/javascript\">");
           out.println("alert('Consulente aggiunto con successo');");
-          out.println("location='user/homePageJSP.jsp';");
+          out.println("location='user/homePage.jsp';");
           out.println("</script>");
         }
       }

@@ -43,7 +43,7 @@ public class ConfirmOrderServlet extends HttpServlet {
         request.setAttribute("order", order);
         order.setState(choice);
         orderDao.update(order);
-        request.getRequestDispatcher("/client/orderCheckoutJSP.jsp")
+        request.getRequestDispatcher("/client/orderCheckout.jsp")
             .forward(request, response);
       } else if (choice.equals("Non confermato")) {
         order.setState(choice);
@@ -53,14 +53,14 @@ public class ConfirmOrderServlet extends HttpServlet {
             .forward(request, response);
       } else if (choice.equals("Paga")) {
         request.setAttribute("order", order);
-        request.getRequestDispatcher("/client/orderCheckoutJSP.jsp")
+        request.getRequestDispatcher("/client/orderCheckout.jsp")
             .forward(request, response);
       }
     } catch (ServletException e) {
       Logger logger = Logger.getLogger(
           EstimateManagementClientServlet.class.getName());
       logger.log(Level.SEVERE, e.getMessage());
-      request.getRequestDispatcher("/user/homePageJSP.jsp");
+      request.getRequestDispatcher("/user/homePage.jsp");
     }
   }
 }

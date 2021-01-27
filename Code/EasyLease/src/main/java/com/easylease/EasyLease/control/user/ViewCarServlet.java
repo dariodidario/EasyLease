@@ -26,7 +26,7 @@ public class ViewCarServlet extends HttpServlet {
     Car car;
     car = dao.retrieveByModel(model);
     request.setAttribute("car", car);
-    request.getRequestDispatcher("/user/viewCarJSP.jsp")
+    request.getRequestDispatcher("/user/viewCar.jsp")
         .forward(request, response);
   }
 }

@@ -31,7 +31,7 @@ public class RequestEstimateServlet extends HttpServlet {
 
     String role = (String) request.getSession().getAttribute("role");
     if (role == null || (role != null && !role.equals("client"))) {
-      request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
+      request.getRequestDispatcher("/user/homePage.jsp").forward(request, response);
     }
     else {
       User user = (User) request.getSession().getAttribute("user");
@@ -39,7 +39,7 @@ public class RequestEstimateServlet extends HttpServlet {
       String m = request.getParameter("Mesi");
 
       if (m==null || user == null || carId == null ) {
-        request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
+        request.getRequestDispatcher("/user/homePage.jsp").forward(request, response);
       }
 
       else {
@@ -64,7 +64,7 @@ public class RequestEstimateServlet extends HttpServlet {
 
         DBEstimateDAO.getInstance().insert(estimate);
 
-        request.getRequestDispatcher("/user/homePageJSP.jsp")
+        request.getRequestDispatcher("/user/homePage.jsp")
             .forward(request, response);
       }
     }

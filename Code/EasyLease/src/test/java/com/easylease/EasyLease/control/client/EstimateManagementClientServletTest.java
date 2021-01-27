@@ -78,14 +78,14 @@ class EstimateManagementClientServletTest {
     when(session.getAttribute("user")).thenReturn(client);
     when(request.getParameter("id_estimate")).thenReturn("EShKs85");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/client/estimateManagementClientJSP.jsp");
+    verify(request).getRequestDispatcher("/client/estimateManagementClient.jsp");
   }
 
   @Test
   void estimateManagementClientServletTest_WrongUser_ExceptionThrown() throws ServletException, IOException {
     when(session.getAttribute("user")).thenReturn("ADgjksf");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -94,7 +94,7 @@ class EstimateManagementClientServletTest {
     when(session.getAttribute("user")).thenReturn(client);
     when(request.getParameter("id_estimate")).thenReturn("HHhKs85");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -103,7 +103,7 @@ class EstimateManagementClientServletTest {
     when(session.getAttribute("user")).thenReturn(client);
     when(request.getParameter("id_estimate")).thenReturn("HH");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
 }

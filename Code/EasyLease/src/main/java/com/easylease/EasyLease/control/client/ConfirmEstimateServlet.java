@@ -72,7 +72,7 @@ public class ConfirmEstimateServlet extends HttpServlet {
       Logger logger = Logger.getLogger(
           EstimateManagementClientServlet.class.getName());
       logger.log(Level.SEVERE, e.getMessage());
-      request.getRequestDispatcher("/user/homePageJSP.jsp");
+      request.getRequestDispatcher("/user/homePage.jsp");
     }
   }
 

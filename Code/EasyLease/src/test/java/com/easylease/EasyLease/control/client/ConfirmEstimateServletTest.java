@@ -138,7 +138,7 @@ class ConfirmEstimateServletTest {
     Advisor advisor = advisorDao.retrieveById("ADJdybc");
     when(session.getAttribute("user")).thenReturn(advisor);
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
 
   }
 }

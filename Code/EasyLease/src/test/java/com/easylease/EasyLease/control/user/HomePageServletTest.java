@@ -82,7 +82,7 @@ class HomePageServletTest {
     when(request.getParameter("marca")).thenReturn(null);
     when(request.getParameter("modello")).thenReturn("corsa");
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -91,7 +91,7 @@ class HomePageServletTest {
     when(request.getParameter("marca")).thenReturn("Opel");
     when(request.getParameter("modello")).thenReturn(null);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -101,7 +101,7 @@ class HomePageServletTest {
     when(request.getParameter("marca")).thenReturn(null);
     when(request.getParameter("modello")).thenReturn(null);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -111,7 +111,7 @@ class HomePageServletTest {
     when(request.getParameter("marca")).thenReturn(null);
     when(request.getParameter("modello")).thenReturn(null);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -121,7 +121,7 @@ class HomePageServletTest {
     when(request.getParameter("marca")).thenReturn(null);
     when(request.getParameter("modello")).thenReturn(null);
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
 }

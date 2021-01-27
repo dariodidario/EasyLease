@@ -86,27 +86,27 @@ class HistoryAdvisorClientServletTest {
     when(request.getSession().getAttribute("user")).thenReturn(advisor);
     when(request.getParameter("id_client")).thenReturn("CLEE8BD");
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/advisor/historyAdvisorJSP.jsp");
+    verify(request).getRequestDispatcher("/advisor/historyAdvisor.jsp");
   }
 
   @Test
   void historyAdvisorClientServletTestNullSession() throws ServletException, IOException {
     when(request.getSession()).thenReturn(null);
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
   void historyAdvisorClientServletTestWrongUser() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(new Client());
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
   void historyAdvisorClientServletTestNullUser() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(null);
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 }

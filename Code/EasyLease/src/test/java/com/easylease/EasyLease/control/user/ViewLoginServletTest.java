@@ -101,7 +101,7 @@ public class ViewLoginServletTest {
   void success() throws ServletException, IOException {
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/user/loginJSP.jsp");
+        "/user/login.jsp");
   }
 
 }

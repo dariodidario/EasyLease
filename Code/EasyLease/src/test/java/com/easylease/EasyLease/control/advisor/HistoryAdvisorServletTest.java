@@ -78,21 +78,21 @@ class HistoryAdvisorServletTest {
     when(request.getSession().getAttribute("user")).thenReturn(
         dbAdvisorDAO.retrieveById("ADJdybc"));
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/advisor/historyAdvisorJSP.jsp");
+    verify(request).getRequestDispatcher("/advisor/historyAdvisor.jsp");
   }
 
   @Test
   void wrongUserGiven() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(new Client());
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
   void nullSession() throws ServletException, IOException {
     when(request.getSession()).thenReturn(null);
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
 }

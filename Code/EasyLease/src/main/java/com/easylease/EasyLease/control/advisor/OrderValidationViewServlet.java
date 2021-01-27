@@ -55,15 +55,15 @@ public class OrderValidationViewServlet extends HttpServlet {
         }
 
         request.setAttribute("order", order);
-        request.getRequestDispatcher("/advisor/orderValidationJSP.jsp")
+        request.getRequestDispatcher("/advisor/orderValidation.jsp")
             .forward(request, response);
       } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/user/homePageJSP.jsp")
+        request.getRequestDispatcher("/user/homePage.jsp")
             .forward(request, response);
       }
     } else
-      request.getRequestDispatcher("/user/homePageJSP.jsp")
+      request.getRequestDispatcher("/user/homePage.jsp")
           .forward(request, response);
   }
 }

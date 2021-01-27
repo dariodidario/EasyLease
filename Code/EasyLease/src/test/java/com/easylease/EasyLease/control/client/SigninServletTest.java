@@ -123,7 +123,7 @@ class SigninServletTest {
     when(request.getParameter("street")).thenReturn("Isonzo");
     when(request.getParameter("password")).thenReturn("pass");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
+    verify(request).getRequestDispatcher("/user/login.jsp");
     Client client = clientDao.retrieveByEmail("francesco.torino1999@gmail.com");
     assertEquals(email, client.getEmail());
     clientDao.delete(client);
@@ -142,7 +142,7 @@ class SigninServletTest {
     when(request.getParameter("street")).thenReturn("Isonzo");
     when(request.getParameter("password")).thenReturn("pass");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
+    verify(request).getRequestDispatcher("/user/login.jsp");
   }
 /*
   @Test

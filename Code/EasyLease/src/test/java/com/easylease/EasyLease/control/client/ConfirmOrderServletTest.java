@@ -93,7 +93,7 @@ class ConfirmOrderServletTest {
     when(request.getParameter("choice")).thenReturn("Confermato");
     when(request.getParameter("id_order")).thenReturn("ORhfga2");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/client/orderCheckoutJSP.jsp");
+    verify(request).getRequestDispatcher("/client/orderCheckout.jsp");
 
     //rollback
     Order updatedOrder = orderDao.retrieveById("ORhfga2");
@@ -123,7 +123,7 @@ class ConfirmOrderServletTest {
     when(request.getParameter("choice")).thenReturn("Paga");
     when(request.getParameter("id_order")).thenReturn("ORhfga2");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/client/orderCheckoutJSP.jsp");
+    verify(request).getRequestDispatcher("/client/orderCheckout.jsp");
 
     //rollback
     Order updatedOrder = orderDao.retrieveById("ORhfga2");
@@ -136,7 +136,7 @@ class ConfirmOrderServletTest {
     Advisor advisor = advisorDao.retrieveById("ADJdybc");
     when(session.getAttribute("user")).thenReturn(advisor);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
 }

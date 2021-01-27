@@ -79,14 +79,14 @@ class OrderManagementAdvisorServletTest {
     when(request.getParameter("id_order")).thenReturn("ORlk7Bn");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/advisor/orderManagementAdvisorJSP.jsp");
+        "/advisor/orderManagementAdvisor.jsp");
   }
 
   @Test
   void nullSession() throws ServletException, IOException {
     when(request.getSession()).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -94,7 +94,7 @@ class OrderManagementAdvisorServletTest {
     when(request.getSession().getAttribute("user")).thenReturn(new Client());
     when(request.getParameter("id_order")).thenReturn("ORlk7Bn");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -103,7 +103,7 @@ class OrderManagementAdvisorServletTest {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id_order")).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -112,7 +112,7 @@ class OrderManagementAdvisorServletTest {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id_order")).thenReturn("ORxxxxx");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
 }

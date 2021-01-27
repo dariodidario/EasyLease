@@ -104,6 +104,6 @@ class ResearchServletTest {
     when(request.getParameter("tipologia")).thenReturn(null);
     when(request.getParameter("marca")).thenReturn(null);
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 }

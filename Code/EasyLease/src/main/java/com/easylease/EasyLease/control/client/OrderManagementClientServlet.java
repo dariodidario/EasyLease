@@ -41,13 +41,13 @@ public class OrderManagementClientServlet extends HttpServlet {
       }
       Order order = orderDao.retrieveById(id);
       request.setAttribute("order", order);
-      request.getRequestDispatcher("/client/orderManagementClientJSP.jsp")
+      request.getRequestDispatcher("/client/orderManagementClient.jsp")
           .forward(request, response);
     } catch (ServletException e) {
       Logger logger = Logger.getLogger(
           OrderManagementClientServlet.class.getName());
       logger.log(Level.SEVERE, e.getMessage());
-      request.getRequestDispatcher("/user/homePageJSP.jsp");
+      request.getRequestDispatcher("/user/homePage.jsp");
     }
   }
 }

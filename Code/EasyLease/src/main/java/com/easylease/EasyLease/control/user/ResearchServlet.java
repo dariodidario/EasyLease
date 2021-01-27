@@ -24,7 +24,7 @@ public class ResearchServlet extends HttpServlet {
 
     if ((tipologia == null || (tipologia != null && tipologia.equals("Tipologia")))
         && (marca == null || (marca != null && marca.equals("Marca")))) {
-      request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
+      request.getRequestDispatcher("/user/homePage.jsp").forward(request, response);
     } else {
 
       List<String> output = new ArrayList<>();

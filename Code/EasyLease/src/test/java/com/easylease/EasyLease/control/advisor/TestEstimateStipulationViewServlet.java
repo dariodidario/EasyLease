@@ -87,7 +87,7 @@ class TestEstimateStipulationViewServlet {
     servlet.doPost(request, response);
     assertEquals("Preso in carico", estimate.getState());
     verify(request).getRequestDispatcher(
-        "/advisor/estimateStipulationJSP.jsp");
+        "/advisor/estimateStipulation.jsp");
   }
 
   @Test
@@ -95,14 +95,14 @@ class TestEstimateStipulationViewServlet {
     when(request.getSession().getAttribute("user")).thenReturn(new Advisor());
     when(request.getParameter("id")).thenReturn("ESdnA9G");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
   void nullSession() throws ServletException, IOException {
     when(request.getSession()).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -110,7 +110,7 @@ class TestEstimateStipulationViewServlet {
     when(request.getSession().getAttribute("user")).thenReturn(new Client());
     when(request.getParameter("id")).thenReturn("ESgY65R");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -119,7 +119,7 @@ class TestEstimateStipulationViewServlet {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -128,7 +128,7 @@ class TestEstimateStipulationViewServlet {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn("ESxxxxx");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
 }

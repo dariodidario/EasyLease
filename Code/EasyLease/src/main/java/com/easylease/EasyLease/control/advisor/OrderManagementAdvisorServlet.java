@@ -52,15 +52,15 @@ public class OrderManagementAdvisorServlet extends HttpServlet {
           throw new ServletException("The order doesn't exist");
         }
         request.setAttribute("order", order);
-        request.getRequestDispatcher("/advisor/orderManagementAdvisorJSP.jsp")
+        request.getRequestDispatcher("/advisor/orderManagementAdvisor.jsp")
             .forward(request, response);
       } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/user/homePageJSP.jsp")
+        request.getRequestDispatcher("/user/homePage.jsp")
             .forward(request, response);
       }
     } else
-      request.getRequestDispatcher("/user/homePageJSP.jsp")
+      request.getRequestDispatcher("/user/homePage.jsp")
           .forward(request, response);
   }
 }
