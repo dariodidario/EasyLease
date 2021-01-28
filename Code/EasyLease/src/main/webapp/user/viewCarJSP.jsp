@@ -81,6 +81,12 @@
       height: auto;
     }
   </style>
+  <script type="text/javascript">
+    function confermaDelete() {
+      var richiesta=window.confirm("Sicuro di voler eliminare?");
+      return richiesta;
+    }
+  </script>
 </head>
 <body>
 <%@include file="../fragments/headerJSP.jsp"%>
@@ -220,7 +226,7 @@
           <input type="submit" class="btn btn-primary btn-lg" name="Modifica Auto" value="Modifica">
         </form>
         <br>
-        <form method="POST" action="${pageContext.request.contextPath}/DeleteCarServlet">
+        <form method="POST" action="${pageContext.request.contextPath}/DeleteCarServlet" onsubmit="return confermaDelete()">
           <input type="hidden" name="ID_Delete" value="<%=car.getId()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Elimina Auto" value="Elimina Auto">
         </form>
