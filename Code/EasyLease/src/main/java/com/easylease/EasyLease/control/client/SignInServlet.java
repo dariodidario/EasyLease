@@ -24,6 +24,7 @@ public class SignInServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request,
       HttpServletResponse response)
       throws ServletException, IOException {
+    SimpleDateFormat htmlFormat = new SimpleDateFormat("yyyy-MM-dd");
     Client client = new Client();
     client.setId("CL"+ IdGenerator.randomIdGenerator());
     client.setName(request.getParameter("name"));
@@ -31,8 +32,7 @@ public class SignInServlet extends HttpServlet {
     client.setEmail(request.getParameter("email"));
     client.setBirthPlace(request.getParameter("birthplace"));
     try {
-      client.setBirthDate(new SimpleDateFormat(
-              "dd/MM/yyyy").parse((request.getParameter("birthdate"))));
+      client.setBirthDate(htmlFormat.parse(request.getParameter("birthdate")));
     } catch (ParseException e) {
       e.printStackTrace();
     }
