@@ -2,7 +2,6 @@ package com.easylease.EasyLease.model.advisor;
 
 import com.easylease.EasyLease.control.utility.PasswordHashing;
 import com.easylease.EasyLease.model.DBPool.DBConnection;
-import com.easylease.EasyLease.model.admin.DBAdminDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +21,7 @@ import java.util.logging.Logger;
  * @version 0.5
  */
 public class DBAdvisorDAO implements AdvisorDAO {
-  private static final Logger logger = Logger.getLogger(DBAdminDAO.class.getName());
+  private static final Logger logger = Logger.getLogger(DBAdvisorDAO.class.getName());
   private static DBAdvisorDAO dao;
   private final Connection connection;
 

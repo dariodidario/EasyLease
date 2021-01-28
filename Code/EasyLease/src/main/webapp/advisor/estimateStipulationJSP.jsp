@@ -53,9 +53,8 @@
               }
             %>
             <input type = "hidden" value="<%=estimate.getId()%>", name="id">
-        <button type="submit" class="btn btn-primary mt-3 btn-lg active" role = "button" aria-pressed ="true">
-          Conferma
-        </button>
+        <button type="submit" class="btn btn-primary mt-3 btn-lg active" role = "button" aria-pressed ="true"
+        id="stipulate">Conferma</button>
       </form>
     </div>
   </div>

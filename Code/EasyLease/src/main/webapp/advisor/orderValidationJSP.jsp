@@ -169,10 +169,11 @@
             <div class = "w-2">
             <div class = "mb-3 ms-5">
               <label for = "date" class = "form-label mt-3">Data di ritiro</label>
-              <input type = "date" class= "form-control" id="date" name = "date" min="<%= new Date()%>" required>
+              <input type = "date" class= "form-control" id="date" name = "date" min="<%= new SimpleDateFormat("yyyy-MM-dd").format(new Date())%>" required>
             </div>
             <input type = "hidden" value="<%=order.getId()%>", name="id">
-            <button type="submit" class="btn btn-primary mt-3 btn-lg active" role = "button" aria-pressed ="true">
+              <input type = "hidden" value="<%="true"%>", name="choice">
+            <button type="submit" class="btn btn-primary mt-3 btn-lg active" role = "button" aria-pressed ="true" id="validation">
               Conferma
             </button>
             </div>

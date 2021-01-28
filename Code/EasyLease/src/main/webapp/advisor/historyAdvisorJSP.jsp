@@ -62,7 +62,7 @@
                 <td data-th="Stato"><%=order.getState() %>
                 </td>
                 <td data-th="Visualizza">
-                    <a href="OrderManagementAdvisorServlet?id_order=<%=order.getId()%>"
+                    <a href="OrderManagementAdvisorServlet?id_order=<%=order.getId()%>" id = "<%=order.getId()%>"
                        class="btn btn-primary btn-lg active" role="button" aria-pressed="true">
                         <%= order.getState().equals("Pagato") ? "Convalida" : "Visualizza"%>
                     </a>
@@ -111,7 +111,7 @@
                 <td data-th="Stato"><%=estimate.getState() %>
                 </td>
                 <td data-th="Visualizza">
-                    <a href="EstimateManagementAdvisorServlet?id_estimate=<%=estimate.getId()%>"
+                    <a href="EstimateManagementAdvisorServlet?id_estimate=<%=estimate.getId()%>" id ="<%=estimate.getId()%>"
                        class="btn btn-primary btn-lg active" role="button" aria-pressed="true">
                         <%= estimate.getState().equals("Richiesto") ? "Prendi in carico" : "Visualizza"%>
                     </a>

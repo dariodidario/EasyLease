@@ -77,11 +77,25 @@ class OrderValidationServletTest {
   }
 
   @Test
-  void SuccessOrder() throws ServletException, IOException {
+  void SuccessNotValidationOrder() throws ServletException, IOException {
     Order order = dbOrderDAO.retrieveById("ORd3Jks");
     when(request.getSession().getAttribute("user")).thenReturn(
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn("ORd3Jks");
+    when(request.getParameter("choice")).thenReturn("false");
+    servlet.doPost(request, response);
+    verify(request).getRequestDispatcher(
+        "/advisor/orderManagementAdvisorJSP.jsp");
+    dbOrderDAO.update(order);
+  }
+
+  @Test
+  void SuccessValidationOrder() throws ServletException, IOException {
+    Order order = dbOrderDAO.retrieveById("ORd3Jks");
+    when(request.getSession().getAttribute("user")).thenReturn(
+        dbAdvisorDAO.retrieveById("ADJdybc"));
+    when(request.getParameter("id")).thenReturn("ORd3Jks");
+    when(request.getParameter("choice")).thenReturn("true");
     when(request.getParameter("date")).thenReturn("2021-01-17");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(

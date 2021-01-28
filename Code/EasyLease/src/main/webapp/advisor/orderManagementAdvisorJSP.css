@@ -52,6 +52,11 @@
     margin-top: 5% !important;
 }
 
+#link {
+    color: #f2f2f2 !important;
+    text-decoration: none !important;
+}
+
 .btn-check:active+.btn-primary, .btn-check:checked+.btn-primary,
 .btn-primary.active, .btn-primary:active, .show>.btn-primary.dropdown-toggle{
     background-color: #9B334E !important;

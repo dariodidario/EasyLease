@@ -3,7 +3,6 @@ package com.easylease.EasyLease.control.advisor;
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
 import com.easylease.EasyLease.model.estimate.Estimate;
-
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * This Servlet has the task to showing an estimate at the Advisor.
+ *
  * @author Caprio Mattia
  * @version 0.6
  * @since 0.1
@@ -63,9 +64,10 @@ public class EstimateManagementAdvisorServlet extends HttpServlet {
         request.getRequestDispatcher("/user/homePageJSP.jsp")
             .forward(request, response);
       }
-    } else
+    } else {
       request.getRequestDispatcher("/user/homePageJSP.jsp")
           .forward(request, response);
+    }
   }
 
   private synchronized Estimate checkestimate(
