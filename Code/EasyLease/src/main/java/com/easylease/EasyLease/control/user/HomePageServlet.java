@@ -42,7 +42,7 @@ public class HomePageServlet extends HttpServlet {
       carList = DBCarDAO.getInstance().retrieveAll();
     }
     carList.removeIf(c -> !c.getVisibility());
-    request.setAttribute("carList", carList);
+    request.getSession().setAttribute("carList", carList);
     request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
   }
 }
