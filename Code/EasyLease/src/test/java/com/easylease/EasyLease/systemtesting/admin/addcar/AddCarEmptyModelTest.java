@@ -1,8 +1,16 @@
 package com.easylease.EasyLease.systemtesting.admin.addcar;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.mysql.cj.jdbc.MysqlDataSource;
-import org.junit.jupiter.api.*;
+import java.io.File;
+import java.util.concurrent.TimeUnit;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
@@ -10,11 +18,13 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import java.io.File;
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.jupiter.api.Assertions.fail;
-
+/**
+ * System Test that tests the functionality of Add Car with no value entered for
+ * the "Model" input.
+ *
+ * @version 0.1
+ * @author Sarro Antonio
+ */
 public class AddCarEmptyModelTest {
   private WebDriver driver;
   private static DBConnection dbConnection;
@@ -35,6 +45,11 @@ public class AddCarEmptyModelTest {
     dbConnection.setDataSource(mysqlDataSource);
   }
 
+  /**
+   * Instantiation of the connection to the DB and of the webdriver for selenium.
+   *
+   * @throws Exception of db
+   */
   @BeforeEach
   public void setUp() throws Exception {
     dbConnection.getConnection().setAutoCommit(false);
@@ -107,6 +122,11 @@ public class AddCarEmptyModelTest {
     driver.findElement(By.linkText("Logout")).click();
   }
 
+  /**
+   * Rollback of the DB.
+   *
+   * @throws Exception of db
+   */
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();

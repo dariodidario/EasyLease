@@ -32,7 +32,7 @@ public class MonthChecker implements Runnable {
           orderDAO.delete(order);
         }
       });
-      Logger.getLogger(DailyChecker.class.getName())
+      Logger.getLogger(MonthChecker.class.getName())
           .log(Level.INFO,
               "Monthly: Controllo sugli Order (Non confermato) effettuato!");
     }
@@ -50,7 +50,7 @@ public class MonthChecker implements Runnable {
           orderDAO.delete(order);
         }
       });
-      Logger.getLogger(DailyChecker.class.getName())
+      Logger.getLogger(MonthChecker.class.getName())
           .log(Level.INFO,
               "Monthly: Controllo sugli Order (Non pagato) effettuato!");
     }
@@ -68,7 +68,7 @@ public class MonthChecker implements Runnable {
           estimateDAO.delete(estimate);
         }
       });
-      Logger.getLogger(DailyChecker.class.getName())
+      Logger.getLogger(MonthChecker.class.getName())
           .log(Level.INFO,
               "Monthly: Controllo sugli Estimate (Non Confermato) effettuato!");
     }

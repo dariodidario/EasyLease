@@ -1,12 +1,14 @@
 package com.easylease.EasyLease.systemtesting.admin.addadvisor;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import com.easylease.EasyLease.model.DBPool.DBConnection;
-import com.easylease.EasyLease.model.advisor.AdvisorDAO;
-import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
 import com.mysql.cj.jdbc.MysqlDataSource;
+import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
@@ -15,10 +17,13 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.jupiter.api.Assertions.fail;
-
+/**
+ * System Test that tests the functionality of Add Advisor having all the values
+ * but the hiring date is after today's day.
+ *
+ * @version 0.1
+ * @author Sarro Antonio
+ */
 public class AddAdvisorWrongDateTest {
   private WebDriver driver;
   private static DBConnection dbConnection;
@@ -39,6 +44,11 @@ public class AddAdvisorWrongDateTest {
     dbConnection.setDataSource(mysqlDataSource);
   }
 
+  /**
+   * Instantiation of the connection to the DB and of the webdriver for selenium.
+   *
+   * @throws Exception of db
+   */
   @BeforeEach
   public void setUp() throws Exception {
     dbConnection.getConnection().setAutoCommit(false);
@@ -53,7 +63,8 @@ public class AddAdvisorWrongDateTest {
   }
 
   @Test
-  public void testUntitledTestCase() throws Exception {
+  @DisplayName("ST_ADMIN_3_04")
+  public void testAddAdvisorWrongDate() throws Exception {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
     driver.findElement(By.linkText("Login")).click();
     driver.findElement(By.id("email")).click();
@@ -90,6 +101,11 @@ public class AddAdvisorWrongDateTest {
     driver.findElement(By.linkText("Logout")).click();
   }
 
+  /**
+   * Rollback of the DB.
+   *
+   * @throws Exception of db
+   */
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
