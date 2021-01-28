@@ -1,10 +1,8 @@
 package com.easylease.EasyLease.control.client;
 
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.client.DBClientDAO;
 import com.easylease.EasyLease.model.order.DBOrderDAO;
 import com.easylease.EasyLease.model.order.Order;
-
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

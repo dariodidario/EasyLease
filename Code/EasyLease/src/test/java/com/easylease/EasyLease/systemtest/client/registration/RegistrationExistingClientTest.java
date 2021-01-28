@@ -1,10 +1,5 @@
 package com.easylease.EasyLease.systemtest.client.registration;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
-import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.client.ClientDAO;
-import com.easylease.EasyLease.model.client.DBClientDAO;
-import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,29 +17,18 @@ public class RegistrationExistingClientTest {
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
-  private DBConnection dbConnection;
 
   @BeforeEach()
   public void setUp() throws Exception {
-    System.setProperty("webdriver.edge.driver","src/driver/msedgedriver.exe");
+    System.setProperty("webdriver.edge.driver", "src/driver/msedgedriver.exe");
     driver = new EdgeDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    dbConnection = DBConnection.getInstance();
-    MysqlDataSource mysqlDataSource = new MysqlDataSource();
-    mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
-    mysqlDataSource.setUser("root");
-    mysqlDataSource.setPassword("root");
-    mysqlDataSource.setServerTimezone("UTC");
-    mysqlDataSource.setVerifyServerCertificate(false);
-    mysqlDataSource.setUseSSL(false);
-    dbConnection.setDataSource(mysqlDataSource);
-    dbConnection.getConnection().setAutoCommit(false);
   }
 
   @Test
   @DisplayName("ST_NRUSER_1_03")
-  public void testRegistrationExsistingClient(){
+  public void testRegistrationExsistingClient() throws InterruptedException {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
     driver.findElement(By.linkText("Registrati")).click();
     driver.findElement(By.id("nome")).clear();
@@ -60,14 +44,15 @@ public class RegistrationExistingClientTest {
     driver.findElement(By.id("bp")).clear();
     driver.findElement(By.id("bp")).sendKeys("Caserta");
     driver.findElement(By.id("bd")).clear();
-    driver.findElement(By.id("bd")).sendKeys("1997-05-04");
+    driver.findElement(By.id("bd")).sendKeys("04-05-1997");
     driver.findElement(By.id("city")).clear();
     driver.findElement(By.id("city")).sendKeys("Caserta");
     driver.findElement(By.id("cap")).clear();
     driver.findElement(By.id("cap")).sendKeys("81050");
     driver.findElement(By.id("street")).clear();
     driver.findElement(By.id("street")).sendKeys("Corso Umberto 3");
-    driver.findElement(By.xpath("//div[@id='divCont']/form/div[11]/label")).click();
+    driver.findElement(By.xpath("//div[@id='divCont']/form/div[11]/label"))
+        .click();
     driver.findElement(By.xpath("//button[@type='submit']")).click();
   }
 
@@ -78,7 +63,5 @@ public class RegistrationExistingClientTest {
     if (!"".equals(verificationErrorString)) {
       fail(verificationErrorString);
     }
-    dbConnection.getConnection().rollback();
-    dbConnection.getConnection().setAutoCommit(true);
-  }
+ }
 }

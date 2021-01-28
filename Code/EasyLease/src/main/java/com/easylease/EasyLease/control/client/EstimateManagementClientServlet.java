@@ -4,7 +4,6 @@ import com.easylease.EasyLease.model.client.Client;
 import com.easylease.EasyLease.model.client.DBClientDAO;
 import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
 import com.easylease.EasyLease.model.estimate.Estimate;
-
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +18,6 @@ import javax.servlet.http.HttpSession;
     urlPatterns = "/EstimateManagementClientServlet")
 public class EstimateManagementClientServlet extends HttpServlet {
   private final DBEstimateDAO estimateDao = (DBEstimateDAO) DBEstimateDAO.getInstance();
-  private final DBClientDAO clDao = (DBClientDAO) DBClientDAO.getInstance();
 
   protected void doPost(
       HttpServletRequest request,
