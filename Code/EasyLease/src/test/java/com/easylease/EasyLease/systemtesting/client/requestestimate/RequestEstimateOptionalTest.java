@@ -3,7 +3,6 @@ package com.easylease.EasyLease.systemtesting.client.requestestimate;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
@@ -11,14 +10,14 @@ import com.easylease.EasyLease.model.estimate.Estimate;
 import com.easylease.EasyLease.model.estimate.EstimateDAO;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
 public class RequestEstimateOptionalTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
   private static DBConnection dbConnection;
   private static EstimateDAO estimateDao;
   private static List<Estimate> estimateList;
@@ -41,7 +40,8 @@ public class RequestEstimateOptionalTest {
 
   @BeforeEach()
   public void setUp() throws Exception {
-    System.setProperty("webdriver.edge.driver", "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
+    System.setProperty("webdriver.edge.driver",
+        "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
     driver = new EdgeDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -81,9 +81,5 @@ public class RequestEstimateOptionalTest {
       }
     }
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
   }
 }

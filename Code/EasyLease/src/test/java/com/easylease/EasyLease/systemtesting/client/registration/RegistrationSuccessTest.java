@@ -20,7 +20,6 @@ public class RegistrationSuccessTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
   private static DBConnection dbConnection;
   private static ClientDAO clientDao;
   private static List<Client> clientList;
@@ -44,7 +43,8 @@ public class RegistrationSuccessTest {
 
   @BeforeEach()
   public void setUp() throws Exception {
-    System.setProperty("webdriver.edge.driver","src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
+    System.setProperty("webdriver.edge.driver",
+        "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
     driver = new EdgeDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -85,19 +85,15 @@ public class RegistrationSuccessTest {
     updatedClients = clientDao.retrieveAll();
     for (Client item : updatedClients) {
       boolean found = false;
-      for(Client item2 : clientList){
+      for (Client item2 : clientList) {
         if (!found && item.getId().equals(item2.getId())) {
           found = true;
         }
       }
-      if(!found){
+      if (!found) {
         clientDao.delete(item);
       }
     }
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
   }
 }

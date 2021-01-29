@@ -16,11 +16,11 @@ public class RegistrationPasswordTooShortTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
 
   @BeforeEach()
   public void setUp() throws Exception {
-    System.setProperty("webdriver.edge.driver","src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
+    System.setProperty("webdriver.edge.driver",
+        "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
     driver = new EdgeDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -51,16 +51,13 @@ public class RegistrationPasswordTooShortTest {
     driver.findElement(By.id("cap")).sendKeys("81050");
     driver.findElement(By.id("street")).clear();
     driver.findElement(By.id("street")).sendKeys("Corso Umberto 3");
-    driver.findElement(By.xpath("//div[@id='divCont']/form/div[11]/label")).click();
+    driver.findElement(By.xpath("//div[@id='divCont']/form/div[11]/label"))
+        .click();
     driver.findElement(By.xpath("//button[@type='submit']")).click();
   }
 
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
   }
 }

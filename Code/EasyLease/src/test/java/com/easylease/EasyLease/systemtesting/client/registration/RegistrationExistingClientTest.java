@@ -21,7 +21,6 @@ public class RegistrationExistingClientTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
   private static DBConnection dbConnection;
   private static ClientDAO clientDao;
   private static Client client = new Client();
@@ -58,7 +57,8 @@ public class RegistrationExistingClientTest {
 
   @BeforeEach()
   public void setUp() throws Exception {
-    System.setProperty("webdriver.edge.driver", "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
+    System.setProperty("webdriver.edge.driver",
+        "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
     driver = new EdgeDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -98,9 +98,5 @@ public class RegistrationExistingClientTest {
   public void tearDown() throws Exception {
     clientDao.delete(client);
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
- }
+  }
 }
