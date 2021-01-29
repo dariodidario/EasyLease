@@ -1,4 +1,4 @@
-package com.easylease.EasyLease.systemtest.client.requestestimate;
+package com.easylease.EasyLease.systemtesting.client.requestestimate;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -41,7 +41,7 @@ public class RequestEstimateOptionalTest {
 
   @BeforeEach()
   public void setUp() throws Exception {
-    System.setProperty("webdriver.edge.driver", "src/driver/msedgedriver.exe");
+    System.setProperty("webdriver.edge.driver", "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
     driver = new EdgeDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);

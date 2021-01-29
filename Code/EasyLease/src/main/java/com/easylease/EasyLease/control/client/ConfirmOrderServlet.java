@@ -55,7 +55,7 @@ public class ConfirmOrderServlet extends HttpServlet {
       }
     } catch (ServletException e) {
       Logger logger = Logger.getLogger(
-          EstimateManagementClientServlet.class.getName());
+          ConfirmOrderServlet.class.getName());
       logger.log(Level.SEVERE, e.getMessage());
       request.getRequestDispatcher("/user/homePageJSP.jsp");
     }

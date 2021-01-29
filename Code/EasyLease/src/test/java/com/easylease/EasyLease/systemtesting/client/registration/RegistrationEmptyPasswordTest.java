@@ -1,4 +1,4 @@
-package com.easylease.EasyLease.systemtest.client.registration;
+package com.easylease.EasyLease.systemtesting.client.registration;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class RegistrationWrongEmailTest {
+public class RegistrationEmptyPasswordTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -20,15 +20,15 @@ public class RegistrationWrongEmailTest {
 
   @BeforeEach()
   public void setUp() throws Exception {
-    System.setProperty("webdriver.edge.driver", "src/driver/msedgedriver.exe");
+    System.setProperty("webdriver.edge.driver", "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
     driver = new EdgeDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
-  @DisplayName("ST_NRUSER_1_02")
-  public void testRegistrationWrongEmail() throws Exception {
+  @DisplayName("ST_NRUSER_1_18")
+  public void testRegistrationEmptyPassword() throws Exception {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
     driver.findElement(By.linkText("Registrati")).click();
     driver.findElement(By.id("nome")).clear();
@@ -36,11 +36,9 @@ public class RegistrationWrongEmailTest {
     driver.findElement(By.id("cognome")).clear();
     driver.findElement(By.id("cognome")).sendKeys("Rossi");
     driver.findElement(By.id("email")).clear();
-    driver.findElement(By.id("email")).sendKeys("rossiPaolo@gmail@com");
-    driver.findElement(By.id("password")).clear();
-    driver.findElement(By.id("password")).sendKeys("PaoloRossi97");
+    driver.findElement(By.id("email")).sendKeys("rossiPaolo@gmail.com");
     driver.findElement(By.id("conferma")).clear();
-    driver.findElement(By.id("conferma")).sendKeys("PaoloRossi97");
+    driver.findElement(By.id("conferma")).sendKeys("Pass");
     driver.findElement(By.id("bp")).clear();
     driver.findElement(By.id("bp")).sendKeys("Caserta");
     driver.findElement(By.id("bd")).clear();
@@ -64,5 +62,4 @@ public class RegistrationWrongEmailTest {
       fail(verificationErrorString);
     }
   }
-
 }

@@ -1,4 +1,4 @@
-package com.easylease.EasyLease.systemtest.client.registration;
+package com.easylease.EasyLease.systemtesting.client.registration;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class RegistrationWrongPcTest {
+public class RegistrationWrongNameTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -20,19 +20,19 @@ public class RegistrationWrongPcTest {
 
   @BeforeEach()
   public void setUp() throws Exception {
-    System.setProperty("webdriver.edge.driver", "src/driver/msedgedriver.exe");
+    System.setProperty("webdriver.edge.driver", "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
     driver = new EdgeDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
-  @DisplayName("ST_NRUSER_1_17")
-  public void testRegistrationWrongPC() throws Exception {
+  @DisplayName("ST_NRUSER_1_05")
+  public void testRegistrationWrongName() throws Exception {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
     driver.findElement(By.linkText("Registrati")).click();
     driver.findElement(By.id("nome")).clear();
-    driver.findElement(By.id("nome")).sendKeys("Paolo");
+    driver.findElement(By.id("nome")).sendKeys("Paol9");
     driver.findElement(By.id("cognome")).clear();
     driver.findElement(By.id("cognome")).sendKeys("Rossi");
     driver.findElement(By.id("email")).clear();
@@ -48,7 +48,7 @@ public class RegistrationWrongPcTest {
     driver.findElement(By.id("city")).clear();
     driver.findElement(By.id("city")).sendKeys("Caserta");
     driver.findElement(By.id("cap")).clear();
-    driver.findElement(By.id("cap")).sendKeys("AB123");
+    driver.findElement(By.id("cap")).sendKeys("81050");
     driver.findElement(By.id("street")).clear();
     driver.findElement(By.id("street")).sendKeys("Corso Umberto 3");
     driver.findElement(By.xpath("//div[@id='divCont']/form/div[11]/label"))

@@ -1,4 +1,4 @@
-package com.easylease.EasyLease.systemtest.client.registration;
+package com.easylease.EasyLease.systemtesting.client.registration;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class RegistrationWrongBirthPlaceTest {
+public class RegistrationEmptyCityTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -20,15 +20,15 @@ public class RegistrationWrongBirthPlaceTest {
 
   @BeforeEach()
   public void setUp() throws Exception {
-    System.setProperty("webdriver.edge.driver", "src/driver/msedgedriver.exe");
+    System.setProperty("webdriver.edge.driver", "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
     driver = new EdgeDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
-  @DisplayName("ST_NRUSER_1_11")
-  public void testRegistrationWrongBirthPlace() throws Exception {
+  @DisplayName("ST_NRUSER_1_12")
+  public void testRegistrationEmptyCity() throws Exception {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
     driver.findElement(By.linkText("Registrati")).click();
     driver.findElement(By.id("nome")).clear();
@@ -42,11 +42,9 @@ public class RegistrationWrongBirthPlaceTest {
     driver.findElement(By.id("conferma")).clear();
     driver.findElement(By.id("conferma")).sendKeys("PaoloRossi97");
     driver.findElement(By.id("bp")).clear();
-    driver.findElement(By.id("bp")).sendKeys("Caserta3");
+    driver.findElement(By.id("bp")).sendKeys("Caserta");
     driver.findElement(By.id("bd")).clear();
     driver.findElement(By.id("bd")).sendKeys("04-05-1997");
-    driver.findElement(By.id("city")).clear();
-    driver.findElement(By.id("city")).sendKeys("Caserta");
     driver.findElement(By.id("cap")).clear();
     driver.findElement(By.id("cap")).sendKeys("81050");
     driver.findElement(By.id("street")).clear();

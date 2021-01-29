@@ -92,7 +92,7 @@ public class HistoryClientServlet extends HttpServlet {
       }
     } catch (ServletException e) {
       Logger logger = Logger.getLogger(
-          EstimateManagementClientServlet.class.getName());
+          HistoryClientServlet.class.getName());
       logger.log(Level.SEVERE, e.getMessage());
       request.getRequestDispatcher("/user/homePageJSP.jsp");
     }

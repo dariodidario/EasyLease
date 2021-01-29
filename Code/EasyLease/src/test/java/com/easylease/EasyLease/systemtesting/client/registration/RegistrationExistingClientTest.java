@@ -1,4 +1,4 @@
-package com.easylease.EasyLease.systemtest.client.registration;
+package com.easylease.EasyLease.systemtesting.client.registration;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class RegistrationEmptyConfirmPolicy {
+public class RegistrationExistingClientTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -20,15 +20,15 @@ public class RegistrationEmptyConfirmPolicy {
 
   @BeforeEach()
   public void setUp() throws Exception {
-    System.setProperty("webdriver.edge.driver", "src/driver/msedgedriver.exe");
+    System.setProperty("webdriver.edge.driver", "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
     driver = new EdgeDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
-  @DisplayName("ST_NRUSER_1_25")
-  public void testRegistrationEmptyConfirmPolicy() throws Exception {
+  @DisplayName("ST_NRUSER_1_03")
+  public void testRegistrationExsistingClient() throws InterruptedException {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
     driver.findElement(By.linkText("Registrati")).click();
     driver.findElement(By.id("nome")).clear();
@@ -51,6 +51,8 @@ public class RegistrationEmptyConfirmPolicy {
     driver.findElement(By.id("cap")).sendKeys("81050");
     driver.findElement(By.id("street")).clear();
     driver.findElement(By.id("street")).sendKeys("Corso Umberto 3");
+    driver.findElement(By.xpath("//div[@id='divCont']/form/div[11]/label"))
+        .click();
     driver.findElement(By.xpath("//button[@type='submit']")).click();
   }
 
@@ -61,5 +63,5 @@ public class RegistrationEmptyConfirmPolicy {
     if (!"".equals(verificationErrorString)) {
       fail(verificationErrorString);
     }
-  }
+ }
 }

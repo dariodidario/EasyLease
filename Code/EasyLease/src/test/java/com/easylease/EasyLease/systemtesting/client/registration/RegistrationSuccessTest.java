@@ -1,4 +1,4 @@
-package com.easylease.EasyLease.systemtest.client.registration;
+package com.easylease.EasyLease.systemtesting.client.registration;
 
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.client.Client;
@@ -44,7 +44,7 @@ public class RegistrationSuccessTest {
 
   @BeforeEach()
   public void setUp() throws Exception {
-    System.setProperty("webdriver.edge.driver","src/driver/msedgedriver.exe");
+    System.setProperty("webdriver.edge.driver","src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
     driver = new EdgeDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
