@@ -83,8 +83,7 @@
   </style>
   <script type="text/javascript">
     function confermaDelete() {
-      var richiesta=window.confirm("Sicuro di voler eliminare?");
-      return richiesta;
+      return window.confirm("Sicuro di voler eliminare?");
     }
   </script>
 </head>
