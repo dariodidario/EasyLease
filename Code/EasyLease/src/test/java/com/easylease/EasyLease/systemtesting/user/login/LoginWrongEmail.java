@@ -10,14 +10,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
-import static org.junit.jupiter.api.Assertions.fail;
 /**
  * System Test that tests the functionality of login having a wrong value of email
  * entered.
  *
  * @author Caprio Mattia
  * @since 0.1
- * @version 0.1
+ * @version 0.2
  */
 public class LoginWrongEmail {
   private WebDriver driver;
@@ -51,9 +50,5 @@ public class LoginWrongEmail {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
   }
 }

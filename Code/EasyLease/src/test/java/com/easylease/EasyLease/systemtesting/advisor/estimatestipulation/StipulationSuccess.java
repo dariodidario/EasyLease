@@ -12,12 +12,11 @@ import org.openqa.selenium.edge.EdgeDriver;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.fail;
 /**
  * @author Caprio Mattia
  *
  * @since 0.1
- * @version 0.1
+ * @version 0.2
  */
 public class StipulationSuccess {
   private WebDriver driver;
@@ -92,9 +91,5 @@ public class StipulationSuccess {
   public void tearDown() throws Exception {
     DBEstimateDAO.getInstance().update(estimate);
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
   }
 }

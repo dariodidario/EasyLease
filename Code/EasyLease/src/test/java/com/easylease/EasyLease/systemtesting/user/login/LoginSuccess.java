@@ -10,13 +10,12 @@ import org.openqa.selenium.edge.EdgeDriver;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.fail;
 /**
  * System Test that tests the functionality of login having all the values.
  *
  * @author Caprio Mattia
  * @since 0.1
- * @version 0.1
+ * @version 0.2
  */
 public class LoginSuccess {
   private WebDriver driver;
@@ -52,9 +51,5 @@ public class LoginSuccess {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
   }
 }

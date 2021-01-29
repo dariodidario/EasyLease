@@ -9,17 +9,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.fail;
 /**
  * System Test that tests the functionality of validation of an order
  * having a 0 value of the first field.
  *
  * @author Caprio Mattia
  * @since 0.1
- * @version 0.1
+ * @version 0.2
  */
 public class StipulationZeroFirst {
   private WebDriver driver;
@@ -78,9 +76,5 @@ public class StipulationZeroFirst {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
   }
 }

@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Caprio Mattia
  * @since 0.1
- * @version 0.1
+ * @version 0.2
  */
 public class LoginEmptyPassword {
   private WebDriver driver;
@@ -49,9 +49,5 @@ public class LoginEmptyPassword {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
   }
 }

@@ -9,16 +9,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.fail;
 /**
  * System Test that tests the functionality of validation of an order.
  *
  * @author Caprio Mattia
  * @since 0.1
- * @version 0.1
+ * @version 0.2
  */
 public class ValidationSuccess {
   private WebDriver driver;
@@ -89,9 +87,5 @@ public class ValidationSuccess {
   public void tearDown() throws Exception {
     DBOrderDAO.getInstance().update(order);
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
   }
 }
