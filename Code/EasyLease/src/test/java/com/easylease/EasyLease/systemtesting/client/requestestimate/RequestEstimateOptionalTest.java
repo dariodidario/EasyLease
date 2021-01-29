@@ -48,7 +48,7 @@ public class RequestEstimateOptionalTest {
   }
 
   @Test
-  @DisplayName("ST_CLIENT_5_01")
+  @DisplayName("ST_CLIENT_1_01")
   public void RequestEstimate_Optional() throws Exception {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
     driver.findElement(By.linkText("Login")).click();
