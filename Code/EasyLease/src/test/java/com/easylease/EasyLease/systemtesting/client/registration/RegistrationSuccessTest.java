@@ -83,8 +83,6 @@ public class RegistrationSuccessTest {
   @AfterEach
   public void tearDown() throws Exception {
     updatedClients = clientDao.retrieveAll();
-    System.out.println(clientList.size());
-    System.out.println(updatedClients.size());
     for (Client item : updatedClients) {
       boolean found = false;
       for(Client item2 : clientList){

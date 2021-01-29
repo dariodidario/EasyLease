@@ -1,13 +1,18 @@
 package com.easylease.EasyLease.systemtesting.client.registration;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.client.Client;
+import com.easylease.EasyLease.model.client.ClientDAO;
+import com.easylease.EasyLease.model.client.DBClientDAO;
+import com.mysql.cj.jdbc.MysqlDataSource;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.fail;
@@ -17,6 +22,39 @@ public class RegistrationExistingClientTest {
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
+  private static DBConnection dbConnection;
+  private static ClientDAO clientDao;
+  private static Client client = new Client();
+
+  @BeforeAll
+  static void init() throws Exception {
+    dbConnection = DBConnection.getInstance();
+    MysqlDataSource mysqlDataSource = new MysqlDataSource();
+    mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
+    mysqlDataSource.setUser("root");
+    mysqlDataSource.setPassword("root");
+    mysqlDataSource.setServerTimezone("UTC");
+    mysqlDataSource.setVerifyServerCertificate(false);
+    mysqlDataSource.setUseSSL(false);
+    dbConnection.setDataSource(mysqlDataSource);
+    dbConnection.getConnection().setAutoCommit(false);
+    clientDao = DBClientDAO.getInstance();
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String dateInString = "1997-04-05";
+    Date date = sdf.parse(dateInString);
+    String password = "PaoloRossi97";
+    client.setId("CLAB123");
+    client.setName("Paolo");
+    client.setSurname("Rossi");
+    client.setEmail("rossiPaolo@gmail.com");
+    client.setPc("81050");
+    client.setStreet("Corso Umberto 3");
+    client.setCity("Caserta");
+    client.setKind("Uomo");
+    client.setBirthPlace("Caserta");
+    client.setBirthDate(date);
+    clientDao.insert(client, password);
+  }
 
   @BeforeEach()
   public void setUp() throws Exception {
@@ -58,6 +96,7 @@ public class RegistrationExistingClientTest {
 
   @AfterEach
   public void tearDown() throws Exception {
+    clientDao.delete(client);
     driver.quit();
     String verificationErrorString = verificationErrors.toString();
     if (!"".equals(verificationErrorString)) {
