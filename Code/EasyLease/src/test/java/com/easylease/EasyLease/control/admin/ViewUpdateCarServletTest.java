@@ -1,10 +1,13 @@
 package com.easylease.EasyLease.control.admin;
 
+import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.admin.Admin;
-import com.easylease.EasyLease.model.car.Car;
 import com.easylease.EasyLease.model.car.CarDAO;
+import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockitoAnnotations;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -13,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import static org.junit.jupiter.api.Assertions.*;
+import java.sql.SQLException;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -27,10 +30,11 @@ class ViewUpdateCarServletTest {
     private ServletContext context;
     private ServletConfig config;
     private CarDAO carDAO;
+    private static DBConnection dbConnection;
 
     @BeforeEach
-    public void setUp() throws IOException, ServletException {
-
+    public void setUp() throws IOException, ServletException, SQLException {
+        MockitoAnnotations.openMocks(this);
         servlet = new ViewUpdateCarServlet();
         config =mock(ServletConfig.class);
         servlet.init(config);
@@ -39,7 +43,17 @@ class ViewUpdateCarServletTest {
         session= mock(HttpSession.class);
         context =mock(ServletContext.class);
         dispatcher= mock(RequestDispatcher.class);
-        carDAO=mock(CarDAO.class);
+        dbConnection = DBConnection.getInstance();
+        MysqlDataSource mysqlDataSource = new MysqlDataSource();
+        mysqlDataSource.setURL("jdbc:mysql://127.0.0.1:3306/easylease");
+        mysqlDataSource.setUser("root");
+        mysqlDataSource.setPassword("2935Michele");
+        mysqlDataSource.setServerTimezone("UTC");
+        mysqlDataSource.setVerifyServerCertificate(false);
+        mysqlDataSource.setUseSSL(false);
+
+        dbConnection.setDataSource(mysqlDataSource);
+        carDAO= DBCarDAO.getInstance();
         when(request.getSession()).thenReturn(session);
         when(servlet.getServletContext()).thenReturn(context);
         when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
@@ -82,20 +96,13 @@ class ViewUpdateCarServletTest {
 
     @Test
     void doGet() throws ServletException, IOException {
-        servlet=mock(ViewUpdateCarServlet.class);
         when(request.getSession().getAttribute("role")).thenReturn("admin");
         when(request.getParameter("Car_id")).thenReturn("CA0EUZR");
-        when(carDAO.retrieveById(any())).thenReturn(new Car("ca11111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
-        Admin admin=new Admin("1234567", "Antonio", "Sarro",
+       Admin admin=new Admin("1234567", "Antonio", "Sarro",
                 "test@gmail.com", "recovery@gmail.com");
         when(request.getSession().getAttribute("user")).thenReturn(admin);
 
         servlet.doGet(request,response);
-        verify(servlet).doGet(request,response);
-        assertAll(
-                ()->assertEquals("admin",request.getSession().getAttribute("role")),
-                ()->assertEquals(admin,request.getSession().getAttribute("user")));
+        verify(context).getRequestDispatcher("/admin/updateCarJSP.jsp");
     }
 }

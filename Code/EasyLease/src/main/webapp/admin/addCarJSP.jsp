@@ -38,9 +38,9 @@
   <div id="divAutoName">
     <label class="autoName">Marca:</label>
 
-    <input type="text"  class="autoName" id="brand" name="brand" placeholder="es.(ferrari)" list="autoBrand" required>
+    <input type="text"  class="autoName" id="brand" name="brand" placeholder="es.(ferrari)" list="autoBrand" pattern="/^[A-Za-z0-9àèéìòù]+$/" required>
     <label class="autoName">Modello:</label>
-    <input class="autoName" type="text" id="model" name="model" placeholder="es.(california)"  required>
+    <input class="autoName" type="text" id="model" name="model" placeholder="es.(california)" pattern="/^[A-Za-z0-9àèéìòù]+$/"  required>
   </div>
 
 
@@ -59,51 +59,51 @@
     <tr><td colspan="3" align="center"><label class="detailTitle"> Caratteristiche</label></td></tr>
     <tr>
       <td><label class="carDetail">Tipologia</label></td>
-      <td><input class="carDetail" type="text" min="0" id="car_type" name="car_type" list="autoTipologia" required></td>
+      <td><input class="carDetail" type="text"  id="car_type" name="car_type" list="autoTipologia" pattern="/^[a-zA-Z]+$/" required></td>
     </tr>
     <tr>
       <td><label class="carDetail">Porte</label></td>
-      <td><input class="carDetail" type="number" min="0" id="doors" name="doors" list="autoPorte" required></td>
+      <td><input class="carDetail" type="number" min="1" id="doors" name="doors" list="autoPorte" required></td>
     </tr>
     <tr>
       <td><label class="carDetail">Cambio</label></td>
-      <td><input class="carDetail" type="text" id="transmission" name="transmission" list="autoCambio" required></td>
+      <td><input class="carDetail" type="text" id="transmission" name="transmission" list="autoCambio" pattern="/^[a-zA-Z]+$/" required></td>
     </tr>
     <tr>
       <td><label class="carDetail">Consumo medio</label></td>
-      <td><input class="carDetail" type="number" min="0" step="0.01" id="avg_consumption" name="avg_consumption" placeholder="es.(3.9)" required>
+      <td><input class="carDetail" type="number" min="1" step="0.01" id="avg_consumption" name="avg_consumption" placeholder="es.(3.9)" required>
         <label class="carDetail">L/100km</label>
       </td>
     </tr>
     <tr>
       <td><label class="carDetail">Cavalli</label></td>
-      <td><input class="carDetail" type="number" min="0" id="horses" name="horse_power" placeholder="es.(130)" required>
+      <td><input class="carDetail" type="number" min="1" id="horses" name="horse_power" placeholder="es.(130)" required>
         <label class="carDetail">CV</label>
       </td>
     </tr>
     <tr>
       <td><label class="carDetail">CO&sup2;</label></td>
-      <td><input class="carDetail" type="text" id="emission_class" name="emission_class" list="Emision_class" required></td>
+      <td><input class="carDetail" type="text" id="emission_class" name="emission_class" list="Emision_class" placeholder="es.(Euro 6)" pattern="/^Euro [1-6]{1}$/"  required></td>
     </tr>
     <tr>
       <td><label class="carDetail">Emissioni di CO&sup2;</label></td>
-      <td><input class="carDetail" type="number" min="0" id="co2_emissions" name="co2_emissions" placeholder="es.(104)" required>
+      <td><input class="carDetail" type="number" min="1" id="co2_emissions" name="co2_emissions" placeholder="es.(104)" required>
         <label class="carDetail">g/km</label>
       </td>
     </tr>
     <tr>
       <td><label class="carDetail">Alimentazione</label></td>
-      <td><input class="carDetail" type="text" id="power_supply" name="power_supply" list="autoPower" required></td>
+      <td><input class="carDetail" type="text" id="power_supply" name="power_supply" list="autoPower" pattern="/^[a-zA-Z]+$/" required></td>
     </tr>
     <tr>
       <td><label class="carDetail">Cilindrata Motore</label></td>
-      <td><input class="carDetail" type="number" min="0" id="capacity" name="capacity" placeholder="es.(1499)" required>
+      <td><input class="carDetail" type="number" min="1" id="capacity" name="capacity" placeholder="es.(1499)" required>
         <label class="carDetail">cm&sup3;</label>
       </td>
     </tr>
     <tr>
       <td><label class="carDetail">Price</label></td>
-      <td><input class="carDetail" type="number" min="0" step="0.01" id="price" name="price" placeholder="es.(5)" required>
+      <td><input class="carDetail" type="number" min="1" step="0.01" id="price" name="price" placeholder="es.(5)" required>
         <label class="carDetail">&euro;/mese</label>
       </td>
     </tr>
@@ -115,7 +115,6 @@
     <input type="submit" value="Aggiungi Auto" id="buttonAddCar">
   </div>
 </form>
-<hr>
 </div>
 <div id="footer">
 <%@include file="../fragments/footerJSP.jsp"%>
@@ -203,12 +202,12 @@
   <option value="Volvo">
 </datalist>
 <datalist id="Emision_class">
-  <option value="Euro1">
-  <option value="Euro2">
-  <option value="Euro3">
-  <option value="Euro4">
-  <option value="Euro5">
-  <option value="Euro6">
+  <option value="Euro 1">
+  <option value="Euro 2">
+  <option value="Euro 3">
+  <option value="Euro 4">
+  <option value="Euro 5">
+  <option value="Euro 6">
 </datalist>
 <datalist id="autoCambio">
   <option value="Automatico">

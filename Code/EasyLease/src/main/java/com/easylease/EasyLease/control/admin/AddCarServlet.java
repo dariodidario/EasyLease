@@ -41,21 +41,57 @@ public class AddCarServlet extends HttpServlet {
       } else {
 
           //follow the parameters recovered by jsp
-          String brand = request.getParameter("brand");
-          String model = request.getParameter("model");
+          String brand = "";
+          if(request.getParameter("brand")!=null){
+              brand = request.getParameter("brand");
+          }
+          String model = "";
+          if(request.getParameter("model")!=null){
+              model = request.getParameter("model");
+          }
           String b=brand.replaceAll(" ","");
           String m=model.replaceAll(" ","");
           String img_car =b.toLowerCase()+"_"+m.toLowerCase()+".jpg";
-          String car_type = request.getParameter("car_type");
-          int doors = Integer.parseInt(request.getParameter("doors"));
-          String transmission = request.getParameter("transmission");
-          float avg_consumption = Float.parseFloat(request.getParameter("avg_consumption"));
-          int horse_power = Integer.parseInt(request.getParameter("horse_power"));
-          String emission_class = request.getParameter("emission_class");
-          int co2_emissions = Integer.parseInt(request.getParameter("co2_emissions"));
-          String power_supply = request.getParameter("power_supply");
-          int capacity = Integer.parseInt(request.getParameter("capacity"));
-          float price = Float.parseFloat(request.getParameter("price"));
+          String car_type = "";
+          if(request.getParameter("car_type")!=null){
+              car_type = request.getParameter("car_type");
+          }
+          int doors = 0;
+          if(request.getParameter("doors")!=null){
+              doors = Integer.parseInt(request.getParameter("doors"));
+          }
+          String transmission = "";
+          if(request.getParameter("transmission")!=null){
+              transmission = request.getParameter("transmission");
+          }
+          float avg_consumption = 0;
+          if(request.getParameter("avg_consumption")!=null){
+              avg_consumption = Float.parseFloat(request.getParameter("avg_consumption"));
+          }
+          int horse_power = 0;
+          if(request.getParameter("horse_power")!=null){
+              horse_power = Integer.parseInt(request.getParameter("horse_power"));
+          }
+          String emission_class = "";
+          if(request.getParameter("emission_class")!=null){
+              emission_class = request.getParameter("emission_class");
+          }
+          int co2_emissions = 0;
+          if(request.getParameter("co2_emissions")!=null){
+              co2_emissions = Integer.parseInt(request.getParameter("co2_emissions"));
+          }
+          String power_supply = "";
+          if(request.getParameter("power_supply")!=null){
+              power_supply = request.getParameter("power_supply");
+          }
+          int capacity = 0;
+          if(request.getParameter("capacity")!=null){
+              capacity = Integer.parseInt(request.getParameter("capacity"));
+          }
+          float price = 0;
+          if(request.getParameter("price")!=null){
+              price = Float.parseFloat(request.getParameter("price"));
+          }
 
           //check if the car is already into the database
           boolean Car_ok = checkCar(brand, model, img_car, car_type, doors, transmission, avg_consumption,
@@ -64,6 +100,7 @@ public class AddCarServlet extends HttpServlet {
           if (Car_ok == false) {//case if is already present
               request.getSession().setAttribute("role", "admin");
               response.setContentType("text/html;charset=UTF-8");
+              request.getSession().setAttribute("carList",null);
 
               PrintWriter out = response.getWriter();
               out.println("alert('Auto già esistente');");
@@ -75,10 +112,10 @@ public class AddCarServlet extends HttpServlet {
               String id = checkID();
 
               //upload the image into the project directory carImage
-              String img_path = uploadImage(request, brand, model);
+              uploadImage(request, brand, model);
 
 
-              Car car = new Car(id, brand, model, price, car_type, true, doors, transmission, avg_consumption, horse_power, emission_class, co2_emissions, power_supply, capacity, img_path);
+              Car car = new Car(id, brand, model, price, car_type, true, doors, transmission, avg_consumption, horse_power, emission_class, co2_emissions, power_supply, capacity, img_car);
 
               CarDAO.insert(car);
 
@@ -114,20 +151,23 @@ public class AddCarServlet extends HttpServlet {
    * @param request the image of the car
    * @return the image path*/
     private String uploadImage(HttpServletRequest request, String brand, String model) throws IOException, ServletException {
-        Part filePart = request.getPart("image_path"); // Retrieves <input type="file" name="file">
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-        InputStream fileContent = filePart.getInputStream();
 
-        String b=brand.replaceAll(" ","");
-        String m=model.replaceAll(" ","");
-        String img_path=b.toLowerCase()+"_"+m.toLowerCase()+".jpg";
+        String img_path="";
+        if(request.getPart("image_path")!=null) {
+            Part filePart = request.getPart("image_path"); // Retrieves <input type="file" name="file">
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+            InputStream fileContent = filePart.getInputStream();
 
-        File uploads = new File(request.getServletContext().getRealPath("img"));
-        File file = new File(uploads, img_path);
+            String b = brand.replaceAll(" ", "");
+            String m = model.replaceAll(" ", "");
+            img_path = b.toLowerCase() + "_" + m.toLowerCase() + ".jpg";
+
+            File uploads = new File(request.getServletContext().getRealPath("img"));
+            File file = new File(uploads, img_path);
 
 
-        Files.copy(fileContent, file.toPath());
-
+            Files.copy(fileContent, file.toPath());
+        }
 
         return  img_path;
     }

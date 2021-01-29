@@ -56,14 +56,12 @@ public class UpdateCarServlet extends HttpServlet {
             car.setModel(model);
           }
         }
-        String img_car = request.getParameter("img_car_Update");
-        /**case update car image*/
-        if (img_car != null && !img_car.equalsIgnoreCase("")) {
-          String b=brand.replaceAll(" ","");
-          String m=model.replaceAll(" ","");
-          String img =b.toLowerCase()+"_"+m.toLowerCase()+".jpg";
-          if (car.getImage().equalsIgnoreCase(img) == false) {
-            String img_path = uploadImage(request, brand, model);
+
+        if(request.getPart("img_car_Update")!=null){
+          Part filePart = request.getPart("img_car_Update");
+          /**case update car image*/
+          if (filePart.getSubmittedFileName()!=null) {
+            String img_path = uploadImage(request, brand, model, car.getImage());
             car.setImage(img_path);
           }
         }
@@ -84,14 +82,14 @@ public class UpdateCarServlet extends HttpServlet {
         }
         String transmission = request.getParameter("transmission_Update");
         /**case update car transmission*/
-        if (transmission != null && transmission.equalsIgnoreCase("")) {
+        if (transmission != null && !transmission.equalsIgnoreCase("")) {
           if (car.getTransmission().equalsIgnoreCase(transmission) == false) {
             car.setTransmission(transmission);
           }
         }
         String avg_consumptionCar = request.getParameter("avg_consumption_Update");
         /**case update car average consumption*/
-        if (avg_consumptionCar != null && avg_consumptionCar.equalsIgnoreCase("")) {
+        if (avg_consumptionCar != null && !avg_consumptionCar.equalsIgnoreCase("")) {
           float avg_consumption = Float.parseFloat(avg_consumptionCar);
           if (car.getAvg_consumption() != avg_consumption) {
             car.setAvg_consumption(avg_consumption);
@@ -149,6 +147,7 @@ public class UpdateCarServlet extends HttpServlet {
         User user = (User) request.getSession().getAttribute("user");
         request.getSession().setAttribute("user", user);
         request.getSession().setAttribute("role", "admin");
+        request.getSession().setAttribute("carList",null);
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -180,7 +179,11 @@ public class UpdateCarServlet extends HttpServlet {
    * @param model  the model of the car
    * @param request the image of the car
    * @return the image path*/
-  private String uploadImage(HttpServletRequest request, String brand, String model) throws IOException, ServletException {
+  private String uploadImage(HttpServletRequest request, String brand, String model, String img_old) throws IOException, ServletException {
+    File canc = new File(request.getServletContext().getRealPath("img"));
+    File rem = new File(canc, img_old);
+    Files.delete( rem.toPath());
+
     Part filePart = request.getPart("img_car_Update"); // Retrieves <input type="file" name="file">
     String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
     InputStream fileContent = filePart.getInputStream();

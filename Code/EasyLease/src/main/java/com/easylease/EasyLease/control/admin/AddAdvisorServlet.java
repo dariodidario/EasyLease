@@ -92,7 +92,7 @@ public class AddAdvisorServlet extends HttpServlet {
           User user = (User) request.getSession().getAttribute("user");
           request.getSession().setAttribute("user", user);
           request.getSession().setAttribute("role", "admin");
-
+          request.getSession().setAttribute("error", "");
 
           //return statement
           response.setContentType("text/html;charset=UTF-8");

@@ -11,7 +11,7 @@
       <form action="sendmail">
               <table class="table_mail_container">
                 <tr>
-                  <td class="mail_background">
+                  <td class="mail_background" >
                    <table class="mail_table">
                       <tr>
                           <td class="subject" colspan="2" valign="bottom">
@@ -62,9 +62,9 @@
 
 
         <div class="tell_container" align="right">
-          <label class="tel1">Chiamaci a telefono</label>
+          <label class="tel1">Chiamaci a telefono</label><br>
             <a href="tel:+390123456789" class="tell_button" id="call">Chiama +39.0123.456789!</a>
-            <img class="tell_img" src="img/misc/call_center_png.png">
+            <img class="tell_img" src="img/misc/call_center_png.png"><br>
           <label class="tel2">I centralini sono attivi dal lunedì al venerdi dalle 9:00 alle 18:00</label>
         </div>
 <%@include file="/fragments/footerJSP.jsp" %>

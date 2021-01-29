@@ -60,16 +60,16 @@ if(role==null){%>
 <div id="container">
 <div id="divAutoName">
   <label class="autoName" id="brandL"><%=brand%></label>
-  <img class="matita" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('brand')">
+  <img id="matita_brand" class="matita" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('brand')">
   <label class="autoName" id="modelL"><%=model%></label>
-  <img class="matita" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('model')">
+  <img id="matita_model" class="matita" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('model')">
 </div>
 
 
 <div id="divImage">
   <br>
   <img id="img_carL" src="img/<%=image_path%>" onerror="this.src='${pageContext.request.contextPath}/img/misc/nophoto.jpg'"/>
-  <img class="matita_img" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('img_car')">
+  <img id="matita_image" class="matita_img" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('img_car')">
   <br>
 </div>
 
@@ -80,7 +80,7 @@ if(role==null){%>
   <tr><td colspan="3" align="center"><label class="detailTitle">Caratteristiche</label></td></tr>
   <tr>
     <td>
-      <img class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('car_type')">
+      <img id="matita_car_type" class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('car_type')">
       <label class="carDetail">Tipologia</label>
     </td>
     <td>
@@ -89,7 +89,7 @@ if(role==null){%>
   </tr>
   <tr>
     <td>
-      <img class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('doors')">
+      <img id="matita_doors" class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('doors')">
       <label class="carDetail">Porte</label>
     </td>
     <td>
@@ -98,16 +98,16 @@ if(role==null){%>
   </tr>
   <tr>
     <td>
-      <img class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('transmission')">
+      <img id="matita_transmission" class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('transmission')">
       <label class="carDetail">Cambio</label>
     </td>
     <td>
-      <label class="carDetail" id="trasmissionL"><%=trasmission%></label>
+      <label class="carDetail" id="transmissionL"><%=trasmission%></label>
     </td>
   </tr>
   <tr>
     <td width="50%">
-      <img class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('avg_consumption')">
+      <img id="matita_avg_consumption" class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('avg_consumption')">
       <label class="carDetail">Consumo medio</label>
     </td>
     <td width="50%">
@@ -117,7 +117,7 @@ if(role==null){%>
   </tr>
   <tr>
     <td>
-      <img class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('horse_power')">
+      <img id="matita_horsePower" class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('horse_power')">
       <label class="carDetail">Cavalli</label>
     </td>
     <td>
@@ -127,7 +127,7 @@ if(role==null){%>
   </tr>
   <tr>
     <td>
-      <img class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('emission_class')">
+      <img id="matita_emission_class" class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('emission_class')">
       <label class="carDetail">CO&sup2;</label>
     </td>
     <td>
@@ -136,7 +136,7 @@ if(role==null){%>
   </tr>
   <tr>
     <td>
-      <img class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('co2_emissions')">
+      <img id="matita_co2_emissions" class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('co2_emissions')">
       <label class="carDetail">Emissioni di CO&sup2;</label>
     </td>
     <td>
@@ -145,7 +145,7 @@ if(role==null){%>
     </td>
   </tr>
   <tr>
-    <td><img class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('power_supply')">
+    <td><img id="matita_power_supply" class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('power_supply')">
       <label class="carDetail">Alimentazione</label>
     </td>
     <td>
@@ -153,7 +153,7 @@ if(role==null){%>
     </td>
   </tr>
   <tr>
-    <td><img class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('capacity')">
+    <td><img id="matita_capacity" class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('capacity')">
       <label class="carDetail">Cilindrata Motore</label>
     </td>
     <td>
@@ -163,7 +163,7 @@ if(role==null){%>
   </tr>
   <tr>
     <td>
-      <img class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('price')">
+      <img id="matita_price" class="matita_table" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('price')">
       <label class="carDetail">Price</label>
     </td>
     <td>
@@ -177,7 +177,7 @@ if(role==null){%>
 
 <div id="divButton">
   <form action="UpdateCarServlet" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="ID_Update" value="<%=id%>">
+    <input type="hidden" id="ID_Update" name="ID_Update" value="<%=id%>">
     <input type="hidden" id="brand" name="brand_Update" value="<%=brand%>">
     <input type="hidden" id="model" name="model_Update" value="<%=model%>">
     <input type="hidden" id="img_car" name="img_car_Update" value="<%=image_path%>">
@@ -193,12 +193,11 @@ if(role==null){%>
     <input type="hidden" id="price" name="price_Update" value="<%=price%>">
     <input type="submit" value="Conferma Modifiche" id="buttonUpdateCar">
   </form>
-  <form action="DeleteCarServlet">
-    <input type="hidden" name="ID_Delete" value="<%=id%>">
+  <form action="DeleteCarServlet" onsubmit="return confermaDelete('Sicuro di voler eliminare?')">
+    <input type="hidden" id="ID_Delete" name="ID_Delete" value="<%=id%>">
     <input type="submit" value="Elimina Auto" id="buttonDeleteCar">
   </form>
 </div>
-<hr>
 </div>
 <div id="footer">
 <%@include file="../fragments/footerJSP.jsp"%>
@@ -285,12 +284,12 @@ if(role==null){%>
   <option value="Volvo">
 </datalist>
 <datalist id="Emision_class">
-  <option value="Euro1">
-  <option value="Euro2">
-  <option value="Euro3">
-  <option value="Euro4">
-  <option value="Euro5">
-  <option value="Euro6">
+  <option value="Euro 1">
+  <option value="Euro 2">
+  <option value="Euro 3">
+  <option value="Euro 4">
+  <option value="Euro 5">
+  <option value="Euro 6">
 </datalist>
 <datalist id="autoCambio">
   <option value="Automatico">

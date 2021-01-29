@@ -1,12 +1,4 @@
 @media (max-width: 830px) and (orientation: landscape)  {
-    hr{
-        border: 1px solid #dec717;
-        width: 80%;
-        alignment: left;
-        margin-left: 20%;
-        position: relative;
-        margin-top: 30px;
-    }
     input.carDetail {
         width: 40%;
         border-bottom: solid #dec717;
@@ -51,7 +43,7 @@
         background: #9B334E;
         color: white;
         position: relative;
-        margin-left: 45%;
+        margin-left: 35%;
         margin-top: 50px;
         width: 30%;
         font-size: 2.5vw;
@@ -107,14 +99,6 @@
 
 
 @media (max-width: 1024px) and (orientation: portrait) {
-    hr{
-        border: 1px solid #dec717;
-        width: 80%;
-        alignment: left;
-        margin-left: 20%;
-        position: relative;
-        margin-top: 30px;
-    }
     input.carDetail {
         width: 40%;
         border-bottom: solid #dec717;
@@ -159,7 +143,7 @@
         background: #9B334E;
         color: white;
         position: relative;
-        margin-left: 45%;
+        margin-left: 35%;
         margin-top: 50px;
         width: 30%;
         font-size: 2.5vw;
@@ -214,14 +198,6 @@
 }
 
 @media (min-width: 831px) and (orientation: landscape){
-    hr{
-        border: medium solid #dec717; !important;
-        width: 50%; !important;
-        alignment: left; !important;
-        margin-left: 10%; !important;
-        position: absolute; !important;
-        bottom: 21%; !important;
-    }
     input.carDetail {
         width: 40%;
         background: #9B334E;
@@ -269,7 +245,7 @@
         color: white;
         border-bottom:medium solid #dec717;
         border-radius: 20px;
-        padding-bottom: 5px;
+        padding-bottom: 30px;
     }
     #divAutoName{
         position: absolute;
