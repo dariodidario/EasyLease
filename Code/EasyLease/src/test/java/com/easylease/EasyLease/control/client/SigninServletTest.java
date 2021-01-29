@@ -66,8 +66,6 @@ class SigninServletTest {
   void setUp() throws SQLException {
     MockitoAnnotations.openMocks(this);
     servlet = new SignInServlet();
-
-    servlet = new SignInServlet();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
@@ -113,10 +111,10 @@ class SigninServletTest {
 
   @Test
   void signIn_Success() throws ServletException, IOException {
-    String email = "Francesco.torino1999@gmail.com";
+    String email = "francesco.torino1999@gmail.com";
     when(request.getParameter("name")).thenReturn("Francesco");
     when(request.getParameter("surname")).thenReturn("Torino");
-    when(request.getParameter("email")).thenReturn("Francesco.torino1999@gmail.com");
+    when(request.getParameter("email")).thenReturn("francesco.torino1999@gmail.com");
     when(request.getParameter("birthplace")).thenReturn("Caserta");
     when(request.getParameter("birthdate")).thenReturn(("1999-09-18"));
     when(request.getParameter("kind")).thenReturn("Uomo");
@@ -126,9 +124,25 @@ class SigninServletTest {
     when(request.getParameter("password")).thenReturn("pass");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher("/user/loginJSP.jsp");
-    Client client = clientDao.retrieveByEmail("Francesco.torino1999@gmail.com");
+    Client client = clientDao.retrieveByEmail("francesco.torino1999@gmail.com");
     assertEquals(email, client.getEmail());
     clientDao.delete(client);
+  }
+
+  @Test
+  void signIn_unsuccess_exist() throws ServletException, IOException {
+    when(request.getParameter("name")).thenReturn("Francesco");
+    when(request.getParameter("surname")).thenReturn("Torino");
+    when(request.getParameter("email")).thenReturn("mattia.caprio@unisa.com");
+    when(request.getParameter("birthplace")).thenReturn("Caserta");
+    when(request.getParameter("birthdate")).thenReturn(("1999-09-18"));
+    when(request.getParameter("kind")).thenReturn("Uomo");
+    when(request.getParameter("city")).thenReturn("Caserta");
+    when(request.getParameter("pc")).thenReturn("81100");
+    when(request.getParameter("street")).thenReturn("Isonzo");
+    when(request.getParameter("password")).thenReturn("pass");
+    servlet.doPost(request, response);
+    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
   }
 /*
   @Test

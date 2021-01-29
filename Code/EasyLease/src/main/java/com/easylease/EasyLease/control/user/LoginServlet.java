@@ -40,6 +40,12 @@ public class LoginServlet extends HttpServlet {
           request.getRequestDispatcher("/user/homePageJSP.jsp")
               .forward(request, response);
         }
+        else {
+          request.removeAttribute("userEmail");
+          request.removeAttribute("userPassword");
+          request.getRequestDispatcher("/user/loginJSP.jsp")
+              .forward(request, response);
+        }
       }
       else {
         String passwordAdv = advisorDao.retrievePasswordByEmail(email);
@@ -50,6 +56,12 @@ public class LoginServlet extends HttpServlet {
             request.removeAttribute("userEmail");
             request.removeAttribute("userPassword");
             request.getRequestDispatcher("/user/homePageJSP.jsp")
+                .forward(request, response);
+          }
+          else {
+            request.removeAttribute("userEmail");
+            request.removeAttribute("userPassword");
+            request.getRequestDispatcher("/user/loginJSP.jsp")
                 .forward(request, response);
           }
         }
@@ -64,11 +76,18 @@ public class LoginServlet extends HttpServlet {
               request.getRequestDispatcher("/user/homePageJSP.jsp")
                   .forward(request, response);
             }
+            else {
+              request.removeAttribute("userEmail");
+              request.removeAttribute("userPassword");
+              request.getRequestDispatcher("/user/loginJSP.jsp")
+                  .forward(request, response);
+            }
+
           }
           else {
             request.removeAttribute("userEmail");
             request.removeAttribute("userPassword");
-            request.getRequestDispatcher("/user/homePageJSP.jsp")
+            request.getRequestDispatcher("/user/loginJSP.jsp")
                 .forward(request, response);
           }
         }
