@@ -29,8 +29,6 @@ public class AddCarWrongHorsesTest {
   private WebDriver driver;
   private static DBConnection dbConnection;
   private String baseUrl;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
 
   @BeforeAll
   static void init() throws Exception {
@@ -67,6 +65,7 @@ public class AddCarWrongHorsesTest {
   @DisplayName("ST_ADMIN_1_15")
   public void testAddCarWrongHorses() {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
+    driver.manage().window().maximize();
     driver.findElement(By.linkText("Login")).click();
     driver.findElement(By.id("email")).click();
     driver.findElement(By.id("email")).clear();
@@ -133,10 +132,7 @@ public class AddCarWrongHorsesTest {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
+
     dbConnection.getConnection().rollback();
     dbConnection.getConnection().setAutoCommit(true);
   }

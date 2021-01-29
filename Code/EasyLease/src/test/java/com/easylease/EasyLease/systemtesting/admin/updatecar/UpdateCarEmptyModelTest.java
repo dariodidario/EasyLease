@@ -11,11 +11,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * System Test that tests the functionality of Update Car with an empty value
@@ -28,8 +33,6 @@ public class UpdateCarEmptyModelTest {
   private WebDriver driver;
   private static DBConnection dbConnection;
   private String baseUrl;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
 
   @BeforeAll
   static void init() throws Exception {
@@ -54,10 +57,9 @@ public class UpdateCarEmptyModelTest {
     dbConnection.getConnection().setAutoCommit(false);
     System.setProperty("webdriver.edge.driver",
         "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
-    DesiredCapabilities capabilities = DesiredCapabilities.edge();
-    capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR,
-        UnexpectedAlertBehaviour.ACCEPT);
-    driver = new EdgeDriver(capabilities);
+    EdgeOptions options = new EdgeOptions();
+    options.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.ACCEPT);
+    driver = new EdgeDriver(options);
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
@@ -66,6 +68,7 @@ public class UpdateCarEmptyModelTest {
   @DisplayName("ST_ADMIN_2_05")
   public void testUpdateCarEmptyModel() {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
+    driver.manage().window().maximize();
     driver.findElement(By.linkText("Login")).click();
     driver.findElement(By.id("email")).click();
     driver.findElement(By.id("email")).clear();
@@ -76,14 +79,15 @@ public class UpdateCarEmptyModelTest {
     driver.findElement(By.xpath("//button[@type='submit']")).click();
     driver.findElement(By.xpath("//div[3]/div/a/img")).click();
     driver.findElement(By.name("Modifica Auto")).click();
-    driver.findElement(By.xpath("//img[@onclick=\"confirm('model')\"]")).click();
+    driver.findElement(By.id("matita_model")).click();
     driver.findElement(By.xpath("//input[@type='text']")).click();
     driver.findElement(By.xpath("//input[@type='text']")).clear();
     driver.findElement(By.xpath("//input[@type='text']")).sendKeys("");
     driver.findElement(By.xpath("//button")).click();
     driver.findElement(By.id("buttonUpdateCar")).click();
-    driver.findElement(By.xpath("//li[3]/a/img")).click();
+    driver.findElement(By.xpath("//a[contains(@href, '#')]")).click();
     driver.findElement(By.linkText("Logout")).click();
+    driver.close();
   }
 
   /**
@@ -94,10 +98,7 @@ public class UpdateCarEmptyModelTest {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
+
     dbConnection.getConnection().rollback();
     dbConnection.getConnection().setAutoCommit(true);
   }

@@ -3,6 +3,7 @@ package com.easylease.EasyLease.systemtesting.admin.addcar;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.car.Car;
 import com.easylease.EasyLease.model.car.CarDAO;
 import com.easylease.EasyLease.model.car.DBCarDAO;
 import com.mysql.cj.jdbc.MysqlDataSource;
@@ -31,8 +32,6 @@ public class AddCarSuccessTest {
   private WebDriver driver;
   private static DBConnection dbConnection;
   private String baseUrl;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
 
   @BeforeAll
   static void init() throws Exception {
@@ -70,6 +69,7 @@ public class AddCarSuccessTest {
   @DisplayName("ST_ADMIN_1_26")
   public void testAddCarSuccess() {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
+    driver.manage().window().maximize();
     driver.findElement(By.linkText("Login")).click();
     driver.findElement(By.id("email")).click();
     driver.findElement(By.id("email")).clear();
@@ -126,8 +126,6 @@ public class AddCarSuccessTest {
     driver.findElement(By.id("buttonAddCar")).click();
     driver.findElement(By.xpath("//a[contains(@href, '#')]")).click();
     driver.findElement(By.linkText("Logout")).click();
-    /* ROLLBACK */
-    carDAO.delete(carDAO.retrieveByModel("Serie 3"));
   }
 
   /**
@@ -138,10 +136,8 @@ public class AddCarSuccessTest {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
+    Car car = carDAO.retrieveByModel("Serie 3");
+    carDAO.delete(car);
     dbConnection.getConnection().rollback();
     dbConnection.getConnection().setAutoCommit(true);
   }

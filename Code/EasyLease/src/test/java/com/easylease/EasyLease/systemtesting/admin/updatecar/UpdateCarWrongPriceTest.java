@@ -3,6 +3,9 @@ package com.easylease.EasyLease.systemtesting.admin.updatecar;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.car.Car;
+import com.easylease.EasyLease.model.car.CarDAO;
+import com.easylease.EasyLease.model.car.DBCarDAO;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.AfterEach;
@@ -25,11 +28,11 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  * @author Sarro Antonio
  */
 public class UpdateCarWrongPriceTest {
+  private CarDAO carDAO;
+  private Car car;
   private WebDriver driver;
   private static DBConnection dbConnection;
   private String baseUrl;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
 
   @BeforeAll
   static void init() throws Exception {
@@ -51,6 +54,7 @@ public class UpdateCarWrongPriceTest {
    */
   @BeforeEach
   public void setUp() throws Exception {
+    carDAO = DBCarDAO.getInstance();
     dbConnection.getConnection().setAutoCommit(false);
     System.setProperty("webdriver.edge.driver",
         "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
@@ -59,6 +63,7 @@ public class UpdateCarWrongPriceTest {
         UnexpectedAlertBehaviour.ACCEPT);
     driver = new EdgeDriver(capabilities);
     baseUrl = "https://www.google.com/";
+    car = carDAO.retrieveByModel("Spider 124");
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
@@ -66,6 +71,7 @@ public class UpdateCarWrongPriceTest {
   @DisplayName("ST_ADMIN_2_09")
   public void testUpdateCarWrongPrice() {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
+    driver.manage().window().maximize();
     driver.findElement(By.linkText("Login")).click();
     driver.findElement(By.id("email")).click();
     driver.findElement(By.id("email")).clear();
@@ -76,7 +82,7 @@ public class UpdateCarWrongPriceTest {
     driver.findElement(By.xpath("//button[@type='submit']")).click();
     driver.findElement(By.xpath("//div[3]/div/a/img")).click();
     driver.findElement(By.name("Modifica Auto")).click();
-    driver.findElement(By.xpath("//img[@onclick=\"confirm('price')\"]")).click();
+    driver.findElement(By.id("matita_price")).click();
     driver.findElement(By.xpath("//input[@type='number']")).click();
     driver.findElement(By.xpath("//input[@type='number']")).clear();
     driver.findElement(By.xpath("//input[@type='number']")).sendKeys("-1000");
@@ -94,10 +100,7 @@ public class UpdateCarWrongPriceTest {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
+    carDAO.update(car);
     dbConnection.getConnection().rollback();
     dbConnection.getConnection().setAutoCommit(true);
   }

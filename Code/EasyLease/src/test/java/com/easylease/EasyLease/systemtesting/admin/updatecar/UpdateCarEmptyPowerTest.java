@@ -28,8 +28,6 @@ public class UpdateCarEmptyPowerTest {
   private WebDriver driver;
   private static DBConnection dbConnection;
   private String baseUrl;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
 
   @BeforeAll
   static void init() throws Exception {
@@ -66,6 +64,7 @@ public class UpdateCarEmptyPowerTest {
   @DisplayName("ST_ADMIN_2_07")
   public void testUpdateCarEmptyPower() {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
+    driver.manage().window().maximize();
     driver.findElement(By.linkText("Login")).click();
     driver.findElement(By.id("email")).click();
     driver.findElement(By.id("email")).clear();
@@ -76,7 +75,7 @@ public class UpdateCarEmptyPowerTest {
     driver.findElement(By.xpath("//button[@type='submit']")).click();
     driver.findElement(By.xpath("//div[3]/div/a/img")).click();
     driver.findElement(By.name("Modifica Auto")).click();
-    driver.findElement(By.xpath("//img[@onclick=\"confirm('power_supply')\"]")).click();
+    driver.findElement(By.id("matita_power_supply")).click();
     driver.findElement(By.xpath("//input[@type='text']")).click();
     driver.findElement(By.xpath("//input[@type='text']")).clear();
     driver.findElement(By.xpath("//input[@type='text']")).sendKeys("");
@@ -84,6 +83,7 @@ public class UpdateCarEmptyPowerTest {
     driver.findElement(By.id("buttonUpdateCar")).click();
     driver.findElement(By.xpath("//li[3]/a/img")).click();
     driver.findElement(By.linkText("Logout")).click();
+    driver.close();
   }
 
   /**
@@ -94,10 +94,7 @@ public class UpdateCarEmptyPowerTest {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
+
     dbConnection.getConnection().rollback();
     dbConnection.getConnection().setAutoCommit(true);
   }

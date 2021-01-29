@@ -3,6 +3,8 @@ package com.easylease.EasyLease.systemtesting.admin.updatecar;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.car.Car;
+import com.easylease.EasyLease.model.car.CarDAO;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.AfterEach;
@@ -28,8 +30,6 @@ public class UpdateCarEmptyImageTest {
   private WebDriver driver;
   private static DBConnection dbConnection;
   private String baseUrl;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
 
   @BeforeAll
   static void init() throws Exception {
@@ -66,6 +66,7 @@ public class UpdateCarEmptyImageTest {
   @DisplayName("ST_ADMIN_2_12")
   public void testUpdateCarEmptyImage() {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
+    driver.manage().window().maximize();
     driver.findElement(By.linkText("Login")).click();
     driver.findElement(By.id("email")).click();
     driver.findElement(By.id("email")).clear();
@@ -76,14 +77,12 @@ public class UpdateCarEmptyImageTest {
     driver.findElement(By.xpath("//button[@type='submit']")).click();
     driver.findElement(By.xpath("//div[3]/div/a/img")).click();
     driver.findElement(By.name("Modifica Auto")).click();
-    driver.findElement(By.xpath("//img[@onclick=\"confirm('price')\"]")).click();
-    driver.findElement(By.xpath("//input[@type='number']")).click();
-    driver.findElement(By.xpath("//input[@type='number']")).clear();
-    driver.findElement(By.xpath("//input[@type='number']")).sendKeys("300");
+    driver.findElement(By.id("matita_image")).click();
     driver.findElement(By.xpath("//button")).click();
     driver.findElement(By.id("buttonUpdateCar")).click();
-    driver.findElement(By.xpath("//li[3]/a/img")).click();
+    driver.findElement(By.xpath("//a[contains(@href, '#')]")).click();
     driver.findElement(By.linkText("Logout")).click();
+    driver.close();
   }
 
   /**
@@ -94,10 +93,7 @@ public class UpdateCarEmptyImageTest {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
+
     dbConnection.getConnection().rollback();
     dbConnection.getConnection().setAutoCommit(true);
   }

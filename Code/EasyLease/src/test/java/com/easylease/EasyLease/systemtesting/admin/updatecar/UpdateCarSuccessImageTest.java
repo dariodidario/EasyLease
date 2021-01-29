@@ -3,7 +3,12 @@ package com.easylease.EasyLease.systemtesting.admin.updatecar;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.car.Car;
+import com.easylease.EasyLease.model.car.CarDAO;
+import com.easylease.EasyLease.model.car.DBCarDAO;
 import com.mysql.cj.jdbc.MysqlDataSource;
+
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -25,11 +30,11 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  * @author Sarro Antonio
  */
 public class UpdateCarSuccessImageTest {
+  private CarDAO carDAO;
+  private Car car;
   private WebDriver driver;
   private static DBConnection dbConnection;
   private String baseUrl;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
 
   @BeforeAll
   static void init() throws Exception {
@@ -51,6 +56,7 @@ public class UpdateCarSuccessImageTest {
    */
   @BeforeEach
   public void setUp() throws Exception {
+    carDAO = DBCarDAO.getInstance();
     dbConnection.getConnection().setAutoCommit(false);
     System.setProperty("webdriver.edge.driver",
         "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
@@ -59,6 +65,7 @@ public class UpdateCarSuccessImageTest {
         UnexpectedAlertBehaviour.ACCEPT);
     driver = new EdgeDriver(capabilities);
     baseUrl = "https://www.google.com/";
+    car = carDAO.retrieveByModel("Spider 124");
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
@@ -66,6 +73,7 @@ public class UpdateCarSuccessImageTest {
   @DisplayName("ST_ADMIN_2_13")
   public void testUpdateCarSuccessImage() {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
+    driver.manage().window().maximize();
     driver.findElement(By.linkText("Login")).click();
     driver.findElement(By.id("email")).click();
     driver.findElement(By.id("email")).clear();
@@ -76,10 +84,10 @@ public class UpdateCarSuccessImageTest {
     driver.findElement(By.xpath("//button[@type='submit']")).click();
     driver.findElement(By.xpath("//div[3]/div/a/img")).click();
     driver.findElement(By.name("Modifica Auto")).click();
-    driver.findElement(By.xpath("//img[@onclick=\"confirm('price')\"]")).click();
-    driver.findElement(By.xpath("//input[@type='number']")).click();
-    driver.findElement(By.xpath("//input[@type='number']")).clear();
-    driver.findElement(By.xpath("//input[@type='number']")).sendKeys("300");
+    driver.findElement(By.id("matita_image")).click();
+    driver.findElement(By.id("file-upload-button")).sendKeys(new File(
+        "src/test/java/com/easylease/EasyLease/systemtesting/admin/serie3.jpg")
+        .getAbsolutePath());
     driver.findElement(By.xpath("//button")).click();
     driver.findElement(By.id("buttonUpdateCar")).click();
     driver.findElement(By.xpath("//li[3]/a/img")).click();
@@ -94,10 +102,7 @@ public class UpdateCarSuccessImageTest {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
+    carDAO.update(car);
     dbConnection.getConnection().rollback();
     dbConnection.getConnection().setAutoCommit(true);
   }

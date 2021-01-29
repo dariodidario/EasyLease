@@ -3,6 +3,7 @@ package com.easylease.EasyLease.systemtesting.admin.addadvisor;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.advisor.AdvisorDAO;
 import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
 import com.mysql.cj.jdbc.MysqlDataSource;
@@ -31,8 +32,6 @@ public class AddAdvisorSuccessTest {
   private WebDriver driver;
   private static DBConnection dbConnection;
   private String baseUrl;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
 
   @BeforeAll
   static void init() throws Exception {
@@ -70,6 +69,7 @@ public class AddAdvisorSuccessTest {
   @DisplayName("ST_ADMIN_3_11")
   public void testAddAdvisorSuccess() throws Exception {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
+    driver.manage().window().maximize();
     driver.findElement(By.linkText("Login")).click();
     driver.findElement(By.id("email")).click();
     driver.findElement(By.id("email")).clear();
@@ -103,9 +103,6 @@ public class AddAdvisorSuccessTest {
     driver.findElement(By.id("buttonAddAdvisor")).click();
     driver.findElement(By.xpath("//li[3]/a/img")).click();
     driver.findElement(By.linkText("Logout")).click();
-
-    /* ROLLBACK */
-    advisorDAO.delete(advisorDAO.retrieveByEmail("p.angela@rai.it"));
   }
 
   /**
@@ -116,10 +113,8 @@ public class AddAdvisorSuccessTest {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
+    Advisor advisor = advisorDAO.retrieveByEmail("p.angela@rai.it");
+    advisorDAO.delete(advisor);
     dbConnection.getConnection().rollback();
     dbConnection.getConnection().setAutoCommit(true);
   }
