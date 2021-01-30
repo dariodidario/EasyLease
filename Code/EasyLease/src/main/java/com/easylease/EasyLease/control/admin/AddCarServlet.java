@@ -3,8 +3,8 @@ package com.easylease.EasyLease.control.admin;
 
 import com.easylease.EasyLease.control.utility.IdGenerator;
 import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.CarDAO;
-import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.easylease.EasyLease.model.car.CarDao;
+import com.easylease.EasyLease.model.car.DbCarDao;
 import com.easylease.EasyLease.model.user.User;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,7 +27,7 @@ import java.util.List;
 @WebServlet("/AddCarServlet")
 @MultipartConfig
 public class AddCarServlet extends HttpServlet {
-  static CarDAO CarDAO =DBCarDAO.getInstance();
+  static CarDao CarDAO = DbCarDao.getInstance();
   protected void doPost(
           HttpServletRequest request,
           HttpServletResponse response) throws ServletException, IOException {
@@ -104,7 +104,7 @@ public class AddCarServlet extends HttpServlet {
 
               PrintWriter out = response.getWriter();
               out.println("alert('Auto già esistente');");
-              out.println("location='admin/addCarJSP.jsp';");
+              out.println("location='admin/addCar.jsp';");
               out.println("</script>");
           } else {//case if isn't already present
 
@@ -133,7 +133,7 @@ public class AddCarServlet extends HttpServlet {
               PrintWriter out = response.getWriter();
               out.println("<script type=\"text/javascript\">");
               out.println("alert('Auto aggiunta con successo');");
-              out.println("location='user/homePageJSP.jsp';");
+              out.println("location='user/homePage.jsp';");
               out.println("</script>");
           }
       }

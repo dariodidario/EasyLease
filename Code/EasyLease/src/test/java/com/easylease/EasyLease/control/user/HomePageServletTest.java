@@ -1,17 +1,15 @@
 package com.easylease.EasyLease.control.user;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.CarDAO;
-import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.easylease.EasyLease.model.car.CarDao;
+import com.easylease.EasyLease.model.car.DbCarDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.stubbing.Answer;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -23,12 +21,10 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
@@ -48,16 +44,16 @@ class HomePageServletTest {
   @Mock
   private HttpSession session;
 
-  private CarDAO dbCar;
+  private CarDao dbCar;
   private HomePageServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
-  private static DBConnection dbConnection;
+  private static DbConnection dbConnection;
 
   @BeforeEach
   void setUp() throws SQLException, IOException {
     MockitoAnnotations.openMocks(this);
     servlet = new HomePageServlet();
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
@@ -67,7 +63,7 @@ class HomePageServletTest {
     mysqlDataSource.setUseSSL(false);
 
     dbConnection.setDataSource(mysqlDataSource);
-    dbCar = DBCarDAO.getInstance();
+    dbCar = DbCarDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(response.getWriter()).thenReturn(printWriter);
     when(context.getContextPath()).thenReturn("");
@@ -85,7 +81,7 @@ class HomePageServletTest {
     when(request.getParameter("marca")).thenReturn(null);
     when(request.getParameter("modello")).thenReturn("corsa");
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -94,7 +90,7 @@ class HomePageServletTest {
     when(request.getParameter("marca")).thenReturn("Opel");
     when(request.getParameter("modello")).thenReturn(null);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -104,7 +100,7 @@ class HomePageServletTest {
     when(request.getParameter("marca")).thenReturn(null);
     when(request.getParameter("modello")).thenReturn(null);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -114,7 +110,7 @@ class HomePageServletTest {
     when(request.getParameter("marca")).thenReturn(null);
     when(request.getParameter("modello")).thenReturn(null);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -124,7 +120,7 @@ class HomePageServletTest {
     when(request.getParameter("marca")).thenReturn(null);
     when(request.getParameter("modello")).thenReturn(null);
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
 }

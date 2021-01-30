@@ -1,9 +1,9 @@
 package com.easylease.EasyLease.control.admin;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.easylease.EasyLease.model.admin.Admin;
-import com.easylease.EasyLease.model.car.CarDAO;
-import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.easylease.EasyLease.model.car.CarDao;
+import com.easylease.EasyLease.model.car.DbCarDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,8 +29,8 @@ class ViewUpdateCarServletTest {
     private RequestDispatcher dispatcher;
     private ServletContext context;
     private ServletConfig config;
-    private CarDAO carDAO;
-    private static DBConnection dbConnection;
+    private CarDao carDAO;
+    private static DbConnection dbConnection;
 
     @BeforeEach
     public void setUp() throws IOException, ServletException, SQLException {
@@ -43,7 +43,7 @@ class ViewUpdateCarServletTest {
         session= mock(HttpSession.class);
         context =mock(ServletContext.class);
         dispatcher= mock(RequestDispatcher.class);
-        dbConnection = DBConnection.getInstance();
+        dbConnection = DbConnection.getInstance();
         MysqlDataSource mysqlDataSource = new MysqlDataSource();
         mysqlDataSource.setURL("jdbc:mysql://127.0.0.1:3306/easylease");
         mysqlDataSource.setUser("root");
@@ -53,7 +53,7 @@ class ViewUpdateCarServletTest {
         mysqlDataSource.setUseSSL(false);
 
         dbConnection.setDataSource(mysqlDataSource);
-        carDAO= DBCarDAO.getInstance();
+        carDAO= DbCarDao.getInstance();
         when(request.getSession()).thenReturn(session);
         when(servlet.getServletContext()).thenReturn(context);
         when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
@@ -103,6 +103,6 @@ class ViewUpdateCarServletTest {
         when(request.getSession().getAttribute("user")).thenReturn(admin);
 
         servlet.doGet(request,response);
-        verify(context).getRequestDispatcher("/admin/updateCarJSP.jsp");
+        verify(context).getRequestDispatcher("/admin/updateCar.jsp");
     }
 }

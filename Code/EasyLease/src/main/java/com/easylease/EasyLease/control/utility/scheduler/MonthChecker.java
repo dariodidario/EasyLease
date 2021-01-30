@@ -1,11 +1,11 @@
 package com.easylease.EasyLease.control.utility.scheduler;
 
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
+import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
-import com.easylease.EasyLease.model.estimate.EstimateDAO;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
+import com.easylease.EasyLease.model.estimate.EstimateDao;
+import com.easylease.EasyLease.model.order.DbOrderDao;
 import com.easylease.EasyLease.model.order.Order;
-import com.easylease.EasyLease.model.order.OrderDAO;
+import com.easylease.EasyLease.model.order.OrderDao;
 
 import java.util.Calendar;
 import java.util.List;
@@ -15,8 +15,8 @@ import java.util.logging.Logger;
 public class MonthChecker implements Runnable {
   @Override
   public void run() {
-    OrderDAO orderDAO = DBOrderDAO.getInstance();
-    EstimateDAO estimateDAO = DBEstimateDAO.getInstance();
+    OrderDao orderDAO = DbOrderDao.getInstance();
+    EstimateDao estimateDAO = DbEstimateDao.getInstance();
     Calendar c = Calendar.getInstance();
 
     /*

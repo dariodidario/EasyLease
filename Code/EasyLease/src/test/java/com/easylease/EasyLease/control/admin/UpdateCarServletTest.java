@@ -1,9 +1,9 @@
 package com.easylease.EasyLease.control.admin;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.CarDAO;
-import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.easylease.EasyLease.model.car.CarDao;
+import com.easylease.EasyLease.model.car.DbCarDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,13 +32,13 @@ class UpdateCarServletTest {
     private HttpServletRequest request;
     private HttpServletResponse response;
     private HttpSession session;
-    private CarDAO carDAO;
+    private CarDao carDAO;
     private Car car;
     private StringWriter response_writer;
     private RequestDispatcher dispatcher;
     private ServletContext context;
     private ServletConfig config;
-    private static DBConnection dbConnection;
+    private static DbConnection dbConnection;
     private Part part;
 
 
@@ -60,9 +60,9 @@ class UpdateCarServletTest {
         mysqlDataSource.setServerTimezone("UTC");
         mysqlDataSource.setVerifyServerCertificate(false);
         mysqlDataSource.setUseSSL(false);
-        dbConnection = DBConnection.getInstance();
+        dbConnection = DbConnection.getInstance();
         dbConnection.setDataSource(mysqlDataSource);
-        carDAO= DBCarDAO.getInstance();
+        carDAO= DbCarDao.getInstance();
         when(request.getSession()).thenReturn(session);
         when(response.getWriter()).thenReturn(new PrintWriter(response_writer));
         context =mock(ServletContext.class);

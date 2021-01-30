@@ -1,6 +1,6 @@
 package com.easylease.EasyLease.control.advisor;
 
-import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
+import com.easylease.EasyLease.model.advisor.DbAdvisorDao;
 import com.easylease.EasyLease.model.client.Client;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,7 +40,7 @@ class OrderManagementAdvisorServletTest {
   @Mock
   private RequestDispatcher dispatcher;
 
-  private final DBAdvisorDAO dbAdvisorDAO = (DBAdvisorDAO) DBAdvisorDAO.getInstance();
+  private final DbAdvisorDao dbAdvisorDAO = (DbAdvisorDao) DbAdvisorDao.getInstance();
   private OrderManagementAdvisorServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
 
@@ -79,14 +79,14 @@ class OrderManagementAdvisorServletTest {
     when(request.getParameter("id_order")).thenReturn("ORlk7Bn");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/advisor/orderManagementAdvisorJSP.jsp");
+        "/advisor/orderManagementAdvisor.jsp");
   }
 
   @Test
   void nullSession() throws ServletException, IOException {
     when(request.getSession()).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -94,7 +94,7 @@ class OrderManagementAdvisorServletTest {
     when(request.getSession().getAttribute("user")).thenReturn(new Client());
     when(request.getParameter("id_order")).thenReturn("ORlk7Bn");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -103,7 +103,7 @@ class OrderManagementAdvisorServletTest {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id_order")).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -112,7 +112,7 @@ class OrderManagementAdvisorServletTest {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id_order")).thenReturn("ORxxxxx");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
 }

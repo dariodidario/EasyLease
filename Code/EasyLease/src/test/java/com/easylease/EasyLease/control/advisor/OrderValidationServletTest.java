@@ -1,8 +1,8 @@
 package com.easylease.EasyLease.control.advisor;
 
-import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
+import com.easylease.EasyLease.model.advisor.DbAdvisorDao;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
+import com.easylease.EasyLease.model.order.DbOrderDao;
 import com.easylease.EasyLease.model.order.Order;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,8 +42,8 @@ class OrderValidationServletTest {
   @Mock
   private RequestDispatcher dispatcher;
 
-  private final DBAdvisorDAO dbAdvisorDAO = (DBAdvisorDAO) DBAdvisorDAO.getInstance();
-  private DBOrderDAO dbOrderDAO;
+  private final DbAdvisorDao dbAdvisorDAO = (DbAdvisorDao) DbAdvisorDao.getInstance();
+  private DbOrderDao dbOrderDAO;
   private OrderValidationServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
 
@@ -51,7 +51,7 @@ class OrderValidationServletTest {
   void setUp() {
     MockitoAnnotations.openMocks(this);
     servlet = new OrderValidationServlet();
-    dbOrderDAO = (DBOrderDAO) DBOrderDAO.getInstance();
+    dbOrderDAO = (DbOrderDao) DbOrderDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");
@@ -85,7 +85,7 @@ class OrderValidationServletTest {
     when(request.getParameter("choice")).thenReturn("false");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/advisor/orderManagementAdvisorJSP.jsp");
+        "/advisor/orderManagementAdvisor.jsp");
     dbOrderDAO.update(order);
   }
 
@@ -99,7 +99,7 @@ class OrderValidationServletTest {
     when(request.getParameter("date")).thenReturn("2021-01-17");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/advisor/orderManagementAdvisorJSP.jsp");
+        "/advisor/orderManagementAdvisor.jsp");
     dbOrderDAO.update(order);
   }
 
@@ -109,14 +109,14 @@ class OrderValidationServletTest {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn("ORlk7Bn");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
   void nullSession() throws ServletException, IOException {
     when(request.getSession()).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -124,7 +124,7 @@ class OrderValidationServletTest {
     when(request.getSession().getAttribute("user")).thenReturn(new Client());
     when(request.getParameter("id")).thenReturn("ORlk7Bn");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -133,7 +133,7 @@ class OrderValidationServletTest {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -142,6 +142,6 @@ class OrderValidationServletTest {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn("ORxxxxx");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 }

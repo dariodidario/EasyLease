@@ -1,8 +1,8 @@
 package com.easylease.EasyLease.control.client;
 
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.client.ClientDAO;
-import com.easylease.EasyLease.model.client.DBClientDAO;
+import com.easylease.EasyLease.model.client.ClientDao;
+import com.easylease.EasyLease.model.client.DbClientDao;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ class EstimateManagementClientServletTest {
   @Mock
   private RequestDispatcher dispatcher;
 
-  private ClientDAO clientDao;
+  private ClientDao clientDao;
   private EstimateManagementClientServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
 
@@ -47,7 +47,7 @@ class EstimateManagementClientServletTest {
   void setUp() {
     MockitoAnnotations.openMocks(this);
     servlet = new EstimateManagementClientServlet();
-    clientDao = DBClientDAO.getInstance();
+    clientDao = DbClientDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");
@@ -78,14 +78,14 @@ class EstimateManagementClientServletTest {
     when(session.getAttribute("user")).thenReturn(client);
     when(request.getParameter("id_estimate")).thenReturn("EShKs85");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/client/estimateManagementClientJSP.jsp");
+    verify(request).getRequestDispatcher("/client/estimateManagementClient.jsp");
   }
 
   @Test
   void estimateManagementClientServletTest_WrongUser_ExceptionThrown() throws ServletException, IOException {
     when(session.getAttribute("user")).thenReturn("ADgjksf");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -94,7 +94,7 @@ class EstimateManagementClientServletTest {
     when(session.getAttribute("user")).thenReturn(client);
     when(request.getParameter("id_estimate")).thenReturn("HHhKs85");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -103,7 +103,7 @@ class EstimateManagementClientServletTest {
     when(session.getAttribute("user")).thenReturn(client);
     when(request.getParameter("id_estimate")).thenReturn("HH");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
 }

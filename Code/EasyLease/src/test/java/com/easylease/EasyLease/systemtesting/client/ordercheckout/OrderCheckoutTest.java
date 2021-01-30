@@ -2,10 +2,10 @@ package com.easylease.EasyLease.systemtesting.client.ordercheckout;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
+import com.easylease.EasyLease.model.order.DbOrderDao;
 import com.easylease.EasyLease.model.order.Order;
-import com.easylease.EasyLease.model.order.OrderDAO;
+import com.easylease.EasyLease.model.order.OrderDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.AfterEach;
@@ -26,15 +26,15 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  * @author Sarro Antonio
  */
 public class OrderCheckoutTest {
-  private OrderDAO orderDAO;
+  private OrderDao orderDAO;
   private Order order = null;
   private WebDriver driver;
-  private static DBConnection dbConnection;
+  private static DbConnection dbConnection;
   private String baseUrl;
 
   @BeforeAll
   static void init() throws Exception {
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
@@ -52,7 +52,7 @@ public class OrderCheckoutTest {
    */
   @BeforeEach
   public void setUp() throws Exception {
-    orderDAO = DBOrderDAO.getInstance();
+    orderDAO = DbOrderDao.getInstance();
     dbConnection.getConnection().setAutoCommit(false);
     System.setProperty("webdriver.edge.driver",
         "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");

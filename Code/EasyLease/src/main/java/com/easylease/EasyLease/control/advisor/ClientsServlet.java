@@ -2,8 +2,8 @@ package com.easylease.EasyLease.control.advisor;
 
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.client.DBClientDAO;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
+import com.easylease.EasyLease.model.client.DbClientDao;
+import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
 import java.io.IOException;
 import java.util.HashMap;
@@ -29,8 +29,8 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "ClientsServlet", urlPatterns = "/ClientsServlet")
 public class ClientsServlet extends HttpServlet {
-  DBClientDAO dbClientDAO = (DBClientDAO) DBClientDAO.getInstance();
-  DBEstimateDAO estimateDAO = (DBEstimateDAO) DBEstimateDAO.getInstance();
+  DbClientDao dbClientDAO = (DbClientDao) DbClientDao.getInstance();
+  DbEstimateDao estimateDAO = (DbEstimateDao) DbEstimateDao.getInstance();
 
   protected void doPost(
       HttpServletRequest request,
@@ -60,16 +60,16 @@ public class ClientsServlet extends HttpServlet {
               }
             }));
         request.setAttribute("clients", clients);
-        request.getRequestDispatcher("/advisor/clientsJSP.jsp")
+        request.getRequestDispatcher("/advisor/clients.jsp")
             .forward(request, response);
       } catch (ServletException ex) {
         Logger.getLogger(ClientsServlet.class.getName())
             .log(Level.SEVERE, ex.getMessage());
-        request.getRequestDispatcher("/user/homePageJSP.jsp")
+        request.getRequestDispatcher("/user/homePage.jsp")
             .forward(request, response);
       }
     } else {
-      request.getRequestDispatcher("/user/homePageJSP.jsp")
+      request.getRequestDispatcher("/user/homePage.jsp")
           .forward(request, response);
     }
   }

@@ -1,9 +1,8 @@
 package com.easylease.EasyLease.control.user;
 
 import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.easylease.EasyLease.model.car.DbCarDao;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,19 +29,19 @@ public class HomePageServlet extends HttpServlet {
     String tipologia = request.getParameter("tipologia");
     List<Car> carList = new ArrayList<>();
     if(modello != null && !modello.equals("Modello")){
-      carList.add(DBCarDAO.getInstance().retrieveByModel(modello));
+      carList.add(DbCarDao.getInstance().retrieveByModel(modello));
     }
     else if(marca != null && !marca.equals("Marca")){
-      carList = DBCarDAO.getInstance().retrieveByBrand(marca);
+      carList = DbCarDao.getInstance().retrieveByBrand(marca);
     }
     else if(tipologia != null && !tipologia.equals("Tipologia")) {
-      carList = DBCarDAO.getInstance().retrieveByType(tipologia);
+      carList = DbCarDao.getInstance().retrieveByType(tipologia);
     }
     else{
-      carList = DBCarDAO.getInstance().retrieveAll();
+      carList = DbCarDao.getInstance().retrieveAll();
     }
     carList.removeIf(c -> !c.getVisibility());
     request.getSession().setAttribute("carList", carList);
-    request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
+    request.getRequestDispatcher("/user/homePage.jsp").forward(request, response);
   }
 }

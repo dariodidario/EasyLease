@@ -2,11 +2,10 @@ package com.easylease.EasyLease.control.client;
 
 import com.easylease.EasyLease.control.utility.IdGenerator;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.client.DBClientDAO;
+import com.easylease.EasyLease.model.client.DbClientDao;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,15 +40,15 @@ public class SignInServlet extends HttpServlet {
     client.setPc(request.getParameter("pc"));
     client.setStreet(request.getParameter("street"));
 
-    DBClientDAO dao = (DBClientDAO) DBClientDAO.getInstance();
+    DbClientDao dao = (DbClientDao) DbClientDao.getInstance();
 
     if (dao.retrieveByEmail(client.getEmail()) != null) {
-      request.getRequestDispatcher("/user/loginJSP.jsp")
+      request.getRequestDispatcher("/user/login.jsp")
           .forward(request, response);
     }
     else{
       dao.insert(client, request.getParameter("password"));
-      request.getRequestDispatcher("/user/loginJSP.jsp")
+      request.getRequestDispatcher("/user/login.jsp")
           .forward(request, response);
     }
 

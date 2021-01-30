@@ -13,10 +13,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.advisor.AdvisorDAO;
-import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
+import com.easylease.EasyLease.model.advisor.AdvisorDao;
+import com.easylease.EasyLease.model.advisor.DbAdvisorDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,8 +29,8 @@ class AddAdvisorServletTest {
     private HttpServletRequest request;
     private HttpServletResponse response;
     private HttpSession session;
-    private AdvisorDAO advisorDAO;
-    private static DBConnection dbConnection;
+    private AdvisorDao advisorDAO;
+    private static DbConnection dbConnection;
     private RequestDispatcher dispatcher;
     private ServletContext context;
     private ServletConfig config;
@@ -55,10 +55,10 @@ class AddAdvisorServletTest {
         mysqlDataSource.setServerTimezone("UTC");
         mysqlDataSource.setVerifyServerCertificate(false);
         mysqlDataSource.setUseSSL(false);
-        dbConnection = DBConnection.getInstance();
+        dbConnection = DbConnection.getInstance();
         dbConnection.setDataSource(mysqlDataSource);
 
-        advisorDAO= DBAdvisorDAO.getInstance();
+        advisorDAO= DbAdvisorDao.getInstance();
         when(request.getSession()).thenReturn(session);
         context =mock(ServletContext.class);
         dispatcher= mock(RequestDispatcher.class);
@@ -115,7 +115,7 @@ class AddAdvisorServletTest {
         when(request.getParameter("confirm_valid")).thenReturn("true");
 
         servlet.doGet(request,response);
-        verify(context).getRequestDispatcher("/admin/addAdvisorJSP.jsp");
+        verify(context).getRequestDispatcher("/admin/addAdvisor.jsp");
     }
 
     @Test
@@ -132,7 +132,7 @@ class AddAdvisorServletTest {
         when(request.getParameter("confirm_valid")).thenReturn("true");
 
         servlet.doGet(request,response);
-        verify(context).getRequestDispatcher("/admin/addAdvisorJSP.jsp");
+        verify(context).getRequestDispatcher("/admin/addAdvisor.jsp");
     }
 
     @Test
@@ -149,7 +149,7 @@ class AddAdvisorServletTest {
         when(request.getParameter("confirm_valid")).thenReturn("true");
 
         servlet.doGet(request,response);
-        verify(context).getRequestDispatcher("/admin/addAdvisorJSP.jsp");
+        verify(context).getRequestDispatcher("/admin/addAdvisor.jsp");
     }
 
 
@@ -167,7 +167,7 @@ class AddAdvisorServletTest {
         when(request.getParameter("confirm_valid")).thenReturn("false");
 
         servlet.doGet(request,response);
-        verify(context).getRequestDispatcher("/admin/addAdvisorJSP.jsp");
+        verify(context).getRequestDispatcher("/admin/addAdvisor.jsp");
     }
 
 
@@ -187,7 +187,7 @@ class AddAdvisorServletTest {
         when(request.getParameter("confirm_valid")).thenReturn("true");
 
         servlet.doGet(request, response);
-        verify(context).getRequestDispatcher("/admin/addAdvisorJSP.jsp");
+        verify(context).getRequestDispatcher("/admin/addAdvisor.jsp");
     }
 
 

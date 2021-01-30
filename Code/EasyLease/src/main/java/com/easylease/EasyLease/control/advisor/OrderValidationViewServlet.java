@@ -1,7 +1,7 @@
 package com.easylease.EasyLease.control.advisor;
 
 import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
+import com.easylease.EasyLease.model.order.DbOrderDao;
 import com.easylease.EasyLease.model.order.Order;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -46,7 +46,7 @@ public class OrderValidationViewServlet extends HttpServlet {
         if (id == null || id.length() != 7 || !id.startsWith("OR")) {
           throw new ServletException("The id sent is incorrect");
         }
-        DBOrderDAO dbOrderDao = (DBOrderDAO) DBOrderDAO.getInstance();
+        DbOrderDao dbOrderDao = (DbOrderDao) DbOrderDao.getInstance();
         Order order = dbOrderDao.retrieveById(id);
         if (order == null) {
           throw new ServletException("The order doesn't exist");
@@ -56,15 +56,15 @@ public class OrderValidationViewServlet extends HttpServlet {
         }
 
         request.setAttribute("order", order);
-        request.getRequestDispatcher("/advisor/orderValidationJSP.jsp")
+        request.getRequestDispatcher("/advisor/orderValidation.jsp")
             .forward(request, response);
       } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/user/homePageJSP.jsp")
+        request.getRequestDispatcher("/user/homePage.jsp")
             .forward(request, response);
       }
     } else {
-      request.getRequestDispatcher("/user/homePageJSP.jsp")
+      request.getRequestDispatcher("/user/homePage.jsp")
           .forward(request, response);
     }
   }

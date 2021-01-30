@@ -1,7 +1,7 @@
 package com.easylease.EasyLease.control.client;
 
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
+import com.easylease.EasyLease.model.order.DbOrderDao;
 import com.easylease.EasyLease.model.order.Order;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "ConfirmOrderServlet", urlPatterns = "/ConfirmOrderServlet")
 public class ConfirmOrderServlet extends HttpServlet {
-  private DBOrderDAO orderDao = (DBOrderDAO) DBOrderDAO.getInstance();
+  private DbOrderDao orderDao = (DbOrderDao) DbOrderDao.getInstance();
 
   protected void doPost(
       HttpServletRequest request,
@@ -40,7 +40,7 @@ public class ConfirmOrderServlet extends HttpServlet {
         request.setAttribute("order", order);
         order.setState(choice);
         orderDao.update(order);
-        request.getRequestDispatcher("/client/orderCheckoutJSP.jsp")
+        request.getRequestDispatcher("/client/orderCheckout.jsp")
             .forward(request, response);
       } else if (choice.equals("Non confermato")) {
         order.setState(choice);
@@ -50,14 +50,14 @@ public class ConfirmOrderServlet extends HttpServlet {
             .forward(request, response);
       } else if (choice.equals("Paga")) {
         request.setAttribute("order", order);
-        request.getRequestDispatcher("/client/orderCheckoutJSP.jsp")
+        request.getRequestDispatcher("/client/orderCheckout.jsp")
             .forward(request, response);
       }
     } catch (ServletException e) {
       Logger logger = Logger.getLogger(
           ConfirmOrderServlet.class.getName());
       logger.log(Level.SEVERE, e.getMessage());
-      request.getRequestDispatcher("/user/homePageJSP.jsp");
+      request.getRequestDispatcher("/user/homePage.jsp");
     }
   }
 }

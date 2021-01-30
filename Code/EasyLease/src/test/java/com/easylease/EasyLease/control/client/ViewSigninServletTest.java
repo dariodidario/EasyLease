@@ -1,7 +1,6 @@
 package com.easylease.EasyLease.control.client;
 
-import com.easylease.EasyLease.control.user.ViewLoginServlet;
-import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,7 +47,7 @@ class ViewSigninServletTest {
 
   private ViewSignInServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
-  private static DBConnection dbConnection;
+  private static DbConnection dbConnection;
 
   @BeforeEach
   void setUp() throws SQLException {
@@ -61,7 +60,7 @@ class ViewSigninServletTest {
     mysqlDataSource.setServerTimezone("UTC");
     mysqlDataSource.setVerifyServerCertificate(false);
     mysqlDataSource.setUseSSL(false);
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     dbConnection.setDataSource(mysqlDataSource);
     when(request.getServletContext()).thenReturn(context);
     try {
@@ -99,7 +98,7 @@ class ViewSigninServletTest {
   void Success() throws ServletException, IOException {
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/client/signInJSP.jsp");
+        "/client/signIn.jsp");
   }
 
 }

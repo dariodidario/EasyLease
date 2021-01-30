@@ -7,8 +7,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.advisor.AdvisorDAO;
-import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
+import com.easylease.EasyLease.model.advisor.AdvisorDao;
+import com.easylease.EasyLease.model.advisor.DbAdvisorDao;
 import com.easylease.EasyLease.model.client.Client;
 import java.io.IOException;
 import java.util.HashMap;
@@ -47,14 +47,14 @@ class ClientsServletTest {
   private RequestDispatcher dispatcher;
 
   private ClientsServlet servlet;
-  private AdvisorDAO advisorDAO;
+  private AdvisorDao advisorDAO;
   private final Map<String, Object> attributes = new HashMap<>();
 
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
     servlet = new ClientsServlet();
-    advisorDAO = DBAdvisorDAO.getInstance();
+    advisorDAO = DbAdvisorDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");
@@ -84,27 +84,27 @@ class ClientsServletTest {
     Advisor advisor = advisorDAO.retrieveById("ADJdybc");
     when(request.getSession().getAttribute("user")).thenReturn(advisor);
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/advisor/clientsJSP.jsp");
+    verify(request).getRequestDispatcher("/advisor/clients.jsp");
   }
 
   @Test
   void clientsServletTestNullSession() throws ServletException, IOException {
     when(request.getSession()).thenReturn(null);
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
   void clientsServletTestWrongUser() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(new Client());
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
   void clientsServletTestNullUser() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(null);
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 }

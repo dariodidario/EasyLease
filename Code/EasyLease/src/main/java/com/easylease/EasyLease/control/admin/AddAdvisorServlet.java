@@ -2,8 +2,8 @@ package com.easylease.EasyLease.control.admin;
 
 import com.easylease.EasyLease.control.utility.IdGenerator;
 import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.advisor.AdvisorDAO;
-import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
+import com.easylease.EasyLease.model.advisor.AdvisorDao;
+import com.easylease.EasyLease.model.advisor.DbAdvisorDao;
 import com.easylease.EasyLease.model.user.User;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,7 +30,7 @@ public class AddAdvisorServlet extends HttpServlet {
   protected void doGet(
           HttpServletRequest request,
           HttpServletResponse response) throws ServletException, IOException {
-    AdvisorDAO advisorDAO = DBAdvisorDAO.getInstance();
+    AdvisorDao advisorDAO = DbAdvisorDao.getInstance();
     String role = (String) request.getSession().getAttribute("role");
     if (role == null) {
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/error403.jsp");
@@ -44,22 +44,22 @@ public class AddAdvisorServlet extends HttpServlet {
       if (Boolean.valueOf(request.getParameter("email_valid")) == false) {//case invalid email
         request.getSession().setAttribute("error", "l'email non è valida");
         request.getSession().setAttribute("role", "admin");
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisorJSP.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisor.jsp");
         dispatcher.forward(request, response);
       } else if (Boolean.valueOf(request.getParameter("date_valid")) == false) {//case invalid date
         request.getSession().setAttribute("error", "la data non può essere superiore ad oggi");
         request.getSession().setAttribute("role", "admin");
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisorJSP.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisor.jsp");
         dispatcher.forward(request, response);
       } else if (Boolean.valueOf(request.getParameter("password_valid")) == false) {//case invalid password
         request.getSession().setAttribute("error", "la password non è valida");
         request.getSession().setAttribute("role", "admin");
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisorJSP.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisor.jsp");
         dispatcher.forward(request, response);
       } else if (Boolean.valueOf(request.getParameter("confirm_valid")) == false) {//case invalid password confirm
         request.getSession().setAttribute("error", "le password non corrispondono");
         request.getSession().setAttribute("role", "admin");
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisorJSP.jsp");
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisor.jsp");
         dispatcher.forward(request, response);
       } else {//case correct parameters
 
@@ -78,7 +78,7 @@ public class AddAdvisorServlet extends HttpServlet {
         if (Advisor_ok == false) {//case is already present
           request.getSession().setAttribute("error", "Consulente già esistente");
           request.getSession().setAttribute("role", "admin");
-          RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisorJSP.jsp");
+          RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisor.jsp");
           dispatcher.forward(request, response);
         } else {//case isn't already present
 
@@ -101,7 +101,7 @@ public class AddAdvisorServlet extends HttpServlet {
           PrintWriter out = response.getWriter();
           out.println("<script type=\"text/javascript\">");
           out.println("alert('Consulente aggiunto con successo');");
-          out.println("location='user/homePageJSP.jsp';");
+          out.println("location='user/homePage.jsp';");
           out.println("</script>");
         }
       }
@@ -111,7 +111,7 @@ public class AddAdvisorServlet extends HttpServlet {
   /**this method created the id of advisor and check if the id is already in database
    * @return the new id of advisor*/
   private String checkID(){
-    AdvisorDAO advisorDAO = DBAdvisorDAO.getInstance();
+    AdvisorDao advisorDAO = DbAdvisorDao.getInstance();
     List<Advisor> advisors=advisorDAO.retrieveAll();
     String idGenerate= "AD"+ IdGenerator.randomIdGenerator();
     if(advisors!=null) {
@@ -128,7 +128,7 @@ public class AddAdvisorServlet extends HttpServlet {
    * @return false if there's an other advisor with the specified parameters*/
   private boolean checkAdvisor(String advisor_name, String advisor_surname,
                                String advisor_email, java.util.Date hireDate){
-    AdvisorDAO advisorDAO = DBAdvisorDAO.getInstance();
+    AdvisorDao advisorDAO = DbAdvisorDao.getInstance();
 
     List<Advisor> advisors = advisorDAO.retrieveAll();
     boolean Advisor_ok = true;

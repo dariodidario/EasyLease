@@ -1,7 +1,7 @@
 package com.easylease.EasyLease.control.user;
 
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,13 +41,13 @@ public class LoginServletTest {
 
   private LoginServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
-  private static DBConnection dbConnection;
+  private static DbConnection dbConnection;
 
   @BeforeEach
   void setUp() throws SQLException {
     MockitoAnnotations.openMocks(this);
     servlet = new LoginServlet();
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
@@ -96,7 +96,7 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("giu.digiamp@giudigiamp.com");
     when(request.getParameter("userPassword")).thenReturn("pass");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
     //assertEquals("admin", request.getSession().getAttribute("role"));
     request.getSession().removeAttribute("userEmail");
     request.getSession().removeAttribute("userPassword");
@@ -107,7 +107,7 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("rossa.clementina@frutta.com");
     when(request.getParameter("userPassword")).thenReturn("pass");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
     //assertEquals("advisor", request.getSession().getAttribute("role"));
     request.getSession().invalidate();
   }
@@ -117,7 +117,7 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("mattia.caprio@unisa.com");
     when(request.getParameter("userPassword")).thenReturn("pass");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
     //assertEquals("client", request.getSession().getAttribute("role"));
     request.getSession().invalidate();
   }
@@ -127,7 +127,7 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("aaaa@giudigiamp.com");
     when(request.getParameter("userPassword")).thenReturn("pass");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
+    verify(request).getRequestDispatcher("/user/login.jsp");
   }
 
   @Test
@@ -135,7 +135,7 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("mattia.caprio@unisa.com");
     when(request.getParameter("userPassword")).thenReturn("a");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
+    verify(request).getRequestDispatcher("/user/login.jsp");
   }
 
   @Test
@@ -143,7 +143,7 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("rossa.clementina@frutta.com");
     when(request.getParameter("userPassword")).thenReturn("a");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
+    verify(request).getRequestDispatcher("/user/login.jsp");
   }
 
   @Test
@@ -151,7 +151,7 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("giu.digiamp@giudigiamp.com");
     when(request.getParameter("userPassword")).thenReturn("a");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
+    verify(request).getRequestDispatcher("/user/login.jsp");
   }
 
   @Test

@@ -2,7 +2,7 @@ package com.easylease.EasyLease.systemtesting.admin.addcar;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.AfterEach;
@@ -26,12 +26,12 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  */
 public class AddCarEmptyImageTest {
   private WebDriver driver;
-  private static DBConnection dbConnection;
+  private static DbConnection dbConnection;
   private String baseUrl;
 
   @BeforeAll
   static void init() throws Exception {
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");

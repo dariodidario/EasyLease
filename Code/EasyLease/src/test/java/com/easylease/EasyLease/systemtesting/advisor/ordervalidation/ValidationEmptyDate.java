@@ -1,7 +1,7 @@
 package com.easylease.EasyLease.systemtesting.advisor.ordervalidation;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
+import com.easylease.EasyLease.model.order.DbOrderDao;
 import com.easylease.EasyLease.model.order.Order;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.*;
@@ -24,12 +24,12 @@ public class ValidationEmptyDate {
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
-  private static DBConnection dbConnection = DBConnection.getInstance();
-  private Order order = DBOrderDAO.getInstance().retrieveById("ORd3Jks");
+  private static DbConnection dbConnection = DbConnection.getInstance();
+  private Order order = DbOrderDao.getInstance().retrieveById("ORd3Jks");
 
   @BeforeAll
   static void init() throws Exception {
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
@@ -83,7 +83,7 @@ public class ValidationEmptyDate {
 
   @AfterEach
   public void tearDown() throws Exception {
-    DBOrderDAO.getInstance().update(order);
+    DbOrderDao.getInstance().update(order);
     driver.quit();
   }
 }

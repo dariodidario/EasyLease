@@ -9,9 +9,9 @@ import static org.mockito.Mockito.when;
 
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
+import com.easylease.EasyLease.model.order.DbOrderDao;
 import com.easylease.EasyLease.model.order.Order;
-import com.easylease.EasyLease.model.order.OrderDAO;
+import com.easylease.EasyLease.model.order.OrderDao;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,7 +48,7 @@ class OrderCheckoutServletTest {
   @Mock
   private RequestDispatcher dispatcher;
 
-  private OrderDAO orderDAO;
+  private OrderDao orderDAO;
   private OrderCheckoutServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
   private Order orderStub;
@@ -57,7 +57,7 @@ class OrderCheckoutServletTest {
   void setUp() {
     MockitoAnnotations.openMocks(this);
     servlet = new OrderCheckoutServlet();
-    orderDAO = DBOrderDAO.getInstance();
+    orderDAO = DbOrderDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");
@@ -88,7 +88,7 @@ class OrderCheckoutServletTest {
     when(request.getSession().getAttribute("user")).thenReturn(new Client());
     when(request.getParameter("submit")).thenReturn("ORbG567");
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
     assertEquals("Pagato", orderDAO.retrieveById("ORbG567").getState());
     orderDAO.update(orderStub);
   }
@@ -97,20 +97,20 @@ class OrderCheckoutServletTest {
   void orderCheckoutServletTestNullSession() throws ServletException, IOException {
     when(request.getSession()).thenReturn(null);
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
   void orderCheckoutServletTestWrongUser() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(new Advisor());
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
   void orderCheckoutServletTestNullUser() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(null);
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 }

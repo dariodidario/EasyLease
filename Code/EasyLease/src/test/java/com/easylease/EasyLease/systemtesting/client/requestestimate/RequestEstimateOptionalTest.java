@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
+import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
-import com.easylease.EasyLease.model.estimate.EstimateDAO;
+import com.easylease.EasyLease.model.estimate.EstimateDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
@@ -18,14 +18,14 @@ public class RequestEstimateOptionalTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
-  private static DBConnection dbConnection;
-  private static EstimateDAO estimateDao;
+  private static DbConnection dbConnection;
+  private static EstimateDao estimateDao;
   private static List<Estimate> estimateList;
   private static List<Estimate> updatedEstimate;
 
   @BeforeAll
   static void init() throws Exception {
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
@@ -34,7 +34,7 @@ public class RequestEstimateOptionalTest {
     mysqlDataSource.setVerifyServerCertificate(false);
     mysqlDataSource.setUseSSL(false);
     dbConnection.setDataSource(mysqlDataSource);
-    estimateDao = DBEstimateDAO.getInstance();
+    estimateDao = DbEstimateDao.getInstance();
     estimateList = estimateDao.retrieveAll();
   }
 

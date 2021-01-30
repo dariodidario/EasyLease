@@ -1,8 +1,7 @@
 package com.easylease.EasyLease.control.fragments;
 
-import com.easylease.EasyLease.model.order.DBOrderDAO;
+import com.easylease.EasyLease.model.order.DbOrderDao;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +21,7 @@ public class FooterServlet extends HttpServlet {
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     response.setContentType("text/plain");
-    response.getWriter().write((DBOrderDAO.getInstance().retrieveAll().size()+936)+"");
+    response.getWriter().write((DbOrderDao.getInstance().retrieveAll().size()+936)+"");
 
   }
 }

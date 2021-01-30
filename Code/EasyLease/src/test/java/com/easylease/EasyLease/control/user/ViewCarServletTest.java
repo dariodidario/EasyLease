@@ -1,13 +1,7 @@
 package com.easylease.EasyLease.control.user;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
-import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
-import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.DBCarDAO;
-import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
-import com.easylease.EasyLease.model.estimate.Estimate;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
+import com.easylease.EasyLease.model.car.DbCarDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,10 +46,10 @@ public class ViewCarServletTest {
   @Mock
   private PrintWriter printWriter;
 
-  private DBCarDAO dbCarDAO;
+  private DbCarDao dbCarDAO;
   private ViewCarServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
-  private static DBConnection dbConnection;
+  private static DbConnection dbConnection;
 
   @BeforeEach
   void setUp() throws SQLException {
@@ -68,9 +62,9 @@ public class ViewCarServletTest {
     mysqlDataSource.setServerTimezone("UTC");
     mysqlDataSource.setVerifyServerCertificate(false);
     mysqlDataSource.setUseSSL(false);
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     dbConnection.setDataSource(mysqlDataSource);
-    dbCarDAO = (DBCarDAO) DBCarDAO.getInstance();
+    dbCarDAO = (DbCarDao) DbCarDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     try {
       when(response.getWriter()).thenReturn(printWriter);
@@ -109,7 +103,7 @@ public class ViewCarServletTest {
         "3008");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/user/viewCarJSP.jsp");
+        "/user/viewCar.jsp");
   }
 
   @Test

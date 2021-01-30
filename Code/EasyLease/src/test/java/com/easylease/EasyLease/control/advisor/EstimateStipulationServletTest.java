@@ -1,9 +1,9 @@
 package com.easylease.EasyLease.control.advisor;
 
 import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
+import com.easylease.EasyLease.model.advisor.DbAdvisorDao;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
+import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
 import com.easylease.EasyLease.model.optional.Optional;
 import org.junit.jupiter.api.AfterEach;
@@ -47,8 +47,8 @@ class EstimateStipulationServletTest {
   @Mock
   private RequestDispatcher dispatcher;
 
-  private final DBAdvisorDAO dbAdvisorDAO = (DBAdvisorDAO) DBAdvisorDAO.getInstance();
-  private DBEstimateDAO dbEstimateDAO;
+  private final DbAdvisorDao dbAdvisorDAO = (DbAdvisorDao) DbAdvisorDao.getInstance();
+  private DbEstimateDao dbEstimateDAO;
   private EstimateStipulationServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
 
@@ -56,7 +56,7 @@ class EstimateStipulationServletTest {
   void setUp() {
     MockitoAnnotations.openMocks(this);
     servlet = new EstimateStipulationServlet();
-    dbEstimateDAO = (DBEstimateDAO) DBEstimateDAO.getInstance();
+    dbEstimateDAO = (DbEstimateDao) DbEstimateDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");
@@ -92,7 +92,7 @@ class EstimateStipulationServletTest {
     }
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/advisor/estimateManagementAdvisorJSP.jsp");
+        "/advisor/estimateManagementAdvisor.jsp");
     assertEquals("Stipulato", dbEstimateDAO.retrieveById("ESfn9IO").getState());
     dbEstimateDAO.update(estimate);
   }
@@ -102,14 +102,14 @@ class EstimateStipulationServletTest {
     when(request.getSession().getAttribute("user")).thenReturn(new Advisor());
     when(request.getParameter("id")).thenReturn("ESdnA9G");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
   void nullSession() throws ServletException, IOException {
     when(request.getSession()).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -117,7 +117,7 @@ class EstimateStipulationServletTest {
     when(request.getSession().getAttribute("user")).thenReturn(new Client());
     when(request.getParameter("id")).thenReturn("ESgY65R");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -126,7 +126,7 @@ class EstimateStipulationServletTest {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -135,6 +135,6 @@ class EstimateStipulationServletTest {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn("ESxxxxx");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 }

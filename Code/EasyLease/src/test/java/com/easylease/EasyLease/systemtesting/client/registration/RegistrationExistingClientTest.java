@@ -1,9 +1,9 @@
 package com.easylease.EasyLease.systemtesting.client.registration;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.client.ClientDAO;
-import com.easylease.EasyLease.model.client.DBClientDAO;
+import com.easylease.EasyLease.model.client.ClientDao;
+import com.easylease.EasyLease.model.client.DbClientDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
@@ -12,7 +12,6 @@ import org.openqa.selenium.edge.EdgeDriver;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.fail;
@@ -21,13 +20,13 @@ public class RegistrationExistingClientTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
-  private static DBConnection dbConnection;
-  private static ClientDAO clientDao;
+  private static DbConnection dbConnection;
+  private static ClientDao clientDao;
   private static Client client = new Client();
 
   @BeforeAll
   static void init() throws Exception {
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
@@ -37,7 +36,7 @@ public class RegistrationExistingClientTest {
     mysqlDataSource.setUseSSL(false);
     dbConnection.setDataSource(mysqlDataSource);
     dbConnection.getConnection().setAutoCommit(false);
-    clientDao = DBClientDAO.getInstance();
+    clientDao = DbClientDao.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     String dateInString = "1997-04-05";
     Date date = sdf.parse(dateInString);

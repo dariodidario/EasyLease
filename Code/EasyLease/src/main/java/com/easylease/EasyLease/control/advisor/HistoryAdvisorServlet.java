@@ -1,9 +1,9 @@
 package com.easylease.EasyLease.control.advisor;
 
 import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
+import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
+import com.easylease.EasyLease.model.order.DbOrderDao;
 import com.easylease.EasyLease.model.order.Order;
 
 import java.io.IOException;
@@ -40,8 +40,8 @@ public class HistoryAdvisorServlet extends HttpServlet {
               + " on the platform correctly as an Advisor");
         }
         Advisor advisor = (Advisor) session.getAttribute("user");
-        DBOrderDAO dbOrderDao = (DBOrderDAO) DBOrderDAO.getInstance();
-        DBEstimateDAO dbEstimateDao = (DBEstimateDAO) DBEstimateDAO.getInstance();
+        DbOrderDao dbOrderDao = (DbOrderDao) DbOrderDao.getInstance();
+        DbEstimateDao dbEstimateDao = (DbEstimateDao) DbEstimateDao.getInstance();
         List<Object> list = new ArrayList<>();
         for (Order o : dbOrderDao.retrieveByAdvisor(advisor.getId())) {
           if (o.isVisibility()) {
@@ -55,15 +55,15 @@ public class HistoryAdvisorServlet extends HttpServlet {
           }
         }
         request.setAttribute("list", list);
-        request.getRequestDispatcher("/advisor/historyAdvisorJSP.jsp")
+        request.getRequestDispatcher("/advisor/historyAdvisor.jsp")
             .forward(request, response);
       } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/user/homePageJSP.jsp")
+        request.getRequestDispatcher("/user/homePage.jsp")
             .forward(request, response);
       }
     } else
-      request.getRequestDispatcher("/user/homePageJSP.jsp")
+      request.getRequestDispatcher("/user/homePage.jsp")
           .forward(request, response);
   }
 

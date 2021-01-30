@@ -1,10 +1,10 @@
 package com.easylease.EasyLease.control.utility.scheduler;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
-import com.easylease.EasyLease.model.estimate.EstimateDAO;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
-import com.easylease.EasyLease.model.order.OrderDAO;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
+import com.easylease.EasyLease.model.estimate.DbEstimateDao;
+import com.easylease.EasyLease.model.estimate.EstimateDao;
+import com.easylease.EasyLease.model.order.DbOrderDao;
+import com.easylease.EasyLease.model.order.OrderDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,14 +15,14 @@ import java.util.Calendar;
 
 class CheckerTest {
 
-  private static DBConnection dbConnection;
-  private OrderDAO orderDAO;
-  private EstimateDAO estimateDAO;
+  private static DbConnection dbConnection;
+  private OrderDao orderDAO;
+  private EstimateDao estimateDAO;
   private Calendar c;
 
   @BeforeAll
   static void init() throws Exception {
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
@@ -35,8 +35,8 @@ class CheckerTest {
 
   @BeforeEach
   void setUp() throws SQLException {
-    orderDAO = DBOrderDAO.getInstance();
-    estimateDAO = DBEstimateDAO.getInstance();
+    orderDAO = DbOrderDao.getInstance();
+    estimateDAO = DbEstimateDao.getInstance();
     c = Calendar.getInstance();
     dbConnection.getConnection().setAutoCommit(false);
   }

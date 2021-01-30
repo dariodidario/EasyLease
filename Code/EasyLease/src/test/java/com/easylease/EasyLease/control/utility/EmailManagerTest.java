@@ -4,16 +4,16 @@ package com.easylease.EasyLease.control.utility;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.client.ClientDAO;
-import com.easylease.EasyLease.model.client.DBClientDAO;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
+import com.easylease.EasyLease.model.client.ClientDao;
+import com.easylease.EasyLease.model.client.DbClientDao;
+import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
-import com.easylease.EasyLease.model.estimate.EstimateDAO;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
+import com.easylease.EasyLease.model.estimate.EstimateDao;
+import com.easylease.EasyLease.model.order.DbOrderDao;
 import com.easylease.EasyLease.model.order.Order;
-import com.easylease.EasyLease.model.order.OrderDAO;
+import com.easylease.EasyLease.model.order.OrderDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import java.sql.SQLException;
 import javax.mail.MessagingException;
@@ -30,14 +30,14 @@ import org.junit.jupiter.api.Test;
  * @since 0.1
  */
 class EmailManagerTest {
-  private static DBConnection dbConnection;
-  private OrderDAO orderDAO;
-  private ClientDAO clientDAO;
-  private EstimateDAO estimateDAO;
+  private static DbConnection dbConnection;
+  private OrderDao orderDAO;
+  private ClientDao clientDAO;
+  private EstimateDao estimateDAO;
 
   @BeforeAll
   static void init() throws Exception {
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
@@ -50,9 +50,9 @@ class EmailManagerTest {
 
   @BeforeEach
   void setUp() throws SQLException {
-    orderDAO = DBOrderDAO.getInstance();
-    clientDAO = DBClientDAO.getInstance();
-    estimateDAO = DBEstimateDAO.getInstance();
+    orderDAO = DbOrderDao.getInstance();
+    clientDAO = DbClientDao.getInstance();
+    estimateDAO = DbEstimateDao.getInstance();
     dbConnection.getConnection().setAutoCommit(false);
   }
 

@@ -2,16 +2,14 @@ package com.easylease.EasyLease.control.client;
 
 import com.easylease.EasyLease.control.utility.IdGenerator;
 import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.easylease.EasyLease.model.car.DbCarDao;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
+import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
-import com.easylease.EasyLease.model.optional.DBOptionalDAO;
+import com.easylease.EasyLease.model.optional.DbOptionalDao;
 import com.easylease.EasyLease.model.optional.Optional;
-import com.easylease.EasyLease.model.optional.OptionalDAO;
-import com.easylease.EasyLease.model.user.User;
+import com.easylease.EasyLease.model.optional.OptionalDao;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +29,7 @@ public class RequestEstimateServlet extends HttpServlet {
 
     String role = (String) request.getSession().getAttribute("role");
     if (role == null || (role != null && !role.equals("client"))) {
-      request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
+      request.getRequestDispatcher("/user/homePage.jsp").forward(request, response);
     }
     else {
       Client user = (Client) request.getSession().getAttribute("user");
@@ -39,7 +37,7 @@ public class RequestEstimateServlet extends HttpServlet {
       String m = request.getParameter("Mesi");
 
       if (m==null || user == null || carId == null ) {
-        request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
+        request.getRequestDispatcher("/user/homePage.jsp").forward(request, response);
       }
 
       else {
@@ -47,14 +45,14 @@ public class RequestEstimateServlet extends HttpServlet {
         String[] optionals = request.getParameterValues("optionals");
         List<Optional> optionalList = new ArrayList<>();
         if (optionals != null && optionals.length != 0) {
-          OptionalDAO optDao = DBOptionalDAO.getInstance();
+          OptionalDao optDao = DbOptionalDao.getInstance();
           for (String optionalId : optionals) {
             optionalList.add(optDao.retrieveById(optionalId));
           }
         }
-        Car car = DBCarDAO.getInstance().retrieveById(carId);
+        Car car = DbCarDao.getInstance().retrieveById(carId);
         String id = "ES" + IdGenerator.randomIdGenerator();
-        while (DBEstimateDAO.getInstance().retrieveById(id) != null) {
+        while (DbEstimateDao.getInstance().retrieveById(id) != null) {
           id = "ES" + IdGenerator.randomIdGenerator();
         }
 
@@ -62,9 +60,9 @@ public class RequestEstimateServlet extends HttpServlet {
             months, optionalList, true, "Attesa",
             new Date(System.currentTimeMillis()), null);
 
-        DBEstimateDAO.getInstance().insert(estimate);
+        DbEstimateDao.getInstance().insert(estimate);
 
-        request.getRequestDispatcher("/user/homePageJSP.jsp")
+        request.getRequestDispatcher("/user/homePage.jsp")
             .forward(request, response);
       }
     }

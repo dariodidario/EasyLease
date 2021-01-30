@@ -1,24 +1,15 @@
 package com.easylease.EasyLease.control.client;
 
 
-import com.easylease.EasyLease.control.user.ViewCarServlet;
-import com.easylease.EasyLease.model.DBPool.DBConnection;
-import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.client.ClientDAO;
-import com.easylease.EasyLease.model.client.DBClientDAO;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
-import com.easylease.EasyLease.model.estimate.Estimate;
-import com.easylease.EasyLease.model.estimate.EstimateDAO;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
-import com.easylease.EasyLease.model.order.Order;
-import com.easylease.EasyLease.model.order.OrderDAO;
+import com.easylease.EasyLease.model.client.ClientDao;
+import com.easylease.EasyLease.model.client.DbClientDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
 
@@ -32,10 +23,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -57,10 +45,10 @@ class SigninServletTest {
   @Mock
   private PrintWriter printWriter;
 
-  private ClientDAO clientDao;
+  private ClientDao clientDao;
   private SignInServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
-  private static DBConnection dbConnection;
+  private static DbConnection dbConnection;
 
   @BeforeEach
   void setUp() throws SQLException {
@@ -73,9 +61,9 @@ class SigninServletTest {
     mysqlDataSource.setServerTimezone("UTC");
     mysqlDataSource.setVerifyServerCertificate(false);
     mysqlDataSource.setUseSSL(false);
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     dbConnection.setDataSource(mysqlDataSource);
-    clientDao = DBClientDAO.getInstance();
+    clientDao = DbClientDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     try {
       when(response.getWriter()).thenReturn(printWriter);
@@ -123,7 +111,7 @@ class SigninServletTest {
     when(request.getParameter("street")).thenReturn("Isonzo");
     when(request.getParameter("password")).thenReturn("pass");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
+    verify(request).getRequestDispatcher("/user/login.jsp");
     Client client = clientDao.retrieveByEmail("francesco.torino1999@gmail.com");
     assertEquals(email, client.getEmail());
     clientDao.delete(client);
@@ -142,7 +130,7 @@ class SigninServletTest {
     when(request.getParameter("street")).thenReturn("Isonzo");
     when(request.getParameter("password")).thenReturn("pass");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
+    verify(request).getRequestDispatcher("/user/login.jsp");
   }
 /*
   @Test

@@ -1,14 +1,8 @@
 package com.easylease.EasyLease.control.client;
 
-import com.easylease.EasyLease.control.fragments.FooterServlet;
-import com.easylease.EasyLease.model.DBPool.DBConnection;
-import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
-import com.easylease.EasyLease.model.estimate.EstimateDAO;
-import com.easylease.EasyLease.model.optional.DBOptionalDAO;
-import com.easylease.EasyLease.model.optional.OptionalDAO;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
-import com.easylease.EasyLease.model.order.OrderDAO;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
+import com.easylease.EasyLease.model.optional.DbOptionalDao;
+import com.easylease.EasyLease.model.optional.OptionalDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,12 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
@@ -47,16 +39,16 @@ class ViewRequestEstimateServletTest {
   @Mock
   private RequestDispatcher dispatcher;
 
-  private OptionalDAO dbOptional;
+  private OptionalDao dbOptional;
   private ViewRequestEstimateServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
-  private static DBConnection dbConnection;
+  private static DbConnection dbConnection;
 
   @BeforeEach
   void setUp() throws SQLException {
     MockitoAnnotations.openMocks(this);
     servlet = new ViewRequestEstimateServlet();
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
@@ -66,7 +58,7 @@ class ViewRequestEstimateServletTest {
     mysqlDataSource.setUseSSL(false);
 
     dbConnection.setDataSource(mysqlDataSource);
-    dbOptional = DBOptionalDAO.getInstance();
+    dbOptional = DbOptionalDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");
@@ -91,14 +83,14 @@ class ViewRequestEstimateServletTest {
     when(request.getSession().getAttribute("role")).thenReturn("client");
     when(request.getParameter("idCar")).thenReturn("CAaaaa2");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/client/requestEstimateJSP.jsp");
+    verify(request).getRequestDispatcher("/client/requestEstimate.jsp");
   }
 
   @Test
   void doPostWrongRole() throws ServletException, IOException {
     when(request.getSession().getAttribute("role")).thenReturn("user");
     servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
 }

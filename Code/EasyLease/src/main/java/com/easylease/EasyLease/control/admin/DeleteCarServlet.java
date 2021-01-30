@@ -2,8 +2,8 @@ package com.easylease.EasyLease.control.admin;
 
 
 import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.CarDAO;
-import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.easylease.EasyLease.model.car.CarDao;
+import com.easylease.EasyLease.model.car.DbCarDao;
 import com.easylease.EasyLease.model.user.User;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,7 +20,7 @@ import java.nio.file.Files;
 
 @WebServlet("/DeleteCarServlet")
 public class DeleteCarServlet extends HttpServlet {
-  static CarDAO CarDAO =DBCarDAO.getInstance();
+  static CarDao CarDAO = DbCarDao.getInstance();
 
   protected void doPost(
           HttpServletRequest request,
@@ -58,7 +58,7 @@ public class DeleteCarServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<script type=\"text/javascript\">");
         out.println("alert('Auto eliminata con successo');");
-        out.println("location='user/homePageJSP.jsp';");
+        out.println("location='user/homePage.jsp';");
         out.println("</script>");
 
       } else {
@@ -67,7 +67,7 @@ public class DeleteCarServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<script type=\"text/javascript\">");
         out.println("alert('Impossibile eliminare, Id null error!');");
-        out.println("location='user/updateCarJSP.jsp';");
+        out.println("location='user/updateCar.jsp';");
         out.println("</script>");
       }
     }

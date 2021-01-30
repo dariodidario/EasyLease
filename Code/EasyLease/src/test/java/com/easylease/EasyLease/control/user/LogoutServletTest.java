@@ -1,11 +1,6 @@
 package com.easylease.EasyLease.control.user;
 
 import com.easylease.EasyLease.model.admin.Admin;
-import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
-import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
-import com.easylease.EasyLease.model.estimate.Estimate;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -82,7 +77,7 @@ class LogoutServletTest {
     request.getSession().setAttribute("role", "admin");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/user/homePageJSP.jsp");
+        "/user/homePage.jsp");
     assertNull(request.getSession().getAttribute("user"));
     assertNull(request.getSession().getAttribute("role"));
   }

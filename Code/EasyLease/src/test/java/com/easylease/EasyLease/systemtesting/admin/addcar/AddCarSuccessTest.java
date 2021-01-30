@@ -2,10 +2,10 @@ package com.easylease.EasyLease.systemtesting.admin.addcar;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.CarDAO;
-import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.easylease.EasyLease.model.car.CarDao;
+import com.easylease.EasyLease.model.car.DbCarDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -28,14 +28,14 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  * @author Sarro Antonio
  */
 public class AddCarSuccessTest {
-  private CarDAO carDAO;
+  private CarDao carDAO;
   private WebDriver driver;
-  private static DBConnection dbConnection;
+  private static DbConnection dbConnection;
   private String baseUrl;
 
   @BeforeAll
   static void init() throws Exception {
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
@@ -53,7 +53,7 @@ public class AddCarSuccessTest {
    */
   @BeforeEach
   public void setUp() throws Exception {
-    carDAO = DBCarDAO.getInstance();
+    carDAO = DbCarDao.getInstance();
     dbConnection.getConnection().setAutoCommit(false);
     System.setProperty("webdriver.edge.driver",
         "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");

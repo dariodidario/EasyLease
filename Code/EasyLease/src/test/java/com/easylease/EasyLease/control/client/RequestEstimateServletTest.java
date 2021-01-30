@@ -13,19 +13,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
+import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
-import com.easylease.EasyLease.model.estimate.EstimateDAO;
+import com.easylease.EasyLease.model.estimate.EstimateDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.stubbing.Answer;
 
 import javax.servlet.http.HttpSession;
 
@@ -43,16 +41,16 @@ class RequestEstimateServletTest {
   @Mock
   private RequestDispatcher dispatcher;
 
-  private EstimateDAO dbEstimate;
+  private EstimateDao dbEstimate;
   private RequestEstimateServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
-  private static DBConnection dbConnection;
+  private static DbConnection dbConnection;
 
   @BeforeEach
   void setUp() throws SQLException {
     MockitoAnnotations.openMocks(this);
     servlet = new RequestEstimateServlet();
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
@@ -62,7 +60,7 @@ class RequestEstimateServletTest {
     mysqlDataSource.setUseSSL(false);
 
     dbConnection.setDataSource(mysqlDataSource);
-    dbEstimate = DBEstimateDAO.getInstance();
+    dbEstimate = DbEstimateDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");
@@ -89,7 +87,7 @@ class RequestEstimateServletTest {
     when(request.getParameter("Mesi")).thenReturn("24");
     when(request.getParameterValues("optionals")).thenReturn(optionals);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size()+1, estimateNewList.size());
 
@@ -116,7 +114,7 @@ class RequestEstimateServletTest {
     when(request.getParameter("Mesi")).thenReturn("24");
     when(request.getParameterValues("optionals")).thenReturn(optionals);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size()+1, estimateNewList.size());
 
@@ -136,7 +134,7 @@ class RequestEstimateServletTest {
     }
     when(request.getSession().getAttribute("role")).thenReturn("admin");
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size(), estimateNewList.size());
   }
@@ -149,7 +147,7 @@ class RequestEstimateServletTest {
     }
     when(request.getSession().getAttribute("role")).thenReturn(null);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size(), estimateNewList.size());
   }
@@ -169,7 +167,7 @@ class RequestEstimateServletTest {
     when(request.getParameter("Mesi")).thenReturn("24");
     when(request.getParameterValues("optionals")).thenReturn(optionals);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size(), estimateNewList.size());
   }
@@ -190,7 +188,7 @@ class RequestEstimateServletTest {
     when(request.getParameter("Mesi")).thenReturn(null);
     when(request.getParameterValues("optionals")).thenReturn(optionals);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size(), estimateNewList.size());
   }
@@ -210,7 +208,7 @@ class RequestEstimateServletTest {
     when(request.getParameter("Mesi")).thenReturn("24");
     when(request.getParameterValues("optionals")).thenReturn(optionals);
     servlet.doGet(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size(), estimateNewList.size());
   }

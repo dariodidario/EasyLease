@@ -6,8 +6,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.advisor.AdvisorDAO;
-import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
+import com.easylease.EasyLease.model.advisor.AdvisorDao;
+import com.easylease.EasyLease.model.advisor.DbAdvisorDao;
 import com.easylease.EasyLease.model.client.Client;
 import java.io.IOException;
 import java.util.HashMap;
@@ -48,14 +48,14 @@ class HistoryAdvisorClientServletTest {
   private RequestDispatcher dispatcher;
 
   private HistoryAdvisorClientServlet servlet;
-  private AdvisorDAO advisorDAO;
+  private AdvisorDao advisorDAO;
   private final Map<String, Object> attributes = new HashMap<>();
 
   @BeforeEach
   void setUp() throws Exception {
     MockitoAnnotations.openMocks(this);
     servlet = new HistoryAdvisorClientServlet();
-    advisorDAO = DBAdvisorDAO.getInstance();
+    advisorDAO = DbAdvisorDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");
@@ -86,27 +86,27 @@ class HistoryAdvisorClientServletTest {
     when(request.getSession().getAttribute("user")).thenReturn(advisor);
     when(request.getParameter("id_client")).thenReturn("CLEE8BD");
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/advisor/historyAdvisorJSP.jsp");
+    verify(request).getRequestDispatcher("/advisor/historyAdvisor.jsp");
   }
 
   @Test
   void historyAdvisorClientServletTestNullSession() throws ServletException, IOException {
     when(request.getSession()).thenReturn(null);
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
   void historyAdvisorClientServletTestWrongUser() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(new Client());
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
   void historyAdvisorClientServletTestNullUser() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(null);
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 }

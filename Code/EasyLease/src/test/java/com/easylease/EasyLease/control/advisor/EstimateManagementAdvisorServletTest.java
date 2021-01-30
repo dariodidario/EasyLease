@@ -1,9 +1,9 @@
 package com.easylease.EasyLease.control.advisor;
 
 import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
+import com.easylease.EasyLease.model.advisor.DbAdvisorDao;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
+import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,8 +44,8 @@ class EstimateManagementAdvisorServletTest {
   @Mock
   private RequestDispatcher dispatcher;
 
-  private final DBAdvisorDAO dbAdvisorDAO = (DBAdvisorDAO) DBAdvisorDAO.getInstance();
-  private DBEstimateDAO dbEstimateDAO;
+  private final DbAdvisorDao dbAdvisorDAO = (DbAdvisorDao) DbAdvisorDao.getInstance();
+  private DbEstimateDao dbEstimateDAO;
   private EstimateManagementAdvisorServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
 
@@ -53,7 +53,7 @@ class EstimateManagementAdvisorServletTest {
   void setUp() {
     MockitoAnnotations.openMocks(this);
     servlet = new EstimateManagementAdvisorServlet();
-    dbEstimateDAO = (DBEstimateDAO) DBEstimateDAO.getInstance();
+    dbEstimateDAO = (DbEstimateDao) DbEstimateDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");
@@ -86,7 +86,7 @@ class EstimateManagementAdvisorServletTest {
     when(request.getParameter("id_estimate")).thenReturn("ES76tRE");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/advisor/estimateManagementAdvisorJSP.jsp");
+        "/advisor/estimateManagementAdvisor.jsp");
     assertEquals("Preso in carico",
         dbEstimateDAO.retrieveById("ES76tRE").getState());
     estimate.setState("Richiesto");
@@ -100,7 +100,7 @@ class EstimateManagementAdvisorServletTest {
     when(request.getParameter("id_estimate")).thenReturn("ESdnA9G");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/advisor/estimateManagementAdvisorJSP.jsp");
+        "/advisor/estimateManagementAdvisor.jsp");
     assertEquals("Stipulato", estimate.getState());
   }
 
@@ -111,7 +111,7 @@ class EstimateManagementAdvisorServletTest {
     when(request.getParameter("id_estimate")).thenReturn("ESgY65R");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/advisor/estimateManagementAdvisorJSP.jsp");
+        "/advisor/estimateManagementAdvisor.jsp");
     assertEquals("Preso in carico", estimate.getState());
   }
 
@@ -119,7 +119,7 @@ class EstimateManagementAdvisorServletTest {
   void nullSession() throws ServletException, IOException {
     when(request.getSession()).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -127,7 +127,7 @@ class EstimateManagementAdvisorServletTest {
     when(request.getSession().getAttribute("user")).thenReturn(new Client());
     when(request.getParameter("id_estimate")).thenReturn("ESgY65R");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -136,7 +136,7 @@ class EstimateManagementAdvisorServletTest {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id_estimate")).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -145,7 +145,7 @@ class EstimateManagementAdvisorServletTest {
         dbAdvisorDAO.retrieveById("ADJdybc"));
     when(request.getParameter("id_estimate")).thenReturn("ESxxxxx");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
 }

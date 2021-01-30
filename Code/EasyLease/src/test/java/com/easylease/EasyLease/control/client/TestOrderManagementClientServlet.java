@@ -1,8 +1,8 @@
 package com.easylease.EasyLease.control.client;
 
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.client.ClientDAO;
-import com.easylease.EasyLease.model.client.DBClientDAO;
+import com.easylease.EasyLease.model.client.ClientDao;
+import com.easylease.EasyLease.model.client.DbClientDao;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
@@ -39,7 +38,7 @@ class TestOrderManagementClientServlet {
   @Mock
   private RequestDispatcher dispatcher;
 
-  private ClientDAO clientDao;
+  private ClientDao clientDao;
   private OrderManagementClientServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
 
@@ -47,7 +46,7 @@ class TestOrderManagementClientServlet {
   void setUp() {
     MockitoAnnotations.openMocks(this);
     servlet = new OrderManagementClientServlet();
-    clientDao = DBClientDAO.getInstance();
+    clientDao = DbClientDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");
@@ -78,14 +77,14 @@ class TestOrderManagementClientServlet {
     when(session.getAttribute("user")).thenReturn(client);
     when(request.getParameter("id_order")).thenReturn("ORhfga2");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/client/orderManagementClientJSP.jsp");
+    verify(request).getRequestDispatcher("/client/orderManagementClient.jsp");
   }
 
   @Test
   void orderManagementClientServletTest_WrongUser_ExceptionThrown() throws ServletException, IOException {
     when(session.getAttribute("user")).thenReturn("ADgjksf");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -94,7 +93,7 @@ class TestOrderManagementClientServlet {
     when(session.getAttribute("user")).thenReturn(client);
     when(request.getParameter("id_order")).thenReturn("HHhKs85");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -103,6 +102,6 @@ class TestOrderManagementClientServlet {
     when(session.getAttribute("user")).thenReturn(client);
     when(request.getParameter("id_order")).thenReturn("HH");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 }

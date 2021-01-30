@@ -1,8 +1,8 @@
 package com.easylease.EasyLease.control.admin;
 
 import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.CarDAO;
-import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.easylease.EasyLease.model.car.CarDao;
+import com.easylease.EasyLease.model.car.DbCarDao;
 import com.easylease.EasyLease.model.user.User;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,13 +30,13 @@ public class ViewUpdateCarServlet extends HttpServlet {
             String id=(String) request.getParameter("Car_id");
 
             if(id!=null&&id.equalsIgnoreCase("")==false) {
-                CarDAO carDAO = DBCarDAO.getInstance();
+                CarDao carDAO = DbCarDao.getInstance();
                 Car car = carDAO.retrieveById(id);
                 request.getSession().setAttribute("car_to_update",car);
                 User user = (User) request.getSession().getAttribute("user");
                 request.getSession().setAttribute("user", user);
                 request.getSession().setAttribute("role", "admin");
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/updateCarJSP.jsp");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/updateCar.jsp");
                 dispatcher.forward(request, response);
             }else {
                 User user = (User) request.getSession().getAttribute("user");

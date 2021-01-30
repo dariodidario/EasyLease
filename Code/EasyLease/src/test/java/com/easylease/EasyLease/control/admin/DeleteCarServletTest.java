@@ -1,10 +1,10 @@
 package com.easylease.EasyLease.control.admin;
 
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.CarDAO;
-import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.easylease.EasyLease.model.car.CarDao;
+import com.easylease.EasyLease.model.car.DbCarDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +18,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,10 +41,10 @@ class DeleteCarServletTest {
     @Mock
     private RequestDispatcher dispatcher;
     private DeleteCarServlet servlet;
-    private CarDAO carDAO;
+    private CarDao carDAO;
     private StringWriter response_writer;
     private ServletConfig config;
-    private static DBConnection dbConnection;
+    private static DbConnection dbConnection;
 
 
 
@@ -56,7 +55,7 @@ class DeleteCarServletTest {
         config =mock(ServletConfig.class);
         servlet.init(config);
         response_writer = new StringWriter();
-        dbConnection = DBConnection.getInstance();
+        dbConnection = DbConnection.getInstance();
         MysqlDataSource mysqlDataSource = new MysqlDataSource();
         mysqlDataSource.setURL("jdbc:mysql://127.0.0.1:3306/easylease");
         mysqlDataSource.setUser("root");
@@ -65,7 +64,7 @@ class DeleteCarServletTest {
         mysqlDataSource.setVerifyServerCertificate(false);
         mysqlDataSource.setUseSSL(false);
         dbConnection.setDataSource(mysqlDataSource);
-        carDAO= DBCarDAO.getInstance();
+        carDAO= DbCarDao.getInstance();
         when(request.getSession()).thenReturn(session);
         when(response.getWriter()).thenReturn(new PrintWriter(response_writer));
         when(servlet.getServletContext()).thenReturn(context);
