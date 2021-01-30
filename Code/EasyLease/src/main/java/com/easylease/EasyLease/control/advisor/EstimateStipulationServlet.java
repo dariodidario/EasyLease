@@ -4,7 +4,6 @@ import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
 import com.easylease.EasyLease.model.estimate.Estimate;
 import com.easylease.EasyLease.model.optional.Optional;
-
 import java.io.IOException;
 import java.util.Date;
 import java.util.logging.Level;
@@ -17,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * This Servlet has the task of stipulate an estimate with the value given by the Advisor.
+ *
  * @author Caprio Mattia
  * @version 0.7
  * @since 0.1
@@ -47,8 +48,8 @@ public class EstimateStipulationServlet extends HttpServlet {
         if (estimate == null) {
           throw new ServletException("The estimate doesn't exist");
         }
-        if (!estimate.getState().equals("Preso in carico") ||
-            (Boolean) session.getAttribute("stipulation") != true) {
+        if (!estimate.getState().equals("Preso in carico")
+            || (Boolean) session.getAttribute("stipulation") != true) {
           throw new ServletException(
               "The chosen estimate cannot be stipulated");
         }
@@ -72,9 +73,10 @@ public class EstimateStipulationServlet extends HttpServlet {
         request.getRequestDispatcher("/user/homePageJSP.jsp")
             .forward(request, response);
       }
-    } else
+    } else {
       request.getRequestDispatcher("/user/homePageJSP.jsp")
           .forward(request, response);
+    }
   }
 
   @Override

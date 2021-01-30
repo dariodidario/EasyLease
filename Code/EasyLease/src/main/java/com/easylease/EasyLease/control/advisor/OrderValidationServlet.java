@@ -3,11 +3,11 @@ package com.easylease.EasyLease.control.advisor;
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.order.DBOrderDAO;
 import com.easylease.EasyLease.model.order.Order;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ *  This Servlet has the task to validate or not an order.
+ *
  * @author Caprio Mattia
  * @version 0.9
  * @since 0.1
@@ -53,12 +55,22 @@ public class OrderValidationServlet extends HttpServlet {
         if (!order.getState().equals("Pagato")) {
           throw new ServletException("The chosen order cannot be validated");
         }
+        if (Boolean.parseBoolean(request.getParameter("choice")) == false) {
+          order.setState("Non convalidato");
+          dbOrderDao.update(order);
+          request.setAttribute("order", order);
+          request.getRequestDispatcher("/advisor/orderManagementAdvisorJSP.jsp")
+              .forward(request, response);
+          return;
+        }
+        Date startDate = null;
         try {
-          order.setStartDate(htmlFormat.parse(request.getParameter("date")));
+          startDate = htmlFormat.parse(request.getParameter("date"));
         } catch (ParseException e) {
           request.getRequestDispatcher("/advisor/orderValidationJSP.jsp")
               .forward(request, response);
         }
+        order.setStartDate(startDate);
         GregorianCalendar endDate = new GregorianCalendar();
         endDate.setTime(order.getStartDate());
         endDate.add(Calendar.MONTH, order.getEstimate().getPeriod());
@@ -73,9 +85,10 @@ public class OrderValidationServlet extends HttpServlet {
         request.getRequestDispatcher("/user/homePageJSP.jsp")
             .forward(request, response);
       }
-    } else
+    } else {
       request.getRequestDispatcher("/user/homePageJSP.jsp")
           .forward(request, response);
+    }
   }
 
   @Override

@@ -3,7 +3,6 @@ package com.easylease.EasyLease.control.advisor;
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.order.DBOrderDAO;
 import com.easylease.EasyLease.model.order.Order;
-
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * This Servlet has the task to showing an order at the Advisor.
+ *
  * @author Caprio Mattia
  * @version 0.6
  * @since 0.1
@@ -59,8 +60,9 @@ public class OrderManagementAdvisorServlet extends HttpServlet {
         request.getRequestDispatcher("/user/homePageJSP.jsp")
             .forward(request, response);
       }
-    } else
+    } else {
       request.getRequestDispatcher("/user/homePageJSP.jsp")
           .forward(request, response);
+    }
   }
 }

@@ -27,7 +27,7 @@
 <html>
 <head>
     <title>Estimate Management Advisor</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/advisor/estimateManagementAdvisorJSP.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/advisor/orderManagementAdvisorJSP.css"/>
     <%@include file="/fragments/headerJSP.jsp" %>
 </head>
 <body>
@@ -177,8 +177,14 @@
                 %>
                 <div class="row">
                     <div class="col-12">
-                        <a href="OrderValidationViewServlet?id=<%=order.getId()%>"
-                           class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Convalida</a>
+                        <button class="btn btn-primary btn-lg active" role="button" aria-pressed="true" id="validation">
+                            <a href="OrderValidationViewServlet?id=<%=order.getId()%>" id="link">
+                                Convalida
+                            </a>
+                        </button>
+                        <button onclick="alertFunction()" class="btn btn-primary btn-lg active" role="button"
+                                aria-pressed="true" id="Notvalidation">Non convalida
+                        </button>
                     </div>
                 </div>
                 <%
@@ -191,3 +197,15 @@
 <%@include file="/fragments/footerJSP.jsp" %>
 </body>
 </html>
+
+<script>
+  function alertFunction() {
+    let request = new XMLHttpRequest();
+    if (confirm("Per non convalidare l'ordine premere ok, altrimenti premere annulla")) {
+      request.open("GET", "OrderValidationServlet?id=<%=order.getId()%>&choice=<%="false"%>", false);
+      request.send(null);
+      window.location.reload();
+    } else {
+    }
+  }
+</script>
