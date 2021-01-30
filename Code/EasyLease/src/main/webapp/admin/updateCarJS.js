@@ -1,5 +1,6 @@
 function readURL(input) {
     if (input.files && input.files[0]) {
+        var imgNew = document.getElementById('image_path');
         for(var i=0;i<input.files.length;i++) {
             var reader = new FileReader();
             var img='#img_carL';
@@ -11,6 +12,15 @@ function readURL(input) {
             reader.readAsDataURL(input.files[i]);
 
         }
+
+        imgNew.type="file";
+        imgNew.accept=".jpg";
+        imgNew.maxLength="255";
+        imgNew.value="";
+        imgNew.name="img_car_Update";
+        imgNew.id="img_car";
+        imgNew.style.cssText="display:none;";
+        document.getElementById('img_car').replaceWith(imgNew);
     }
 }
 
@@ -135,4 +145,7 @@ window.confirm = function(message) {
 function confermaDelete() {
     var richiesta=window.alert("Sicuro di voler eliminare?");
     return richiesta;
+}
+function changeIMG(){
+    document.getElementById('image_path').style.cssText="display:inline-block";
 }

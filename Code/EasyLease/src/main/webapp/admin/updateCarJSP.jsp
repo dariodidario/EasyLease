@@ -69,7 +69,8 @@ if(role==null){%>
 <div id="divImage">
   <br>
   <img id="img_carL" src="img/<%=image_path%>" onerror="this.src='${pageContext.request.contextPath}/img/misc/nophoto.jpg'"/>
-  <img id="matita_image" class="matita_img" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="confirm('img_car')">
+  <img id="matita_image" class="matita_img" src="${pageContext.request.contextPath}/img/misc/matita.png" onclick="changeIMG()">
+  <input id="image_path" name="image_path" type='file' value="" maxlength="255" onchange="readURL(this); " accept=".jpg"  required/>
   <br>
 </div>
 
