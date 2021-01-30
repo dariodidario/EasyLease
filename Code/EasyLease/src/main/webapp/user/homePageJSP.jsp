@@ -12,9 +12,9 @@
 <body>
 
 <%
-  List<Car> carList = (List<Car>) request.getAttribute("carList");
+  List<Car> carList = (List<Car>) request.getSession().getAttribute("carList");
   if (carList == null) {
-    response.sendRedirect(((HttpServletRequest)request).getContextPath()+"/HomePageServlet");
+    response.sendRedirect((request).getContextPath()+"/HomePageServlet");
   }
 %>
 

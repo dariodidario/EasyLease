@@ -41,7 +41,8 @@ public class HomePageServlet extends HttpServlet {
     else{
       carList = DBCarDAO.getInstance().retrieveAll();
     }
-    request.setAttribute("carList", carList);
+    carList.removeIf(c -> !c.getVisibility());
+    request.getSession().setAttribute("carList", carList);
     request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
   }
 }

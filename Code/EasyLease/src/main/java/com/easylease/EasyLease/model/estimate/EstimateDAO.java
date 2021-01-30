@@ -55,13 +55,6 @@ public interface EstimateDAO {
   void update(Estimate e);
 
   /**
-   * Delete an Estimate by setting its visibility to false.
-   *
-   * @param e is the {@link Estimate} you want to delete.
-   */
-  void delete(Estimate e);
-
-  /**
    * Insert an Estimate.
    *
    * @param e is the {@link Estimate} you want to insert.
@@ -73,7 +66,7 @@ public interface EstimateDAO {
    *
    * @param e is the {@link Estimate} you want to delete.
    */
-  void deleteForever(Estimate e);
+  void delete(Estimate e);
 
   /**
    * Search for an Estimate based on its state.

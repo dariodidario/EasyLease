@@ -1,15 +1,11 @@
 package com.easylease.EasyLease.model.estimate;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 
-import com.easylease.EasyLease.control.utility.IdGenerator;
 import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.car.Car;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
-import com.easylease.EasyLease.model.estimate.Estimate;
 import com.easylease.EasyLease.model.optional.Optional;
 
 import java.sql.SQLException;
@@ -20,10 +16,10 @@ import java.util.List;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 class DBEstimateDAOTest {
+
   private EstimateDAO dbEstimate;
   private static DBConnection dbConnection;
   List<Optional> optionalList = new ArrayList<>();
@@ -34,6 +30,7 @@ class DBEstimateDAOTest {
 
   @BeforeEach
   void setUp() throws SQLException {
+
     MockitoAnnotations.openMocks(this);
     dbConnection = DBConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
@@ -46,8 +43,8 @@ class DBEstimateDAOTest {
 
     dbConnection.setDataSource(mysqlDataSource);
     dbEstimate = DBEstimateDAO.getInstance();
-  }
 
+  }
 
   @Test
   void retrieveById_withCorrectId() {
@@ -132,24 +129,6 @@ class DBEstimateDAOTest {
   }
 
   @Test
-  void delete_withCorrectEstimate() {
-    Estimate e = dbEstimate.retrieveById("ESdnA9G");
-    dbEstimate.delete(e);
-    assertEquals(false, dbEstimate.retrieveById("ESdnA9G").isVisibility());
-
-    //rollback
-    e.setVisibility(true);
-    dbEstimate.update(e);
-  }
-
-  @Test
-  void delete_withNullEstimate() {
-    assertThrows(IllegalArgumentException.class, () -> {
-      dbEstimate.delete(null);
-    });
-  }
-
-  @Test
   void insert_withCorrectEstimate() {
     optionalList.add(optional);
     client.setId("CLBGqLi");
@@ -161,7 +140,7 @@ class DBEstimateDAOTest {
     assertNotNull(dbEstimate.retrieveById("es00000"));
 
     //rollback
-    dbEstimate.deleteForever(e);
+    dbEstimate.delete(e);
   }
 
   @Test
@@ -193,9 +172,9 @@ class DBEstimateDAOTest {
   }
 
   @Test
-  void deleteForever_withSuccess() {
+  void delete_withSuccess() {
     Estimate e = dbEstimate.retrieveById("ESdnA9G");
-    dbEstimate.deleteForever(e);
+    dbEstimate.delete(e);
     assertNull(dbEstimate.retrieveById("ESdnA9G"));
 
     //rollback
@@ -203,9 +182,9 @@ class DBEstimateDAOTest {
   }
 
   @Test
-  void deleteForever_withNullEstimate() {
+  void delete_withNullEstimate() {
     assertThrows(IllegalArgumentException.class, () -> {
-      dbEstimate.deleteForever(null);
+      dbEstimate.delete(null);
     });
   }
 }
