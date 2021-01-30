@@ -66,7 +66,8 @@
                     <%=order.getState() %>
                 </td>
                 <td data-th="Visualizza">
-                    <a href="OrderManagementClientServlet?id_order=<%=order.getId()%>"
+                    <a id="<%=order.getId()%>"
+                       href="OrderManagementClientServlet?id_order=<%=order.getId()%>"
                        class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Visualizza</a>
                 </td>
             </tr>
@@ -115,7 +116,8 @@
                     <%=estimate.getState() %>
                 </td>
                 <td data-th="Visualizza">
-                    <a href="EstimateManagementClientServlet?id_estimate=<%=estimate.getId()%>"
+                    <a id="<%=estimate.getId()%>"
+                       href="EstimateManagementClientServlet?id_estimate=<%=estimate.getId()%>"
                        class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Visualizza</a>
                 </td>
             </tr>
