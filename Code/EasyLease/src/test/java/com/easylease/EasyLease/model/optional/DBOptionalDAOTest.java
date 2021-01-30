@@ -56,7 +56,6 @@ class DBOptionalDAOTest {
     mysqlDataSource.setServerTimezone("UTC");
     mysqlDataSource.setVerifyServerCertificate(false);
     mysqlDataSource.setUseSSL(false);
-
     dbConnection.setDataSource(mysqlDataSource);
     dbOptional = DBOptionalDAO.getInstance();
   }

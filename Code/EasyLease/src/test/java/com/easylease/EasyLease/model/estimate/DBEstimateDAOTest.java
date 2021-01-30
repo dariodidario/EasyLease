@@ -30,6 +30,7 @@ class DBEstimateDAOTest {
 
   @BeforeEach
   void setUp() throws SQLException {
+
     MockitoAnnotations.openMocks(this);
     dbConnection = DBConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
@@ -42,6 +43,7 @@ class DBEstimateDAOTest {
 
     dbConnection.setDataSource(mysqlDataSource);
     dbEstimate = DBEstimateDAO.getInstance();
+
   }
 
   @Test

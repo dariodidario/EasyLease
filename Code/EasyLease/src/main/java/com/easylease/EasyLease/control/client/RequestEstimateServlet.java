@@ -34,7 +34,7 @@ public class RequestEstimateServlet extends HttpServlet {
       request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
     }
     else {
-      User user = (User) request.getSession().getAttribute("user");
+      Client user = (Client) request.getSession().getAttribute("user");
       String carId = request.getParameter("carId");
       String m = request.getParameter("Mesi");
 
