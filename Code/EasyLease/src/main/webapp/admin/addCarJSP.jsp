@@ -38,9 +38,9 @@
   <div id="divAutoName">
     <label class="autoName">Marca:</label>
 
-    <input type="text"  class="autoName" id="brand" name="brand" placeholder="es.(ferrari)" list="autoBrand" pattern="/^[A-Za-z0-9àèéìòù]+$/" required>
+    <input type="text"  class="autoName" id="brand" name="brand" placeholder="es.(ferrari)" list="autoBrand" pattern="^[A-Za-z0-9àèéìòù]+$" required>
     <label class="autoName">Modello:</label>
-    <input class="autoName" type="text" id="model" name="model" placeholder="es.(california)" pattern="/^[A-Za-z0-9àèéìòù]+$/"  required>
+    <input class="autoName" type="text" id="model" name="model" placeholder="es.(california)" pattern="^[A-Za-z0-9àèéìòù]+$"  required>
   </div>
 
 
@@ -59,7 +59,7 @@
     <tr><td colspan="3" align="center"><label class="detailTitle"> Caratteristiche</label></td></tr>
     <tr>
       <td><label class="carDetail">Tipologia</label></td>
-      <td><input class="carDetail" type="text"  id="car_type" name="car_type" list="autoTipologia" pattern="/^[a-zA-Z]+$/" required></td>
+      <td><input class="carDetail" type="text"  id="car_type" name="car_type" list="autoTipologia" pattern="^[a-zA-Z]+$" required></td>
     </tr>
     <tr>
       <td><label class="carDetail">Porte</label></td>
@@ -67,7 +67,7 @@
     </tr>
     <tr>
       <td><label class="carDetail">Cambio</label></td>
-      <td><input class="carDetail" type="text" id="transmission" name="transmission" list="autoCambio" pattern="/^[a-zA-Z]+$/" required></td>
+      <td><input class="carDetail" type="text" id="transmission" name="transmission" list="autoCambio" pattern="^[a-zA-Z]+$" required></td>
     </tr>
     <tr>
       <td><label class="carDetail">Consumo medio</label></td>
@@ -83,7 +83,7 @@
     </tr>
     <tr>
       <td><label class="carDetail">CO&sup2;</label></td>
-      <td><input class="carDetail" type="text" id="emission_class" name="emission_class" list="Emision_class" placeholder="es.(Euro 6)" pattern="/^Euro [1-6]{1}$/"  required></td>
+      <td><input class="carDetail" type="text" id="emission_class" name="emission_class" list="Emision_class" placeholder="es.(Euro 6)" pattern="^Euro [1-6]{1}$"  required></td>
     </tr>
     <tr>
       <td><label class="carDetail">Emissioni di CO&sup2;</label></td>
@@ -93,7 +93,7 @@
     </tr>
     <tr>
       <td><label class="carDetail">Alimentazione</label></td>
-      <td><input class="carDetail" type="text" id="power_supply" name="power_supply" list="autoPower" pattern="/^[a-zA-Z]+$/" required></td>
+      <td><input class="carDetail" type="text" id="power_supply" name="power_supply" list="autoPower" pattern="^[a-zA-Z]+$" required></td>
     </tr>
     <tr>
       <td><label class="carDetail">Cilindrata Motore</label></td>

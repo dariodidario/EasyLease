@@ -13,6 +13,9 @@
         z-index: 10;
     }
 
+    #image_path{
+        display: none;
+    }
     table.characteristics{
         position: relative;
         margin-top: 30px;
@@ -137,6 +140,9 @@
         border-bottom: solid #dec717;
         margin-left: 10px;
         z-index: 10;
+    }
+    #image_path{
+        display: none;
     }
 
     table.characteristics{
@@ -263,6 +269,11 @@
         border-bottom: solid #dec717;
         margin-left: 10px;
         z-index: 10;
+    }
+    #image_path{
+        display: none;
+        position: relative;
+        left: 10%;
     }
 
     table.characteristics{
