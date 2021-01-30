@@ -45,6 +45,8 @@ class HomePageServletTest {
   private PrintWriter printWriter;
   @Mock
   private RequestDispatcher dispatcher;
+  @Mock
+  private HttpSession session;
 
   private CarDAO dbCar;
   private HomePageServlet servlet;
@@ -70,6 +72,7 @@ class HomePageServletTest {
     when(response.getWriter()).thenReturn(printWriter);
     when(context.getContextPath()).thenReturn("");
     when(request.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+    when(request.getSession()).thenReturn(session);
   }
 
   @AfterEach

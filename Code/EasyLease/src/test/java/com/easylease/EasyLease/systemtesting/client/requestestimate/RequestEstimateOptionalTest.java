@@ -77,7 +77,7 @@ public class RequestEstimateOptionalTest {
         }
       }
       if (!found) {
-        estimateDao.deleteForever(item);
+        estimateDao.delete(item);
       }
     }
     driver.quit();

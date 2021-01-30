@@ -126,6 +126,7 @@ class DBAdvisorDAOTest {
   @Test
   public void insert_CorrectAdvisorGiven_ExpectedTrue() {
     Advisor advisor = dbAdvisorDAO.retrieveById("ADfake0");
+    advisor.setEmail("fakeMail@gmail.com");
     advisor.setId("ADn21xz");
     dbAdvisorDAO.insert(advisor, "pass");
     Advisor advisorToCheck = dbAdvisorDAO.retrieveById("ADn21xz");
@@ -166,8 +167,10 @@ class DBAdvisorDAOTest {
   @Test
   public void update_CorrectAdvisorGiven_ExpectedTrue() {
     Advisor advisor = dbAdvisorDAO.retrieveById("ADfake0");
+    String realEmail = advisor.getEmail();
     String realName = advisor.getName();
     advisor.setName("Elon");
+    advisor.setEmail("fakeMail@gmail.com");
     dbAdvisorDAO.update(advisor, "pass");
     Advisor advisorToCheck = dbAdvisorDAO.retrieveById("ADfake0");
     assertEquals(advisor.getId(), advisorToCheck.getId());
@@ -176,6 +179,7 @@ class DBAdvisorDAOTest {
     assertEquals(advisor.getEmail(), advisorToCheck.getEmail());
     assertEquals(advisor.getHireDate(), advisorToCheck.getHireDate());
     advisor.setName(realName);
+    advisor.setEmail(realEmail);
     dbAdvisorDAO.update(advisor, "pass");
   }
 
@@ -202,6 +206,7 @@ class DBAdvisorDAOTest {
   public void delete_CorrectAdvisorGiven_ExpectedTrue() throws ParseException {
     Advisor advisor = dbAdvisorDAO.retrieveById("ADFake0");
     advisor.setId("ADfake1");
+    advisor.setEmail("fakeMail@gmail.com");
     dbAdvisorDAO.insert(advisor, "pass");
     dbAdvisorDAO.delete(advisor);
   }
