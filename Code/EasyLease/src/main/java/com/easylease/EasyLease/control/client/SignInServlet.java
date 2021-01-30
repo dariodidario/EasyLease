@@ -24,6 +24,7 @@ public class SignInServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request,
       HttpServletResponse response)
       throws ServletException, IOException {
+    SimpleDateFormat htmlFormat = new SimpleDateFormat("yyyy-MM-dd");
     Client client = new Client();
     client.setId("CL"+ IdGenerator.randomIdGenerator());
     client.setName(request.getParameter("name"));
@@ -31,8 +32,7 @@ public class SignInServlet extends HttpServlet {
     client.setEmail(request.getParameter("email"));
     client.setBirthPlace(request.getParameter("birthplace"));
     try {
-      client.setBirthDate(new SimpleDateFormat(
-              "dd/MM/yyyy").parse((request.getParameter("birthdate"))));
+      client.setBirthDate(htmlFormat.parse(request.getParameter("birthdate")));
     } catch (ParseException e) {
       e.printStackTrace();
     }
@@ -42,9 +42,16 @@ public class SignInServlet extends HttpServlet {
     client.setStreet(request.getParameter("street"));
 
     DBClientDAO dao = (DBClientDAO) DBClientDAO.getInstance();
-    dao.insert(client, request.getParameter("password"));
 
-    request.getRequestDispatcher("/user/loginJSP.jsp")
-        .forward(request, response);
+    if (dao.retrieveByEmail(client.getEmail()) != null) {
+      request.getRequestDispatcher("/user/loginJSP.jsp")
+          .forward(request, response);
+    }
+    else{
+      dao.insert(client, request.getParameter("password"));
+      request.getRequestDispatcher("/user/loginJSP.jsp")
+          .forward(request, response);
+    }
+
   }
 }

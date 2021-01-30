@@ -15,12 +15,20 @@
       border: none !important;
     }
 
+    #divCont{
+      text-align: center; width: 30%;
+    }
+    @media screen and (max-width: 600px) {
+      #divCont{
+        text-align: center; width: 60%;
+      }
+    }
+
     html, body {  height: 100%; }
 
     .container {
       min-height: 100%;
       height: auto !important;
-      height: 100%;
       margin: 0 auto -100px;
     }
 
@@ -40,8 +48,10 @@
   function controllo(){
     var email=document.getElementById("email").value;
     var password=document.getElementById("password").value;
-    var mailformat=/^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-]{2,})+.)+([a-zA-Z0-9]{2,})+$/;
+    var mailformat=/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     var controllo;
+    document.getElementById("emaillb").style.display="none"
+    document.getElementById("passwordlb").style.display="none"
     controllo = true;
     if((!mailformat.test(email)) || (email == "") || (email == "undefined")){
       var m=document.getElementById("emaillb");
@@ -57,7 +67,7 @@
   }
 </script>
 <center>
-  <div class="container" style="text-align: center; width: 30%;">
+  <div class="container" id="divCont">
 <form action="${pageContext.request.contextPath}/LoginServlet" method="post" onSubmit="return controllo()">
   <div class="form-group">
 
@@ -72,8 +82,8 @@
   </div> <br>
   <a href="${pageContext.request.contextPath}/client/signInJSP.jsp">Registrati</a>
   <br><br>
-  <button type="submit" class="btn btn-primary">Login</button>
-  <input type="reset" class="btn btn-primary" value="Cancella">
+  <button type="submit" id="loginButton" class="btn btn-primary">Login</button>
+  <input type="reset" id="deleteButton" class="btn btn-primary" value="Cancella">
 </form>
   </div>
 </center>

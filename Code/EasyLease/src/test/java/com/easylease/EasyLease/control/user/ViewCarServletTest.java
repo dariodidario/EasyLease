@@ -38,7 +38,7 @@ import static org.mockito.Mockito.*;
  * @version 0.1
  * @since 0.1
  */
-class ViewCarServletTest {
+public class ViewCarServletTest {
   @Mock
   private HttpServletRequest request;
   @Mock
@@ -104,21 +104,18 @@ class ViewCarServletTest {
   }
 
   @Test
-  void Success() throws ServletException, IOException {
-    Car car = dbCarDAO.retrieveByModel("3008");
+  void success() throws ServletException, IOException {
     when(request.getParameter("model")).thenReturn(
         "3008");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
         "/user/viewCarJSP.jsp");
-    //assertEquals(car,
-        //request.getAttribute("car"));
   }
 
   @Test
-  void model_null() throws ServletException, IOException {
+  void model_null() {
     when(request.getParameter("model")).thenReturn(
         null);
-    assertThrows(IllegalArgumentException.class,()->{servlet.doGet(request,response);});
+    assertThrows(IllegalArgumentException.class, () -> { servlet.doGet(request, response); });
   }
 }

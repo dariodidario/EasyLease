@@ -45,7 +45,6 @@ class LogoutServletTest {
   @Mock
   private RequestDispatcher dispatcher;
 
-  private final DBAdvisorDAO dbAdvisorDAO = (DBAdvisorDAO) DBAdvisorDAO.getInstance();
   private LogoutServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
 

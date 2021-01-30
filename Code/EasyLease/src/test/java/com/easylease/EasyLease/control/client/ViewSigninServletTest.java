@@ -31,7 +31,7 @@ import static org.mockito.Mockito.*;
  * @version 0.1
  * @since 0.1
  */
-/*
+
 class ViewSigninServletTest {
   @Mock
   private HttpServletRequest request;
@@ -106,4 +106,3 @@ class ViewSigninServletTest {
 
 
 
- */

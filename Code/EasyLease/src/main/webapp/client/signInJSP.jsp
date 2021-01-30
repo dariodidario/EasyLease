@@ -12,6 +12,17 @@
   <style>
     .btn-primary{
       background-color: #800000 !important;
+      border: none !important;
+    }
+
+
+    #divCont{
+      text-align: center; width: 30%;
+    }
+    @media screen and (max-width: 600px) {
+      #divCont{
+        text-align: center; width: 60%;
+      }
     }
   </style>
 
@@ -25,15 +36,31 @@
     var conferma = document.getElementById("conferma").value;
     var bp = document.getElementById("bp").value;
     var bd = document.getElementById("bd").value;
+    var data = Date.parse(bd);
     var city = document.getElementById("city").value;
     var pc = document.getElementById("cap").value;
     var via = document.getElementById("street").value;
     var email=document.getElementById("email").value;
     var password=document.getElementById("password").value;
-    var mailformat=/^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-]{2,})+.)+([a-zA-Z0-9]{2,})+$/;
-    var nomeformat=/^[a-zA-Z]+$/;
+    var mailformat=/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    var nomeformat=/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%?&*(){}|~<>;:[\]]{2,}$/;
+    var passwordformat = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
+    var streetformat = /^[\w'\-,.][^_!¡?÷?¿/\\+=@#$%?&*(){}|~<>;:[\]]{2,}$/;
+    var capformat =/^\d{5}$/;
     var controllo;
+    var oggi = new Date();
     controllo = true;
+    document.getElementById("nomelb").style.display="none";
+    document.getElementById("cognomelb").style.display="none";
+    document.getElementById("emaillb").style.display="none";
+    document.getElementById("passwordlb").style.display="none";
+    document.getElementById("confermalb").style.display="none";
+    document.getElementById("confermalb2").style.display="none";
+    document.getElementById("birthplacelb").style.display="none";
+    document.getElementById("birthdatelb").style.display="none";
+    document.getElementById("citylb").style.display="none";
+    document.getElementById("caplb").style.display="none";
+    document.getElementById("vialb").style.display="none";
     if ((nome == "") || (nome == "undefined") || (!nomeformat.test(nome))){
       m=document.getElementById("nomelb");
       m.style.display="block";
@@ -49,7 +76,7 @@
       m.style.display="block";
       controllo=false;
     }
-    if((password == "") || (password == "undefined")){
+    if((password == "") || (password == "undefined") || (!passwordformat.test(password))){
       m=document.getElementById("passwordlb");
       m.style.display="block";
       controllo=false;
@@ -69,7 +96,7 @@
       m.style.display="block";
       controllo=false;
     }
-    if ((bd == "") || (bd == "undefined")){
+    if ((bd == "") || (bd == "undefined") || (data>oggi)){
       m=document.getElementById("birthdatelb");
       m.style.display="block";
       controllo=false;
@@ -79,12 +106,12 @@
       m.style.display="block";
       controllo=false;
     }
-    if ((pc == "") || (pc == "undefined")){
+    if ((pc == "") || (pc == "undefined") || (!capformat.test(pc))){
       m=document.getElementById("caplb");
       m.style.display="block";
       controllo=false;
     }
-    if((via=="")||(via == "undefined")){
+    if((via=="")||(via == "undefined") || (!streetformat.test(via))){
       m=document.getElementById("vialb");
       m.style.display="block";
       controllo=false;
@@ -97,7 +124,7 @@
 </script>
 <br/>
 <center>
-<div style="text-align: center; width: 30%;">
+<div id="divCont">
 
   <form action="${pageContext.request.contextPath}/SignInServlet" method="post" onSubmit="return controllo()">
     <br/>
@@ -159,9 +186,15 @@
       <label for="street"></label>
       <label  id="vialb" style=" color: red; display:none;">*via non valida</label>
     </div>
+    <div class="form-check" style="width: 15%">
+      <input class="form-check-input" type="checkbox" value="" id="checkPrivacy" required>
+      <label class="form-check-label" for="checkPrivacy">
+        Privacy
+      </label>
+    </div>
     <br>
-    <button type="submit" class="btn btn-primary">Registrati</button>
-    <input type="reset" class="btn btn-primary" value="Cancella">
+    <button type="submit" id="registrati" class="btn btn-primary">Registrati</button>
+    <input type="reset" id="cancella" class="btn btn-primary" value="Cancella">
     <br>
     <br>
   </form>

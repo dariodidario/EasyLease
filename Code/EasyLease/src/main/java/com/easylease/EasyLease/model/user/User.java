@@ -1,4 +1,3 @@
-
 package com.easylease.EasyLease.model.user;
 
 import java.io.Serializable;
