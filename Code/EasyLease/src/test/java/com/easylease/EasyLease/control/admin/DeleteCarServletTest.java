@@ -60,7 +60,7 @@ class DeleteCarServletTest {
         MysqlDataSource mysqlDataSource = new MysqlDataSource();
         mysqlDataSource.setURL("jdbc:mysql://127.0.0.1:3306/easylease");
         mysqlDataSource.setUser("root");
-        mysqlDataSource.setPassword("2935Michele");
+        mysqlDataSource.setPassword("root");
         mysqlDataSource.setServerTimezone("UTC");
         mysqlDataSource.setVerifyServerCertificate(false);
         mysqlDataSource.setUseSSL(false);

@@ -20,7 +20,7 @@ import java.util.List;
 
 @WebServlet("/AddAdvisorServlet")
 public class AddAdvisorServlet extends HttpServlet {
-  static AdvisorDAO advisorDAO= DBAdvisorDAO.getInstance();
+
   protected void doPost(
           HttpServletRequest request,
           HttpServletResponse response) throws ServletException, IOException {
@@ -30,6 +30,7 @@ public class AddAdvisorServlet extends HttpServlet {
   protected void doGet(
           HttpServletRequest request,
           HttpServletResponse response) throws ServletException, IOException {
+    AdvisorDAO advisorDAO = DBAdvisorDAO.getInstance();
     String role = (String) request.getSession().getAttribute("role");
     if (role == null) {
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/error403.jsp");
@@ -90,6 +91,7 @@ public class AddAdvisorServlet extends HttpServlet {
 
           //defined the session parameters
           User user = (User) request.getSession().getAttribute("user");
+
           request.getSession().setAttribute("user", user);
           request.getSession().setAttribute("role", "admin");
           request.getSession().setAttribute("error", "");
@@ -109,6 +111,7 @@ public class AddAdvisorServlet extends HttpServlet {
   /**this method created the id of advisor and check if the id is already in database
    * @return the new id of advisor*/
   private String checkID(){
+    AdvisorDAO advisorDAO = DBAdvisorDAO.getInstance();
     List<Advisor> advisors=advisorDAO.retrieveAll();
     String idGenerate= "AD"+ IdGenerator.randomIdGenerator();
     if(advisors!=null) {
@@ -125,6 +128,7 @@ public class AddAdvisorServlet extends HttpServlet {
    * @return false if there's an other advisor with the specified parameters*/
   private boolean checkAdvisor(String advisor_name, String advisor_surname,
                                String advisor_email, java.util.Date hireDate){
+    AdvisorDAO advisorDAO = DBAdvisorDAO.getInstance();
 
     List<Advisor> advisors = advisorDAO.retrieveAll();
     boolean Advisor_ok = true;
