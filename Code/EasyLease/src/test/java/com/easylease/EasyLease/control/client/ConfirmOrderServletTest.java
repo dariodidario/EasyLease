@@ -113,6 +113,7 @@ class ConfirmOrderServletTest {
     //rollback
     Order updatedOrder = orderDao.retrieveById("ORhfga2");
     updatedOrder.setState("Attesa");
+    updatedOrder.setVisibility(true);
     orderDao.update(updatedOrder);
   }
 

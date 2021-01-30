@@ -2,13 +2,7 @@ package com.easylease.EasyLease.model.client;
 
 import com.easylease.EasyLease.control.utility.PasswordHashing;
 import com.easylease.EasyLease.model.DBPool.DBConnection;
-
 import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -122,24 +116,24 @@ public class DBClientDAO implements ClientDAO {
       preparedStatement = connection.prepareStatement(query);
       preparedStatement.setString(1, "Cliente");
       ResultSet rs = preparedStatement.executeQuery();
-        if (!(rs == null)) {
-          while (rs.next()) {
-            Client c = new Client();
-            c.setId(rs.getString("id_user"));
-            c.setName(rs.getString("first_name"));
-            c.setSurname(rs.getString("surname"));
-            c.setEmail(rs.getString("email"));
-            c.setBirthDate(rs.getDate("birth_date"));
-            c.setBirthPlace(rs.getString("birth_place"));
-            c.setCity(rs.getString("city"));
-            c.setKind(rs.getString("kind"));
-            c.setPc(rs.getString("pc"));
-            c.setStreet(rs.getString("street"));
-            clientList.add(c);
-          }
-        } else {
-          clientList = null;
+      if (!(rs == null)) {
+        while (rs.next()) {
+          Client c = new Client();
+          c.setId(rs.getString("id_user"));
+          c.setName(rs.getString("first_name"));
+          c.setSurname(rs.getString("surname"));
+          c.setEmail(rs.getString("email"));
+          c.setBirthDate(rs.getDate("birth_date"));
+          c.setBirthPlace(rs.getString("birth_place"));
+          c.setCity(rs.getString("city"));
+          c.setKind(rs.getString("kind"));
+          c.setPc(rs.getString("pc"));
+          c.setStreet(rs.getString("street"));
+          clientList.add(c);
         }
+      } else {
+        clientList = null;
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -194,8 +188,8 @@ public class DBClientDAO implements ClientDAO {
       preparedStatement.setString(1, c.getId());
       preparedStatement.setString(2, "Cliente");
       preparedStatement.setString(3, c.getBirthPlace());
-      preparedStatement.setDate(4, c.getBirthDate() != null ?
-          new Date(c.getBirthDate().getTime()) : null);
+      preparedStatement.setDate(4, c.getBirthDate() != null
+          ? new Date(c.getBirthDate().getTime()) : null);
       preparedStatement.setString(5, c.getKind());
       preparedStatement.setString(6, c.getName());
       preparedStatement.setString(7, c.getSurname());
@@ -228,8 +222,8 @@ public class DBClientDAO implements ClientDAO {
     try {
       PreparedStatement preparedStatement = connection.prepareStatement(query);
       preparedStatement.setString(1, c.getBirthPlace());
-      preparedStatement.setDate(2, c.getBirthDate() !=null ?
-          new java.sql.Date(c.getBirthDate().getTime()) : null);
+      preparedStatement.setDate(2, c.getBirthDate() != null
+          ? new java.sql.Date(c.getBirthDate().getTime()) : null);
       preparedStatement.setString(3, c.getKind());
       preparedStatement.setString(4, c.getName());
       preparedStatement.setString(5, c.getSurname());
