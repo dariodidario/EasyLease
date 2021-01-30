@@ -106,7 +106,7 @@ class ConfirmEstimateServletTest {
     for (Order item : updatedOrders) {
       boolean found = false;
       for(Order item2 : orderList){
-        if (found == false && item.getId().equals(item2.getId())) {
+        if (found == false && item.getId_order().equals(item2.getId_order())) {
           found = true;
         }
       }

@@ -29,7 +29,7 @@ if(role==null){%>
   Car car=(Car) request.getSession().getAttribute("car_to_update");
 
   if(car!=null) {
-    id=car.getId();
+    id=car.getId_car();
     brand = car.getBrand();
     model = car.getModel();
     price = car.getPrice();

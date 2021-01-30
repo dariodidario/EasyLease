@@ -88,7 +88,7 @@ class EstimateStipulationServletTest {
     when(request.getParameter("id")).thenReturn("ESfn9IO");
     when(request.getSession().getAttribute("stipulation")).thenReturn(true);
     for (Optional o : estimate.getOptionalList()) {
-      when(request.getParameter(o.getName())).thenReturn("100.00");
+      when(request.getParameter(o.getOptional_name())).thenReturn("100.00");
     }
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(

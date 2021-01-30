@@ -9,7 +9,7 @@ package com.easylease.EasyLease.model.car;
  */
 
 public class Car {
-    private String id;
+    private String id_car;
     private String brand;
     private String model;
     private float price;
@@ -23,7 +23,7 @@ public class Car {
     private int co2_emissions;
     private String power_supply;
     private int cc;
-    private String image_path;
+    private String img_path;
 
     /**
      * This is the Empty constructor for the Client object.
@@ -32,7 +32,7 @@ public class Car {
     /**
      * This is the Constructor of the Client Object.
      *
-     * @param id the id  of the car
+     * @param id_car the id  of the car
      * @param brand the brand  of the car
      * @param model the model of the car
      * @param price the price of the car
@@ -48,8 +48,8 @@ public class Car {
      * @param cc the engine capacity of the car
      * @param image the path of car's image
      */
-    public Car(String id, String brand,String model, float price, String car_type, boolean visibility,int doors, String transmission, float avg_consumption, int horse_power, String emission_class, int co2_emissions, String power_supply, int cc, String image){
-        setId(id);
+    public Car(String id_car, String brand, String model, float price, String car_type, boolean visibility, int doors, String transmission, float avg_consumption, int horse_power, String emission_class, int co2_emissions, String power_supply, int cc, String image){
+        setId_car(id_car);
         setBrand(brand);
         setModel(model);
         setPrice(price);
@@ -71,8 +71,8 @@ public class Car {
      *
      * @return the id of the car.
      */
-    public String getId(){
-        return this.id;
+    public String getId_car(){
+        return this.id_car;
     }
 
     /**
@@ -80,8 +80,8 @@ public class Car {
      *
      * @param idNew the new id of the car.
      */
-    public void setId(String idNew){
-        this.id=idNew;
+    public void setId_car(String idNew){
+        this.id_car =idNew;
     }
 
     /**
@@ -295,13 +295,13 @@ public class Car {
      *
      * @return the path of the car image.
      */
-    public String getImage(){return this.image_path;}
+    public String getImage(){return this.img_path;}
 
     /**
      * Set the path of the car image.
      *
      * @param imageNew the new path of the car image.
      */
-    public void setImage(String imageNew){this.image_path=imageNew;}
+    public void setImage(String imageNew){this.img_path =imageNew;}
 
 }

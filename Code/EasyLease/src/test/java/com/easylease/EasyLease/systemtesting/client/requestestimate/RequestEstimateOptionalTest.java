@@ -72,7 +72,7 @@ public class RequestEstimateOptionalTest {
     for (Estimate item : updatedEstimate) {
       boolean found = false;
       for (Estimate item2 : estimateList) {
-        if (!found && item.getId().equals(item2.getId())) {
+        if (!found && item.getId_estimate().equals(item2.getId_estimate())) {
           found = true;
         }
       }

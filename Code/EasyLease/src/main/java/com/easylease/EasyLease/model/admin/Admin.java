@@ -14,7 +14,7 @@ import com.easylease.EasyLease.model.user.User;
 public class Admin extends User {
 
 
-  private String recoveryEmail;
+  private String recovery_email;
 
   public Admin() {
 
@@ -24,11 +24,11 @@ public class Admin extends User {
    * Constructor for the Admin Object.
    *
 
-   * @param recoveryEmail newProperty.
+   * @param recovery_email newProperty.
    */
-  public Admin(String id, String name, String surname, String email, String recoveryEmail) {
+  public Admin(String id, String name, String surname, String email, String recovery_email) {
     super(id, name, surname, email);
-    this.recoveryEmail = recoveryEmail;
+    this.recovery_email = recovery_email;
   }
 
   /**
@@ -36,16 +36,16 @@ public class Admin extends User {
    *
    * @return recoveryEmail of the admins.
    */
-  public String getRecoveryEmail() {
-    return recoveryEmail;
+  public String getRecovery_email() {
+    return recovery_email;
   }
 
   /**
    * Set the admins recoveryEmail.
    *
-   * @param recoveryEmail the admins recoveryEmail.
+   * @param recovery_email the admins recoveryEmail.
    */
-  public void setRecoveryEmail(String recoveryEmail) {
-    this.recoveryEmail = recoveryEmail;
+  public void setRecovery_email(String recovery_email) {
+    this.recovery_email = recovery_email;
   }
 }

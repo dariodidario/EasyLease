@@ -54,7 +54,7 @@ public class DbOrderDaoTest {
   void retrieveById_Success() {
     String orderID = "OR1ER4T";
     Order order = orderDAO.retrieveById(orderID);
-    assertEquals(orderID, order.getId());
+    assertEquals(orderID, order.getId_order());
   }
 
   @Test
@@ -81,7 +81,7 @@ public class DbOrderDaoTest {
   void retrieveByAdvisor_Success() {
     String advisorID = "ADJdybc";
     List<Order> orders = orderDAO.retrieveByAdvisor(advisorID);
-    assertEquals(advisorID, orders.get(0).getEstimate().getAdvisor().getId());
+    assertEquals(advisorID, orders.get(0).getEstimate().getAdvisor().getId_user());
   }
 
   @Test
@@ -98,7 +98,7 @@ public class DbOrderDaoTest {
   void retrieveByClient_Success() {
     String clientID = "CLEE8BD";
     List<Order> orders = orderDAO.retrieveByClient(clientID);
-    assertEquals(clientID, orders.get(0).getEstimate().getClient().getId());
+    assertEquals(clientID, orders.get(0).getEstimate().getClient().getId_user());
   }
 
   @Test
@@ -138,7 +138,7 @@ public class DbOrderDaoTest {
     order.setVisibility(!order.isVisibility());
     orderDAO.update(order);
     Order updatedOrder = orderDAO.retrieveById("OR1ER4T");
-    assertEquals(order.getId(), updatedOrder.getId());
+    assertEquals(order.getId_order(), updatedOrder.getId_order());
     assertEquals(order.isVisibility(), updatedOrder.isVisibility());
     order.setVisibility(!order.isVisibility());
     orderDAO.update(order);
@@ -152,20 +152,20 @@ public class DbOrderDaoTest {
   @Test
   void update_NotPresentOrder() {
     Order order = orderDAO.retrieveById("OR1ER4T");
-    order.setId("ORXXXXX");
+    order.setId_order("ORXXXXX");
     assertThrows(IllegalArgumentException.class, () -> orderDAO.update(order));
   }
 
   @Test
   void insert_Success() {
     Order order = orderDAO.retrieveById("OR1ER4T");
-    order.setId("ORTEST1");
+    order.setId_order("ORTEST1");
     orderDAO.insert(order);
     Order newOrder = orderDAO.retrieveById("ORTEST1");
     assertNotNull(newOrder);
-    assertEquals(order.getId(), newOrder.getId());
+    assertEquals(order.getId_order(), newOrder.getId_order());
     assertEquals(order.isVisibility(), newOrder.isVisibility());
-    assertEquals(order.getStartDate(), newOrder.getStartDate());
+    assertEquals(order.getStart_date(), newOrder.getStart_date());
     orderDAO.delete(order);
   }
 
@@ -183,7 +183,7 @@ public class DbOrderDaoTest {
   @Test
   void delete_Success() {
     Order order = orderDAO.retrieveById("OR1ER4T");
-    order.setId("ORTEST1");
+    order.setId_order("ORTEST1");
     orderDAO.insert(order);
     assertNotNull(orderDAO.retrieveById("ORTEST1"));
     orderDAO.delete(order);
@@ -198,7 +198,7 @@ public class DbOrderDaoTest {
   @Test
   void delete_NotPresentOrder() {
     Order order = orderDAO.retrieveById("OR1ER4T");
-    order.setId("ORXXXXX");
+    order.setId_order("ORXXXXX");
     assertThrows(IllegalArgumentException.class, () -> orderDAO.delete(order));
   }
 }

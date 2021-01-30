@@ -14,7 +14,7 @@ import java.util.Date;
 public class Advisor extends User {
 
   /** Rapresents the date from which the Advisor was hired. */
-  private Date hireDate;
+  private Date hire_date;
 
   /**
    * Empty constructor for the Advisor object.
@@ -30,11 +30,11 @@ public class Advisor extends User {
    * @param name The name of the Advisor.
    * @param surname The surname of the Advisor.
    * @param email The email of the Advisor.
-   * @param hireDate The date from which the Advisor was hired.
+   * @param hire_date The date from which the Advisor was hired.
    */
-  public Advisor(String id, String name, String surname, String email, Date hireDate) {
+  public Advisor(String id, String name, String surname, String email, Date hire_date) {
     super(id, name, surname, email);
-    this.hireDate = hireDate;
+    this.hire_date = hire_date;
   }
 
   /**
@@ -42,17 +42,17 @@ public class Advisor extends User {
    *
    * @return Date from which the Advisor was hired.
    */
-  public Date getHireDate() {
-    return hireDate;
+  public Date getHire_date() {
+    return hire_date;
   }
 
   /**
    * Set the Date from which the Advisor was hired.
    *
-   * @param hireDate The Date from which the Advisor was hired.
+   * @param hire_date The Date from which the Advisor was hired.
    */
-  public void setHireDate(Date hireDate) {
-    this.hireDate = hireDate;
+  public void setHire_date(Date hire_date) {
+    this.hire_date = hire_date;
   }
 
 }

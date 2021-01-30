@@ -13,8 +13,8 @@ import java.util.Date;
  */
 public class Client extends User {
 
-  private String birthPlace;
-  private Date birthDate;
+  private String birth_place;
+  private Date birth_date;
   /** This instance variable represent the genre of the Client.
    * Can be one between Uomo, Donna, Altro, Preferisco non specificarlo
    * */
@@ -27,8 +27,8 @@ public class Client extends User {
   /**
    * This is the Constructor of the Client Object.
    *
-   * @param birthPlace the birth place of the client
-   * @param birthDate the birth date of the client
+   * @param birth_place the birth place of the client
+   * @param birth_date the birth date of the client
    * @param kind the genre of the client
    * @param city the client's place of residence
    * @param pc the postal code of the city
@@ -39,11 +39,11 @@ public class Client extends User {
    * @param email the email of the client, extended by the class User
    */
   public Client(String id, String name, String surname, String email,
-                String birthPlace, Date birthDate, String kind,
+                String birth_place, Date birth_date, String kind,
                 String city, String pc, String street) {
     super(id, name, surname, email);
-    setBirthPlace(birthPlace);
-    setBirthDate(birthDate);
+    setBirth_place(birth_place);
+    setBirth_date(birth_date);
     setKind(kind);
     setCity(city);
     setPc(pc);
@@ -62,17 +62,17 @@ public class Client extends User {
    *
    * @return the birth place of the client.
    */
-  public String getBirthPlace() {
-    return birthPlace;
+  public String getBirth_place() {
+    return birth_place;
   }
 
   /**
    * Set the birth place of the client.
    *
-   * @param birthPlace the birth place of the client.
+   * @param birth_place the birth place of the client.
    */
-  public void setBirthPlace(String birthPlace) {
-    this.birthPlace = birthPlace;
+  public void setBirth_place(String birth_place) {
+    this.birth_place = birth_place;
   }
 
   /**
@@ -80,17 +80,17 @@ public class Client extends User {
    *
    * @return the birth date of the client.
    */
-  public Date getBirthDate() {
-    return birthDate;
+  public Date getBirth_date() {
+    return birth_date;
   }
 
   /**
    * Set the birth date of the client.
    *
-   * @param birthDate the birth date of the client.
+   * @param birth_date the birth date of the client.
    */
-  public void setBirthDate(Date birthDate) {
-    this.birthDate = birthDate;
+  public void setBirth_date(Date birth_date) {
+    this.birth_date = birth_date;
   }
 
   /**
@@ -167,7 +167,7 @@ public class Client extends User {
 
   @Override
   public String toString() {
-    return "Nome = " + this.getName();
+    return "Nome = " + this.getFirst_name();
   }
 
 }

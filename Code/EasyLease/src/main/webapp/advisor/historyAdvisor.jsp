@@ -57,12 +57,12 @@
                 <td data-th="Nome">
                     <%=order.getEstimate().getCar().getBrand() + " " + order.getEstimate().getCar().getModel()%>
                 </td>
-                <td data-th="Codice"><%=order.getId()%>
+                <td data-th="Codice"><%=order.getId_order()%>
                 </td>
                 <td data-th="Stato"><%=order.getState() %>
                 </td>
                 <td data-th="Visualizza">
-                    <a href="OrderManagementAdvisorServlet?id_order=<%=order.getId()%>" id = "<%=order.getId()%>"
+                    <a href="OrderManagementAdvisorServlet?id_order=<%=order.getId_order()%>" id = "<%=order.getId_order()%>"
                        class="btn btn-primary btn-lg active" role="button" aria-pressed="true">
                         <%= order.getState().equals("Pagato") ? "Convalida" : "Visualizza"%>
                     </a>
@@ -106,12 +106,12 @@
                 <td data-th="Nome">
                     <%=estimate.getCar().getBrand() + " " + estimate.getCar().getModel()%>
                 </td>
-                <td data-th="Codice"><%=estimate.getId()%>
+                <td data-th="Codice"><%=estimate.getId_estimate()%>
                 </td>
                 <td data-th="Stato"><%=estimate.getState() %>
                 </td>
                 <td data-th="Visualizza">
-                    <a href="EstimateManagementAdvisorServlet?id_estimate=<%=estimate.getId()%>" id ="<%=estimate.getId()%>"
+                    <a href="EstimateManagementAdvisorServlet?id_estimate=<%=estimate.getId_estimate()%>" id ="<%=estimate.getId_estimate()%>"
                        class="btn btn-primary btn-lg active" role="button" aria-pressed="true">
                         <%= estimate.getState().equals("Richiesto") ? "Prendi in carico" : "Visualizza"%>
                     </a>

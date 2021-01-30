@@ -76,10 +76,10 @@ class RequestEstimateServletTest {
   void doGetAllParameters() throws ServletException, IOException {
     List<String> estimateOldList = new ArrayList<>();
     for (Estimate e : dbEstimate.retrieveAll()) {
-      estimateOldList.add(e.getId());
+      estimateOldList.add(e.getId_estimate());
     }
     Client client = new Client();
-    client.setId("CLEE8BD");
+    client.setId_user("CLEE8BD");
     String[] optionals = {"OPUi78M", "OPhbN65"};
     when(request.getSession().getAttribute("role")).thenReturn("client");
     when(request.getSession().getAttribute("user")).thenReturn(client);
@@ -93,7 +93,7 @@ class RequestEstimateServletTest {
 
     //rollback
     for (Estimate estimate : estimateNewList) {
-      if (!estimateOldList.contains(estimate.getId())) {
+      if (!estimateOldList.contains(estimate.getId_estimate())) {
         dbEstimate.delete(estimate);
       }
     }
@@ -103,10 +103,10 @@ class RequestEstimateServletTest {
   void doGetNoOptional() throws ServletException, IOException {
     List<String> estimateOldList = new ArrayList<>();
     for (Estimate e : dbEstimate.retrieveAll()) {
-      estimateOldList.add(e.getId());
+      estimateOldList.add(e.getId_estimate());
     }
     Client client = new Client();
-    client.setId("CLEE8BD");
+    client.setId_user("CLEE8BD");
     String[] optionals = {};
     when(request.getSession().getAttribute("role")).thenReturn("client");
     when(request.getSession().getAttribute("user")).thenReturn(client);
@@ -120,7 +120,7 @@ class RequestEstimateServletTest {
 
     //rollback
     for (Estimate estimate : estimateNewList) {
-      if (!estimateOldList.contains(estimate.getId())) {
+      if (!estimateOldList.contains(estimate.getId_estimate())) {
         dbEstimate.delete(estimate);
       }
     }
@@ -130,7 +130,7 @@ class RequestEstimateServletTest {
   void doGetWrongRole() throws ServletException, IOException {
     List<String> estimateOldList = new ArrayList<>();
     for (Estimate e : dbEstimate.retrieveAll()) {
-      estimateOldList.add(e.getId());
+      estimateOldList.add(e.getId_estimate());
     }
     when(request.getSession().getAttribute("role")).thenReturn("admin");
     servlet.doGet(request,response);
@@ -143,7 +143,7 @@ class RequestEstimateServletTest {
   void doGetNoRole() throws ServletException, IOException {
     List<String> estimateOldList = new ArrayList<>();
     for (Estimate e : dbEstimate.retrieveAll()) {
-      estimateOldList.add(e.getId());
+      estimateOldList.add(e.getId_estimate());
     }
     when(request.getSession().getAttribute("role")).thenReturn(null);
     servlet.doGet(request,response);
@@ -156,10 +156,10 @@ class RequestEstimateServletTest {
   void doGetFailClientNull() throws ServletException, IOException {
     List<String> estimateOldList = new ArrayList<>();
     for (Estimate e : dbEstimate.retrieveAll()) {
-      estimateOldList.add(e.getId());
+      estimateOldList.add(e.getId_estimate());
     }
     Client client = new Client();
-    client.setId("CLEE8BD");
+    client.setId_user("CLEE8BD");
     String[] optionals = {};
     when(request.getSession().getAttribute("role")).thenReturn("client");
     when(request.getSession().getAttribute("user")).thenReturn(null);
@@ -177,10 +177,10 @@ class RequestEstimateServletTest {
   void doGetNoMonths() throws ServletException, IOException {
     List<String> estimateOldList = new ArrayList<>();
     for (Estimate e : dbEstimate.retrieveAll()) {
-      estimateOldList.add(e.getId());
+      estimateOldList.add(e.getId_estimate());
     }
     Client client = new Client();
-    client.setId("CLEE8BD");
+    client.setId_user("CLEE8BD");
     String[] optionals = {};
     when(request.getSession().getAttribute("role")).thenReturn("client");
     when(request.getSession().getAttribute("user")).thenReturn(client);
@@ -197,10 +197,10 @@ class RequestEstimateServletTest {
   void doGetNoCar() throws ServletException, IOException {
     List<String> estimateOldList = new ArrayList<>();
     for (Estimate e : dbEstimate.retrieveAll()) {
-      estimateOldList.add(e.getId());
+      estimateOldList.add(e.getId_estimate());
     }
     Client client = new Client();
-    client.setId("CLEE8BD");
+    client.setId_user("CLEE8BD");
     String[] optionals = {};
     when(request.getSession().getAttribute("role")).thenReturn("client");
     when(request.getSession().getAttribute("user")).thenReturn(client);

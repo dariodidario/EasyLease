@@ -41,16 +41,16 @@ public class RegistrationExistingClientTest {
     String dateInString = "1997-04-05";
     Date date = sdf.parse(dateInString);
     String password = "PaoloRossi97";
-    client.setId("CLAB123");
-    client.setName("Paolo");
+    client.setId_user("CLAB123");
+    client.setFirst_name("Paolo");
     client.setSurname("Rossi");
     client.setEmail("rossiPaolo@gmail.com");
     client.setPc("81050");
     client.setStreet("Corso Umberto 3");
     client.setCity("Caserta");
     client.setKind("Uomo");
-    client.setBirthPlace("Caserta");
-    client.setBirthDate(date);
+    client.setBirth_place("Caserta");
+    client.setBirth_date(date);
     clientDao.insert(client, password);
   }
 

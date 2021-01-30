@@ -23,7 +23,7 @@ class ClientTest {
     Client cliente = new Client("CLABC12", "Mario",
         "Rossi", "m.rossi@gmail.com", "Avellino", bdate,
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
-    assertEquals("Avellino", cliente.getBirthPlace());
+    assertEquals("Avellino", cliente.getBirth_place());
   }
 
   @Test
@@ -33,8 +33,8 @@ class ClientTest {
     Client cliente = new Client("CLABC12", "Mario",
         "Rossi", "m.rossi@gmail.com", "Avellino", bdate,
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
-    cliente.setBirthPlace("Atripalda");
-    assertEquals("Atripalda", cliente.getBirthPlace());
+    cliente.setBirth_place("Atripalda");
+    assertEquals("Atripalda", cliente.getBirth_place());
   }
 
   @Test
@@ -46,7 +46,7 @@ class ClientTest {
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
     Calendar calExpectedDate = new GregorianCalendar(1998, 8, 9);
     Date expectedDate = calBdate.getTime();
-    assertEquals(expectedDate, cliente.getBirthDate());
+    assertEquals(expectedDate, cliente.getBirth_date());
   }
 
   @Test
@@ -58,8 +58,8 @@ class ClientTest {
         "Uomo", "Avellino", "83020", "Contrada Petrulli 3");
     Calendar calDateToSet = new GregorianCalendar(1994, 4, 12);
     Date dateToSet = calDateToSet.getTime();
-    cliente.setBirthDate(dateToSet);
-    assertEquals(dateToSet, cliente.getBirthDate());
+    cliente.setBirth_date(dateToSet);
+    assertEquals(dateToSet, cliente.getBirth_date());
   }
 
   @Test

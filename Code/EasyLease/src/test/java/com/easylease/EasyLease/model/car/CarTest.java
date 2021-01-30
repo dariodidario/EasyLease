@@ -18,7 +18,7 @@ class CarTest {
         Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
                 true, 5, "Automatico", 3.9f,
                 130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
-        assertEquals("ca11111", car.getId());
+        assertEquals("ca11111", car.getId_car());
     }
 
     @org.junit.jupiter.api.Test
@@ -32,8 +32,8 @@ class CarTest {
     @Test
     void test1_SetId() {
         Car car =new Car();
-        car.setId("ca11112");
-        assertEquals("ca11112", car.getId());
+        car.setId_car("ca11112");
+        assertEquals("ca11112", car.getId_car());
 
 
     }

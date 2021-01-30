@@ -48,7 +48,7 @@ class DbEstimateDaoTest {
 
   @Test
   void retrieveById_withCorrectId() {
-  assertEquals("ESgY65R", dbEstimate.retrieveById("ESgY65R").getId());
+  assertEquals("ESgY65R", dbEstimate.retrieveById("ESgY65R").getId_estimate());
   }
 
   @Test
@@ -74,7 +74,7 @@ class DbEstimateDaoTest {
   void retrieveByAdvisor_withCorrectId() {
     for (Estimate e : dbEstimate.retrieveByAdvisor("ADJdybc")) {
       assertEquals("ADJdybc",
-          e.getAdvisor().getId());
+          e.getAdvisor().getId_user());
     }
   }
 
@@ -100,7 +100,7 @@ class DbEstimateDaoTest {
   @Test
   void retrieveByClient_withCorrectId() {
     for (Estimate e : dbEstimate.retrieveByClient("CLEE8BD")) {
-      assertEquals("CLEE8BD", e.getClient().getId());
+      assertEquals("CLEE8BD", e.getClient().getId_user());
     }
   }
 
@@ -131,9 +131,9 @@ class DbEstimateDaoTest {
   @Test
   void insert_withCorrectEstimate() {
     optionalList.add(optional);
-    client.setId("CLBGqLi");
-    advisor.setId("ADfake0");
-    car.setId("CAmTMob");
+    client.setId_user("CLBGqLi");
+    advisor.setId_user("ADfake0");
+    car.setId_car("CAmTMob");
     Estimate e = new Estimate("es00000", 240, client, advisor, car, 30,
         optionalList, true, "Attesa", new Date(System.currentTimeMillis()),null);
     dbEstimate.insert(e);

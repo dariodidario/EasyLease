@@ -18,7 +18,7 @@ import java.util.List;
 
 
 public class Estimate {
-  private String id;
+  private String id_estimate;
   private float price;
   private Client client;
   private Advisor advisor;
@@ -27,15 +27,15 @@ public class Estimate {
   private List<Optional> optionalList;
   private boolean visibility;
   private String state;
-  private Date responseDate;
-  private Date requestDate;
+  private Date response_date;
+  private Date request_date;
 
   public Estimate() {}
 
   /**
    * Constructor for the Estimate Object.
    *
-   * @param id is the ID who identifies the Estimate.
+   * @param id_estimate is the ID who identifies the Estimate.
    * @param price is the price of the Estimate.
    * @param client is the client who requested the Estimate.
    * @param advisor is the advisor who compiled the Estimate.
@@ -45,10 +45,10 @@ public class Estimate {
    * @param visibility tells you if the Estimate is still valid.
    */
 
-  public Estimate(String id, float price, Client client, Advisor advisor, Car car,
+  public Estimate(String id_estimate, float price, Client client, Advisor advisor, Car car,
                   int period, List<Optional> optionalList, boolean visibility,
-                  String state, Date requestDate, Date responseDate) {
-    setId(id);
+                  String state, Date request_date, Date response_date) {
+    setId_estimate(id_estimate);
     setPrice(price);
     setClient(client);
     setAdvisor(advisor);
@@ -57,17 +57,17 @@ public class Estimate {
     setOptionalList(optionalList);
     setVisibility(visibility);
     setState(state);
-    setRequestDate(requestDate);
-    setResponseDate(responseDate);
+    setRequest_date(request_date);
+    setResponse_date(response_date);
   }
 
   /**
    * Set estimate's id.
    *
-   * @param id is estimate's identifier.
+   * @param id_estimate is estimate's identifier.
    */
-  public void setId(String id) {
-    this.id = id;
+  public void setId_estimate(String id_estimate) {
+    this.id_estimate = id_estimate;
   }
 
   /**
@@ -75,8 +75,8 @@ public class Estimate {
    *
    * @return id estimate's identifier.
    */
-  public String getId() {
-    return id;
+  public String getId_estimate() {
+    return id_estimate;
   }
 
   /**
@@ -228,17 +228,17 @@ public class Estimate {
    *
    * @return responseDate estimate's responseDate.
    */
-  public Date getResponseDate() {
-    return responseDate;
+  public Date getResponse_date() {
+    return response_date;
   }
 
   /**
    * Set estimate's responseDate.
    *
-   * @param responseDate is estimate's responseDate.
+   * @param response_date is estimate's responseDate.
    */
-  public void setResponseDate(Date responseDate) {
-    this.responseDate = responseDate;
+  public void setResponse_date(Date response_date) {
+    this.response_date = response_date;
   }
 
   /**
@@ -246,18 +246,18 @@ public class Estimate {
    *
    * @return requestDate estimate's requestDate.
    */
-  public  Date getRequestDate() {
-    return requestDate;
+  public  Date getRequest_date() {
+    return request_date;
 
   }
 
   /**
    * Set estimate's requestDate.
    *
-   * @param requestDate is estimate's requestDate.
+   * @param request_date is estimate's requestDate.
    */
-  public void setRequestDate(Date requestDate) {
-    this.requestDate = requestDate;
+  public void setRequest_date(Date request_date) {
+    this.request_date = request_date;
   }
 
 }

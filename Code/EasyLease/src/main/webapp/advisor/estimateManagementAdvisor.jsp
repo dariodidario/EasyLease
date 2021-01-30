@@ -16,9 +16,9 @@
     ArrayList<Optional> caroptionals = new ArrayList<>();
     ArrayList<Optional> contractoptionals = new ArrayList<>();
     for (Optional o : estimate.getOptionalList()) {
-        if (o.getType().equals("Auto"))
+        if (o.getOptional_type().equals("Auto"))
             caroptionals.add(o);
-        else if (o.getType().equals("Contratto"))
+        else if (o.getOptional_type().equals("Contratto"))
             contractoptionals.add(o);
     }
 
@@ -123,11 +123,11 @@
                                 while (carIterator.hasNext()) {
                                     Optional carOptional = carIterator.next();
                         %>
-                        <td data-th="Nome"><%=carOptional.getName()%>
+                        <td data-th="Nome"><%=carOptional.getOptional_name()%>
                         </td>
                         <td data-th="Costo"><%=carOptional.getPrice()%>
                         </td>
-                        <td data-th="Tipo"><%=carOptional.getType()%>
+                        <td data-th="Tipo"><%=carOptional.getOptional_type()%>
                         </td>
                     </tr>
                     <tr>
@@ -139,11 +139,11 @@
                                 while (contractIterator.hasNext()) {
                                     Optional contractOptional = contractIterator.next();
                         %>
-                        <td data-th="Nome"><%=contractOptional.getName()%>
+                        <td data-th="Nome"><%=contractOptional.getOptional_name()%>
                         </td>
                         <td data-th="Costo"><%=contractOptional.getPrice()%>
                         </td>
-                        <td data-th="Tipo"><%=contractOptional.getType()%>
+                        <td data-th="Tipo"><%=contractOptional.getOptional_type()%>
                         </td>
                     </tr>
                     </tbody>
@@ -186,7 +186,7 @@
             %>
             <div class="row">
                 <div class="col-12">
-                    <a href="EstimateStipulationViewServlet?id=<%=estimate.getId()%>"
+                    <a href="EstimateStipulationViewServlet?id=<%=estimate.getId_estimate()%>"
                        class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Stipula</a>
                 </div>
             </div>

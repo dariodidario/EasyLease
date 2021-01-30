@@ -43,13 +43,13 @@ public class HistoryAdvisorServlet extends HttpServlet {
         DbOrderDao dbOrderDao = (DbOrderDao) DbOrderDao.getInstance();
         DbEstimateDao dbEstimateDao = (DbEstimateDao) DbEstimateDao.getInstance();
         List<Object> list = new ArrayList<>();
-        for (Order o : dbOrderDao.retrieveByAdvisor(advisor.getId())) {
+        for (Order o : dbOrderDao.retrieveByAdvisor(advisor.getId_user())) {
           if (o.isVisibility()) {
             list.add(o);
           }
         }
         list.addAll(dbEstimateDao.retrieveByAdvisor("ADfake0"));
-        for (Estimate e : dbEstimateDao.retrieveByAdvisor(advisor.getId())) {
+        for (Estimate e : dbEstimateDao.retrieveByAdvisor(advisor.getId_user())) {
           if (e.isVisibility()) {
             list.add(e);
           }

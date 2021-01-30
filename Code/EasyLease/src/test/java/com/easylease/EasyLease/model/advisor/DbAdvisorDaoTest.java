@@ -51,7 +51,7 @@ class DbAdvisorDaoTest {
   @Test
   public void retrieveById_CorrectIdGiven() {
     Advisor advisor = dbAdvisorDAO.retrieveById("ADJdybc");
-    assertEquals("ADJdybc", advisor.getId());
+    assertEquals("ADJdybc", advisor.getId_user());
   }
 
   @Test
@@ -127,15 +127,15 @@ class DbAdvisorDaoTest {
   public void insert_CorrectAdvisorGiven_ExpectedTrue() {
     Advisor advisor = dbAdvisorDAO.retrieveById("ADfake0");
     advisor.setEmail("fakeMail@gmail.com");
-    advisor.setId("ADn21xz");
+    advisor.setId_user("ADn21xz");
     dbAdvisorDAO.insert(advisor, "pass");
     Advisor advisorToCheck = dbAdvisorDAO.retrieveById("ADn21xz");
     assertNotNull(advisorToCheck);
-    assertEquals(advisor.getId(), advisorToCheck.getId());
-    assertEquals(advisor.getName(), advisorToCheck.getName());
+    assertEquals(advisor.getId_user(), advisorToCheck.getId_user());
+    assertEquals(advisor.getFirst_name(), advisorToCheck.getFirst_name());
     assertEquals(advisor.getSurname(), advisorToCheck.getSurname());
     assertEquals(advisor.getEmail(), advisorToCheck.getEmail());
-    assertEquals(advisor.getHireDate(), advisorToCheck.getHireDate());
+    assertEquals(advisor.getHire_date(), advisorToCheck.getHire_date());
     dbAdvisorDAO.delete(dbAdvisorDAO.retrieveById("ADn21xz"));
   }
 
@@ -155,11 +155,11 @@ class DbAdvisorDaoTest {
   public void insertNullPasswordGiven_ExpectedExceptiion() throws ParseException {
     SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
     Advisor advisor = new Advisor();
-    advisor.setId("AD12o3h");
-    advisor.setName("Elon");
+    advisor.setId_user("AD12o3h");
+    advisor.setFirst_name("Elon");
     advisor.setSurname("Musk");
     advisor.setEmail("MuskElon@gmail.com");
-    advisor.setHireDate(dataFormat.parse(dataFormat.format(new Date())));
+    advisor.setHire_date(dataFormat.parse(dataFormat.format(new Date())));
     assertThrows(IllegalArgumentException.class, () ->
         dbAdvisorDAO.insert(advisor, null));
   }
@@ -168,17 +168,17 @@ class DbAdvisorDaoTest {
   public void update_CorrectAdvisorGiven_ExpectedTrue() {
     Advisor advisor = dbAdvisorDAO.retrieveById("ADfake0");
     String realEmail = advisor.getEmail();
-    String realName = advisor.getName();
-    advisor.setName("Elon");
+    String realName = advisor.getFirst_name();
+    advisor.setFirst_name("Elon");
     advisor.setEmail("fakeMail@gmail.com");
     dbAdvisorDAO.update(advisor, "pass");
     Advisor advisorToCheck = dbAdvisorDAO.retrieveById("ADfake0");
-    assertEquals(advisor.getId(), advisorToCheck.getId());
-    assertEquals(advisor.getName(), advisorToCheck.getName());
+    assertEquals(advisor.getId_user(), advisorToCheck.getId_user());
+    assertEquals(advisor.getFirst_name(), advisorToCheck.getFirst_name());
     assertEquals(advisor.getSurname(), advisorToCheck.getSurname());
     assertEquals(advisor.getEmail(), advisorToCheck.getEmail());
-    assertEquals(advisor.getHireDate(), advisorToCheck.getHireDate());
-    advisor.setName(realName);
+    assertEquals(advisor.getHire_date(), advisorToCheck.getHire_date());
+    advisor.setFirst_name(realName);
     advisor.setEmail(realEmail);
     dbAdvisorDAO.update(advisor, "pass");
   }
@@ -193,11 +193,11 @@ class DbAdvisorDaoTest {
   public void update_UnexistingAdvisorGiven_ExpectedException() throws ParseException {
     SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
     Advisor advisor = new Advisor();
-    advisor.setId("AD12o3h");
-    advisor.setName("Elon");
+    advisor.setId_user("AD12o3h");
+    advisor.setFirst_name("Elon");
     advisor.setSurname("Musk");
     advisor.setEmail("MuskElon@gmail.com");
-    advisor.setHireDate(dataFormat.parse(dataFormat.format(new Date())));
+    advisor.setHire_date(dataFormat.parse(dataFormat.format(new Date())));
     assertThrows(IllegalArgumentException.class, () ->
         dbAdvisorDAO.update(advisor, "pass"));
   }
@@ -205,7 +205,7 @@ class DbAdvisorDaoTest {
   @Test
   public void delete_CorrectAdvisorGiven_ExpectedTrue() throws ParseException {
     Advisor advisor = dbAdvisorDAO.retrieveById("ADFake0");
-    advisor.setId("ADfake1");
+    advisor.setId_user("ADfake1");
     advisor.setEmail("fakeMail@gmail.com");
     dbAdvisorDAO.insert(advisor, "pass");
     dbAdvisorDAO.delete(advisor);

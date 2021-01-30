@@ -9,10 +9,10 @@ package com.easylease.EasyLease.model.optional;
  */
 
 public class Optional {
-  private String type;
-  private String name;
+  private String optional_type;
+  private String optional_name;
   private float price;
-  private String id;
+  private String optional_code;
 
   /** Constructor. */
   public Optional() {}
@@ -20,16 +20,16 @@ public class Optional {
   /**
    * Constructor for the Optional Object.
    *
-   * @param id is the id who identifies the Optional.
-   * @param name is the name of the Optional.
+   * @param optional_code is the id who identifies the Optional.
+   * @param optional_name is the name of the Optional.
    * @param price is the price of the Optional.
-   * @param type is the type of the Optional.
+   * @param optional_type is the type of the Optional.
    */
-  public Optional(String id, String name, String type, float price) {
-    setType(type);
-    setName(name);
+  public Optional(String optional_code, String optional_name, String optional_type, float price) {
+    setOptional_type(optional_type);
+    setOptional_name(optional_name);
     setPrice(price);
-    setId(id);
+    setOptional_code(optional_code);
   }
 
   /**
@@ -37,17 +37,17 @@ public class Optional {
    *
    * @return type, the type of the optional.
    */
-  public String getType() {
-    return type;
+  public String getOptional_type() {
+    return optional_type;
   }
 
   /**
    * Set the type of the optional.
    *
-   * @param type is the type of the optional.
+   * @param optional_type is the type of the optional.
    */
-  public void setType(String type) {
-    this.type = type;
+  public void setOptional_type(String optional_type) {
+    this.optional_type = optional_type;
   }
 
   /**
@@ -55,17 +55,17 @@ public class Optional {
    *
    * @return name, the name of the optional.
    */
-  public String getName() {
-    return name;
+  public String getOptional_name() {
+    return optional_name;
   }
 
   /**
    * Set the name of the optional.
    *
-   * @param name is the name of the optional.
+   * @param optional_name is the name of the optional.
    */
-  public void setName(String name) {
-    this.name = name;
+  public void setOptional_name(String optional_name) {
+    this.optional_name = optional_name;
   }
 
   /**
@@ -91,17 +91,17 @@ public class Optional {
    *
    * @return id, the identifier of the optional.
    */
-  public String getId() {
-    return id;
+  public String getOptional_code() {
+    return optional_code;
   }
 
   /**
    * Set the id of the optional.
    *
-   * @param id is the identifier of the optional.
+   * @param optional_code is the identifier of the optional.
    */
-  public void setId(String id) {
-    this.id = id;
+  public void setOptional_code(String optional_code) {
+    this.optional_code = optional_code;
   }
 
 }

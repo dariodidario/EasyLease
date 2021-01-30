@@ -48,7 +48,7 @@ public class DbClientDaoTest {
     String clientId = "CLEE8BD";
     Client client = clientDao.retrieveById(clientId);
     System.out.println(client);
-    assertEquals(clientId, client.getId());
+    assertEquals(clientId, client.getId_user());
   }
 
   @Test
@@ -137,28 +137,28 @@ public class DbClientDaoTest {
     Date date = sdf.parse(dateInString);
     Client client = new Client();
     String password = "pass";
-    client.setId("CL12345");
-    client.setName("Alberto");
+    client.setId_user("CL12345");
+    client.setFirst_name("Alberto");
     client.setSurname("Angela");
     client.setEmail("alberto.angela@rai.it");
     client.setPc("83020");
     client.setStreet("Via dei sommi");
     client.setCity("Roma");
     client.setKind("Uomo");
-    client.setBirthPlace("Roma");
-    client.setBirthDate(date);
+    client.setBirth_place("Roma");
+    client.setBirth_date(date);
     clientDao.insert(client, password);
     Client toCheck = clientDao.retrieveById("CL12345");
-    assertEquals(client.getId(), toCheck.getId());
-    assertEquals(client.getName(), toCheck.getName());
+    assertEquals(client.getId_user(), toCheck.getId_user());
+    assertEquals(client.getFirst_name(), toCheck.getFirst_name());
     assertEquals(client.getSurname(), toCheck.getSurname());
     assertEquals(client.getEmail(), toCheck.getEmail());
     assertEquals(client.getPc(), toCheck.getPc());
     assertEquals(client.getStreet(), toCheck.getStreet());
     assertEquals(client.getCity(), toCheck.getCity());
     assertEquals(client.getKind(), toCheck.getKind());
-    assertEquals(client.getBirthPlace(), toCheck.getBirthPlace());
-    assertEquals(client.getBirthDate(), toCheck.getBirthDate());
+    assertEquals(client.getBirth_place(), toCheck.getBirth_place());
+    assertEquals(client.getBirth_date(), toCheck.getBirth_date());
     clientDao.delete(client);
   }
 
@@ -183,16 +183,16 @@ public class DbClientDaoTest {
     Date date = sdf.parse(dateInString);
     Client client = new Client();
     String password = null;
-    client.setId("CL12345");
-    client.setName("Alberto");
+    client.setId_user("CL12345");
+    client.setFirst_name("Alberto");
     client.setSurname("Angela");
     client.setEmail("alberto.angela@rai.it");
     client.setPc("83020");
     client.setStreet("Via dei sommi");
     client.setCity("Roma");
     client.setKind("Uomo");
-    client.setBirthPlace("Roma");
-    client.setBirthDate(date);
+    client.setBirth_place("Roma");
+    client.setBirth_date(date);
     assertThrows(IllegalArgumentException.class, () ->
         clientDao.insert(client, password));
   }
@@ -204,28 +204,28 @@ public class DbClientDaoTest {
     Date date = sdf.parse(dateInString);
     Client client = new Client();
     Client originalClient = clientDao.retrieveById("CLEE8BD");
-    client.setId("CLEE8BD");
-    client.setName("Alberto");
+    client.setId_user("CLEE8BD");
+    client.setFirst_name("Alberto");
     client.setSurname("Angela");
     client.setEmail("alberto.angela@rai.it");
     client.setPc("83020");
     client.setStreet("Via dei sommi");
     client.setCity("Roma");
     client.setKind("Uomo");
-    client.setBirthPlace("Roma");
-    client.setBirthDate(date);
+    client.setBirth_place("Roma");
+    client.setBirth_date(date);
     clientDao.update(client, "pass");
     Client toCheck = clientDao.retrieveById("CLEE8BD");
-    assertEquals(client.getId(), toCheck.getId());
-    assertEquals(client.getName(), toCheck.getName());
+    assertEquals(client.getId_user(), toCheck.getId_user());
+    assertEquals(client.getFirst_name(), toCheck.getFirst_name());
     assertEquals(client.getSurname(), toCheck.getSurname());
     assertEquals(client.getEmail(), toCheck.getEmail());
     assertEquals(client.getPc(), toCheck.getPc());
     assertEquals(client.getStreet(), toCheck.getStreet());
     assertEquals(client.getCity(), toCheck.getCity());
     assertEquals(client.getKind(), toCheck.getKind());
-    assertEquals(client.getBirthPlace(), toCheck.getBirthPlace());
-    assertEquals(client.getBirthDate(), toCheck.getBirthDate());
+    assertEquals(client.getBirth_place(), toCheck.getBirth_place());
+    assertEquals(client.getBirth_date(), toCheck.getBirth_date());
     clientDao.update(originalClient, "pass");
   }
 
@@ -244,16 +244,16 @@ public class DbClientDaoTest {
     Date date = sdf.parse(dateInString);
     Client client = new Client();
     String password = null;
-    client.setId("CLEE8BD");
-    client.setName("Alberto");
+    client.setId_user("CLEE8BD");
+    client.setFirst_name("Alberto");
     client.setSurname("Angela");
     client.setEmail("alberto.angela@rai.it");
     client.setPc("83020");
     client.setStreet("Via dei sommi");
     client.setCity("Roma");
     client.setKind("Uomo");
-    client.setBirthPlace("Roma");
-    client.setBirthDate(date);
+    client.setBirth_place("Roma");
+    client.setBirth_date(date);
     assertThrows(IllegalArgumentException.class, () ->
         clientDao.update(client, password));
   }
@@ -265,16 +265,16 @@ public class DbClientDaoTest {
     Date date = sdf.parse(dateInString);
     Client client = new Client();
     String password = "pass";
-    client.setId("CL12345");
-    client.setName("Alberto");
+    client.setId_user("CL12345");
+    client.setFirst_name("Alberto");
     client.setSurname("Angela");
     client.setEmail("alberto.angela@rai.it");
     client.setPc("83020");
     client.setStreet("Via dei sommi");
     client.setCity("Roma");
     client.setKind("Uomo");
-    client.setBirthPlace("Roma");
-    client.setBirthDate(date);
+    client.setBirth_place("Roma");
+    client.setBirth_date(date);
     assertThrows(IllegalArgumentException.class, () ->
         clientDao.update(client, password));
   }
@@ -286,16 +286,16 @@ public class DbClientDaoTest {
     Date date = sdf.parse(dateInString);
     Client client = new Client();
     String password = "pass";
-    client.setId("CL12345");
-    client.setName("Alberto");
+    client.setId_user("CL12345");
+    client.setFirst_name("Alberto");
     client.setSurname("Angela");
     client.setEmail("alberto.angela@rai.it");
     client.setPc("83020");
     client.setStreet("Via dei sommi");
     client.setCity("Roma");
     client.setKind("Uomo");
-    client.setBirthPlace("Roma");
-    client.setBirthDate(date);
+    client.setBirth_place("Roma");
+    client.setBirth_date(date);
     clientDao.insert(client, password);
     clientDao.delete(client);
     assertNull(clientDao.retrieveById("CL12345"));

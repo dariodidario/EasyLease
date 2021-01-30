@@ -59,7 +59,7 @@ public class DbCarDao implements CarDao {
 
             if(rs.next()){//extraction of the data from the db
                 car = new Car();
-                car.setId(rs.getString("id_car"));
+                car.setId_car(rs.getString("id_car"));
                 car.setBrand(rs.getString("brand"));
                 car.setModel(rs.getString("model"));
                 car.setPrice(rs.getFloat("price"));
@@ -110,7 +110,7 @@ public class DbCarDao implements CarDao {
 
             if (rs.next()) {//extraction of the data from the db
                 car = new Car();
-                car.setId(rs.getString("id_car"));
+                car.setId_car(rs.getString("id_car"));
                 car.setBrand(rs.getString("brand"));
                 car.setModel(rs.getString("model"));
                 car.setPrice(rs.getFloat("price"));
@@ -162,7 +162,7 @@ public class DbCarDao implements CarDao {
             while (rs.next()) {
                 Car car = new Car();
 
-                car.setId(rs.getString("id_car"));
+                car.setId_car(rs.getString("id_car"));
                 car.setBrand(rs.getString("brand"));
                 car.setModel(rs.getString("model"));
                 car.setPrice(rs.getFloat("price"));
@@ -216,7 +216,7 @@ public class DbCarDao implements CarDao {
             while (rs.next()) {
                 Car car = new Car();
 
-                car.setId(rs.getString("id_car"));
+                car.setId_car(rs.getString("id_car"));
                 car.setBrand(rs.getString("brand"));
                 car.setModel(rs.getString("model"));
                 car.setPrice(rs.getFloat("price"));
@@ -266,7 +266,7 @@ public class DbCarDao implements CarDao {
             while (rs.next()) {
                 Car car = new Car();
 
-                car.setId(rs.getString("id_car"));
+                car.setId_car(rs.getString("id_car"));
                 car.setBrand(rs.getString("brand"));
                 car.setModel(rs.getString("model"));
                 car.setPrice(rs.getFloat("price"));
@@ -312,7 +312,7 @@ public class DbCarDao implements CarDao {
 
         try {
             preparedStatement = connection.prepareStatement(deleteSQL);
-            preparedStatement.setString(1, car.getId());
+            preparedStatement.setString(1, car.getId_car());
             preparedStatement.setString(2, car.getBrand());
             preparedStatement.setString(3, car.getModel());
             preparedStatement.setFloat(4, car.getPrice());
@@ -327,7 +327,7 @@ public class DbCarDao implements CarDao {
             preparedStatement.setString(13, car.getPowerSupply());
             preparedStatement.setInt(14, car.getCapacity());
             preparedStatement.setString(15, car.getImage());
-            preparedStatement.setString(16, car.getId());
+            preparedStatement.setString(16, car.getId_car());
 
             preparedStatement.executeUpdate();
 
@@ -357,7 +357,7 @@ public class DbCarDao implements CarDao {
 
         try {
             preparedStatement = connection.prepareStatement(deleteSQL);
-            preparedStatement.setString(1, car.getId());
+            preparedStatement.setString(1, car.getId_car());
 
             preparedStatement.executeUpdate();
 
@@ -387,7 +387,7 @@ public class DbCarDao implements CarDao {
 
         try {
             preparedStatement = connection.prepareStatement(insertSQL);
-            preparedStatement.setString(1, car.getId());
+            preparedStatement.setString(1, car.getId_car());
             preparedStatement.setString(2, car.getBrand());
             preparedStatement.setString(3, car.getModel());
             preparedStatement.setFloat(4, car.getPrice());

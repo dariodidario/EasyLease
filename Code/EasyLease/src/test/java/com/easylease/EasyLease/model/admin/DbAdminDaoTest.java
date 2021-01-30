@@ -53,7 +53,7 @@ class DbAdminDaoTest {
   void retrieveById_Success() {
     String adminID = "00CfR8I";
     Admin admin = adminDAO.retrieveById(adminID);
-    assertEquals(adminID, admin.getId());
+    assertEquals(adminID, admin.getId_user());
   }
 
   @Test

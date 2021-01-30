@@ -33,14 +33,14 @@ class AdminTest {
   void testAdminGetRecoveryEmail() {
     Admin admin = new Admin("1234567", "Antonio", "Sarro",
         "test@gmail.com", "recovery@gmail.com");
-    assertEquals("recovery@gmail.com", admin.getRecoveryEmail());
+    assertEquals("recovery@gmail.com", admin.getRecovery_email());
   }
 
   @Test
   void testAdminSetRecoveryEmail() {
     Admin admin = new Admin("1234567", "Antonio", "Sarro",
         "test@gmail.com", "recovery@gmail.com");
-    admin.setRecoveryEmail("recovery2@gmail.com");
-    assertEquals("recovery2@gmail.com", admin.getRecoveryEmail());
+    admin.setRecovery_email("recovery2@gmail.com");
+    assertEquals("recovery2@gmail.com", admin.getRecovery_email());
   }
 }

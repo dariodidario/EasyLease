@@ -43,16 +43,16 @@
                 Optional optional = iterator.next();
           %>
           <div class = "w-5">
-            <label for = "<%=optional.getName()%>" class = "form-label mt-3"><%=optional.getName()%></label>
-            <input type = "number" class="form-control px-2" id="<%=optional.getName()%>"
-                   name="<%=optional.getName()%>" min = "1", required>
+            <label for = "<%=optional.getOptional_name()%>" class = "form-label mt-3"><%=optional.getOptional_name()%></label>
+            <input type = "number" class="form-control px-2" id="<%=optional.getOptional_name()%>"
+                   name="<%=optional.getOptional_name()%>" min = "1" , required>
           </div>
 
             <%
               }
               }
             %>
-            <input type = "hidden" value="<%=estimate.getId()%>", name="id">
+            <input type = "hidden" value="<%=estimate.getId_estimate()%>" , name="id">
         <button type="submit" class="btn btn-primary mt-3 btn-lg active" role = "button" aria-pressed ="true"
         id="stipulate">Conferma</button>
       </form>

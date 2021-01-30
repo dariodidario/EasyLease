@@ -50,7 +50,7 @@ class DbOptionalDaoTest {
   @Test
   void retrieveById_withCorrectId() {
     dbOptional.retrieveById("OPUi78M");
-    assertEquals(optional.getId(), dbOptional.retrieveById("OPUi78M").getId());
+    assertEquals(optional.getOptional_code(), dbOptional.retrieveById("OPUi78M").getOptional_code());
   }
 
   @Test
@@ -78,7 +78,7 @@ class DbOptionalDaoTest {
   void retrieveById_withCorrectType() {
     optionalList = dbOptional.retrieveByType("Auto");
     for (Optional o : optionalList) {
-      assertEquals("Auto", o.getType());
+      assertEquals("Auto", o.getOptional_type());
     }
   }
 

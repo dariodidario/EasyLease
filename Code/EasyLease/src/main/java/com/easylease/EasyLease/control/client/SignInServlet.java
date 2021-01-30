@@ -25,13 +25,13 @@ public class SignInServlet extends HttpServlet {
       throws ServletException, IOException {
     SimpleDateFormat htmlFormat = new SimpleDateFormat("yyyy-MM-dd");
     Client client = new Client();
-    client.setId("CL"+ IdGenerator.randomIdGenerator());
-    client.setName(request.getParameter("name"));
+    client.setId_user("CL"+ IdGenerator.randomIdGenerator());
+    client.setFirst_name(request.getParameter("name"));
     client.setSurname(request.getParameter("surname"));
     client.setEmail(request.getParameter("email"));
-    client.setBirthPlace(request.getParameter("birthplace"));
+    client.setBirth_place(request.getParameter("birthplace"));
     try {
-      client.setBirthDate(htmlFormat.parse(request.getParameter("birthdate")));
+      client.setBirth_date(htmlFormat.parse(request.getParameter("birthdate")));
     } catch (ParseException e) {
       e.printStackTrace();
     }

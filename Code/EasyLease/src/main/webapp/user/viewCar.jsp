@@ -221,12 +221,12 @@
         <br/>
         <br/>
         <form method="POST" action="${pageContext.request.contextPath}/ViewUpdateCarServlet">
-          <input type="hidden" name="Car_id" value="<%=car.getId()%>">
+          <input type="hidden" name="Car_id" value="<%=car.getId_car()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Modifica Auto" value="Modifica">
         </form>
         <br>
         <form method="POST" action="${pageContext.request.contextPath}/DeleteCarServlet" onsubmit="return confermaDelete()">
-          <input type="hidden" name="ID_Delete" value="<%=car.getId()%>">
+          <input type="hidden" name="ID_Delete" value="<%=car.getId_car()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Elimina Auto" value="Elimina Auto">
         </form>
       </div>
@@ -338,7 +338,7 @@
         <br/>
         <br/>
         <form method="POST" action="${pageContext.request.contextPath}/ViewRequestEstimateServlet">
-          <input type="hidden" name="idCar" value="<%=car.getId()%>">
+          <input type="hidden" name="idCar" value="<%=car.getId_car()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Richiedi preventivo" value="Richiedi preventivo">
         </form>
       </div>

@@ -60,14 +60,14 @@
                     <%="" + order.getEstimate().getCar().getBrand() + " " + order.getEstimate().getCar().getModel() %>
                 </td>
                 <td data-th="Codice">
-                    <%=order.getId() %>
+                    <%=order.getId_order() %>
                 </td>
                 <td data-th="Stato">
                     <%=order.getState() %>
                 </td>
                 <td data-th="Visualizza">
-                    <a id="<%=order.getId()%>"
-                       href="OrderManagementClientServlet?id_order=<%=order.getId()%>"
+                    <a id="<%=order.getId_order()%>"
+                       href="OrderManagementClientServlet?id_order=<%=order.getId_order()%>"
                        class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Visualizza</a>
                 </td>
             </tr>
@@ -110,14 +110,14 @@
                     <%="" + estimate.getCar().getBrand() + " " + estimate.getCar().getModel() %>
                 </td>
                 <td data-th="Codice">
-                    <%=estimate.getId() %>
+                    <%=estimate.getId_estimate() %>
                 </td>
                 <td data-th="Stato">
                     <%=estimate.getState() %>
                 </td>
                 <td data-th="Visualizza">
-                    <a id="<%=estimate.getId()%>"
-                       href="EstimateManagementClientServlet?id_estimate=<%=estimate.getId()%>"
+                    <a id="<%=estimate.getId_estimate()%>"
+                       href="EstimateManagementClientServlet?id_estimate=<%=estimate.getId_estimate()%>"
                        class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Visualizza</a>
                 </td>
             </tr>

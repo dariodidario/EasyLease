@@ -70,11 +70,11 @@ public class OrderValidationServlet extends HttpServlet {
           request.getRequestDispatcher("/advisor/orderValidation.jsp")
               .forward(request, response);
         }
-        order.setStartDate(startDate);
+        order.setStart_date(startDate);
         GregorianCalendar endDate = new GregorianCalendar();
-        endDate.setTime(order.getStartDate());
+        endDate.setTime(order.getStart_date());
         endDate.add(Calendar.MONTH, order.getEstimate().getPeriod());
-        order.setEndDate(endDate.getTime());
+        order.setEnd_date(endDate.getTime());
         order.setState("Convalidato");
         dbOrderDao.update(order);
         request.setAttribute("order", order);

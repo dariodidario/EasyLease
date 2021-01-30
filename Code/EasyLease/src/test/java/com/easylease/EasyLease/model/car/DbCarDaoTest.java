@@ -31,7 +31,7 @@ class DbCarDaoTest {
     @Test
     void retriveById_test1() {
            Car car=dao.retrieveById("CA0T753");
-           assertEquals("CA0T753",car.getId());
+           assertEquals("CA0T753",car.getId_car());
     }
 
     /**test with nonexistent id parameter expected null return**/

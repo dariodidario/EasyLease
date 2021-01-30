@@ -3,7 +3,6 @@ package com.easylease.EasyLease.model.optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.easylease.EasyLease.model.optional.Optional;
 import org.junit.jupiter.api.Test;
 
 class OptionalTest {
@@ -22,40 +21,40 @@ class OptionalTest {
   @Test
   public void getIdTest() {
     Optional optional = new Optional("op12345", "Sensori di parcheggio", "type", 23.5F);
-    assertEquals("op12345", optional.getId());
+    assertEquals("op12345", optional.getOptional_code());
   }
 
   @Test
   public void setIdTest() {
     Optional optional = new Optional();
-    optional.setId("op12345");
-    assertEquals("op12345", optional.getId());
+    optional.setOptional_code("op12345");
+    assertEquals("op12345", optional.getOptional_code());
   }
 
   @Test
   public void getNameTest() {
     Optional optional = new Optional("op12345", "Sensori di parcheggio", "type", 23.5F);
-    assertEquals("Sensori di parcheggio", optional.getName());
+    assertEquals("Sensori di parcheggio", optional.getOptional_name());
   }
 
   @Test
   public void setNameTest() {
     Optional optional = new Optional();
-    optional.setName("Sensori di parcheggio");
-    assertEquals("Sensori di parcheggio", optional.getName());
+    optional.setOptional_name("Sensori di parcheggio");
+    assertEquals("Sensori di parcheggio", optional.getOptional_name());
   }
 
   @Test
   public void getTypeTest() {
     Optional optional = new Optional("op12345", "Sensori di parcheggio", "type", 23.5F);
-    assertEquals("type", optional.getType());
+    assertEquals("type", optional.getOptional_type());
   }
 
   @Test
   public void setTypeTest() {
     Optional optional = new Optional();
-    optional.setType("type");
-    assertEquals("type", optional.getType());
+    optional.setOptional_type("type");
+    assertEquals("type", optional.getOptional_type());
   }
 
   @Test

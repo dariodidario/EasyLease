@@ -37,35 +37,35 @@ class OrderTest {
   void testOrderGetId() {
     Order order = new Order("OR12RT4", new Estimate(), new Date(),
         new Date(), new Date(), new Date(), true, "Attesa");
-    assertEquals("OR12RT4", order.getId());
+    assertEquals("OR12RT4", order.getId_order());
   }
 
   @Test
   void testOrderGetEstimate() {
     Order order = new Order("OR12RT4", new Estimate(), new Date(),
         new Date(), new Date(), new Date(), true, "Attesa");
-    assertEquals(new Estimate().getId(), order.getEstimate().getId());
+    assertEquals(new Estimate().getId_estimate(), order.getEstimate().getId_estimate());
   }
 
   @Test
   void testOrderGetStartDate() {
     Order order = new Order("OR12RT4", new Estimate(), new Date(),
         new Date(), new Date(), new Date(), true, "Attesa");
-    assertEquals(new Date(), order.getStartDate());
+    assertEquals(new Date(), order.getStart_date());
   }
 
   @Test
   void testOrderGetEndDate() {
     Order order = new Order("OR12RT4", new Estimate(), new Date(),
         new Date(), new Date(), new Date(), true, "Attesa");
-    assertEquals(new Date(), order.getEndDate());
+    assertEquals(new Date(), order.getEnd_date());
   }
 
   @Test
   void testOrderGetConfirmDate() {
     Order order = new Order("OR12RT4", new Estimate(), new Date(),
         new Date(), new Date(), new Date(), true, "Attesa");
-    assertEquals(new Date(), order.getConfirmDate());
+    assertEquals(new Date(), order.getConfirm_date());
   }
 
   @Test
@@ -79,8 +79,8 @@ class OrderTest {
   void testOrderSetId() {
     Order order = new Order("OR12RT4", new Estimate(), new Date(),
         new Date(), new Date(), new Date(), true, "Attesa");
-    order.setId("OR23456");
-    assertEquals("OR23456", order.getId());
+    order.setId_order("OR23456");
+    assertEquals("OR23456", order.getId_order());
   }
 
   @Test
@@ -89,31 +89,31 @@ class OrderTest {
         new Date(), new Date(), new Date(), true, "Attesa");
     Estimate estimate = new Estimate();
     order.setEstimate(estimate);
-    assertEquals(estimate.getId(), order.getEstimate().getId());
+    assertEquals(estimate.getId_estimate(), order.getEstimate().getId_estimate());
   }
 
   @Test
   void testOrderSetStartDate() {
     Order order = new Order("OR12RT4", new Estimate(), new Date(),
         new Date(), new Date(), new Date(), true, "Attesa");
-    order.setStartDate(new Date());
-    assertEquals(new Date(), order.getStartDate());
+    order.setStart_date(new Date());
+    assertEquals(new Date(), order.getStart_date());
   }
 
   @Test
   void testOrderSetEndDate() {
     Order order = new Order("OR12RT4", new Estimate(), new Date(),
         new Date(), new Date(), new Date(), true, "Attesa");
-    order.setEndDate(new Date());
-    assertEquals(new Date(), order.getEndDate());
+    order.setEnd_date(new Date());
+    assertEquals(new Date(), order.getEnd_date());
   }
 
   @Test
   void testOrderSetConfirmDate() {
     Order order = new Order("OR12RT4", new Estimate(), new Date(),
         new Date(), new Date(), new Date(), true, "Attesa");
-    order.setConfirmDate(new Date());
-    assertEquals(new Date(), order.getConfirmDate());
+    order.setConfirm_date(new Date());
+    assertEquals(new Date(), order.getConfirm_date());
   }
 
   @Test

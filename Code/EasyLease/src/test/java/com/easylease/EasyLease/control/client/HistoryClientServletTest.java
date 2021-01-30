@@ -97,7 +97,7 @@ class HistoryClientServletTest {
     List<Order> updatedOrder = orderDao.retrieveAll();
     for(Order item: originalOrder){
       for(Order updated: updatedOrder){
-        if(item.getId().equals(updated.getId()) &&
+        if(item.getId_order().equals(updated.getId_order()) &&
             !(item.getState().equals(updated.getState()))){
           orderDao.update(item);
         }
@@ -106,7 +106,7 @@ class HistoryClientServletTest {
 
     for(Estimate item: originalEstimate){
       for(Estimate updated: updatedEstimate){
-        if(item.getId().equals(updated.getId()) &&
+        if(item.getId_estimate().equals(updated.getId_estimate()) &&
             !(item.getState().equals(updated.getState()))){
           estimateDao.update(item);
         }

@@ -138,19 +138,19 @@ public class DbEstimateDao implements EstimateDao {
         + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try {
       preparedStatement = connection.prepareStatement(insertQuery);
-      preparedStatement.setString(1, e.getId());
+      preparedStatement.setString(1, e.getId_estimate());
       preparedStatement.setFloat(2, e.getPrice());
-      preparedStatement.setString(3, e.getAdvisor() != null ? e.getAdvisor().getId() : "ADfake0");
-      preparedStatement.setString(4, e.getClient().getId());
-      preparedStatement.setString(5, e.getCar().getId());
+      preparedStatement.setString(3, e.getAdvisor() != null ? e.getAdvisor().getId_user() : "ADfake0");
+      preparedStatement.setString(4, e.getClient().getId_user());
+      preparedStatement.setString(5, e.getCar().getId_car());
       preparedStatement.setInt(6, e.getPeriod());
       preparedStatement.setBoolean(7, e.isVisibility());
       preparedStatement.setString(8, e.getState());
-      preparedStatement.setDate(9, e.getRequestDate()!=null ? new java.sql.Date(e.getRequestDate().getTime()) : null);
-      preparedStatement.setDate(10, e.getResponseDate()!=null ? new java.sql.Date(e.getResponseDate().getTime()) : null);
+      preparedStatement.setDate(9, e.getRequest_date()!=null ? new java.sql.Date(e.getRequest_date().getTime()) : null);
+      preparedStatement.setDate(10, e.getResponse_date()!=null ? new java.sql.Date(e.getResponse_date().getTime()) : null);
       preparedStatement.executeUpdate();
       for (Optional o : e.getOptionalList()) {
-        insertOptional(e.getId(), o.getId(), o.getPrice());
+        insertOptional(e.getId_estimate(), o.getOptional_code(), o.getPrice());
       }
 
     } catch (SQLException sqlException) {
@@ -173,16 +173,16 @@ public class DbEstimateDao implements EstimateDao {
       preparedStatement.setFloat(1, e.getPrice());
       preparedStatement.setInt(2, e.getPeriod());
       preparedStatement.setBoolean(3, e.isVisibility());
-      preparedStatement.setString(4, e.getClient().getId());
-      preparedStatement.setString(5, e.getAdvisor() != null ? e.getAdvisor().getId() : "ADfake0");
-      preparedStatement.setString(6, e.getCar().getId());
+      preparedStatement.setString(4, e.getClient().getId_user());
+      preparedStatement.setString(5, e.getAdvisor() != null ? e.getAdvisor().getId_user() : "ADfake0");
+      preparedStatement.setString(6, e.getCar().getId_car());
       preparedStatement.setString(7, e.getState());
-      preparedStatement.setDate(8, e.getRequestDate()!=null ? new java.sql.Date(e.getRequestDate().getTime()) : null);
-      preparedStatement.setDate(9, e.getResponseDate()!=null ? new java.sql.Date(e.getResponseDate().getTime()) : null);
-      preparedStatement.setString(10, e.getId());
+      preparedStatement.setDate(8, e.getRequest_date()!=null ? new java.sql.Date(e.getRequest_date().getTime()) : null);
+      preparedStatement.setDate(9, e.getResponse_date()!=null ? new java.sql.Date(e.getResponse_date().getTime()) : null);
+      preparedStatement.setString(10, e.getId_estimate());
       preparedStatement.executeUpdate();
       for (Optional o : e.getOptionalList()) {
-        updateOptional(e.getId(), o.getId(), o.getPrice());
+        updateOptional(e.getId_estimate(), o.getOptional_code(), o.getPrice());
       }
     } catch (SQLException sqlException) {
       logger.log(Level.SEVERE, sqlException.getMessage());
@@ -225,7 +225,7 @@ public class DbEstimateDao implements EstimateDao {
     ClientDao client = DbClientDao.getInstance();
     CarDao car = DbCarDao.getInstance();
     try {
-      result.setId(rs.getString("id_estimate"));
+      result.setId_estimate(rs.getString("id_estimate"));
       result.setPrice(rs.getFloat("price"));
       result.setVisibility(rs.getBoolean("visibility"));
       result.setPeriod(rs.getInt("period"));
@@ -233,9 +233,9 @@ public class DbEstimateDao implements EstimateDao {
       result.setClient(client.retrieveById(rs.getString("id_client")));
       result.setCar(car.retrieveById(rs.getString("id_car")));
       result.setState(rs.getString("state"));
-      result.setRequestDate(rs.getDate("request_date")!= null ? new java.util.Date(rs.getDate("request_date").getTime()) : null);
-      result.setResponseDate(rs.getDate("response_date")!= null ? new java.util.Date(rs.getDate("response_date").getTime()) : null);
-      result.setOptionalList(getOptionalList(result.getId()));
+      result.setRequest_date(rs.getDate("request_date")!= null ? new java.util.Date(rs.getDate("request_date").getTime()) : null);
+      result.setResponse_date(rs.getDate("response_date")!= null ? new java.util.Date(rs.getDate("response_date").getTime()) : null);
+      result.setOptionalList(getOptionalList(result.getId_estimate()));
     } catch (SQLException e) {
       logger.log(Level.SEVERE, e.getMessage());
       return null;
@@ -273,7 +273,7 @@ public class DbEstimateDao implements EstimateDao {
         + " WHERE id_estimate = ?";
     try {
       preparedStatement = connection.prepareStatement(updateQuery);
-      preparedStatement.setString(1, e.getId());
+      preparedStatement.setString(1, e.getId_estimate());
       preparedStatement.executeUpdate();
 
     } catch (SQLException sqlException) {

@@ -49,9 +49,9 @@ public class DbOptionalDao implements OptionalDao {
       ResultSet rs = preparedStatement.executeQuery();
       if (rs.next()) {
         result = new Optional();
-        result.setId(id);
-        result.setType(rs.getString("optional_type"));
-        result.setName(rs.getString("optional_name"));
+        result.setOptional_code(id);
+        result.setOptional_type(rs.getString("optional_type"));
+        result.setOptional_name(rs.getString("optional_name"));
         result.setPrice(0);
       }
 
@@ -75,9 +75,9 @@ public class DbOptionalDao implements OptionalDao {
       ResultSet rs = preparedStatement.executeQuery();
       while (rs.next()) {
         Optional optional = new Optional();
-        optional.setId(rs.getString("optional_code"));
-        optional.setType(rs.getString("optional_type"));
-        optional.setName(rs.getString("optional_name"));
+        optional.setOptional_code(rs.getString("optional_code"));
+        optional.setOptional_type(rs.getString("optional_type"));
+        optional.setOptional_name(rs.getString("optional_name"));
         optional.setPrice(0);
         results.add(optional);
       }

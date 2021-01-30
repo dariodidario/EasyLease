@@ -23,14 +23,14 @@ public abstract class User implements Serializable {
   /**
    * Constructor for the User object.
    *
-   * @param id The ID who identify the User.
-   * @param name The name of the User.
+   * @param id_user The ID who identify the User.
+   * @param first_name The name of the User.
    * @param surname The surname of the User.
    * @param email The email of the User.
    */
-  public User(String id, String name, String surname, String email) {
-    this.id = id;
-    this.name = name;
+  public User(String id_user, String first_name, String surname, String email) {
+    this.id_user = id_user;
+    this.first_name = first_name;
     this.surname = surname;
     this.email = email;
   }
@@ -41,18 +41,18 @@ public abstract class User implements Serializable {
    *
    * @return ID the user's identificator.
    */
-  public String getId() {
-    return id;
+  public String getId_user() {
+    return id_user;
   }
 
 
   /**
    * Set the user's id.
    *
-   * @param id the user's identificator.
+   * @param id_user the user's identificator.
    */
-  public void setId(String id) {
-    this.id = id;
+  public void setId_user(String id_user) {
+    this.id_user = id_user;
   }
 
 
@@ -61,18 +61,18 @@ public abstract class User implements Serializable {
    *
    * @return ID the user's name.
    */
-  public String getName() {
-    return name;
+  public String getFirst_name() {
+    return first_name;
   }
 
 
   /**
    * Set the user's name.
    *
-   * @param name the user's identificator.
+   * @param first_name the user's identificator.
    */
-  public void setName(String name) {
-    this.name = name;
+  public void setFirst_name(String first_name) {
+    this.first_name = first_name;
   }
 
 
@@ -116,10 +116,10 @@ public abstract class User implements Serializable {
   }
 
   /** Rapresents the user's identificator. */
-  protected String id;
+  protected String id_user;
 
   /** Rapresents the user's name. */
-  protected String name;
+  protected String first_name;
 
   /** Rapresents the user's surname. */
   protected String surname;

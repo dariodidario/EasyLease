@@ -179,7 +179,7 @@ public class AddCarServlet extends HttpServlet {
         String idGenerate= "CA"+ IdGenerator.randomIdGenerator();
         if(cars!=null) {
             for (int i = 0; i < cars.size(); i++) {
-                if (cars.get(i).getId().equalsIgnoreCase(idGenerate) == true) {
+                if (cars.get(i).getId_car().equalsIgnoreCase(idGenerate) == true) {
                     idGenerate = "CA" + IdGenerator.randomIdGenerator();
                 }
             }

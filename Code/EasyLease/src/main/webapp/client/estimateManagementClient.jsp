@@ -23,10 +23,10 @@
         carOptionalList = new ArrayList<>();
         contractOptionalList = new ArrayList<>();
         for (Optional item : optionalList) {
-            if (item.getType().equals("Contratto")) {
+            if (item.getOptional_type().equals("Contratto")) {
                 contractOptionalList.add(item);
             }
-            if (item.getType().equals("Auto")) {
+            if (item.getOptional_type().equals("Auto")) {
                 carOptionalList.add(item);
             }
         }
@@ -67,10 +67,10 @@
                     <div class="row">
                         <div class="col-12">
                             <a id="btnAccept"
-                               href="ConfirmEstimateServlet?id_estimate=<%=estimate.getId()%>&choice=<%="Confermato"%>"
+                               href="ConfirmEstimateServlet?id_estimate=<%=estimate.getId_estimate()%>&choice=<%="Confermato"%>"
                                class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Confermare</a>
                             <a id="btnRefuse"
-                               href="ConfirmEstimateServlet?id_estimate=<%=estimate.getId()%>&choice=<%="Non confermato"%>"
+                               href="ConfirmEstimateServlet?id_estimate=<%=estimate.getId_estimate()%>&choice=<%="Non confermato"%>"
                                class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Non confermare</a>
                         </div>
                     </div>
@@ -172,7 +172,7 @@
                                     Optional carOptional = (Optional) it.next();
                         %>
                         <td data-th="Nome">
-                            <%=carOptional.getName() %>
+                            <%=carOptional.getOptional_name() %>
                         </td>
                         <td data-th="Costo">
                             <%=carOptional.getPrice() %>
@@ -191,7 +191,7 @@
                                     Optional contractOptional = (Optional) it2.next();
                         %>
                         <td data-th="Nome">
-                            <%=contractOptional.getName() %>
+                            <%=contractOptional.getOptional_name() %>
                         </td>
                         <td data-th="Costo">
                             <%=contractOptional.getPrice() %>

@@ -85,7 +85,7 @@ public class RegistrationSuccessTest {
     for (Client item : updatedClients) {
       boolean found = false;
       for (Client item2 : clientList) {
-        if (!found && item.getId().equals(item2.getId())) {
+        if (!found && item.getId_user().equals(item2.getId_user())) {
           found = true;
         }
       }
