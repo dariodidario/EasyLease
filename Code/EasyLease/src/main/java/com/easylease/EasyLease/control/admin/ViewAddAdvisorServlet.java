@@ -27,6 +27,7 @@ public class ViewAddAdvisorServlet extends HttpServlet {
             User user = (User) request.getSession().getAttribute("user");
             request.getSession().setAttribute("user", user);
             request.getSession().setAttribute("role", "admin");
+            request.getSession().setAttribute("error", "");
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/addAdvisorJSP.jsp");
             dispatcher.forward(request, response);
         }

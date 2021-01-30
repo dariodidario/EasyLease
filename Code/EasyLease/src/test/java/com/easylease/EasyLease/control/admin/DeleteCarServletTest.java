@@ -1,10 +1,16 @@
 package com.easylease.EasyLease.control.admin;
 
 
+import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.car.Car;
 import com.easylease.EasyLease.model.car.CarDAO;
+import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.mysql.cj.jdbc.MysqlDataSource;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -12,55 +18,63 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.file.Files;
+import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 
 
 class DeleteCarServletTest {
-    private DeleteCarServlet servlet;
+    @Mock
     private HttpServletRequest request;
+    @Mock
     private HttpServletResponse response;
-    private HttpSession session;
-    private CarDAO carDAO;
-    private List<Car> cars;
-    private StringWriter response_writer;
-    private RequestDispatcher dispatcher;
+    @Mock
     private ServletContext context;
+    @Mock
+    private HttpSession session;
+    @Mock
+    private RequestDispatcher dispatcher;
+    private DeleteCarServlet servlet;
+    private CarDAO carDAO;
+    private StringWriter response_writer;
     private ServletConfig config;
+    private static DBConnection dbConnection;
 
 
 
     @BeforeEach
-    public void setUp() throws IOException, ServletException {
+    public void setUp() throws IOException, ServletException, SQLException {
+        MockitoAnnotations.openMocks(this);
         servlet = new DeleteCarServlet();
         config =mock(ServletConfig.class);
         servlet.init(config);
-        request = mock(HttpServletRequest.class);
-        response = mock(HttpServletResponse.class);
         response_writer = new StringWriter();
-        session= mock(HttpSession.class);
-        carDAO = mock(CarDAO.class);
-        cars =new ArrayList<>();
-        cars.add(new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg"));
-        when(carDAO.retrieveAll()).thenReturn(cars);
-        doAnswer(invocation -> {
-            return null;
-        }).when(carDAO).insert(any());
+        dbConnection = DBConnection.getInstance();
+        MysqlDataSource mysqlDataSource = new MysqlDataSource();
+        mysqlDataSource.setURL("jdbc:mysql://127.0.0.1:3306/easylease");
+        mysqlDataSource.setUser("root");
+        mysqlDataSource.setPassword("root");
+        mysqlDataSource.setServerTimezone("UTC");
+        mysqlDataSource.setVerifyServerCertificate(false);
+        mysqlDataSource.setUseSSL(false);
+        dbConnection.setDataSource(mysqlDataSource);
+        carDAO= DBCarDAO.getInstance();
         when(request.getSession()).thenReturn(session);
         when(response.getWriter()).thenReturn(new PrintWriter(response_writer));
-        context =mock(ServletContext.class);
-        dispatcher= mock(RequestDispatcher.class);
         when(servlet.getServletContext()).thenReturn(context);
         when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+    }
+
+    @AfterEach
+    void tearDown() {
+
     }
 
 
@@ -108,12 +122,27 @@ class DeleteCarServletTest {
 
     @Test
     void testDoGetSuccess() throws ServletException, IOException {
-        servlet=mock(DeleteCarServlet.class);
+        Car carold=carDAO.retrieveById("CA5ezEH");
+        File uploads = new File("src/main/webapp/img");
+        File file = new File(uploads.getAbsolutePath(), carold.getImage());
+        File temp =new File(uploads.getAbsolutePath(),"tmpImg.jpg");
+
+
+        Files.copy(file.toPath(),temp.toPath());
         when(request.getSession().getAttribute("role")).thenReturn("admin");
-        when(request.getParameter("ID_Delete")).thenReturn("");
+        when(request.getParameter("ID_Delete")).thenReturn("CA5ezEH");
         when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+        when(request.getServletContext()).thenReturn(context);
+        when(context.getRealPath(any())).thenReturn(uploads.getAbsolutePath());
 
         servlet.doGet(request, response);
         assertEquals("text/html;charset=UTF-8", response.getContentType());
+
+        Car car=carDAO.retrieveById("CA5ezEH");
+        car.setVisibility(true);
+        carDAO.update(car);
+        Files.copy(temp.toPath(),file.toPath());
+        Files.delete(temp.toPath());
+
     }
 }

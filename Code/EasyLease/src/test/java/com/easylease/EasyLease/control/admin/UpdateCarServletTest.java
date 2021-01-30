@@ -1,9 +1,13 @@
 package com.easylease.EasyLease.control.admin;
 
+import com.easylease.EasyLease.model.DBPool.DBConnection;
 import com.easylease.EasyLease.model.car.Car;
 import com.easylease.EasyLease.model.car.CarDAO;
+import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockitoAnnotations;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -11,9 +15,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.SQLException;
+import java.util.Collection;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -30,11 +38,14 @@ class UpdateCarServletTest {
     private RequestDispatcher dispatcher;
     private ServletContext context;
     private ServletConfig config;
+    private static DBConnection dbConnection;
+    private Part part;
 
 
 
     @BeforeEach
-    public void setUp() throws IOException, ServletException {
+    public void setUp() throws IOException, ServletException, SQLException {
+        MockitoAnnotations.openMocks(this);
         servlet = new UpdateCarServlet();
         config =mock(ServletConfig.class);
         servlet.init(config);
@@ -42,20 +53,81 @@ class UpdateCarServletTest {
         response = mock(HttpServletResponse.class);
         response_writer = new StringWriter();
         session= mock(HttpSession.class);
-        carDAO = mock(CarDAO.class);
-        car =new Car("CAAA111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
-        when(carDAO.retrieveById("CAAA111")).thenReturn(car);
-        doAnswer(invocation -> {
-            return null;
-        }).when(carDAO).insert(any());
+        MysqlDataSource mysqlDataSource = new MysqlDataSource();
+        mysqlDataSource.setURL("jdbc:mysql://127.0.0.1:3306/easylease");
+        mysqlDataSource.setUser("root");
+        mysqlDataSource.setPassword("2935Michele");
+        mysqlDataSource.setServerTimezone("UTC");
+        mysqlDataSource.setVerifyServerCertificate(false);
+        mysqlDataSource.setUseSSL(false);
+        dbConnection = DBConnection.getInstance();
+        dbConnection.setDataSource(mysqlDataSource);
+        carDAO= DBCarDAO.getInstance();
         when(request.getSession()).thenReturn(session);
         when(response.getWriter()).thenReturn(new PrintWriter(response_writer));
         context =mock(ServletContext.class);
         dispatcher= mock(RequestDispatcher.class);
         when(servlet.getServletContext()).thenReturn(context);
         when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        part=new Part() {
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return new InputStream() {
+                    @Override
+                    public int read() throws IOException {
+                        return 0;
+                    }
+                };
+            }
+
+            @Override
+            public String getContentType() {
+                return null;
+            }
+
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            @Override
+            public String getSubmittedFileName() {
+                return "image_mia.jpg";
+            }
+
+            @Override
+            public long getSize() {
+                return 0;
+            }
+
+            @Override
+            public void write(String s) throws IOException {
+
+            }
+
+            @Override
+            public void delete() throws IOException {
+
+            }
+
+            @Override
+            public String getHeader(String s) {
+                return null;
+            }
+
+            @Override
+            public Collection<String> getHeaders(String s) {
+                return null;
+            }
+
+            @Override
+            public Collection<String> getHeaderNames() {
+                return null;
+            }
+        };
+        when(request.getPart(any())).thenReturn(part);
+        when(request.getServletContext()).thenReturn(context);
+        when(context.getRealPath("img")).thenReturn("C:\\Users\\39392\\Desktop\\EasyLease\\src\\main\\webapp\\img");
     }
 
 
@@ -98,7 +170,7 @@ class UpdateCarServletTest {
 
 
     @Test
-    void testCarBrandNull() throws ServletException, IOException {
+    void testCarBrandNull() {
         when(request.getSession().getAttribute("role")).thenReturn("admin");
         when(request.getParameter("ID_Update")).thenReturn("CAAA111");
         when(request.getParameter("brand_Update")).thenReturn(null);
@@ -113,13 +185,42 @@ class UpdateCarServletTest {
         when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
         when(request.getParameter("capacity_Update")).thenReturn("2000");
         when(request.getParameter("price_Update")).thenReturn("500");
-        when(request.getParameter("img_car_Update")).thenReturn("peugeot_3008.jpg");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
 
         assertThrows(NullPointerException.class,()->{servlet.doPost(request,response);});
     }
 
     @Test
-    void testCarModelNull() throws ServletException, IOException {
+    void testBrandEmpty() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        assertEquals("text/html;charset=UTF-8", response.getContentType());
+
+        carDAO.update(car);
+    }
+
+
+
+    @Test
+    void testCarModelNull() {
         when(request.getSession().getAttribute("role")).thenReturn("admin");
         when(request.getParameter("ID_Update")).thenReturn("CAAA111");
         when(request.getParameter("brand_Update")).thenReturn("Mercedes");
@@ -134,13 +235,43 @@ class UpdateCarServletTest {
         when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
         when(request.getParameter("capacity_Update")).thenReturn("2000");
         when(request.getParameter("price_Update")).thenReturn("500");
-        when(request.getParameter("img_car_Update")).thenReturn("peugeot_3008.jpg");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
 
         assertThrows(NullPointerException.class,()->{servlet.doPost(request,response);});
     }
 
+
+
     @Test
-    void testCarDoorsNull() throws ServletException, IOException {
+    void testModelEmpty() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        assertEquals("text/html;charset=UTF-8", response.getContentType());
+
+        carDAO.update(car);
+    }
+
+
+    @Test
+    void testCarDoorsNull() {
         when(request.getSession().getAttribute("role")).thenReturn("admin");
         when(request.getParameter("ID_Update")).thenReturn("CAAA111");
         when(request.getParameter("brand_Update")).thenReturn("Mercedes");
@@ -155,13 +286,42 @@ class UpdateCarServletTest {
         when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
         when(request.getParameter("capacity_Update")).thenReturn("2000");
         when(request.getParameter("price_Update")).thenReturn("500");
-        when(request.getParameter("img_car_Update")).thenReturn("peugeot_3008.jpg");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
 
         assertThrows(NullPointerException.class,()->{servlet.doPost(request,response);});
     }
 
+
+
     @Test
-    void testCarTypeNull() throws ServletException, IOException {
+    void testDoorsEmpty() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        assertEquals("text/html;charset=UTF-8", response.getContentType());
+
+        carDAO.update(car);
+    }
+
+    @Test
+    void testCarTypeNull() {
         when(request.getSession().getAttribute("role")).thenReturn("admin");
         when(request.getParameter("ID_Update")).thenReturn("CAAA111");
         when(request.getParameter("brand_Update")).thenReturn("Mercedes");
@@ -176,13 +336,44 @@ class UpdateCarServletTest {
         when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
         when(request.getParameter("capacity_Update")).thenReturn("2000");
         when(request.getParameter("price_Update")).thenReturn("500");
-        when(request.getParameter("img_car_Update")).thenReturn("peugeot_3008.jpg");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
 
         assertThrows(NullPointerException.class,()->{servlet.doPost(request,response);});
     }
 
+
+
     @Test
-    void testCarTransmissionNull() throws ServletException, IOException {
+    void testCarTypeEmpty() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        assertEquals("text/html;charset=UTF-8", response.getContentType());
+
+        carDAO.update(car);
+    }
+
+
+
+    @Test
+    void testCarTransmissionNull() {
         when(request.getSession().getAttribute("role")).thenReturn("admin");
         when(request.getParameter("ID_Update")).thenReturn("CAAA111");
         when(request.getParameter("brand_Update")).thenReturn("Mercedes");
@@ -197,9 +388,38 @@ class UpdateCarServletTest {
         when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
         when(request.getParameter("capacity_Update")).thenReturn("2000");
         when(request.getParameter("price_Update")).thenReturn("500");
-        when(request.getParameter("img_car_Update")).thenReturn("peugeot_3008.jpg");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
 
         assertThrows(NullPointerException.class,()->{servlet.doPost(request,response);});
+    }
+
+
+
+    @Test
+    void testTransmissionEmpty() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        assertEquals("text/html;charset=UTF-8", response.getContentType());
+
+        carDAO.update(car);
     }
 
 
@@ -219,10 +439,42 @@ class UpdateCarServletTest {
         when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
         when(request.getParameter("capacity_Update")).thenReturn("2000");
         when(request.getParameter("price_Update")).thenReturn("500");
-        when(request.getParameter("img_car_Update")).thenReturn("peugeot_3008.jpg");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
 
         assertThrows(NullPointerException.class,()->{servlet.doPost(request,response);});
     }
+
+
+
+
+    @Test
+    void testAVGEmpty() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        assertEquals("text/html;charset=UTF-8", response.getContentType());
+
+        carDAO.update(car);
+    }
+
+
 
     @Test
     void testCarHorsePowerNull() {
@@ -240,10 +492,42 @@ class UpdateCarServletTest {
         when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
         when(request.getParameter("capacity_Update")).thenReturn("2000");
         when(request.getParameter("price_Update")).thenReturn("500");
-        when(request.getParameter("img_car_Update")).thenReturn("peugeot_3008.jpg");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
 
         assertThrows(NullPointerException.class,()->{servlet.doPost(request,response);});
     }
+
+
+
+    @Test
+    void testHorsePowerEmpty() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        assertEquals("text/html;charset=UTF-8", response.getContentType());
+
+        carDAO.update(car);
+    }
+
+
+
 
     @Test
     void testCarEmissionClassNull() {
@@ -261,9 +545,38 @@ class UpdateCarServletTest {
         when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
         when(request.getParameter("capacity_Update")).thenReturn("2000");
         when(request.getParameter("price_Update")).thenReturn("500");
-        when(request.getParameter("img_car_Update")).thenReturn("peugeot_3008.jpg");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
 
         assertThrows(NullPointerException.class,()->{servlet.doPost(request,response);});
+    }
+
+
+
+    @Test
+    void testEmissionClassEmpty() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        assertEquals("text/html;charset=UTF-8", response.getContentType());
+
+        carDAO.update(car);
     }
 
 
@@ -283,10 +596,40 @@ class UpdateCarServletTest {
         when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
         when(request.getParameter("capacity_Update")).thenReturn("2000");
         when(request.getParameter("price_Update")).thenReturn("500");
-        when(request.getParameter("img_car_Update")).thenReturn("peugeot_3008.jpg");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
 
         assertThrows(NullPointerException.class,()->{servlet.doPost(request,response);});
     }
+
+
+
+    @Test
+    void testCo2EmissionsEmpty() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        assertEquals("text/html;charset=UTF-8", response.getContentType());
+
+        carDAO.update(car);
+    }
+
 
 
     @Test
@@ -305,11 +648,43 @@ class UpdateCarServletTest {
         when(request.getParameter("power_supply_Update")).thenReturn(null);
         when(request.getParameter("capacity_Update")).thenReturn("2000");
         when(request.getParameter("price_Update")).thenReturn("500");
-        when(request.getParameter("img_car_Update")).thenReturn("peugeot_3008.jpg");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
 
 
         assertThrows(NullPointerException.class,()->{servlet.doPost(request,response);});
     }
+
+
+
+
+    @Test
+    void testPowerSupplyEmpty() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        assertEquals("text/html;charset=UTF-8", response.getContentType());
+
+        carDAO.update(car);
+    }
+
+
 
 
     @Test
@@ -328,11 +703,42 @@ class UpdateCarServletTest {
         when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
         when(request.getParameter("capacity_Update")).thenReturn(null);
         when(request.getParameter("price_Update")).thenReturn("500");
-        when(request.getParameter("img_car_Update")).thenReturn("peugeot_3008.jpg");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
 
 
         assertThrows(NullPointerException.class,()->{servlet.doPost(request,response);});
     }
+
+
+
+    @Test
+    void testCapacityEmpty() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        assertEquals("text/html;charset=UTF-8", response.getContentType());
+
+        carDAO.update(car);
+    }
+
+
 
 
     @Test
@@ -351,11 +757,43 @@ class UpdateCarServletTest {
         when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
         when(request.getParameter("capacity_Update")).thenReturn("2000");
         when(request.getParameter("price_Update")).thenReturn(null);
-        when(request.getParameter("img_car_Update")).thenReturn("peugeot_3008.jpg");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
 
 
         assertThrows(NullPointerException.class,()->{servlet.doPost(request,response);});
     }
+
+
+
+    @Test
+    void testPriceEmpty() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        assertEquals("text/html;charset=UTF-8", response.getContentType());
+
+        carDAO.update(car);
+    }
+
+
+
 
     @Test
     void testCarImageNull()  {
@@ -381,13 +819,393 @@ class UpdateCarServletTest {
 
 
 
+
+    @Test
+    void testImageEmpty() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        assertEquals("text/html;charset=UTF-8", response.getContentType());
+
+        carDAO.update(car);
+    }
+
+
+
+    @Test
+    void testBrandNotEqual() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("tigre");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        Car car1=carDAO.retrieveById("CA6fSIJ");
+        assertNotEquals(car1.getBrand(), car.getBrand());
+
+        carDAO.update(car);
+    }
+
+
+    @Test
+    void testModelNotEqual() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("tigre");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        Car car1=carDAO.retrieveById("CA6fSIJ");
+        assertNotEquals(car1.getModel(), car.getModel());
+
+        carDAO.update(car);
+    }
+
+    @Test
+    void testDoorsNotEqual() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("15");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        Car car1=carDAO.retrieveById("CA6fSIJ");
+        assertNotEquals(car1.getDoors(), car.getDoors());
+
+        carDAO.update(car);
+    }
+
+
+    @Test
+    void testTypeNotEqual() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("tigre");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        Car car1=carDAO.retrieveById("CA6fSIJ");
+        assertNotEquals(car1.getType(), car.getType());
+
+        carDAO.update(car);
+    }
+
+    @Test
+    void testTransmissionNotEqual() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("tigre");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        Car car1=carDAO.retrieveById("CA6fSIJ");
+        assertNotEquals(car1.getTransmission(), car.getTransmission());
+
+        carDAO.update(car);
+    }
+
+    @Test
+    void testAVGNotEqual() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("333.660");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        Car car1=carDAO.retrieveById("CA6fSIJ");
+        assertNotEquals(car1.getAvg_consumption(), car.getAvg_consumption());
+
+        carDAO.update(car);
+    }
+
+
+    @Test
+    void testHorseNotEqual() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("1000");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        Car car1=carDAO.retrieveById("CA6fSIJ");
+        assertNotEquals(car1.getHorse_power(), car.getHorse_power());
+
+        carDAO.update(car);
+    }
+
+
+
+    @Test
+    void testEmissionClassNotEqual() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("tigre");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        Car car1=carDAO.retrieveById("CA6fSIJ");
+        assertNotEquals(car1.getEmission_class(), car.getEmission_class());
+
+        carDAO.update(car);
+    }
+
+
+
+    @Test
+    void testCO2NotEqual() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("196");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        Car car1=carDAO.retrieveById("CA6fSIJ");
+        assertNotEquals(car1.getCo2_emissions(), car.getCo2_emissions());
+
+        carDAO.update(car);
+    }
+
+
+
+
+    @Test
+    void testPowerNotEqual() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Acqua");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        Car car1=carDAO.retrieveById("CA6fSIJ");
+        assertNotEquals(car1.getPowerSupply(), car.getPowerSupply());
+
+        carDAO.update(car);
+    }
+
+
+    @Test
+    void testCapacityNotEqual() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("2599");
+        when(request.getParameter("price_Update")).thenReturn("260");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        Car car1=carDAO.retrieveById("CA6fSIJ");
+        assertNotEquals(car1.getCapacity(), car.getCapacity());
+
+        carDAO.update(car);
+    }
+
+
+    @Test
+    void testPriceNotEqual() throws ServletException, IOException {
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
+        when(request.getSession().getAttribute("role")).thenReturn("admin");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
+        when(request.getParameter("doors_Update")).thenReturn("5");
+        when(request.getParameter("car_type_Update")).thenReturn("SUV");
+        when(request.getParameter("transmission_Update")).thenReturn("Manuale");
+        when(request.getParameter("avg_consumption_Update")).thenReturn("3.6");
+        when(request.getParameter("horse_power_Update")).thenReturn("100");
+        when(request.getParameter("emission_class_Update")).thenReturn("Euro 6");
+        when(request.getParameter("co2_emissions_Update")).thenReturn("96");
+        when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
+        when(request.getParameter("capacity_Update")).thenReturn("1499");
+        when(request.getParameter("price_Update")).thenReturn("380");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
+        when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
+
+        servlet.doPost(request, response);
+        Car car1=carDAO.retrieveById("CA6fSIJ");
+        assertNotEquals(car1.getPrice(), car.getPrice());
+
+        carDAO.update(car);
+    }
+
+
     @Test
     void testDoPostSuccess() throws ServletException, IOException {
-        servlet=mock(UpdateCarServlet.class);
+        Car car=carDAO.retrieveById("CA6fSIJ");
+        when(request.getPart("img_car_Update")).thenReturn(null);
         when(request.getSession().getAttribute("role")).thenReturn("admin");
-        when(request.getParameter("ID_Update")).thenReturn("CAAA111");
-        when(request.getParameter("brand_Update")).thenReturn("Mercedes");
-        when(request.getParameter("model_Update")).thenReturn("Classe E");
+        when(request.getParameter("ID_Update")).thenReturn("CA6fSIJ");
+        when(request.getParameter("brand_Update")).thenReturn("Peugeot");
+        when(request.getParameter("model_Update")).thenReturn("2008");
         when(request.getParameter("doors_Update")).thenReturn("5");
         when(request.getParameter("car_type_Update")).thenReturn("berlina");
         when(request.getParameter("transmission_Update")).thenReturn("Automatico");
@@ -398,11 +1216,13 @@ class UpdateCarServletTest {
         when(request.getParameter("power_supply_Update")).thenReturn("Diesel");
         when(request.getParameter("capacity_Update")).thenReturn("2000");
         when(request.getParameter("price_Update")).thenReturn("500");
-        when(request.getParameter("img_car_Update")).thenReturn("peugeot_3008.jpg");
+        when(request.getParameter("img_car_Update")).thenReturn("peugeot_2008.jpg");
         when(response.getContentType()).thenReturn("text/html;charset=UTF-8");
 
         servlet.doPost(request, response);
         assertEquals("text/html;charset=UTF-8", response.getContentType());
+
+        carDAO.update(car);
     }
 
 }

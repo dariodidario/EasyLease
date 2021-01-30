@@ -11,8 +11,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 
 /**this servlet provides to delete a car from the database*/
 
@@ -43,10 +45,14 @@ public class DeleteCarServlet extends HttpServlet {
         Car car = CarDAO.retrieveById(id);
         car.setVisibility(false);
         CarDAO.update(car);
+        File canc = new File(request.getServletContext().getRealPath("img"));
+        File rem = new File(canc, car.getImage());
+        Files.delete( rem.toPath());
 
         User user = (User) request.getSession().getAttribute("user");
         request.getSession().setAttribute("user", user);
         request.getSession().setAttribute("role", "admin");
+        request.getSession().setAttribute("carList",null);
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();

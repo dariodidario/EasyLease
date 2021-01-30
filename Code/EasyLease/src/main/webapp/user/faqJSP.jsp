@@ -10,50 +10,6 @@
         <%@include file="/fragments/headerJSP.jsp" %>
         <div class="container">
             <label class="FAQtitle">FAQ</label>
-              <div class="TitleDiv">
-                <label class="FAQsubtitle">Hai domande? clicca e trova quella giusta per te!</label>
-                <img class="imgIcon" src="img/misc/auto_icon.png">
-                <label class="FAQcloud">Ciao!<br>sono Usain hai<br>bisogno di me?</label>
-              </div>
-
-            <div class="toggle">
-                <button class="buttondiv" id="m1" onclick="functionToggle(this.id)"> Maggiori domande</button>
-                <div class="domandeContainer">
-                  <div class="card FAQ" id="maggioriDomande">
-                     <label class="FAQh3"> Di seguito sono riportate le domande che più interessano ai nostri clienti</label>
-                     <div class="toggle">
-                         <button id="md1" onclick="functionToggle(this.id)">QUANDO SARÀ EFFETTUATO L’ADDEBITO SULLA MIA CARTA DI
-                                 CREDITO O SUL MIO CONTO PAYPAL?
-                         </button>
-                         <p>L'importo relativo all'acquisto effettuato verrà addebitato sulla tua carta di credito al momento al
-                            momento della convalida dell'ordine. <br>
-                             ATTENZIONE: quello che viene visualizzato al momento dell’inserimento dell’ordine non è un prelevamento
-                             di fondi ma solo
-                             l’autorizzazione che viene richiesta, mentre l’importo viene effettivamente addebitato soltanto al
-                             momento della convalida dell'ordine
-                             da parte del consulente.
-                         </p>
-                     </div>
-                     <div class="toggle">
-                        <button id="md2" onclick="functionToggle(this.id)">VERRÒ AVVERTITO IN CASO DI CONVALIDA DI UN ORDINE?
-                        </button>
-                        <p>Sì, riceverai una mail nel momento in cui il tuo ordine sarà convalidato. </p>
-                     </div>
-                     <div class="toggle">
-                         <button id="md3" onclick="functionToggle(this.id)">COME SARANNO TRATTATI I MIEI DATI?</button>
-                         <p>BookStore Srl garantisce la massima riservatezza sulle informazioni che hai rilasciato al momento della
-                            registrazione: sono infatti
-                            inviate in una connessione protetta con tecnologia SSL. <br> La sicurezza del sito è garantita e
-                            certificata da Verisign società leader
-                            mondiale tra i fornitori di servizi per la sicurezza online. Le informazioni facoltative che richiediamo
-                            all'atto della registrazione sono
-                            utilizzate per migliorare il servizio e offrirti promozioni basate sui tuoi interessi.
-                         </p>
-                     </div>
-                  </div>
-                </div>
-            </div>
-
 
             <div class="toggle">
                <button class="buttondiv" id="m2" onclick="functionToggle(this.id)"> Ordini</button>
@@ -196,6 +152,51 @@
                     </div>
                 </div>
               </div>
+            </div>
+
+
+            <div class="toggle">
+                  <button class="buttondiv" id="m1" onclick="functionToggle(this.id)"> Maggiori domande</button>
+                  <div class="domandeContainer">
+                     <div class="card FAQ" id="maggioriDomande">
+                         <label class="FAQh3"> Di seguito sono riportate le domande che più interessano ai nostri clienti</label>
+                         <div class="toggle">
+                            <button id="md1" onclick="functionToggle(this.id)">QUANDO SARÀ EFFETTUATO L’ADDEBITO SULLA MIA CARTA DI
+                                CREDITO O SUL MIO CONTO PAYPAL?
+                            </button>
+                            <p>L'importo relativo all'acquisto effettuato verrà addebitato sulla tua carta di credito al momento al
+                               momento della convalida dell'ordine. <br>
+                               ATTENZIONE: quello che viene visualizzato al momento dell’inserimento dell’ordine non è un prelevamento
+                               di fondi ma solo
+                               l’autorizzazione che viene richiesta, mentre l’importo viene effettivamente addebitato soltanto al
+                               momento della convalida dell'ordine
+                               da parte del consulente.
+                            </p>
+                         </div>
+                         <div class="toggle">
+                             <button id="md2" onclick="functionToggle(this.id)">VERRÒ AVVERTITO IN CASO DI CONVALIDA DI UN ORDINE?</button>
+                             <p>Sì, riceverai una mail nel momento in cui il tuo ordine sarà convalidato. </p>
+                         </div>
+                         <div class="toggle">
+                             <button id="md3" onclick="functionToggle(this.id)">COME SARANNO TRATTATI I MIEI DATI?</button>
+                             <p>BookStore Srl garantisce la massima riservatezza sulle informazioni che hai rilasciato al momento della
+                                registrazione: sono infatti
+                                inviate in una connessione protetta con tecnologia SSL. <br> La sicurezza del sito è garantita e
+                                certificata da Verisign società leader
+                                mondiale tra i fornitori di servizi per la sicurezza online. Le informazioni facoltative che richiediamo
+                                all'atto della registrazione sono
+                                utilizzate per migliorare il servizio e offrirti promozioni basate sui tuoi interessi.
+                             </p>
+                         </div>
+                     </div>
+                  </div>
+            </div>
+
+
+            <div class="TitleDiv">
+                <img class="imgIcon" src="img/misc/auto_icon.png">
+                <label class="FAQcloud">Ciao!<br>sono Usain hai<br>bisogno di me?</label><br>
+                <label class="FAQsubtitle">Hai domande? clicca e trova quella giusta per te!</label>
             </div>
         </div>
         <%@include file="/fragments/footerJSP.jsp" %>

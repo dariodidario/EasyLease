@@ -47,7 +47,7 @@ public class DBCarDAO implements CarDAO{
         }
         PreparedStatement preparedStatement = null;
 
-        Car car = new Car();
+        Car car = null;
 
         String selectSQL = "SELECT * FROM " + DBCarDAO.TABLE_NAME + " WHERE id_car = ?";
 
@@ -58,6 +58,7 @@ public class DBCarDAO implements CarDAO{
             ResultSet rs = preparedStatement.executeQuery();
 
             if(rs.next()){//extraction of the data from the db
+                car = new Car();
                 car.setId(rs.getString("id_car"));
                 car.setBrand(rs.getString("brand"));
                 car.setModel(rs.getString("model"));
@@ -97,7 +98,7 @@ public class DBCarDAO implements CarDAO{
         }
         PreparedStatement preparedStatement = null;
 
-        Car car = new Car();
+        Car car = null;
 
         String selectSQL = "SELECT * FROM " + DBCarDAO.TABLE_NAME + " WHERE model LIKE ?";
 
@@ -108,6 +109,7 @@ public class DBCarDAO implements CarDAO{
             ResultSet rs = preparedStatement.executeQuery();
 
             if (rs.next()) {//extraction of the data from the db
+                car = new Car();
                 car.setId(rs.getString("id_car"));
                 car.setBrand(rs.getString("brand"));
                 car.setModel(rs.getString("model"));

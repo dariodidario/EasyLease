@@ -1,13 +1,4 @@
 @media (max-width: 830px) and (orientation: landscape)  {
-    hr{
-        border: 1px solid #dec717;
-        width: 80%;
-        alignment: left;
-        margin-left: 10%;
-        margin-top: 30px;
-        position: relative;
-
-    }
     label.carDetail{
         font-size: 3vw;
         border-bottom: solid #9B334E;
@@ -19,6 +10,7 @@
         border: none;
         border-bottom: solid #dec717;
         margin-left: 10px;
+        z-index: 10;
     }
 
     table.characteristics{
@@ -45,6 +37,7 @@
         border-bottom:medium solid #dec717;
         border-radius: 20px;
         padding: 10px;
+        z-index: 10;
     }
     #buttonDeleteCar:hover{
         background: #800000;
@@ -60,12 +53,14 @@
         border-bottom:medium solid #dec717;
         border-radius: 20px;
         padding: 10px;
+        z-index: 10;
     }
     #divAutoName{
         position: relative;
         margin-top: 30px;
         margin-left: 15%;
         width: 59%;
+        z-index: 10;
     }
     #divImage{
         margin-top: 30px;
@@ -80,6 +75,7 @@
     .matita{
         max-width: 4.5%;
         max-height: 4.5%;
+        z-index: 10;
     }
     .matita_table{
         max-width: 8%;
@@ -129,14 +125,6 @@
 
 
 @media (max-width: 1024px) and (orientation: portrait) {
-    hr{
-        border: 1px solid #dec717;
-        width: 80%;
-        alignment: left;
-        margin-left: 10%;
-        margin-top: 30px;
-        position: relative;
-    }
     label.carDetail{
         font-size: 3vw;
         border-bottom: solid #9B334E;
@@ -148,6 +136,7 @@
         border: none;
         border-bottom: solid #dec717;
         margin-left: 10px;
+        z-index: 10;
     }
 
     table.characteristics{
@@ -174,6 +163,7 @@
         border-bottom:medium solid #dec717;
         border-radius: 20px;
         padding: 10px;
+        z-index: 10;
     }
     #buttonDeleteCar:hover{
         background: #800000;
@@ -189,12 +179,14 @@
         border-bottom:medium solid #dec717;
         border-radius: 20px;
         padding: 10px;
+        z-index: 10;
     }
     #divAutoName{
         position: relative;
         margin-top: 30px;
         margin-left: 15%;
         width: 59%;
+        z-index: 10;
     }
     #divImage{
         margin-top: 30px;
@@ -209,6 +201,7 @@
     .matita{
         max-width: 5%;
         max-height: 5%;
+        z-index: 10;
     }
     .matita_table{
         max-width: 8%;
@@ -258,14 +251,6 @@
 
 
 @media (min-width: 831px) and (orientation: landscape){
-    hr{
-        border: medium solid #dec717; !important;
-        width: 50%; !important;
-        alignment: left; !important;
-        margin-left: 10%; !important;
-        position: absolute; !important;
-        bottom: 21%; !important;
-    }
     label.carDetail{
         font-size: 1vw;
         color: white;
@@ -277,6 +262,7 @@
         border: none;
         border-bottom: solid #dec717;
         margin-left: 10px;
+        z-index: 10;
     }
 
     table.characteristics{
@@ -306,6 +292,7 @@
         border-bottom:medium solid #dec717;
         border-radius: 20px;
         padding-bottom: 5px;
+        z-index: 10;
     }
     #buttonDeleteCar:hover{
         background: #800000;
@@ -322,15 +309,17 @@
         border-bottom:medium solid #dec717;
         border-radius: 20px;
         padding-bottom: 5px;
+        z-index: 10;
     }
     #divAutoName{
         position: absolute;
         top: 20.5%;
         left: 5%;
         width: 59%;
+        z-index: 10;
     }
     #divImage{
-        top: 25%;
+        top: 26%;
         position: absolute;
         left: 5%;
         width: 59%;
@@ -344,6 +333,7 @@
     .matita{
         max-width: 2%;
         max-height: 2%;
+        z-index: 10;
     }
     .matita_table{
         max-width: 8%;
@@ -363,7 +353,7 @@
         max-height: 2%;
         margin-top: 20%;
         left: 15%;
-
+        z-index: 10;
     }
     .matita:hover{
         border-bottom: 2px solid #dec717;
