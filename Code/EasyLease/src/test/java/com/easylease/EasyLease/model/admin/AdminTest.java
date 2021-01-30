@@ -43,39 +43,4 @@ class AdminTest {
     admin.setRecoveryEmail("recovery2@gmail.com");
     assertEquals("recovery2@gmail.com", admin.getRecoveryEmail());
   }
-
-  @Test
-  void testAdminEquals() {
-    Admin admin = new Admin("1234567", "Antonio", "Sarro",
-        "test@gmail.com", "recovery@gmail.com");
-    assertEquals(admin, admin);
-  }
-
-  @Test
-  void testAdminNotEquals() {
-    Admin admin = new Admin("1234567", "Antonio", "Sarro",
-        "test@gmail.com", "recovery@gmail.com");
-    assertNotEquals(admin, new Admin());
-  }
-
-  @Test
-  void testAdminEqualsNull() {
-    Admin admin = new Admin("1234567", "Antonio", "Sarro",
-        "test@gmail.com", "recovery@gmail.com");
-    assertFalse(admin.equals(null));
-  }
-
-  @Test
-  void testAdminToString() {
-    Admin admin = new Admin("1234567", "Antonio", "Sarro",
-        "test@gmail.com", "recovery@gmail.com");
-    String toString = "Admin{"
-        + "recoveryEmail='" + admin.getRecoveryEmail() + '\''
-        + ", id='" + admin.getId() + '\''
-        + ", name='" + admin.getName() + '\''
-        + ", surname='" + admin.getSurname() + '\''
-        + ", email='" + admin.getEmail() + '\''
-        + '}';
-    assertEquals(admin.toString(), toString);
-  }
 }

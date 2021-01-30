@@ -403,8 +403,6 @@ public class DBCarDAO implements CarDAO{
 
 
             preparedStatement.executeUpdate();
-
-            connection.commit();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {

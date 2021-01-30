@@ -6,7 +6,6 @@ import com.easylease.EasyLease.model.estimate.EstimateDAO;
 import com.easylease.EasyLease.model.order.DBOrderDAO;
 import com.easylease.EasyLease.model.order.Order;
 import com.easylease.EasyLease.model.order.OrderDAO;
-
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,50 +23,59 @@ public class DailyChecker implements Runnable {
      * the "creation_date" older than 7 days.
      */
     List<Order> orderList = orderDAO.retrieveByState("Attesa");
-    orderList.forEach(order -> {
-      c.setTime(order.getCreationDate());
-      c.add(Calendar.WEEK_OF_YEAR, 1);
-      if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
-        order.setVisibility(false);
-        order.setState("Non confermato");
-      }
-    });
-    orderList.forEach(orderDAO::update);
-    Logger.getLogger(DailyChecker.class.getName())
-        .log(Level.INFO, "Daily: Controllo sugli Ordini (Attesa) effettuato!");
+    if (orderList != null) {
+      orderList.forEach(order -> {
+        c.setTime(order.getCreationDate());
+        c.add(Calendar.WEEK_OF_YEAR, 1);
+        if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
+          order.setVisibility(false);
+          order.setState("Non confermato");
+        }
+      });
+      orderList.forEach(orderDAO::update);
+      Logger.getLogger(DailyChecker.class.getName())
+          .log(Level.INFO,
+              "Daily: Controllo sugli Ordini (Attesa) effettuato!");
+    }
 
     /*
      * Part2: Check that the estimate in the "Stipulato" state do not have
      * the "response_date" older than 7 days.
      */
     List<Estimate> estimateList = estimateDAO.retrieveByState("Stipulato");
-    estimateList.forEach(estimate -> {
-      c.setTime(estimate.getResponseDate());
-      c.add(Calendar.WEEK_OF_YEAR, 1);
-      if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
-        estimate.setVisibility(false);
-        estimate.setState("Non confermato");
-      }
-    });
-    estimateList.forEach(estimateDAO::update);
-    Logger.getLogger(DailyChecker.class.getName())
-        .log(Level.INFO, "Daily: Controllo sugli Estimate (Stipulato) effettuato!");
+    if (estimateList != null) {
+      estimateList.forEach(estimate -> {
+        c.setTime(estimate.getResponseDate());
+        c.add(Calendar.WEEK_OF_YEAR, 1);
+        if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
+          estimate.setVisibility(false);
+          estimate.setState("Non confermato");
+        }
+      });
+      estimateList.forEach(estimateDAO::update);
+      Logger.getLogger(DailyChecker.class.getName())
+          .log(Level.INFO,
+              "Daily: Controllo sugli Estimate (Stipulato) effettuato!");
+    }
 
     /*
      * Part3: Check that the Order in the "Confermato" state do not have
      * the "confirm_date" older than 7 days.
      */
-    orderList = orderDAO.retrieveByState("Attesa");
-    orderList.forEach(order -> {
-      c.setTime(order.getConfirmDate());
-      c.add(Calendar.WEEK_OF_YEAR, 1);
-      if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
-        order.setVisibility(false);
-        order.setState("Non pagato");
-      }
-    });
-    orderList.forEach(orderDAO::update);
-    Logger.getLogger(DailyChecker.class.getName())
-        .log(Level.INFO, "Daily: Controllo sugli Ordini (Confermato) effettuato!");
+    orderList = orderDAO.retrieveByState("Confermato");
+    if (orderList != null) {
+      orderList.forEach(order -> {
+        c.setTime(order.getConfirmDate());
+        c.add(Calendar.WEEK_OF_YEAR, 1);
+        if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
+          order.setVisibility(false);
+          order.setState("Non pagato");
+        }
+      });
+      orderList.forEach(orderDAO::update);
+      Logger.getLogger(DailyChecker.class.getName())
+          .log(Level.INFO,
+              "Daily: Controllo sugli Ordini (Confermato) effettuato!");
+    }
   }
 }

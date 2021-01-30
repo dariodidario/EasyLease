@@ -292,7 +292,7 @@ public class DBEstimateDAO implements  EstimateDAO {
 
   @Override
   public List<Estimate> retrieveByState(String state) {
-    List<Estimate> result = null;
+    List<Estimate> result = new ArrayList<>();
     PreparedStatement preparedStatement;
     String selectQuery = "SELECT * FROM " + DBEstimateDAO.TABLE_NAME + " WHERE state = ?";
     if (state == null || state.equals("")) {

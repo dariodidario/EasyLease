@@ -66,9 +66,6 @@ public class DBOrderDAO implements OrderDAO {
 
       rs = stm.getResultSet();
 
-      if (rs == null) {
-        return null;
-      }
       if (!rs.next()) {
         return null;
       }
@@ -115,9 +112,6 @@ public class DBOrderDAO implements OrderDAO {
 
       rs = stm.getResultSet();
 
-      if (rs == null) {
-        return null;
-      }
       while (rs.next()) {
         orders.add(getOrderFromRs(rs));
       }
@@ -141,9 +135,6 @@ public class DBOrderDAO implements OrderDAO {
 
       rs = stm.getResultSet();
 
-      if (rs == null) {
-        return null;
-      }
       while (rs.next()) {
         orders.add(getOrderFromRs(rs));
       }
@@ -311,9 +302,7 @@ public class DBOrderDAO implements OrderDAO {
         null);
     o.setVisibility(rs.getBoolean("visibility"));
     o.setState(rs.getString("state"));
-    o.setCreationDate(rs.getDate("creation_date") != null
-        ? new Date(rs.getDate("creation_date").getTime()) :
-        null);
+    o.setCreationDate(new Date(rs.getDate("creation_date").getTime()));
     return o;
   }
 }

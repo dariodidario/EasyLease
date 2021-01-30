@@ -19,8 +19,8 @@
 <body>
 <%@include file="/fragments/headerJSP.jsp"%>
 <div class="container mt-5">
-  <div class="row justify-content-center shadow">
-    <div class="col-auto table-responsive">
+  <div class="row justify-content-center">
+    <div class="col-auto table-responsive shadow">
       <table class="table table-bordered caption-top">
         <caption>Lista dei Clienti</caption>
         <thead>
@@ -48,7 +48,7 @@
             if (visibility){
           %>
           <td>
-            <button type="button" class="btn btn-outline-primary">
+            <button type="button" class="btn btn-outline-primary" id="<%=client.getId()%>">
               <a href="HistoryAdvisorClientServlet?id_client=<%=client.getId()%>">Visualizza</a>
             </button>
           </td>

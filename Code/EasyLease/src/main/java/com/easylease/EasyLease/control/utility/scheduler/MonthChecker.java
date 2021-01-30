@@ -24,47 +24,53 @@ public class MonthChecker implements Runnable {
      * the "creation_date" older than 30 days.
      */
     List<Order> orderList = orderDAO.retrieveByState("Non confermato");
-    orderList.forEach(order -> {
-      c.setTime(order.getCreationDate());
-      c.add(Calendar.MONTH, 1);
-      if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
-        orderDAO.delete(order);
-      }
-    });
-    Logger.getLogger(DailyChecker.class.getName())
-        .log(Level.INFO,
-            "Monthly: Controllo sugli Order (Non confermato) effettuato!");
+    if (orderList != null) {
+      orderList.forEach(order -> {
+        c.setTime(order.getCreationDate());
+        c.add(Calendar.MONTH, 1);
+        if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
+          orderDAO.delete(order);
+        }
+      });
+      Logger.getLogger(MonthChecker.class.getName())
+          .log(Level.INFO,
+              "Monthly: Controllo sugli Order (Non confermato) effettuato!");
+    }
 
     /*
      * Part2: Check that the orders in the "Non pagato" state do not have
      * the "confirm_date" older than 30 days.
      */
     orderList = orderDAO.retrieveByState("Non pagato");
-    orderList.forEach(order -> {
-      c.setTime(order.getConfirmDate());
-      c.add(Calendar.MONTH, 1);
-      if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
-        orderDAO.delete(order);
-      }
-    });
-    Logger.getLogger(DailyChecker.class.getName())
-        .log(Level.INFO,
-            "Monthly: Controllo sugli Order (Non pagato) effettuato!");
+    if (orderList != null) {
+      orderList.forEach(order -> {
+        c.setTime(order.getConfirmDate());
+        c.add(Calendar.MONTH, 1);
+        if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
+          orderDAO.delete(order);
+        }
+      });
+      Logger.getLogger(MonthChecker.class.getName())
+          .log(Level.INFO,
+              "Monthly: Controllo sugli Order (Non pagato) effettuato!");
+    }
 
     /*
      * Part3: Check that the Estimate in the "Non Confermato" state do not have
      * the "response_date" older than 7 days.
      */
     List<Estimate> estimateList = estimateDAO.retrieveByState("Non confermato");
-    estimateList.forEach(estimate -> {
-      c.setTime(estimate.getResponseDate());
-      c.add(Calendar.MONTH, 1);
-      if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
-        estimateDAO.delete(estimate);
-      }
-    });
-    Logger.getLogger(DailyChecker.class.getName())
-        .log(Level.INFO,
-            "Monthly: Controllo sugli Estimate (Non Confermato) effettuato!");
+    if (estimateList != null) {
+      estimateList.forEach(estimate -> {
+        c.setTime(estimate.getResponseDate());
+        c.add(Calendar.MONTH, 1);
+        if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
+          estimateDAO.delete(estimate);
+        }
+      });
+      Logger.getLogger(MonthChecker.class.getName())
+          .log(Level.INFO,
+              "Monthly: Controllo sugli Estimate (Non Confermato) effettuato!");
+    }
   }
 }

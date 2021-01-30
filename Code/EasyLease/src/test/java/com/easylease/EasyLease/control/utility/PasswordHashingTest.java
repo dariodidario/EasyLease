@@ -18,14 +18,12 @@ class PasswordHashingTest {
   @Test
   void generatePasswordTest() {
     String password = PasswordHashing.generatePassword("testing", "SHA-1");
-    assert password != null;
     assertEquals(40, password.length());
   }
 
   @Test
   void passwordAuthenticatorTest() {
     String password = PasswordHashing.generatePassword("testing", "SHA-1");
-    assert password != null;
     assertTrue(PasswordHashing.passwordAuthenticator("testing", password, "SHA-1"));
   }
 
