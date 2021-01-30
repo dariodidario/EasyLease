@@ -53,11 +53,11 @@
                     <div class="order_status">
                         <h2>Prezzo totale</h2>
                         <h2 class="price">
-                            <%=String.format("%.2f", estimate.getPrice() * estimate.getPeriod()) + "€"%>
+                            <%=String.format("%.2f", estimate.getPrice()) + "€"%>
                         </h2>
                         <h2>Prezzo mensile</h2>
                         <h2 class="price">
-                            <%=String.format("%.2f", estimate.getPrice()) + "€"%>
+                            <%=String.format("%.2f", estimate.getPrice() / estimate.getPeriod()) + "€"%>
                         </h2>
                     </div>
                     <!-- Se lo stato rientra in questi parametri, mostra i tasti-->
