@@ -192,8 +192,8 @@ public class AddCarServlet extends HttpServlet {
    * @return the new id of car
    */
   private String checkId() {
-    CarDao CarDAO = DbCarDao.getInstance();
-    List<Car> cars = CarDAO.retrieveAll();
+    CarDao CarDao = DbCarDao.getInstance();
+    List<Car> cars = CarDao.retrieveAll();
     String idGenerate = "CA" + IdGenerator.randomIdGenerator();
     if (cars != null) {
       for (int i = 0; i < cars.size(); i++) {
@@ -215,8 +215,8 @@ public class AddCarServlet extends HttpServlet {
       String carType, int doors, String trasmission, float avgConsumption,
       int horsePower, String emissionClass, int co2Emissions,
       String powerSupply, int capacity, float price) {
-
-    List<Car> cars = CarDAO.retrieveAll();
+    CarDao CarDao = DbCarDao.getInstance();
+    List<Car> cars = CarDao.retrieveAll();
     boolean carOk = true;
     if (cars != null) {
       for (int i = 0; i < cars.size(); i++) {
