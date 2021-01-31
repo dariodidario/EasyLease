@@ -85,10 +85,10 @@ public class UpdateCarSuccessImageTest {
     driver.findElement(By.xpath("//div[3]/div/a/img")).click();
     driver.findElement(By.name("Modifica Auto")).click();
     driver.findElement(By.id("matita_image")).click();
-    driver.findElement(By.id("file-upload-button")).sendKeys(new File(
-        "src/test/java/com/easylease/EasyLease/systemtesting/admin/serie3.jpg")
-        .getAbsolutePath());
-    driver.findElement(By.xpath("//button")).click();
+    driver.findElement(By.id("image_path"))
+        .sendKeys(new File(
+            "src/test/java/com/easylease/EasyLease/systemtesting/admin/serie3.jpg")
+            .getAbsolutePath());
     driver.findElement(By.id("buttonUpdateCar")).click();
     driver.findElement(By.xpath("//li[3]/a/img")).click();
     driver.findElement(By.linkText("Logout")).click();
