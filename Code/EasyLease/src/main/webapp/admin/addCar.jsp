@@ -26,9 +26,9 @@
   <div id="divAutoName">
     <label class="autoName">Marca:</label>
 
-    <input type="text"  class="autoName" id="brand" name="brand" placeholder="es.(ferrari)" list="autoBrand" pattern="^[A-Za-z0-9àèéìòù\s]+$" required>
+    <input type="text"  class="autoName" id="brand" name="brand" placeholder="es.(ferrari)" list="autoBrand" pattern="^[a-zA-Z]{1}[A-Za-z0-9àèéìòù\s]+$" required>
     <label class="autoName">Modello:</label>
-    <input class="autoName" type="text" id="model" name="model" placeholder="es.(california)" pattern="^[A-Za-z0-9àèéìòù\s]+$"  required>
+    <input class="autoName" type="text" id="model" name="model" placeholder="es.(california)" pattern="^[a-zA-Z]{1}[A-Za-z0-9àèéìòù\s]+$"  required>
   </div>
 
 
@@ -47,7 +47,7 @@
     <tr><td colspan="3" align="center"><label class="detailTitle"> Caratteristiche</label></td></tr>
     <tr>
       <td><label class="carDetail">Tipologia</label></td>
-      <td><input class="carDetail" type="text"  id="car_type" name="car_type" list="autoTipologia" pattern="^[a-zA-Z\s]+$" required></td>
+      <td><input class="carDetail" type="text"  id="car_type" name="car_type" list="autoTipologia" pattern="^[a-zA-Z]{1}[a-zA-Zàèéìòù\s]+$" required></td>
     </tr>
     <tr>
       <td><label class="carDetail">Porte</label></td>

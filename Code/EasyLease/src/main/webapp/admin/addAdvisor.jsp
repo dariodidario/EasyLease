@@ -37,11 +37,11 @@
     <tr><td colspan="2" align="center"><label id="errore"><%=error%></label></td></tr>
     <tr>
       <td><label class="advisorParameter">Nome</label></td>
-      <td><input class="advisorParameter" type="text"  id="advisor_name" name="advisor_name" placeholder="es.(Mario)" pattern="^[a-zA-Z\s']+$" required></td>
+      <td><input class="advisorParameter" type="text"  id="advisor_name" name="advisor_name" placeholder="es.(Mario)" pattern="^[a-zA-Z]{1}[a-zA-Zàèéìòù\s']+$" required></td>
     </tr>
     <tr>
       <td><label class="advisorParameter">Cognome</label></td>
-      <td><input class="advisorParameter" type="text" id="advisor_surname" name="advisor_surname" placeholder="es.(Rossi)" pattern="^[a-zA-Z\s']+$" required></td>
+      <td><input class="advisorParameter" type="text" id="advisor_surname" name="advisor_surname" placeholder="es.(Rossi)" pattern="^[a-zA-Z]{1}[a-zA-Zàèéìòù\s']+$" required></td>
     </tr>
     <tr>
       <td><label class="advisorParameter">E-mail</label></td>

@@ -48,11 +48,11 @@ window.confirm = function(message) {
         input.type="text";
         var x = 'autoBrand';
         input.setAttribute('list',x);
-        input.pattern='/^[A-Za-z0-9àèéìòù\s]+$/';
+        input.pattern='/^[a-zA-Z]{1}[A-Za-z0-9àèéìòù\s]+$/';
         input.id=message+"_update";
     }else if(message=="model"){
         input.type="text";
-        input.pattern='/^[A-Za-z0-9àèéìòù\s]+$/';
+        input.pattern='/^[a-zA-Z]{1}[A-Za-z0-9àèéìòù\s]+$/';
         input.id=message+"_update";
     }else if(message=="price"||message=="avg_consumption"){
         input.type="number";
@@ -63,7 +63,7 @@ window.confirm = function(message) {
         input.type="text"
         var x = 'autoTipologia';
         input.setAttribute('list',x);
-        input.pattern='/^[a-zA-Z\s]+$/';
+        input.pattern='/^[a-zA-Z]{1}[a-zA-Z\s]+$/';
         input.id=message+"_update";
     }else if(message=="doors"){
         input.type="number";
