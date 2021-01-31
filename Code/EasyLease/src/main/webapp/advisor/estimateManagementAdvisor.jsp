@@ -16,9 +16,9 @@
     ArrayList<Optional> caroptionals = new ArrayList<>();
     ArrayList<Optional> contractoptionals = new ArrayList<>();
     for (Optional o : estimate.getOptionalList()) {
-        if (o.getOptional_type().equals("Auto"))
+        if (o.getOptionalType().equals("Auto"))
             caroptionals.add(o);
-        else if (o.getOptional_type().equals("Contratto"))
+        else if (o.getOptionalType().equals("Contratto"))
             contractoptionals.add(o);
     }
 
@@ -69,7 +69,7 @@
                     <h4>Cavalli</h4>
                 </div>
                 <div class="col">
-                    <h4><%=estimate.getCar().getHorse_power()%>
+                    <h4><%=estimate.getCar().getHorsePower()%>
                     </h4>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                     <h4>Classe di emissioni</h4>
                 </div>
                 <div class="col">
-                    <h4><%=estimate.getCar().getEmission_class()%>
+                    <h4><%=estimate.getCar().getEmissionClass()%>
                     </h4>
                 </div>
             </div>
@@ -123,11 +123,11 @@
                                 while (carIterator.hasNext()) {
                                     Optional carOptional = carIterator.next();
                         %>
-                        <td data-th="Nome"><%=carOptional.getOptional_name()%>
+                        <td data-th="Nome"><%=carOptional.getOptionalName()%>
                         </td>
                         <td data-th="Costo"><%=carOptional.getPrice()%>
                         </td>
-                        <td data-th="Tipo"><%=carOptional.getOptional_type()%>
+                        <td data-th="Tipo"><%=carOptional.getOptionalType()%>
                         </td>
                     </tr>
                     <tr>
@@ -139,11 +139,11 @@
                                 while (contractIterator.hasNext()) {
                                     Optional contractOptional = contractIterator.next();
                         %>
-                        <td data-th="Nome"><%=contractOptional.getOptional_name()%>
+                        <td data-th="Nome"><%=contractOptional.getOptionalName()%>
                         </td>
                         <td data-th="Costo"><%=contractOptional.getPrice()%>
                         </td>
-                        <td data-th="Tipo"><%=contractOptional.getOptional_type()%>
+                        <td data-th="Tipo"><%=contractOptional.getOptionalType()%>
                         </td>
                     </tr>
                     </tbody>
@@ -186,7 +186,7 @@
             %>
             <div class="row">
                 <div class="col-12">
-                    <a href="EstimateStipulationViewServlet?id=<%=estimate.getId_estimate()%>"
+                    <a href="EstimateStipulationViewServlet?id=<%=estimate.getIdEstimate()%>"
                        class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Stipula</a>
                 </div>
             </div>

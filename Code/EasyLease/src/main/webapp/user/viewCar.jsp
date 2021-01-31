@@ -149,7 +149,7 @@
             <h4>Consumo medio</h4>
           </div>
           <div class="col">
-            <h4><%=car.getAvg_consumption()%>
+            <h4><%=car.getAvgConsumption()%>
             </h4>
           </div>
         </div>
@@ -158,7 +158,7 @@
             <h4>Cavalli</h4>
           </div>
           <div class="col">
-            <h4><%=car.getHorse_power()%>
+            <h4><%=car.getHorsePower()%>
             </h4>
           </div>
         </div>
@@ -167,7 +167,7 @@
             <h4>Classe di emissione</h4>
           </div>
           <div class="col">
-            <h4><%=car.getEmission_class()%>
+            <h4><%=car.getEmissionClass()%>
             </h4>
           </div>
         </div>
@@ -176,7 +176,7 @@
             <h4>Emissione CO2</h4>
           </div>
           <div class="col">
-            <h4><%=car.getCo2_emissions()%>
+            <h4><%=car.getCo2Emissions()%>
             </h4>
           </div>
         </div>
@@ -221,12 +221,12 @@
         <br/>
         <br/>
         <form method="POST" action="${pageContext.request.contextPath}/ViewUpdateCarServlet">
-          <input type="hidden" name="Car_id" value="<%=car.getId_car()%>">
+          <input type="hidden" name="Car_id" value="<%=car.getIdCar()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Modifica Auto" value="Modifica">
         </form>
         <br>
         <form method="POST" action="${pageContext.request.contextPath}/DeleteCarServlet" onsubmit="return confermaDelete()">
-          <input type="hidden" name="ID_Delete" value="<%=car.getId_car()%>">
+          <input type="hidden" name="ID_Delete" value="<%=car.getIdCar()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Elimina Auto" value="Elimina Auto">
         </form>
       </div>
@@ -267,7 +267,7 @@
             <h4>Consumo medio</h4>
           </div>
           <div class="col">
-            <h4><%=car.getAvg_consumption()%>
+            <h4><%=car.getAvgConsumption()%>
             </h4>
           </div>
         </div>
@@ -276,7 +276,7 @@
             <h4>Cavalli</h4>
           </div>
           <div class="col">
-            <h4><%=car.getHorse_power()%>
+            <h4><%=car.getHorsePower()%>
             </h4>
           </div>
         </div>
@@ -285,7 +285,7 @@
             <h4>Classe di emissione</h4>
           </div>
           <div class="col">
-            <h4><%=car.getEmission_class()%>
+            <h4><%=car.getEmissionClass()%>
             </h4>
           </div>
         </div>
@@ -294,7 +294,7 @@
             <h4>Emissione CO2</h4>
           </div>
           <div class="col">
-            <h4><%=car.getCo2_emissions()%>
+            <h4><%=car.getCo2Emissions()%>
             </h4>
           </div>
         </div>
@@ -338,7 +338,7 @@
         <br/>
         <br/>
         <form method="POST" action="${pageContext.request.contextPath}/ViewRequestEstimateServlet">
-          <input type="hidden" name="idCar" value="<%=car.getId_car()%>">
+          <input type="hidden" name="idCar" value="<%=car.getIdCar()%>">
           <input type="submit" class="btn btn-primary btn-lg" name="Richiedi preventivo" value="Richiedi preventivo">
         </form>
       </div>
@@ -379,7 +379,7 @@
             <h4>Consumo medio</h4>
           </div>
           <div class="col">
-            <h4><%=car.getAvg_consumption()%>
+            <h4><%=car.getAvgConsumption()%>
             </h4>
           </div>
         </div>
@@ -388,7 +388,7 @@
             <h4>Cavalli</h4>
           </div>
           <div class="col">
-            <h4><%=car.getHorse_power()%>
+            <h4><%=car.getHorsePower()%>
             </h4>
           </div>
         </div>
@@ -397,7 +397,7 @@
             <h4>Classe di emissione</h4>
           </div>
           <div class="col">
-            <h4><%=car.getEmission_class()%>
+            <h4><%=car.getEmissionClass()%>
             </h4>
           </div>
         </div>
@@ -406,7 +406,7 @@
             <h4>Emissione CO2</h4>
           </div>
           <div class="col">
-            <h4><%=car.getCo2_emissions()%>
+            <h4><%=car.getCo2Emissions()%>
             </h4>
           </div>
         </div>
@@ -491,7 +491,7 @@
             <h4>Consumo medio</h4>
           </div>
           <div class="col">
-            <h4><%=car.getAvg_consumption()%>
+            <h4><%=car.getAvgConsumption()%>
             </h4>
           </div>
         </div>
@@ -500,7 +500,7 @@
             <h4>Cavalli</h4>
           </div>
           <div class="col">
-            <h4><%=car.getHorse_power()%>
+            <h4><%=car.getHorsePower()%>
             </h4>
           </div>
         </div>
@@ -509,7 +509,7 @@
             <h4>Classe di emissione</h4>
           </div>
           <div class="col">
-            <h4><%=car.getEmission_class()%>
+            <h4><%=car.getEmissionClass()%>
             </h4>
           </div>
         </div>
@@ -518,7 +518,7 @@
             <h4>Emissione CO2</h4>
           </div>
           <div class="col">
-            <h4><%=car.getCo2_emissions()%>
+            <h4><%=car.getCo2Emissions()%>
             </h4>
           </div>
         </div>

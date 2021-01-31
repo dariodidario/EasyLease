@@ -25,7 +25,7 @@ public class DailyChecker implements Runnable {
     List<Order> orderList = orderDAO.retrieveByState("Attesa");
     if (orderList != null) {
       orderList.forEach(order -> {
-        c.setTime(order.getCreation_date());
+        c.setTime(order.getCreationDate());
         c.add(Calendar.WEEK_OF_YEAR, 1);
         if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
           order.setVisibility(false);
@@ -45,7 +45,7 @@ public class DailyChecker implements Runnable {
     List<Estimate> estimateList = estimateDAO.retrieveByState("Stipulato");
     if (estimateList != null) {
       estimateList.forEach(estimate -> {
-        c.setTime(estimate.getResponse_date());
+        c.setTime(estimate.getResponseDate());
         c.add(Calendar.WEEK_OF_YEAR, 1);
         if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
           estimate.setVisibility(false);
@@ -65,7 +65,7 @@ public class DailyChecker implements Runnable {
     orderList = orderDAO.retrieveByState("Confermato");
     if (orderList != null) {
       orderList.forEach(order -> {
-        c.setTime(order.getConfirm_date());
+        c.setTime(order.getConfirmDate());
         c.add(Calendar.WEEK_OF_YEAR, 1);
         if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
           order.setVisibility(false);

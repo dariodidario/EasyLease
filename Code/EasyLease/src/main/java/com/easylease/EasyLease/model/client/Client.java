@@ -167,7 +167,7 @@ public class Client extends User {
 
   @Override
   public String toString() {
-    return "Nome = " + this.getFirst_name();
+    return "Nome = " + this.getFirstName();
   }
 
 }

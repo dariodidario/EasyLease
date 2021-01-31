@@ -21,40 +21,40 @@ class OptionalTest {
   @Test
   public void getIdTest() {
     Optional optional = new Optional("op12345", "Sensori di parcheggio", "type", 23.5F);
-    assertEquals("op12345", optional.getOptional_code());
+    assertEquals("op12345", optional.getOptionalCode());
   }
 
   @Test
   public void setIdTest() {
     Optional optional = new Optional();
-    optional.setOptional_code("op12345");
-    assertEquals("op12345", optional.getOptional_code());
+    optional.setOptionalCode("op12345");
+    assertEquals("op12345", optional.getOptionalCode());
   }
 
   @Test
   public void getNameTest() {
     Optional optional = new Optional("op12345", "Sensori di parcheggio", "type", 23.5F);
-    assertEquals("Sensori di parcheggio", optional.getOptional_name());
+    assertEquals("Sensori di parcheggio", optional.getOptionalName());
   }
 
   @Test
   public void setNameTest() {
     Optional optional = new Optional();
-    optional.setOptional_name("Sensori di parcheggio");
-    assertEquals("Sensori di parcheggio", optional.getOptional_name());
+    optional.setOptionalName("Sensori di parcheggio");
+    assertEquals("Sensori di parcheggio", optional.getOptionalName());
   }
 
   @Test
   public void getTypeTest() {
     Optional optional = new Optional("op12345", "Sensori di parcheggio", "type", 23.5F);
-    assertEquals("type", optional.getOptional_type());
+    assertEquals("type", optional.getOptionalType());
   }
 
   @Test
   public void setTypeTest() {
     Optional optional = new Optional();
-    optional.setOptional_type("type");
-    assertEquals("type", optional.getOptional_type());
+    optional.setOptionalType("type");
+    assertEquals("type", optional.getOptionalType());
   }
 
   @Test

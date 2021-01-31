@@ -21,10 +21,10 @@
     if (!(order == null)) {
         optionalList = order.getEstimate().getOptionalList();
         for (Optional item : optionalList) {
-            if (item.getOptional_type().equals("Contract")) {
+            if (item.getOptionalType().equals("Contract")) {
                 contractOptionalList.add(item);
             }
-            if (item.getOptional_type().equals("Car")) {
+            if (item.getOptionalType().equals("Car")) {
                 carOptionalList.add(item);
             }
         }
@@ -65,10 +65,10 @@
                         <div class=”row”>
                             <div class=”col-12”>
                                 <a id="btnConfirm"
-                                   href="ConfirmOrderServlet?id_order=<%=order.getId_order()%>&choice=<%="Confermato"%>"
+                                   href="ConfirmOrderServlet?id_order=<%=order.getIdOrder()%>&choice=<%="Confermato"%>"
                                    class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Conferma</a>
                                 <a id="btnDeny"
-                                   href="ConfirmOrderServlet?id_order=<%=order.getId_order()%>&choice=<%="Non confermato"%>"
+                                   href="ConfirmOrderServlet?id_order=<%=order.getIdOrder()%>&choice=<%="Non confermato"%>"
                                    class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Non
                                     confermare</a>
                             </div>
@@ -80,7 +80,7 @@
                         <div class=”row”>
                             <div class=”col-12”>
                                 <a id="#btnPay"
-                                   href="ConfirmOrderServlet?id_order=<%=order.getId_order()%>&choice=<%="Paga"%>"
+                                   href="ConfirmOrderServlet?id_order=<%=order.getIdOrder()%>&choice=<%="Paga"%>"
                                    class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Paga</a>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                     <h4>ID Ordine</h4>
                 </div>
                 <div class="col">
-                    <h4><%= order.getId_order()%>
+                    <h4><%= order.getIdOrder()%>
                     </h4>
                 </div>
             </div>
@@ -112,7 +112,7 @@
                     <h4>Cliente</h4>
                 </div>
                 <div class="col">
-                    <h4><%= "" + order.getEstimate().getClient().getFirst_name() + " "
+                    <h4><%= "" + order.getEstimate().getClient().getFirstName() + " "
                             + order.getEstimate().getClient().getSurname() %>
                     </h4>
                 </div>
@@ -122,8 +122,8 @@
                     <h4>Data Inizio</h4>
                 </div>
                 <div class="col">
-                    <h4><%=order.getStart_date() != null ?
-                            format.format(order.getStart_date()) :
+                    <h4><%=order.getStartDate() != null ?
+                            format.format(order.getStartDate()) :
                             "Data non disponibile" %>
                     </h4>
                 </div>
@@ -170,7 +170,7 @@
                                     Optional carOptional = (Optional) it.next();
                         %>
                         <td data-th="Nome">
-                            <%=carOptional.getOptional_name() %>
+                            <%=carOptional.getOptionalName() %>
                         </td>
                         <td data-th="Costo">
                             <%=carOptional.getPrice() %>
@@ -189,7 +189,7 @@
                                     Optional contractOptional = (Optional) it2.next();
                         %>
                         <td data-th="Nome">
-                            <%=contractOptional.getOptional_name() %>
+                            <%=contractOptional.getOptionalName() %>
                         </td>
                         <td data-th="Costo">
                             <%=contractOptional.getPrice() %>

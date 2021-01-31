@@ -5,15 +5,17 @@ import com.easylease.EasyLease.model.client.Client;
 import com.easylease.EasyLease.model.client.ClientDao;
 import com.easylease.EasyLease.model.client.DbClientDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
-import org.junit.jupiter.api.*;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class RegistrationSuccessTest {
   private WebDriver driver;
@@ -85,7 +87,7 @@ public class RegistrationSuccessTest {
     for (Client item : updatedClients) {
       boolean found = false;
       for (Client item2 : clientList) {
-        if (!found && item.getId_user().equals(item2.getId_user())) {
+        if (!found && item.getIdUser().equals(item2.getIdUser())) {
           found = true;
         }
       }

@@ -1,12 +1,13 @@
 package com.easylease.EasyLease.model.client;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class ClientTest {
 

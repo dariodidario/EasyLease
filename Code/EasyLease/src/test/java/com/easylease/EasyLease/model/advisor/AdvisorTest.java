@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
 import org.junit.jupiter.api.Test;
 
 class AdvisorTest {
@@ -25,7 +24,7 @@ class AdvisorTest {
     Advisor advisor = new Advisor("AD12DD2", "Marco", "Montemagno",
         "m.marco@gmail.com", hireDate);
     Date expectedDate = calendar.getTime();
-    assertEquals(expectedDate, advisor.getHire_date());
+    assertEquals(expectedDate, advisor.getHireDate());
   }
 
   @Test
@@ -34,8 +33,8 @@ class AdvisorTest {
     Advisor advisor = new Advisor("AD12DD2", "Marco", "Montemagno",
         "m.marco@gmail.com", hireDate);
     Date hireDateToSet = calendar.getTime();
-    advisor.setHire_date(hireDateToSet);
-    assertEquals(hireDateToSet, advisor.getHire_date());
+    advisor.setHireDate(hireDateToSet);
+    assertEquals(hireDateToSet, advisor.getHireDate());
   }
 
 }

@@ -1,34 +1,32 @@
 package com.easylease.EasyLease.control.user;
 
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.easylease.EasyLease.model.car.Car;
 import com.easylease.EasyLease.model.car.CarDao;
 import com.easylease.EasyLease.model.car.DbCarDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 class HomePageServletTest {
   @Mock
@@ -80,7 +78,7 @@ class HomePageServletTest {
     when(request.getParameter("tipologia")).thenReturn(null);
     when(request.getParameter("marca")).thenReturn(null);
     when(request.getParameter("modello")).thenReturn("corsa");
-    servlet.doGet(request,response);
+    servlet.doGet(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
@@ -89,7 +87,7 @@ class HomePageServletTest {
     when(request.getParameter("tipologia")).thenReturn(null);
     when(request.getParameter("marca")).thenReturn("Opel");
     when(request.getParameter("modello")).thenReturn(null);
-    servlet.doGet(request,response);
+    servlet.doGet(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
@@ -99,7 +97,7 @@ class HomePageServletTest {
     when(request.getParameter("tipologia")).thenReturn("SUV");
     when(request.getParameter("marca")).thenReturn(null);
     when(request.getParameter("modello")).thenReturn(null);
-    servlet.doGet(request,response);
+    servlet.doGet(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
@@ -109,7 +107,7 @@ class HomePageServletTest {
     when(request.getParameter("tipologia")).thenReturn(null);
     when(request.getParameter("marca")).thenReturn(null);
     when(request.getParameter("modello")).thenReturn(null);
-    servlet.doGet(request,response);
+    servlet.doGet(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
@@ -119,7 +117,7 @@ class HomePageServletTest {
     when(request.getParameter("tipologia")).thenReturn("SUV");
     when(request.getParameter("marca")).thenReturn(null);
     when(request.getParameter("modello")).thenReturn(null);
-    servlet.doPost(request,response);
+    servlet.doPost(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 

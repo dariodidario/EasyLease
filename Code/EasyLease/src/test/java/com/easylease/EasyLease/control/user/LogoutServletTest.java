@@ -1,6 +1,22 @@
 package com.easylease.EasyLease.control.user;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import com.easylease.EasyLease.model.admin.Admin;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,20 +24,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
 
 /**
  * @author Torino Francesco Maria
@@ -72,7 +74,7 @@ class LogoutServletTest {
   }
 
   @Test
-  void Success() throws ServletException, IOException {
+  void success() throws ServletException, IOException {
     request.getSession().setAttribute("user", new Admin());
     request.getSession().setAttribute("role", "admin");
     servlet.doPost(request, response);

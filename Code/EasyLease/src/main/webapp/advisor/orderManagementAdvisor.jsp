@@ -18,9 +18,9 @@
     ArrayList<Optional> caroptionals = new ArrayList<>();
     ArrayList<Optional> contractoptionals = new ArrayList<>();
     for (Optional o : order.getEstimate().getOptionalList()) {
-        if (o.getOptional_type().equals("Auto"))
+        if (o.getOptionalType().equals("Auto"))
             caroptionals.add(o);
-        else if (o.getOptional_type().equals("Contratto"))
+        else if (o.getOptionalType().equals("Contratto"))
             contractoptionals.add(o);
     }
 %>
@@ -51,7 +51,7 @@
                     <h4>ID Ordine</h4>
                 </div>
                 <div class="col">
-                    <h4><%=order.getId_order()%>
+                    <h4><%=order.getIdOrder()%>
                 </div>
             </div>
             <div class="row">
@@ -59,7 +59,7 @@
                     <h4>Cliente</h4>
                 </div>
                 <div class="col">
-                    <h4><%=order.getEstimate().getClient().getFirst_name() + " " +
+                    <h4><%=order.getEstimate().getClient().getFirstName() + " " +
                             order.getEstimate().getClient().getSurname() %>
                     </h4>
                 </div>
@@ -69,8 +69,8 @@
                     <h4>Data Inizio</h4>
                 </div>
                 <div class="col">
-                    <h4><%=order.getStart_date() != null
-                            ? format.format(order.getStart_date())
+                    <h4><%=order.getStartDate() != null
+                            ? format.format(order.getStartDate())
                             : "Data non disponibile" %>
                     </h4>
                 </div>
@@ -112,11 +112,11 @@
                                 while (carIterator.hasNext()) {
                                     Optional carOptional = carIterator.next();
                         %>
-                        <td data-th="Nome"><%=carOptional.getOptional_name()%>
+                        <td data-th="Nome"><%=carOptional.getOptionalName()%>
                         </td>
                         <td data-th="Costo"><%=carOptional.getPrice()%>
                         </td>
-                        <td data-th="Tipo"><%=carOptional.getOptional_type()%>
+                        <td data-th="Tipo"><%=carOptional.getOptionalType()%>
                         </td>
                     </tr>
                     <tr>
@@ -128,11 +128,11 @@
                                 while (contractIterator.hasNext()) {
                                     Optional contractOptional = contractIterator.next();
                         %>
-                        <td data-th="Nome"><%=contractOptional.getOptional_name()%>
+                        <td data-th="Nome"><%=contractOptional.getOptionalName()%>
                         </td>
                         <td data-th="Costo"><%=contractOptional.getPrice()%>
                         </td>
-                        <td data-th="Tipo"><%=contractOptional.getOptional_type()%>
+                        <td data-th="Tipo"><%=contractOptional.getOptionalType()%>
                         </td>
                     </tr>
                     </tbody>
@@ -178,7 +178,7 @@
                 <div class="row">
                     <div class="col-12">
                         <button class="btn btn-primary btn-lg active" role="button" aria-pressed="true" id="validation">
-                            <a href="OrderValidationViewServlet?id=<%=order.getId_order()%>" id="link">
+                            <a href="OrderValidationViewServlet?id=<%=order.getIdOrder()%>" id="link">
                                 Convalida
                             </a>
                         </button>
@@ -202,7 +202,7 @@
   function alertFunction() {
     let request = new XMLHttpRequest();
     if (confirm("Per non convalidare l'ordine premere ok, altrimenti premere annulla")) {
-      request.open("GET", "OrderValidationServlet?id=<%=order.getId_order()%>&choice=<%="false"%>", false);
+      request.open("GET", "OrderValidationServlet?id=<%=order.getIdOrder()%>&choice=<%="false"%>", false);
       request.send(null);
       window.location.reload();
     } else {

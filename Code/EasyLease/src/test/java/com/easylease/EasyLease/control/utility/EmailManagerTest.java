@@ -31,9 +31,9 @@ import org.junit.jupiter.api.Test;
  */
 class EmailManagerTest {
   private static DbConnection dbConnection;
-  private OrderDao orderDAO;
-  private ClientDao clientDAO;
-  private EstimateDao estimateDAO;
+  private OrderDao orderDao;
+  private ClientDao clientDao;
+  private EstimateDao estimateDao;
 
   @BeforeAll
   static void init() throws Exception {
@@ -50,9 +50,9 @@ class EmailManagerTest {
 
   @BeforeEach
   void setUp() throws SQLException {
-    orderDAO = DbOrderDao.getInstance();
-    clientDAO = DbClientDao.getInstance();
-    estimateDAO = DbEstimateDao.getInstance();
+    orderDao = DbOrderDao.getInstance();
+    clientDao = DbClientDao.getInstance();
+    estimateDao = DbEstimateDao.getInstance();
     dbConnection.getConnection().setAutoCommit(false);
   }
 
@@ -64,21 +64,21 @@ class EmailManagerTest {
 
   @Test
   void sendOrderNotificationTest_Success() throws MessagingException {
-    Client client = clientDAO.retrieveById("CLEE8BD");
-    Order order = orderDAO.retrieveById("ORnj86K");
+    Client client = clientDao.retrieveById("CLEE8BD");
+    Order order = orderDao.retrieveById("ORnj86K");
     assertTrue(EmailManager.sendOrderNotification(client, order));
   }
 
   @Test
   void sendOrderNotificationTest_OrderNull() {
-    Client client = clientDAO.retrieveById("CLEE8BD");
+    Client client = clientDao.retrieveById("CLEE8BD");
     assertThrows(IllegalArgumentException.class, () ->
         EmailManager.sendOrderNotification(client, null));
   }
 
   @Test
   void sendOrderNotificationTest_ClientNull() {
-    Order order = orderDAO.retrieveById("ORnj86K");
+    Order order = orderDao.retrieveById("ORnj86K");
     assertThrows(IllegalArgumentException.class, () ->
         EmailManager.sendOrderNotification(null, order));
   }
@@ -91,21 +91,21 @@ class EmailManagerTest {
 
   @Test
   void sendEstimateNotificationTest_Success() throws MessagingException {
-    Client client = clientDAO.retrieveById("CLEE8BD");
-    Estimate estimate = estimateDAO.retrieveById("EShg76T");
+    Client client = clientDao.retrieveById("CLEE8BD");
+    Estimate estimate = estimateDao.retrieveById("EShg76T");
     assertTrue(EmailManager.sendEstimateNotification(client, estimate));
   }
 
   @Test
   void sendEstimateNotificationTest_EstimateNull() {
-    Client client = clientDAO.retrieveById("CLEE8BD");
+    Client client = clientDao.retrieveById("CLEE8BD");
     assertThrows(IllegalArgumentException.class, () ->
         EmailManager.sendEstimateNotification(client, null));
   }
 
   @Test
   void sendEstimateNotificationTest_ClientNull() {
-    Estimate estimate = estimateDAO.retrieveById("EShg76T");
+    Estimate estimate = estimateDao.retrieveById("EShg76T");
     assertThrows(IllegalArgumentException.class, () ->
         EmailManager.sendEstimateNotification(null, estimate));
   }

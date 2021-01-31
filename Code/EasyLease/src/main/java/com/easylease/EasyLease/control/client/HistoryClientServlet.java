@@ -45,12 +45,12 @@ public class HistoryClientServlet extends HttpServlet {
         DbEstimateDao dbEstimateDao = (DbEstimateDao) DbEstimateDao.getInstance();
         List<Object> historyList = new java.util.ArrayList<>();
         List<Estimate> estimateList = dbEstimateDao.retrieveByClient(
-            client.getId_user());
+            client.getIdUser());
         for (Iterator<Estimate> it = estimateList.iterator(); it.hasNext(); ) {
           Estimate est = it.next();
           if (est.getState().equals("Stipulato")) {
             Calendar calendar = new GregorianCalendar();
-            calendar.setTime(est.getResponse_date());
+            calendar.setTime(est.getResponseDate());
             calendar.add(Calendar.DATE, 8);
             if (calendar.before(Calendar.getInstance())) {
               est.setState("Non Confermato");
@@ -62,12 +62,12 @@ public class HistoryClientServlet extends HttpServlet {
             it.remove();
           }
         }
-        List<Order> orderList = dbOrderDao.retrieveByClient(client.getId_user());
+        List<Order> orderList = dbOrderDao.retrieveByClient(client.getIdUser());
         for (Iterator<Order> ti = orderList.iterator(); ti.hasNext(); ) {
           Order ord = ti.next();
           if (ord.getState().equals("Attesa")) {
             Calendar calendar = new GregorianCalendar();
-            calendar.setTime(ord.getCreation_date());
+            calendar.setTime(ord.getCreationDate());
             calendar.add(Calendar.DATE, 8);
             System.out.println(calendar.getTime());
             System.out.println(Calendar.getInstance().getTime());

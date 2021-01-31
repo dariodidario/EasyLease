@@ -29,17 +29,17 @@ if(role==null){%>
   Car car=(Car) request.getSession().getAttribute("car_to_update");
 
   if(car!=null) {
-    id=car.getId_car();
+    id=car.getIdCar();
     brand = car.getBrand();
     model = car.getModel();
     price = car.getPrice();
     car_type = car.getType();
     doors = car.getDoors();
     trasmission = car.getTransmission();
-    avg_consumption = car.getAvg_consumption();
-    horse_power = car.getHorse_power();
-    emission_class = car.getEmission_class();
-    co2_emissions = car.getCo2_emissions();
+    avg_consumption = car.getAvgConsumption();
+    horse_power = car.getHorsePower();
+    emission_class = car.getEmissionClass();
+    co2_emissions = car.getCo2Emissions();
     power_supply = car.getPowerSupply();
     capacity = car.getCapacity();
     image_path = car.getImage();

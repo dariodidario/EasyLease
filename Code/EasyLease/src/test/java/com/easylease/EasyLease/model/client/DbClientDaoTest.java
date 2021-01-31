@@ -1,25 +1,29 @@
 package com.easylease.EasyLease.model.client;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.mysql.cj.jdbc.MysqlDataSource;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class DbClientDaoTest {
   private ClientDao clientDao;
   private static DbConnection dbConnection;
 
   @BeforeAll
-  static void init() throws Exception{
+  static void init() throws Exception {
     dbConnection = DbConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
@@ -48,7 +52,7 @@ public class DbClientDaoTest {
     String clientId = "CLEE8BD";
     Client client = clientDao.retrieveById(clientId);
     System.out.println(client);
-    assertEquals(clientId, client.getId_user());
+    assertEquals(clientId, client.getIdUser());
   }
 
   @Test
@@ -136,9 +140,8 @@ public class DbClientDaoTest {
     String dateInString = "31-08-1982";
     Date date = sdf.parse(dateInString);
     Client client = new Client();
-    String password = "pass";
-    client.setId_user("CL12345");
-    client.setFirst_name("Alberto");
+    client.setIdUser("CL12345");
+    client.setFirstName("Alberto");
     client.setSurname("Angela");
     client.setEmail("alberto.angela@rai.it");
     client.setPc("83020");
@@ -147,10 +150,11 @@ public class DbClientDaoTest {
     client.setKind("Uomo");
     client.setBirth_place("Roma");
     client.setBirth_date(date);
+    String password = "pass";
     clientDao.insert(client, password);
     Client toCheck = clientDao.retrieveById("CL12345");
-    assertEquals(client.getId_user(), toCheck.getId_user());
-    assertEquals(client.getFirst_name(), toCheck.getFirst_name());
+    assertEquals(client.getIdUser(), toCheck.getIdUser());
+    assertEquals(client.getFirstName(), toCheck.getFirstName());
     assertEquals(client.getSurname(), toCheck.getSurname());
     assertEquals(client.getEmail(), toCheck.getEmail());
     assertEquals(client.getPc(), toCheck.getPc());
@@ -182,9 +186,8 @@ public class DbClientDaoTest {
     String dateInString = "31-08-1982";
     Date date = sdf.parse(dateInString);
     Client client = new Client();
-    String password = null;
-    client.setId_user("CL12345");
-    client.setFirst_name("Alberto");
+    client.setIdUser("CL12345");
+    client.setFirstName("Alberto");
     client.setSurname("Angela");
     client.setEmail("alberto.angela@rai.it");
     client.setPc("83020");
@@ -193,6 +196,7 @@ public class DbClientDaoTest {
     client.setKind("Uomo");
     client.setBirth_place("Roma");
     client.setBirth_date(date);
+    String password = null;
     assertThrows(IllegalArgumentException.class, () ->
         clientDao.insert(client, password));
   }
@@ -203,9 +207,8 @@ public class DbClientDaoTest {
     String dateInString = "1982-08-31";
     Date date = sdf.parse(dateInString);
     Client client = new Client();
-    Client originalClient = clientDao.retrieveById("CLEE8BD");
-    client.setId_user("CLEE8BD");
-    client.setFirst_name("Alberto");
+    client.setIdUser("CLEE8BD");
+    client.setFirstName("Alberto");
     client.setSurname("Angela");
     client.setEmail("alberto.angela@rai.it");
     client.setPc("83020");
@@ -216,8 +219,8 @@ public class DbClientDaoTest {
     client.setBirth_date(date);
     clientDao.update(client, "pass");
     Client toCheck = clientDao.retrieveById("CLEE8BD");
-    assertEquals(client.getId_user(), toCheck.getId_user());
-    assertEquals(client.getFirst_name(), toCheck.getFirst_name());
+    assertEquals(client.getIdUser(), toCheck.getIdUser());
+    assertEquals(client.getFirstName(), toCheck.getFirstName());
     assertEquals(client.getSurname(), toCheck.getSurname());
     assertEquals(client.getEmail(), toCheck.getEmail());
     assertEquals(client.getPc(), toCheck.getPc());
@@ -226,6 +229,7 @@ public class DbClientDaoTest {
     assertEquals(client.getKind(), toCheck.getKind());
     assertEquals(client.getBirth_place(), toCheck.getBirth_place());
     assertEquals(client.getBirth_date(), toCheck.getBirth_date());
+    Client originalClient = clientDao.retrieveById("CLEE8BD");
     clientDao.update(originalClient, "pass");
   }
 
@@ -243,9 +247,8 @@ public class DbClientDaoTest {
     String dateInString = "1982-08-31";
     Date date = sdf.parse(dateInString);
     Client client = new Client();
-    String password = null;
-    client.setId_user("CLEE8BD");
-    client.setFirst_name("Alberto");
+    client.setIdUser("CLEE8BD");
+    client.setFirstName("Alberto");
     client.setSurname("Angela");
     client.setEmail("alberto.angela@rai.it");
     client.setPc("83020");
@@ -254,6 +257,7 @@ public class DbClientDaoTest {
     client.setKind("Uomo");
     client.setBirth_place("Roma");
     client.setBirth_date(date);
+    String password = null;
     assertThrows(IllegalArgumentException.class, () ->
         clientDao.update(client, password));
   }
@@ -264,9 +268,8 @@ public class DbClientDaoTest {
     String dateInString = "1982-08-31";
     Date date = sdf.parse(dateInString);
     Client client = new Client();
-    String password = "pass";
-    client.setId_user("CL12345");
-    client.setFirst_name("Alberto");
+    client.setIdUser("CL12345");
+    client.setFirstName("Alberto");
     client.setSurname("Angela");
     client.setEmail("alberto.angela@rai.it");
     client.setPc("83020");
@@ -275,6 +278,7 @@ public class DbClientDaoTest {
     client.setKind("Uomo");
     client.setBirth_place("Roma");
     client.setBirth_date(date);
+    String password = "pass";
     assertThrows(IllegalArgumentException.class, () ->
         clientDao.update(client, password));
   }
@@ -285,9 +289,8 @@ public class DbClientDaoTest {
     String dateInString = "31-08-1982";
     Date date = sdf.parse(dateInString);
     Client client = new Client();
-    String password = "pass";
-    client.setId_user("CL12345");
-    client.setFirst_name("Alberto");
+    client.setIdUser("CL12345");
+    client.setFirstName("Alberto");
     client.setSurname("Angela");
     client.setEmail("alberto.angela@rai.it");
     client.setPc("83020");
@@ -296,6 +299,7 @@ public class DbClientDaoTest {
     client.setKind("Uomo");
     client.setBirth_place("Roma");
     client.setBirth_date(date);
+    String password = "pass";
     clientDao.insert(client, password);
     clientDao.delete(client);
     assertNull(clientDao.retrieveById("CL12345"));

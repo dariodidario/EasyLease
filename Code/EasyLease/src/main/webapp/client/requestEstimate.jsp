@@ -31,7 +31,7 @@
     <div class="EstimateLabel">
         Auto scelta: <%=car.getBrand() + " " + car.getModel()%> </div>
     <form action="${pageContext.request.contextPath}/RequestEstimateServlet" method="post">
-        <input type = "hidden" name="carId" value="<%=car.getId_car()%>">
+        <input type = "hidden" name="carId" value="<%=car.getIdCar()%>">
         <br>Mesi: <select name="Mesi" class="customselect">
             <option value="18" selected>18</option>
             <option value="24">24</option>
@@ -42,13 +42,13 @@
          </select><br>
         <div class="EstimateLabel"> <br> Optional di contratto:</div><br>
         <%for (Optional o : optionalContractList){%>
-        <input type="checkbox" name="optionals" value=<%=o.getOptional_code()%> class="EstimateCheckbox">
-        <label class="EstimateLabel"> <%=o.getOptional_name()%></label><br><br>
+        <input type="checkbox" name="optionals" value=<%=o.getOptionalCode()%> class="EstimateCheckbox">
+        <label class="EstimateLabel"> <%=o.getOptionalName()%></label><br><br>
         <%}%><br>
         <div class="EstimateLabel"><br> Optional di serie:</div><br>
         <%for (Optional o : optionalCarList){%>
-        <input type="checkbox" name="optionals" value=<%=o.getOptional_code()%> class="EstimateCheckbox">
-        <label class="EstimateLabel"> <%=o.getOptional_name()%></label><br><br>
+        <input type="checkbox" name="optionals" value=<%=o.getOptionalCode()%> class="EstimateCheckbox">
+        <label class="EstimateLabel"> <%=o.getOptionalName()%></label><br><br>
         <%}%><br>
 
         <br><input type=submit name=submit value="Aggiungi Prodotto" class="EstimateButton">

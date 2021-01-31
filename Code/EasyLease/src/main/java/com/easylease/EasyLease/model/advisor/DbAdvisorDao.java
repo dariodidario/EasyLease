@@ -112,20 +112,20 @@ public class DbAdvisorDao implements AdvisorDao {
     if (advisor == null || password == null) {
       throw new IllegalArgumentException();
     }
-    if(DbAdvisorDao.getInstance().retrieveById(advisor.getId_user()) != null){
+    if (DbAdvisorDao.getInstance().retrieveById(advisor.getIdUser()) != null) {
       throw new IllegalArgumentException("Advisor already exitsts.");
     }
     final String query = "INSERT INTO users (id_user, first_name, surname, email,"
         + " pwd, account_type, hire_date) VALUES (?, ?, ?, ?, ?, ?, ?)";
     try {
       PreparedStatement stm = connection.prepareStatement(query);
-      stm.setString(1, advisor.getId_user());
-      stm.setString(2, advisor.getFirst_name());
+      stm.setString(1, advisor.getIdUser());
+      stm.setString(2, advisor.getFirstName());
       stm.setString(3, advisor.getSurname());
       stm.setString(4, advisor.getEmail());
       stm.setString(5, PasswordHashing.generatePassword(password, "SHA-1"));
       stm.setString(6, "Consulente");
-      stm.setDate(7, (java.sql.Date) advisor.getHire_date());
+      stm.setDate(7, (java.sql.Date) advisor.getHireDate());
       stm.executeUpdate();
     } catch (SQLException e) {
       logger.log(Level.SEVERE, e.getMessage());
@@ -137,7 +137,7 @@ public class DbAdvisorDao implements AdvisorDao {
     if (advisor == null || password == null) {
       throw new IllegalArgumentException();
     }
-    if(DbAdvisorDao.getInstance().retrieveById(advisor.getId_user()) == null){
+    if (DbAdvisorDao.getInstance().retrieveById(advisor.getIdUser()) == null) {
       throw new IllegalArgumentException("Advisor doesn't exitst.");
     }
     String hashedPassword = PasswordHashing.generatePassword(password, "SHA-1");
@@ -146,12 +146,12 @@ public class DbAdvisorDao implements AdvisorDao {
         + "WHERE id_user = ?";
     try {
       PreparedStatement stm = connection.prepareStatement(query);
-      stm.setString(1, advisor.getFirst_name());
+      stm.setString(1, advisor.getFirstName());
       stm.setString(2, advisor.getSurname());
       stm.setString(3, advisor.getEmail());
       stm.setString(4, hashedPassword);
-      stm.setDate(5, (java.sql.Date) advisor.getHire_date());
-      stm.setString(6, advisor.getId_user());
+      stm.setDate(5, (java.sql.Date) advisor.getHireDate());
+      stm.setString(6, advisor.getIdUser());
       stm.executeUpdate();
     } catch (SQLException e) {
       logger.log(Level.SEVERE, e.getMessage());
@@ -163,13 +163,13 @@ public class DbAdvisorDao implements AdvisorDao {
     if (advisor == null) {
       throw new IllegalArgumentException();
     }
-    if(DbAdvisorDao.getInstance().retrieveById(advisor.getId_user()) == null){
+    if (DbAdvisorDao.getInstance().retrieveById(advisor.getIdUser()) == null) {
       throw new IllegalArgumentException("Advisor doesn't exitst.");
     }
     final String query = "DELETE FROM users WHERE id_user = ?";
     try {
       PreparedStatement stm = connection.prepareStatement(query);
-      stm.setString(1, advisor.getId_user());
+      stm.setString(1, advisor.getIdUser());
       stm.executeUpdate();
     } catch (SQLException throwables) {
       logger.log(Level.SEVERE, throwables.getMessage());

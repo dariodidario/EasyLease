@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
  */
 class DbAdminDaoTest {
   private static DbConnection dbConnection;
-  private AdminDao adminDAO;
+  private AdminDao adminDao;
 
   @BeforeAll
   static void init() throws Exception {
@@ -39,7 +39,7 @@ class DbAdminDaoTest {
 
   @BeforeEach
   void setUp() throws SQLException {
-    adminDAO = DbAdminDao.getInstance();
+    adminDao = DbAdminDao.getInstance();
     dbConnection.getConnection().setAutoCommit(false);
   }
 
@@ -51,64 +51,64 @@ class DbAdminDaoTest {
 
   @Test
   void retrieveById_Success() {
-    String adminID = "00CfR8I";
-    Admin admin = adminDAO.retrieveById(adminID);
-    assertEquals(adminID, admin.getId_user());
+    String adminId = "00CfR8I";
+    Admin admin = adminDao.retrieveById(adminId);
+    assertEquals(adminId, admin.getIdUser());
   }
 
   @Test
   void retrieveById_NotPresent() {
-    String adminID = "00CfRSI";
-    Admin admin = adminDAO.retrieveById(adminID);
+    String adminId = "00CfRSI";
+    Admin admin = adminDao.retrieveById(adminId);
     assertNull(admin);
   }
 
   @Test
   void retrieveById_NullId() {
-    assertThrows(IllegalArgumentException.class, () -> adminDAO.retrieveById(null));
+    assertThrows(IllegalArgumentException.class, () -> adminDao.retrieveById(null));
   }
 
   @Test
   void retrieveById_EmptyId() {
-    assertThrows(IllegalArgumentException.class, () -> adminDAO.retrieveById(""));
+    assertThrows(IllegalArgumentException.class, () -> adminDao.retrieveById(""));
   }
 
   @Test
   void retrieveByEmail_Success() {
     String adminEmail = "giu.digiamp@giudigiamp.com";
-    Admin admin = adminDAO.retrieveByEmail(adminEmail);
+    Admin admin = adminDao.retrieveByEmail(adminEmail);
     assertEquals(adminEmail, admin.getEmail());
   }
 
   @Test
   void retrieveByEmail_NullEmail() {
-    assertThrows(IllegalArgumentException.class, () -> adminDAO.retrieveByEmail(null));
+    assertThrows(IllegalArgumentException.class, () -> adminDao.retrieveByEmail(null));
   }
 
   @Test
   void retrieveByEmail_EmptyEmail() {
-    assertThrows(IllegalArgumentException.class, () -> adminDAO.retrieveByEmail(""));
+    assertThrows(IllegalArgumentException.class, () -> adminDao.retrieveByEmail(""));
   }
 
   @Test
   void retrievePasswordByEmail_Success() {
     String adminEmail = "giu.digiamp@giudigiamp.com";
     assertEquals("9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684",
-        adminDAO.retrievePasswordByEmail(adminEmail));
+        adminDao.retrievePasswordByEmail(adminEmail));
   }
 
   @Test
   void retrievePasswordByEmail_NullEmail() {
-    assertThrows(IllegalArgumentException.class, () -> adminDAO.retrievePasswordByEmail(null));
+    assertThrows(IllegalArgumentException.class, () -> adminDao.retrievePasswordByEmail(null));
   }
 
   @Test
   void retrievePasswordByEmail_NotPresentEmail() {
-    assertNull(adminDAO.retrievePasswordByEmail("ADXXXXX"));
+    assertNull(adminDao.retrievePasswordByEmail("ADXXXXX"));
   }
 
   @Test
   void retrieveAll_Success() {
-    assertNotNull(adminDAO.retrieveAll());
+    assertNotNull(adminDao.retrieveAll());
   }
 }

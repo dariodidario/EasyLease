@@ -40,16 +40,16 @@
               boolean visibility = entry.getValue();
         %>
         <tr>
-          <td><%=client.getId_user()%></td>
-          <td><%=client.getFirst_name()%></td>
+          <td><%=client.getIdUser()%></td>
+          <td><%=client.getFirstName()%></td>
           <td><%=client.getSurname()%></td>
           <td><%=client.getEmail()%></td>
           <%
             if (visibility){
           %>
           <td>
-            <button type="button" class="btn btn-outline-primary" id="<%=client.getId_user()%>">
-              <a href="HistoryAdvisorClientServlet?id_client=<%=client.getId_user()%>">Visualizza</a>
+            <button type="button" class="btn btn-outline-primary" id="<%=client.getIdUser()%>">
+              <a href="HistoryAdvisorClientServlet?id_client=<%=client.getIdUser()%>">Visualizza</a>
             </button>
           </td>
           <%

@@ -23,10 +23,10 @@
         carOptionalList = new ArrayList<>();
         contractOptionalList = new ArrayList<>();
         for (Optional item : optionalList) {
-            if (item.getOptional_type().equals("Contratto")) {
+            if (item.getOptionalType().equals("Contratto")) {
                 contractOptionalList.add(item);
             }
-            if (item.getOptional_type().equals("Auto")) {
+            if (item.getOptionalType().equals("Auto")) {
                 carOptionalList.add(item);
             }
         }
@@ -67,10 +67,10 @@
                     <div class="row">
                         <div class="col-12">
                             <a id="btnAccept"
-                               href="ConfirmEstimateServlet?id_estimate=<%=estimate.getId_estimate()%>&choice=<%="Confermato"%>"
+                               href="ConfirmEstimateServlet?id_estimate=<%=estimate.getIdEstimate()%>&choice=<%="Confermato"%>"
                                class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Confermare</a>
                             <a id="btnRefuse"
-                               href="ConfirmEstimateServlet?id_estimate=<%=estimate.getId_estimate()%>&choice=<%="Non confermato"%>"
+                               href="ConfirmEstimateServlet?id_estimate=<%=estimate.getIdEstimate()%>&choice=<%="Non confermato"%>"
                                class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Non confermare</a>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                     <h4>Consumo Medio</h4>
                 </div>
                 <div class="col">
-                    <h4><%= estimate.getCar().getAvg_consumption()%>
+                    <h4><%= estimate.getCar().getAvgConsumption()%>
                     </h4>
                 </div>
             </div>
@@ -117,7 +117,7 @@
                     <h4>Cavalli</h4>
                 </div>
                 <div class="col">
-                    <h4><%= estimate.getCar().getHorse_power()%>
+                    <h4><%= estimate.getCar().getHorsePower()%>
                     </h4>
                 </div>
             </div>
@@ -126,7 +126,7 @@
                     <h4>Classe di Emissione</h4>
                 </div>
                 <div class="col">
-                    <h4><%= estimate.getCar().getEmission_class()%>
+                    <h4><%= estimate.getCar().getEmissionClass()%>
                     </h4>
                 </div>
             </div>
@@ -172,7 +172,7 @@
                                     Optional carOptional = (Optional) it.next();
                         %>
                         <td data-th="Nome">
-                            <%=carOptional.getOptional_name() %>
+                            <%=carOptional.getOptionalName() %>
                         </td>
                         <td data-th="Costo">
                             <%=carOptional.getPrice() %>
@@ -191,7 +191,7 @@
                                     Optional contractOptional = (Optional) it2.next();
                         %>
                         <td data-th="Nome">
-                            <%=contractOptional.getOptional_name() %>
+                            <%=contractOptional.getOptionalName() %>
                         </td>
                         <td data-th="Costo">
                             <%=contractOptional.getPrice() %>

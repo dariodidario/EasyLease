@@ -53,10 +53,10 @@ public class EstimateStipulationServlet extends HttpServlet {
           throw new ServletException(
               "The chosen estimate cannot be stipulated");
         }
-        estimate.setResponse_date(new Date());
+        estimate.setResponseDate(new Date());
         estimate.setPrice(0);
         for (Optional o : estimate.getOptionalList()) {
-          o.setPrice(Float.parseFloat(request.getParameter(o.getOptional_name())));
+          o.setPrice(Float.parseFloat(request.getParameter(o.getOptionalName())));
           estimate.setPrice(estimate.getPrice() + o.getPrice());
         }
         estimate.setPrice(estimate.getPrice()

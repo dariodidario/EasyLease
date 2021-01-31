@@ -1,17 +1,9 @@
 package com.easylease.EasyLease.control.client;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.*;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.easylease.EasyLease.model.client.Client;
@@ -19,14 +11,23 @@ import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
 import com.easylease.EasyLease.model.estimate.EstimateDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import javax.servlet.http.HttpSession;
-
 
 
 class RequestEstimateServletTest {
@@ -76,24 +77,24 @@ class RequestEstimateServletTest {
   void doGetAllParameters() throws ServletException, IOException {
     List<String> estimateOldList = new ArrayList<>();
     for (Estimate e : dbEstimate.retrieveAll()) {
-      estimateOldList.add(e.getId_estimate());
+      estimateOldList.add(e.getIdEstimate());
     }
     Client client = new Client();
-    client.setId_user("CLEE8BD");
+    client.setIdUser("CLEE8BD");
     String[] optionals = {"OPUi78M", "OPhbN65"};
     when(request.getSession().getAttribute("role")).thenReturn("client");
     when(request.getSession().getAttribute("user")).thenReturn(client);
     when(request.getParameter("carId")).thenReturn("CA6qSDe");
     when(request.getParameter("Mesi")).thenReturn("24");
     when(request.getParameterValues("optionals")).thenReturn(optionals);
-    servlet.doGet(request,response);
+    servlet.doGet(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
-    assertEquals(estimateOldList.size()+1, estimateNewList.size());
+    assertEquals(estimateOldList.size() + 1, estimateNewList.size());
 
     //rollback
     for (Estimate estimate : estimateNewList) {
-      if (!estimateOldList.contains(estimate.getId_estimate())) {
+      if (!estimateOldList.contains(estimate.getIdEstimate())) {
         dbEstimate.delete(estimate);
       }
     }
@@ -103,24 +104,24 @@ class RequestEstimateServletTest {
   void doGetNoOptional() throws ServletException, IOException {
     List<String> estimateOldList = new ArrayList<>();
     for (Estimate e : dbEstimate.retrieveAll()) {
-      estimateOldList.add(e.getId_estimate());
+      estimateOldList.add(e.getIdEstimate());
     }
     Client client = new Client();
-    client.setId_user("CLEE8BD");
+    client.setIdUser("CLEE8BD");
     String[] optionals = {};
     when(request.getSession().getAttribute("role")).thenReturn("client");
     when(request.getSession().getAttribute("user")).thenReturn(client);
     when(request.getParameter("carId")).thenReturn("CA6qSDe");
     when(request.getParameter("Mesi")).thenReturn("24");
     when(request.getParameterValues("optionals")).thenReturn(optionals);
-    servlet.doGet(request,response);
+    servlet.doGet(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
-    assertEquals(estimateOldList.size()+1, estimateNewList.size());
+    assertEquals(estimateOldList.size() + 1, estimateNewList.size());
 
     //rollback
     for (Estimate estimate : estimateNewList) {
-      if (!estimateOldList.contains(estimate.getId_estimate())) {
+      if (!estimateOldList.contains(estimate.getIdEstimate())) {
         dbEstimate.delete(estimate);
       }
     }
@@ -130,10 +131,10 @@ class RequestEstimateServletTest {
   void doGetWrongRole() throws ServletException, IOException {
     List<String> estimateOldList = new ArrayList<>();
     for (Estimate e : dbEstimate.retrieveAll()) {
-      estimateOldList.add(e.getId_estimate());
+      estimateOldList.add(e.getIdEstimate());
     }
     when(request.getSession().getAttribute("role")).thenReturn("admin");
-    servlet.doGet(request,response);
+    servlet.doGet(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size(), estimateNewList.size());
@@ -143,10 +144,10 @@ class RequestEstimateServletTest {
   void doGetNoRole() throws ServletException, IOException {
     List<String> estimateOldList = new ArrayList<>();
     for (Estimate e : dbEstimate.retrieveAll()) {
-      estimateOldList.add(e.getId_estimate());
+      estimateOldList.add(e.getIdEstimate());
     }
     when(request.getSession().getAttribute("role")).thenReturn(null);
-    servlet.doGet(request,response);
+    servlet.doGet(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size(), estimateNewList.size());
@@ -156,17 +157,17 @@ class RequestEstimateServletTest {
   void doGetFailClientNull() throws ServletException, IOException {
     List<String> estimateOldList = new ArrayList<>();
     for (Estimate e : dbEstimate.retrieveAll()) {
-      estimateOldList.add(e.getId_estimate());
+      estimateOldList.add(e.getIdEstimate());
     }
     Client client = new Client();
-    client.setId_user("CLEE8BD");
+    client.setIdUser("CLEE8BD");
     String[] optionals = {};
     when(request.getSession().getAttribute("role")).thenReturn("client");
     when(request.getSession().getAttribute("user")).thenReturn(null);
     when(request.getParameter("carId")).thenReturn("CA6qSDe");
     when(request.getParameter("Mesi")).thenReturn("24");
     when(request.getParameterValues("optionals")).thenReturn(optionals);
-    servlet.doGet(request,response);
+    servlet.doGet(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size(), estimateNewList.size());
@@ -177,17 +178,17 @@ class RequestEstimateServletTest {
   void doGetNoMonths() throws ServletException, IOException {
     List<String> estimateOldList = new ArrayList<>();
     for (Estimate e : dbEstimate.retrieveAll()) {
-      estimateOldList.add(e.getId_estimate());
+      estimateOldList.add(e.getIdEstimate());
     }
     Client client = new Client();
-    client.setId_user("CLEE8BD");
+    client.setIdUser("CLEE8BD");
     String[] optionals = {};
     when(request.getSession().getAttribute("role")).thenReturn("client");
     when(request.getSession().getAttribute("user")).thenReturn(client);
     when(request.getParameter("carId")).thenReturn("CA6qSDe");
     when(request.getParameter("Mesi")).thenReturn(null);
     when(request.getParameterValues("optionals")).thenReturn(optionals);
-    servlet.doGet(request,response);
+    servlet.doGet(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size(), estimateNewList.size());
@@ -197,17 +198,17 @@ class RequestEstimateServletTest {
   void doGetNoCar() throws ServletException, IOException {
     List<String> estimateOldList = new ArrayList<>();
     for (Estimate e : dbEstimate.retrieveAll()) {
-      estimateOldList.add(e.getId_estimate());
+      estimateOldList.add(e.getIdEstimate());
     }
     Client client = new Client();
-    client.setId_user("CLEE8BD");
+    client.setIdUser("CLEE8BD");
     String[] optionals = {};
     when(request.getSession().getAttribute("role")).thenReturn("client");
     when(request.getSession().getAttribute("user")).thenReturn(client);
     when(request.getParameter("carId")).thenReturn(null);
     when(request.getParameter("Mesi")).thenReturn("24");
     when(request.getParameterValues("optionals")).thenReturn(optionals);
-    servlet.doGet(request,response);
+    servlet.doGet(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
     List<Estimate> estimateNewList = dbEstimate.retrieveAll();
     assertEquals(estimateOldList.size(), estimateNewList.size());

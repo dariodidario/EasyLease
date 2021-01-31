@@ -1,29 +1,31 @@
 package com.easylease.EasyLease.model.estimate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.car.Car;
 import com.easylease.EasyLease.model.client.Client;
 import com.easylease.EasyLease.model.optional.Optional;
-
+import com.mysql.cj.jdbc.MysqlDataSource;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
+
 
 class DbEstimateDaoTest {
 
   private EstimateDao dbEstimate;
   private static DbConnection dbConnection;
   List<Optional> optionalList = new ArrayList<>();
-  Optional optional = new Optional("OPUi78M", "Auto", "Vetri brillantinati in madreperla",0);
+  Optional optional = new Optional("OPUi78M", "Auto", "Vetri brillantinati in madreperla", 0);
   Car car = new Car();
   Advisor advisor = new Advisor();
   Client client = new Client();
@@ -48,7 +50,7 @@ class DbEstimateDaoTest {
 
   @Test
   void retrieveById_withCorrectId() {
-  assertEquals("ESgY65R", dbEstimate.retrieveById("ESgY65R").getId_estimate());
+    assertEquals("ESgY65R", dbEstimate.retrieveById("ESgY65R").getIdEstimate());
   }
 
   @Test
@@ -74,7 +76,7 @@ class DbEstimateDaoTest {
   void retrieveByAdvisor_withCorrectId() {
     for (Estimate e : dbEstimate.retrieveByAdvisor("ADJdybc")) {
       assertEquals("ADJdybc",
-          e.getAdvisor().getId_user());
+          e.getAdvisor().getIdUser());
     }
   }
 
@@ -100,7 +102,7 @@ class DbEstimateDaoTest {
   @Test
   void retrieveByClient_withCorrectId() {
     for (Estimate e : dbEstimate.retrieveByClient("CLEE8BD")) {
-      assertEquals("CLEE8BD", e.getClient().getId_user());
+      assertEquals("CLEE8BD", e.getClient().getIdUser());
     }
   }
 
@@ -131,11 +133,11 @@ class DbEstimateDaoTest {
   @Test
   void insert_withCorrectEstimate() {
     optionalList.add(optional);
-    client.setId_user("CLBGqLi");
-    advisor.setId_user("ADfake0");
-    car.setId_car("CAmTMob");
+    client.setIdUser("CLBGqLi");
+    advisor.setIdUser("ADfake0");
+    car.setIdCar("CAmTMob");
     Estimate e = new Estimate("es00000", 240, client, advisor, car, 30,
-        optionalList, true, "Attesa", new Date(System.currentTimeMillis()),null);
+        optionalList, true, "Attesa", new Date(System.currentTimeMillis()), null);
     dbEstimate.insert(e);
     assertNotNull(dbEstimate.retrieveById("es00000"));
 
@@ -153,12 +155,12 @@ class DbEstimateDaoTest {
   @Test
   void update_withCorrectEstimate() {
     Estimate e = dbEstimate.retrieveById("ESH6f5E");
-    float price = e.getPrice();
     e.setPrice(1000);
     dbEstimate.update(e);
     assertEquals(1000, dbEstimate.retrieveById("ESH6f5E").getPrice());
 
     //rollback
+    float price = e.getPrice();
     e.setPrice(price);
     dbEstimate.update(e);
 

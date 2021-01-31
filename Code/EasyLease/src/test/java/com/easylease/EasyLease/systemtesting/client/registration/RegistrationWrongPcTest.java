@@ -1,5 +1,6 @@
 package com.easylease.EasyLease.systemtesting.client.registration;
 
+import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -7,8 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-
-import java.util.concurrent.TimeUnit;
 
 public class RegistrationWrongPcTest {
   private WebDriver driver;
@@ -26,7 +25,7 @@ public class RegistrationWrongPcTest {
 
   @Test
   @DisplayName("ST_NRUSER_1_17")
-  public void testRegistrationWrongPC() throws Exception {
+  public void testRegistrationWrongPc() throws Exception {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
     driver.findElement(By.linkText("Registrati")).click();
     driver.findElement(By.id("nome")).clear();

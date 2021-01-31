@@ -48,15 +48,15 @@ public class ConfirmEstimateServlet extends HttpServlet {
             checked = true;
           }
         }
-        order.setId_order("OR" + IdGenerator.randomIdGenerator());
-        session.setAttribute("id_order", order.getId_order());
+        order.setIdOrder("OR" + IdGenerator.randomIdGenerator());
+        session.setAttribute("id_order", order.getIdOrder());
         order.setState("Attesa");
         Date date = new Date();
-        order.setStart_date(date);
+        order.setStartDate(date);
         order.setEstimate(estimate);
         order.setVisibility(true);
         order.setState("Attesa");
-        order.setCreation_date(new Date());
+        order.setCreationDate(new Date());
         orderDao.insert(order);
         request.getRequestDispatcher("/HistoryClientServlet")
             .forward(request, response);

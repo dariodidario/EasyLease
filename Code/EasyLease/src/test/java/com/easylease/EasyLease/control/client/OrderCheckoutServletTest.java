@@ -48,7 +48,7 @@ class OrderCheckoutServletTest {
   @Mock
   private RequestDispatcher dispatcher;
 
-  private OrderDao orderDAO;
+  private OrderDao orderDao;
   private OrderCheckoutServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
   private Order orderStub;
@@ -57,7 +57,7 @@ class OrderCheckoutServletTest {
   void setUp() {
     MockitoAnnotations.openMocks(this);
     servlet = new OrderCheckoutServlet();
-    orderDAO = DbOrderDao.getInstance();
+    orderDao = DbOrderDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");
@@ -84,13 +84,13 @@ class OrderCheckoutServletTest {
 
   @Test
   void orderCheckoutServletTestSuccess() throws ServletException, IOException {
-    orderStub = orderDAO.retrieveById("ORbG567");
+    orderStub = orderDao.retrieveById("ORbG567");
     when(request.getSession().getAttribute("user")).thenReturn(new Client());
     when(request.getParameter("submit")).thenReturn("ORbG567");
     servlet.doGet(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
-    assertEquals("Pagato", orderDAO.retrieveById("ORbG567").getState());
-    orderDAO.update(orderStub);
+    assertEquals("Pagato", orderDao.retrieveById("ORbG567").getState());
+    orderDao.update(orderStub);
   }
 
   @Test

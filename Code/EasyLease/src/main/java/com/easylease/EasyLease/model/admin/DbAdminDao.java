@@ -118,11 +118,11 @@ public class DbAdminDao implements AdminDao {
    */
   private Admin getAdminFromRs(ResultSet rs) throws SQLException {
     Admin o = new Admin();
-    o.setId_user(rs.getString("id_user"));
-    o.setFirst_name(rs.getString("first_name"));
+    o.setIdUser(rs.getString("id_user"));
+    o.setFirstName(rs.getString("first_name"));
     o.setSurname(rs.getString("surname"));
     o.setEmail(rs.getString("email"));
-    o.setRecovery_email(rs.getString("recovery_email"));
+    o.setRecoveryEmail(rs.getString("recovery_email"));
     return o;
   }
 

@@ -24,7 +24,7 @@
     <div class="col-md-6 shadow">
       <div class="row border">
         <div class="col-md-6 text-center border-end">
-          <h3 class="text-center">Ordine n: <%=ordine.getId_order()%>
+          <h3 class="text-center">Ordine n: <%=ordine.getIdOrder()%>
           </h3>
           <img
               class="mt-3 car__img"
@@ -76,9 +76,9 @@
                     Optional optional = it.next();
               %>
               <tr>
-                <td><%=optional.getOptional_name()%>
+                <td><%=optional.getOptionalName()%>
                 </td>
-                <td><%=optional.getOptional_type()%>
+                <td><%=optional.getOptionalType()%>
                 </td>
                 <td><%=String.format("%.2f", optional.getPrice() / ordine.getEstimate().getPeriod())%> €/Mese</td>
               </tr>
@@ -146,7 +146,7 @@
       <div class="col-md-3"></div>
       <div class="col-md-6 text-center">
         <form action="${pageContext.request.contextPath}/OrderCheckoutServlet" method="post" id="paymentForm">
-          <button id="payment-submit" type="submit" name="submit" value="<%=ordine.getId_order()%>" class="btn btn-primary">
+          <button id="payment-submit" type="submit" name="submit" value="<%=ordine.getIdOrder()%>" class="btn btn-primary">
             Pagamento
           </button>
         </form>

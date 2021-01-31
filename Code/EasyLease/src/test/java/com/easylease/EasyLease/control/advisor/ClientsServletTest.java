@@ -47,14 +47,14 @@ class ClientsServletTest {
   private RequestDispatcher dispatcher;
 
   private ClientsServlet servlet;
-  private AdvisorDao advisorDAO;
+  private AdvisorDao advisorDao;
   private final Map<String, Object> attributes = new HashMap<>();
 
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
     servlet = new ClientsServlet();
-    advisorDAO = DbAdvisorDao.getInstance();
+    advisorDao = DbAdvisorDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");
@@ -81,7 +81,7 @@ class ClientsServletTest {
 
   @Test
   void clientsServletTestSuccess() throws ServletException, IOException {
-    Advisor advisor = advisorDAO.retrieveById("ADJdybc");
+    Advisor advisor = advisorDao.retrieveById("ADJdybc");
     when(request.getSession().getAttribute("user")).thenReturn(advisor);
     servlet.doGet(request, response);
     verify(request).getRequestDispatcher("/advisor/clients.jsp");

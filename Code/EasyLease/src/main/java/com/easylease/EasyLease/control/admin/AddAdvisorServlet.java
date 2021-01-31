@@ -137,7 +137,7 @@ public class AddAdvisorServlet extends HttpServlet {
     String idGenerate = "AD" + IdGenerator.randomIdGenerator();
     if (advisors != null) {
       for (int i = 0; i < advisors.size(); i++) {
-        if (advisors.get(i).getId_user().equalsIgnoreCase(idGenerate) == true) {
+        if (advisors.get(i).getIdUser().equalsIgnoreCase(idGenerate) == true) {
           idGenerate = "AD" + IdGenerator.randomIdGenerator();
         }
       }
@@ -160,10 +160,10 @@ public class AddAdvisorServlet extends HttpServlet {
     if (advisors != null) {
       for (int i = 0; i < advisors.size(); i++) {
         Advisor a = advisors.get(i);
-        if (a.getFirst_name().equalsIgnoreCase(advisorName)
+        if (a.getFirstName().equalsIgnoreCase(advisorName)
             && a.getSurname().equalsIgnoreCase(advisorSurname)
             && a.getEmail().equalsIgnoreCase(advisorEmail)
-            && a.getHire_date().compareTo(hireDate) == 0) {
+            && a.getHireDate().compareTo(hireDate) == 0) {
           advisorOk = false;
         }
       }

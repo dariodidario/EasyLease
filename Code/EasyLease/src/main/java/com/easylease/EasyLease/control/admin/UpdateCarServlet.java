@@ -100,24 +100,24 @@ public class UpdateCarServlet extends HttpServlet {
         if (avgConsumptionCar != null
             && !avgConsumptionCar.equalsIgnoreCase("")) {
           float avgConsumption = Float.parseFloat(avgConsumptionCar);
-          if (car.getAvg_consumption() != avgConsumption) {
-            car.setAvg_consumption(avgConsumption);
+          if (car.getAvgConsumption() != avgConsumption) {
+            car.setAvgConsumption(avgConsumption);
           }
         }
         String horsePowerCar = request.getParameter("horse_power_Update");
         /*case update car horse power.*/
         if (horsePowerCar != null && !horsePowerCar.equalsIgnoreCase("")) {
           int horsePower = Integer.parseInt(horsePowerCar);
-          if (car.getHorse_power() != horsePower) {
-            car.setHorse_power(horsePower);
+          if (car.getHorsePower() != horsePower) {
+            car.setHorsePower(horsePower);
           }
         }
         String emissionClass = request.getParameter("emission_class_Update");
         /*case update car emission class.*/
         if (emissionClass != null && !emissionClass.equalsIgnoreCase("")) {
-          if (car.getEmission_class().equalsIgnoreCase(emissionClass)
+          if (car.getEmissionClass().equalsIgnoreCase(emissionClass)
               == false) {
-            car.setEmission_class(emissionClass);
+            car.setEmissionClass(emissionClass);
           }
         }
         String co2EmissionsCar = request.getParameter("co2_emissions_Update");
@@ -125,8 +125,8 @@ public class UpdateCarServlet extends HttpServlet {
         if (co2EmissionsCar != null
             && !co2EmissionsCar.equalsIgnoreCase("")) {
           int co2Emissions = Integer.parseInt(co2EmissionsCar);
-          if (car.getCo2_emissions() != co2Emissions) {
-            car.setCo2_emissions(co2Emissions);
+          if (car.getCo2Emissions() != co2Emissions) {
+            car.setCo2Emissions(co2Emissions);
           }
         }
         String powerSupply = request.getParameter("power_supply_Update");

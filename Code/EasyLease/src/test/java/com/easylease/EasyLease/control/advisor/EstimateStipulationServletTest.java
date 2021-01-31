@@ -1,11 +1,27 @@
 package com.easylease.EasyLease.control.advisor;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.advisor.DbAdvisorDao;
 import com.easylease.EasyLease.model.client.Client;
 import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
 import com.easylease.EasyLease.model.optional.Optional;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,21 +29,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
 
 /**
  * @author Caprio Mattia
@@ -47,8 +49,8 @@ class EstimateStipulationServletTest {
   @Mock
   private RequestDispatcher dispatcher;
 
-  private final DbAdvisorDao dbAdvisorDAO = (DbAdvisorDao) DbAdvisorDao.getInstance();
-  private DbEstimateDao dbEstimateDAO;
+  private final DbAdvisorDao dbAdvisorDao = (DbAdvisorDao) DbAdvisorDao.getInstance();
+  private DbEstimateDao dbEstimateDao;
   private EstimateStipulationServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
 
@@ -56,7 +58,7 @@ class EstimateStipulationServletTest {
   void setUp() {
     MockitoAnnotations.openMocks(this);
     servlet = new EstimateStipulationServlet();
-    dbEstimateDAO = (DbEstimateDao) DbEstimateDao.getInstance();
+    dbEstimateDao = (DbEstimateDao) DbEstimateDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");
@@ -82,23 +84,23 @@ class EstimateStipulationServletTest {
   }
 
   @Test
-  void SuccessTakenState() throws ServletException, IOException {
-    Estimate estimate = dbEstimateDAO.retrieveById("ESfn9IO");
+  void successTakenState() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(new Advisor());
     when(request.getParameter("id")).thenReturn("ESfn9IO");
     when(request.getSession().getAttribute("stipulation")).thenReturn(true);
+    Estimate estimate = dbEstimateDao.retrieveById("ESfn9IO");
     for (Optional o : estimate.getOptionalList()) {
-      when(request.getParameter(o.getOptional_name())).thenReturn("100.00");
+      when(request.getParameter(o.getOptionalName())).thenReturn("100.00");
     }
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
         "/advisor/estimateManagementAdvisor.jsp");
-    assertEquals("Stipulato", dbEstimateDAO.retrieveById("ESfn9IO").getState());
-    dbEstimateDAO.update(estimate);
+    assertEquals("Stipulato", dbEstimateDao.retrieveById("ESfn9IO").getState());
+    dbEstimateDao.update(estimate);
   }
 
   @Test
-  void SuccessStipulatedState() throws ServletException, IOException {
+  void successStipulatedState() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(new Advisor());
     when(request.getParameter("id")).thenReturn("ESdnA9G");
     servlet.doPost(request, response);
@@ -123,7 +125,7 @@ class EstimateStipulationServletTest {
   @Test
   void wrongEstimateGiven() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(
-        dbAdvisorDAO.retrieveById("ADJdybc"));
+        dbAdvisorDao.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn(null);
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
@@ -132,7 +134,7 @@ class EstimateStipulationServletTest {
   @Test
   void nullEstimateGiven() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(
-        dbAdvisorDAO.retrieveById("ADJdybc"));
+        dbAdvisorDao.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn("ESxxxxx");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");

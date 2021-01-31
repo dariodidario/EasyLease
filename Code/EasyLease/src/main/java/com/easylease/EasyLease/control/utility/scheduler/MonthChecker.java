@@ -26,7 +26,7 @@ public class MonthChecker implements Runnable {
     List<Order> orderList = orderDAO.retrieveByState("Non confermato");
     if (orderList != null) {
       orderList.forEach(order -> {
-        c.setTime(order.getCreation_date());
+        c.setTime(order.getCreationDate());
         c.add(Calendar.MONTH, 1);
         if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
           orderDAO.delete(order);
@@ -44,7 +44,7 @@ public class MonthChecker implements Runnable {
     orderList = orderDAO.retrieveByState("Non pagato");
     if (orderList != null) {
       orderList.forEach(order -> {
-        c.setTime(order.getConfirm_date());
+        c.setTime(order.getConfirmDate());
         c.add(Calendar.MONTH, 1);
         if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
           orderDAO.delete(order);
@@ -62,7 +62,7 @@ public class MonthChecker implements Runnable {
     List<Estimate> estimateList = estimateDAO.retrieveByState("Non confermato");
     if (estimateList != null) {
       estimateList.forEach(estimate -> {
-        c.setTime(estimate.getResponse_date());
+        c.setTime(estimate.getResponseDate());
         c.add(Calendar.MONTH, 1);
         if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
           estimateDAO.delete(estimate);

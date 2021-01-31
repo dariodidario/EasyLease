@@ -1,8 +1,26 @@
 package com.easylease.EasyLease.control.user;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.easylease.EasyLease.model.car.DbCarDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,22 +28,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
 
 /**
  * @author Torino Francesco Maria
@@ -46,7 +48,7 @@ public class ViewCarServletTest {
   @Mock
   private PrintWriter printWriter;
 
-  private DbCarDao dbCarDAO;
+  private DbCarDao dbCarDao;
   private ViewCarServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
   private static DbConnection dbConnection;
@@ -64,7 +66,7 @@ public class ViewCarServletTest {
     mysqlDataSource.setUseSSL(false);
     dbConnection = DbConnection.getInstance();
     dbConnection.setDataSource(mysqlDataSource);
-    dbCarDAO = (DbCarDao) DbCarDao.getInstance();
+    dbCarDao = (DbCarDao) DbCarDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     try {
       when(response.getWriter()).thenReturn(printWriter);
@@ -110,6 +112,7 @@ public class ViewCarServletTest {
   void model_null() {
     when(request.getParameter("model")).thenReturn(
         null);
-    assertThrows(IllegalArgumentException.class, () -> { servlet.doGet(request, response); });
+    assertThrows(IllegalArgumentException.class, () -> {
+      servlet.doGet(request, response); });
   }
 }

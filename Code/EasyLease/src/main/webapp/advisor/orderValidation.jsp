@@ -20,9 +20,9 @@
   ArrayList<Optional> caroptionals = new ArrayList<Optional>();
   ArrayList<Optional> contractoptionals = new ArrayList<Optional>();
   for(Optional o : order.getEstimate().getOptionalList()){
-    if(o.getOptional_type().equals("Auto"))
+    if(o.getOptionalType().equals("Auto"))
       caroptionals.add(o);
-    else if (o.getOptional_type().equals("Contratto"))
+    else if (o.getOptionalType().equals("Contratto"))
       contractoptionals.add(o);
   }
 %>
@@ -56,14 +56,14 @@
           <h4>ID Ordine</h4>
         </div>
         <div class = "col">
-          <h4><%=order.getId_order()%>
+          <h4><%=order.getIdOrder()%>
         </div>
         <div class = "row">
           <div class = "col">
             <h4>Cliente</h4>
           </div>
           <div class = "col">
-            <h4><%=order.getEstimate().getClient().getFirst_name() + " " + order.getEstimate().getClient().getSurname() %></h4>
+            <h4><%=order.getEstimate().getClient().getFirstName() + " " + order.getEstimate().getClient().getSurname() %></h4>
           </div>
         </div>
         <div class = "row">
@@ -71,7 +71,7 @@
             <h4>Data Inizio</h4>
           </div>
           <div class = "col">
-            <h4><%=order.getStart_date() != null ? format.format(order.getStart_date()) : "Data non disponibile" %> </h4>
+            <h4><%=order.getStartDate() != null ? format.format(order.getStartDate()) : "Data non disponibile" %> </h4>
           </div>
         </div>
         <div class = "row">
@@ -110,9 +110,9 @@
                 while(carIterator.hasNext()){
                   Optional carOptional = carIterator.next();
             %>
-            <td data-th = "Nome"><%=carOptional.getOptional_name()%></td>
+            <td data-th = "Nome"><%=carOptional.getOptionalName()%></td>
             <td data-th = "Costo"><%=carOptional.getPrice()%></td>
-            <td data-th = "Tipo"><%=carOptional.getOptional_type()%></td>
+            <td data-th = "Tipo"><%=carOptional.getOptionalType()%></td>
           </tr>
           <tr>
             <%
@@ -123,9 +123,9 @@
                 while(contractIterator.hasNext()){
                   Optional contractOptional = contractIterator.next();
             %>
-            <td data-th = "Nome"><%=contractOptional.getOptional_name()%></td>
+            <td data-th = "Nome"><%=contractOptional.getOptionalName()%></td>
             <td data-th = "Costo"><%=contractOptional.getPrice()%></td>
-            <td data-th = "Tipo"><%=contractOptional.getOptional_type()%></td>
+            <td data-th = "Tipo"><%=contractOptional.getOptionalType()%></td>
           </tr>
           </tbody>
           <%
@@ -171,7 +171,7 @@
               <label for = "date" class = "form-label mt-3">Data di ritiro</label>
               <input type = "date" class= "form-control" id="date" name = "date" min="<%= new SimpleDateFormat("yyyy-MM-dd").format(new Date())%>" required>
             </div>
-            <input type = "hidden" value="<%=order.getId_order()%>" , name="id">
+            <input type = "hidden" value="<%=order.getIdOrder()%>" , name="id">
               <input type = "hidden" value="<%="true"%>", name="choice">
             <button type="submit" class="btn btn-primary mt-3 btn-lg active" role = "button" aria-pressed ="true" id="validation">
               Conferma

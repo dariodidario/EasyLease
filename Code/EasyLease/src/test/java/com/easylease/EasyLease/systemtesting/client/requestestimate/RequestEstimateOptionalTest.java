@@ -1,15 +1,18 @@
 package com.easylease.EasyLease.systemtesting.client.requestestimate;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 
 import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
 import com.easylease.EasyLease.model.estimate.EstimateDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
-import org.junit.jupiter.api.*;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -49,7 +52,7 @@ public class RequestEstimateOptionalTest {
 
   @Test
   @DisplayName("ST_CLIENT_1_01")
-  public void RequestEstimate_Optional() throws Exception {
+  public void requestEstimateOptional() throws Exception {
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
     driver.findElement(By.linkText("Login")).click();
     driver.findElement(By.id("email")).sendKeys("mattia.caprio@unisa.com");
@@ -72,7 +75,7 @@ public class RequestEstimateOptionalTest {
     for (Estimate item : updatedEstimate) {
       boolean found = false;
       for (Estimate item2 : estimateList) {
-        if (!found && item.getId_estimate().equals(item2.getId_estimate())) {
+        if (!found && item.getIdEstimate().equals(item2.getIdEstimate())) {
           found = true;
         }
       }

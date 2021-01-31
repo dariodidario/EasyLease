@@ -48,14 +48,14 @@ public class ClientsServlet extends HttpServlet {
 
         Map<Client, Boolean> clients = new HashMap<>();
         List<Estimate> estimateList = estimateDao.retrieveByAdvisor(
-            advisor.getId_user());
+            advisor.getIdUser());
 
         dbClientDao.retrieveAll()
             .forEach(client -> estimateList.forEach(estimate -> {
               if (!clients.containsKey(client)) {
                 clients.put(client, false);
               }
-              if (estimate.getClient().getId_user().equals(client.getId_user())) {
+              if (estimate.getClient().getIdUser().equals(client.getIdUser())) {
                 clients.put(client, true);
               }
             }));

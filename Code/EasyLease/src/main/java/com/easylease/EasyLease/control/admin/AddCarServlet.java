@@ -196,7 +196,7 @@ public class AddCarServlet extends HttpServlet {
     String idGenerate = "CA" + IdGenerator.randomIdGenerator();
     if (cars != null) {
       for (int i = 0; i < cars.size(); i++) {
-        if (cars.get(i).getId_car().equalsIgnoreCase(idGenerate) == true) {
+        if (cars.get(i).getIdCar().equalsIgnoreCase(idGenerate) == true) {
           idGenerate = "CA" + IdGenerator.randomIdGenerator();
         }
       }
@@ -226,10 +226,10 @@ public class AddCarServlet extends HttpServlet {
             && c.getType().equalsIgnoreCase(carType)
             && c.getDoors() == doors
             && c.getTransmission().equalsIgnoreCase(trasmission)
-            && c.getAvg_consumption() == avgConsumption
-            && c.getHorse_power() == horsePower
-            && c.getEmission_class().equalsIgnoreCase(emissionClass)
-            && c.getCo2_emissions() == co2Emissions
+            && c.getAvgConsumption() == avgConsumption
+            && c.getHorsePower() == horsePower
+            && c.getEmissionClass().equalsIgnoreCase(emissionClass)
+            && c.getCo2Emissions() == co2Emissions
             && c.getPowerSupply().equalsIgnoreCase(powerSupply)
             && c.getCapacity() == capacity && c.getPrice() == price) {
           carOk = false;

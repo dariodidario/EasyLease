@@ -13,21 +13,21 @@ import java.util.Date;
 public class Order {
 
   /** Order ID. */
-  private String id_order;
+  private String idOrder;
   /** Estimate Object linked to the following Order. */
   private Estimate estimate;
   /** Data from which the contract begins. */
-  private Date start_date;
+  private Date startDate;
   /** Data from which the contract ends. */
-  private Date end_date;
+  private Date endDate;
   /** Order confirm date. */
-  private Date confirm_date;
+  private Date confirmDate;
   /** Indicates whether the order is visible or not. */
   private boolean visibility;
   /** Current status of the Order. */
   private String state;
   /** Order creation date. */
-  private Date creation_date;
+  private Date creationDate;
 
   public Order() {
 
@@ -36,27 +36,27 @@ public class Order {
   /**
    * Constructor for the Order Object.
    *
-   * @param id_order Order ID.
+   * @param idOrder Order ID.
    * @param estimate Estimate Object linked to the following Order.
-   * @param start_date Date from which the contract begins.
-   * @param end_date Data from which the contract ends.
-   * @param confirm_date Order confirm date.
-   * @param creation_date Order creation date.
+   * @param startDate Date from which the contract begins.
+   * @param endDate Data from which the contract ends.
+   * @param confirmDate Order confirm date.
+   * @param creationDate Order creation date.
    * @param visibility Indicates whether the order is visible or not.
    * @param state Current state of the Order.
    */
   public Order(
-      String id_order, Estimate estimate, Date start_date, Date end_date, Date confirm_date,
-      Date creation_date, boolean visibility, String state) {
+      String idOrder, Estimate estimate, Date startDate, Date endDate, Date confirmDate,
+      Date creationDate, boolean visibility, String state) {
 
-    this.id_order = id_order;
+    this.idOrder = idOrder;
     this.estimate = estimate;
-    this.start_date = start_date;
-    this.end_date = end_date;
-    this.confirm_date = confirm_date;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.confirmDate = confirmDate;
     this.visibility = visibility;
     this.state = state;
-    this.creation_date = creation_date;
+    this.creationDate = creationDate;
   }
 
   /**
@@ -64,17 +64,17 @@ public class Order {
    *
    * @return Order ID.
    */
-  public String getId_order() {
-    return id_order;
+  public String getIdOrder() {
+    return idOrder;
   }
 
   /**
    * Set the ID of the Order.
    *
-   * @param id_order Order ID.
+   * @param idOrder Order ID.
    */
-  public void setId_order(String id_order) {
-    this.id_order = id_order;
+  public void setIdOrder(String idOrder) {
+    this.idOrder = idOrder;
   }
 
   /**
@@ -100,17 +100,17 @@ public class Order {
    *
    * @return Date from which the contract begins.
    */
-  public Date getStart_date() {
-    return start_date;
+  public Date getStartDate() {
+    return startDate;
   }
 
   /**
    * Set the Date from which the contract begins.
    *
-   * @param start_date Date from which the contract begins.
+   * @param startDate Date from which the contract begins.
    */
-  public void setStart_date(Date start_date) {
-    this.start_date = start_date;
+  public void setStartDate(Date startDate) {
+    this.startDate = startDate;
   }
 
   /**
@@ -118,17 +118,17 @@ public class Order {
    *
    * @return the Data from which the contract ends.
    */
-  public Date getEnd_date() {
-    return end_date;
+  public Date getEndDate() {
+    return endDate;
   }
 
   /**
    * Set Data from which the contract ends.
    *
-   * @param end_date the Data from which the contract ends.
+   * @param endDate the Data from which the contract ends.
    */
-  public void setEnd_date(Date end_date) {
-    this.end_date = end_date;
+  public void setEndDate(Date endDate) {
+    this.endDate = endDate;
   }
 
   /**
@@ -136,17 +136,17 @@ public class Order {
    *
    * @return Order confirm date.
    */
-  public Date getConfirm_date() {
-    return confirm_date;
+  public Date getConfirmDate() {
+    return confirmDate;
   }
 
   /**
    * Set the Order confirm date.
    *
-   * @param confirm_date Order confirm date.
+   * @param confirmDate Order confirm date.
    */
-  public void setConfirm_date(Date confirm_date) {
-    this.confirm_date = confirm_date;
+  public void setConfirmDate(Date confirmDate) {
+    this.confirmDate = confirmDate;
   }
 
   /**
@@ -190,16 +190,16 @@ public class Order {
    *
    * @return the Order creation Date.
    */
-  public Date getCreation_date() {
-    return creation_date;
+  public Date getCreationDate() {
+    return creationDate;
   }
 
   /**
    * Set the Order creation Date.
    *
-   * @param creation_date The order creation Date.
+   * @param creationDate The order creation Date.
    */
-  public void setCreation_date(Date creation_date) {
-    this.creation_date = creation_date;
+  public void setCreationDate(Date creationDate) {
+    this.creationDate = creationDate;
   }
 }

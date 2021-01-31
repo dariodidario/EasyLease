@@ -155,28 +155,28 @@ public class DbOrderDao implements OrderDao {
     if (order == null) {
       throw new IllegalArgumentException("Order is null!");
     }
-    if (DbOrderDao.getInstance().retrieveById(order.getId_order()) == null) {
+    if (DbOrderDao.getInstance().retrieveById(order.getIdOrder()) == null) {
       throw new IllegalArgumentException("Order does not exist in database!");
     }
 
     try {
       stm = connection.prepareStatement(query);
-      stm.setString(1, order.getEstimate().getId_estimate());
-      stm.setDate(2, order.getStart_date() != null
-          ? new java.sql.Date(order.getStart_date().getTime()) :
+      stm.setString(1, order.getEstimate().getIdEstimate());
+      stm.setDate(2, order.getStartDate() != null
+          ? new java.sql.Date(order.getStartDate().getTime()) :
           null);
-      stm.setDate(3, order.getEnd_date() != null
-          ? new java.sql.Date(order.getEnd_date().getTime()) :
+      stm.setDate(3, order.getEndDate() != null
+          ? new java.sql.Date(order.getEndDate().getTime()) :
           null);
-      stm.setDate(4, order.getConfirm_date() != null
-          ? new java.sql.Date(order.getConfirm_date().getTime()) :
+      stm.setDate(4, order.getConfirmDate() != null
+          ? new java.sql.Date(order.getConfirmDate().getTime()) :
           null);
       stm.setBoolean(5, order.isVisibility());
       stm.setString(6, order.getState());
-      stm.setDate(7, order.getCreation_date() != null
-          ? new java.sql.Date(order.getCreation_date().getTime()) :
+      stm.setDate(7, order.getCreationDate() != null
+          ? new java.sql.Date(order.getCreationDate().getTime()) :
           null);
-      stm.setString(8, order.getId_order());
+      stm.setString(8, order.getIdOrder());
       stm.executeUpdate();
     } catch (SQLException exception) {
       logger.log(Level.SEVERE, exception.getMessage());
@@ -193,27 +193,27 @@ public class DbOrderDao implements OrderDao {
     if (order == null) {
       throw new IllegalArgumentException("Order is null!");
     }
-    if (DbOrderDao.getInstance().retrieveById(order.getId_order()) != null) {
+    if (DbOrderDao.getInstance().retrieveById(order.getIdOrder()) != null) {
       throw new IllegalArgumentException("Order already exist!");
     }
 
     try {
       stm = connection.prepareStatement(query);
-      stm.setString(1, order.getId_order());
-      stm.setString(2, order.getEstimate().getId_estimate());
-      stm.setDate(3, order.getStart_date() != null
-          ? new java.sql.Date(order.getStart_date().getTime()) :
+      stm.setString(1, order.getIdOrder());
+      stm.setString(2, order.getEstimate().getIdEstimate());
+      stm.setDate(3, order.getStartDate() != null
+          ? new java.sql.Date(order.getStartDate().getTime()) :
           null);
-      stm.setDate(4, order.getEnd_date() != null
-          ? new java.sql.Date(order.getEnd_date().getTime()) :
+      stm.setDate(4, order.getEndDate() != null
+          ? new java.sql.Date(order.getEndDate().getTime()) :
           null);
-      stm.setDate(5, order.getConfirm_date() != null
-          ? new java.sql.Date(order.getConfirm_date().getTime()) :
+      stm.setDate(5, order.getConfirmDate() != null
+          ? new java.sql.Date(order.getConfirmDate().getTime()) :
           null);
       stm.setBoolean(6, order.isVisibility());
       stm.setString(7, order.getState());
-      stm.setDate(8, order.getCreation_date() != null
-          ? new java.sql.Date(order.getCreation_date().getTime()) :
+      stm.setDate(8, order.getCreationDate() != null
+          ? new java.sql.Date(order.getCreationDate().getTime()) :
           null);
       stm.executeUpdate();
     } catch (SQLException exception) {
@@ -228,13 +228,13 @@ public class DbOrderDao implements OrderDao {
     if (order == null) {
       throw new IllegalArgumentException("Order is null!");
     }
-    if (DbOrderDao.getInstance().retrieveById(order.getId_order()) == null) {
+    if (DbOrderDao.getInstance().retrieveById(order.getIdOrder()) == null) {
       throw new IllegalArgumentException("Order does not exist!");
     }
 
     try {
       stm = connection.prepareStatement(query);
-      stm.setString(1, order.getId_order());
+      stm.setString(1, order.getIdOrder());
       stm.executeUpdate();
     } catch (SQLException exception) {
       logger.log(Level.SEVERE, exception.getMessage());
@@ -289,20 +289,20 @@ public class DbOrderDao implements OrderDao {
     EstimateDao estimateDao = DbEstimateDao.getInstance();
     Order o = new Order();
 
-    o.setId_order(rs.getString("id_order"));
+    o.setIdOrder(rs.getString("id_order"));
     o.setEstimate(estimateDao.retrieveById(rs.getString("id_estimate")));
-    o.setStart_date(rs.getDate("start_date") != null
+    o.setStartDate(rs.getDate("start_date") != null
         ? new Date(rs.getDate("start_date").getTime()) :
         null);
-    o.setEnd_date(rs.getDate("end_date") != null
+    o.setEndDate(rs.getDate("end_date") != null
         ? new Date(rs.getDate("end_date").getTime()) :
         null);
-    o.setConfirm_date(rs.getDate("confirm_date") != null
+    o.setConfirmDate(rs.getDate("confirm_date") != null
         ? new Date(rs.getDate("confirm_date").getTime()) :
         null);
     o.setVisibility(rs.getBoolean("visibility"));
     o.setState(rs.getString("state"));
-    o.setCreation_date(new Date(rs.getDate("creation_date").getTime()));
+    o.setCreationDate(new Date(rs.getDate("creation_date").getTime()));
     return o;
   }
 }

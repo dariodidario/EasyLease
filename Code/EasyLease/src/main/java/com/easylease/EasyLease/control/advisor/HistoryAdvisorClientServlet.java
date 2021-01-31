@@ -50,14 +50,14 @@ public class HistoryAdvisorClientServlet extends HttpServlet {
         list.addAll(dbOrderDao.retrieveByClient(clientId).stream()
             .filter(o -> o.getEstimate()
                 .getAdvisor()
-                .getId_user()
-                .equals(advisor.getId_user()))
+                .getIdUser()
+                .equals(advisor.getIdUser()))
             .collect(Collectors.toList()));
 
         list.addAll(dbEstimateDao.retrieveByClient(clientId).stream()
             .filter(e -> e.getAdvisor()
-                .getId_user()
-                .equals(advisor.getId_user()))
+                .getIdUser()
+                .equals(advisor.getIdUser()))
             .collect(Collectors.toList()));
 
         request.setAttribute("list", list);

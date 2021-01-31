@@ -27,8 +27,8 @@ public class SignInServlet extends HttpServlet {
       throws ServletException, IOException {
     SimpleDateFormat htmlFormat = new SimpleDateFormat("yyyy-MM-dd");
     Client client = new Client();
-    client.setId_user("CL" + IdGenerator.randomIdGenerator());
-    client.setFirst_name(request.getParameter("name"));
+    client.setIdUser("CL" + IdGenerator.randomIdGenerator());
+    client.setFirstName(request.getParameter("name"));
     client.setSurname(request.getParameter("surname"));
     client.setEmail(request.getParameter("email"));
     client.setBirth_place(request.getParameter("birthplace"));

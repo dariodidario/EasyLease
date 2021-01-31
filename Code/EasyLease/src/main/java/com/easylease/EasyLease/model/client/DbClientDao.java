@@ -51,8 +51,8 @@ public class DbClientDao implements ClientDao {
       preparedStatement.setString(1, id);
       ResultSet rs = preparedStatement.executeQuery();
       if (rs.next()) {
-        c.setId_user(rs.getString("id_user"));
-        c.setFirst_name(rs.getString("first_name"));
+        c.setIdUser(rs.getString("id_user"));
+        c.setFirstName(rs.getString("first_name"));
         c.setSurname(rs.getString("surname"));
         c.setEmail(rs.getString("email"));
         c.setBirth_date(rs.getDate("birth_date"));
@@ -85,8 +85,8 @@ public class DbClientDao implements ClientDao {
       preparedStatement.setString(1, email);
       ResultSet rs = preparedStatement.executeQuery();
       if (rs.next()) {
-        c.setId_user(rs.getString("id_user"));
-        c.setFirst_name(rs.getString("first_name"));
+        c.setIdUser(rs.getString("id_user"));
+        c.setFirstName(rs.getString("first_name"));
         c.setSurname(rs.getString("surname"));
         c.setEmail(rs.getString("email"));
         c.setBirth_date(rs.getDate("birth_date"));
@@ -119,8 +119,8 @@ public class DbClientDao implements ClientDao {
       if (!(rs == null)) {
         while (rs.next()) {
           Client c = new Client();
-          c.setId_user(rs.getString("id_user"));
-          c.setFirst_name(rs.getString("first_name"));
+          c.setIdUser(rs.getString("id_user"));
+          c.setFirstName(rs.getString("first_name"));
           c.setSurname(rs.getString("surname"));
           c.setEmail(rs.getString("email"));
           c.setBirth_date(rs.getDate("birth_date"));
@@ -172,7 +172,7 @@ public class DbClientDao implements ClientDao {
     if (c == null || password == null) {
       throw new IllegalArgumentException("Client or Password null");
     }
-    if (DbClientDao.getInstance().retrieveById(c.getId_user()) != null) {
+    if (DbClientDao.getInstance().retrieveById(c.getIdUser()) != null) {
       throw new IllegalArgumentException(
           "The client already exists in database");
     }
@@ -185,13 +185,13 @@ public class DbClientDao implements ClientDao {
         + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try {
       preparedStatement = connection.prepareStatement(query);
-      preparedStatement.setString(1, c.getId_user());
+      preparedStatement.setString(1, c.getIdUser());
       preparedStatement.setString(2, "Cliente");
       preparedStatement.setString(3, c.getBirth_place());
       preparedStatement.setDate(4, c.getBirth_date() != null
           ? new Date(c.getBirth_date().getTime()) : null);
       preparedStatement.setString(5, c.getKind());
-      preparedStatement.setString(6, c.getFirst_name());
+      preparedStatement.setString(6, c.getFirstName());
       preparedStatement.setString(7, c.getSurname());
       preparedStatement.setString(8, c.getEmail());
       preparedStatement.setString(9, pwd);
@@ -210,7 +210,7 @@ public class DbClientDao implements ClientDao {
       throw new IllegalArgumentException("Null client or password");
     }
 
-    if (DbClientDao.getInstance().retrieveById(c.getId_user()) == null) {
+    if (DbClientDao.getInstance().retrieveById(c.getIdUser()) == null) {
       throw new IllegalArgumentException(
           "The client not exist exists in database");
     }
@@ -225,14 +225,14 @@ public class DbClientDao implements ClientDao {
       preparedStatement.setDate(2, c.getBirth_date() != null
           ? new java.sql.Date(c.getBirth_date().getTime()) : null);
       preparedStatement.setString(3, c.getKind());
-      preparedStatement.setString(4, c.getFirst_name());
+      preparedStatement.setString(4, c.getFirstName());
       preparedStatement.setString(5, c.getSurname());
       preparedStatement.setString(6, c.getEmail());
       preparedStatement.setString(7, pwd);
       preparedStatement.setString(8, c.getStreet());
       preparedStatement.setString(9, c.getCity());
       preparedStatement.setString(10, c.getPc());
-      preparedStatement.setString(11, c.getId_user());
+      preparedStatement.setString(11, c.getIdUser());
       preparedStatement.executeUpdate();
     } catch (Exception e) {
       e.printStackTrace();
@@ -248,7 +248,7 @@ public class DbClientDao implements ClientDao {
     String query = "DELETE FROM users WHERE id_user = ?";
     try {
       preparedStatement = connection.prepareStatement(query);
-      preparedStatement.setString(1, c.getId_user());
+      preparedStatement.setString(1, c.getIdUser());
       preparedStatement.executeUpdate();
     } catch (Exception e) {
       e.printStackTrace();

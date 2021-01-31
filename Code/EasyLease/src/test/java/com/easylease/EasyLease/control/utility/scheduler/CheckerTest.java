@@ -6,19 +6,20 @@ import com.easylease.EasyLease.model.estimate.EstimateDao;
 import com.easylease.EasyLease.model.order.DbOrderDao;
 import com.easylease.EasyLease.model.order.OrderDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
+import java.sql.SQLException;
+import java.util.Calendar;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.sql.SQLException;
-import java.util.Calendar;
+
 
 class CheckerTest {
 
   private static DbConnection dbConnection;
-  private OrderDao orderDAO;
-  private EstimateDao estimateDAO;
-  private Calendar c;
+  private OrderDao orderDao;
+  private EstimateDao estimateDao;
+  private Calendar calendar;
 
   @BeforeAll
   static void init() throws Exception {
@@ -35,9 +36,9 @@ class CheckerTest {
 
   @BeforeEach
   void setUp() throws SQLException {
-    orderDAO = DbOrderDao.getInstance();
-    estimateDAO = DbEstimateDao.getInstance();
-    c = Calendar.getInstance();
+    orderDao = DbOrderDao.getInstance();
+    estimateDao = DbEstimateDao.getInstance();
+    calendar = Calendar.getInstance();
     dbConnection.getConnection().setAutoCommit(false);
   }
 

@@ -1,5 +1,10 @@
 package com.easylease.EasyLease.control.client;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.advisor.AdvisorDao;
 import com.easylease.EasyLease.model.advisor.DbAdvisorDao;
@@ -11,6 +16,15 @@ import com.easylease.EasyLease.model.estimate.EstimateDao;
 import com.easylease.EasyLease.model.order.DbOrderDao;
 import com.easylease.EasyLease.model.order.Order;
 import com.easylease.EasyLease.model.order.OrderDao;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,20 +33,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 class ConfirmOrderServletTest {
   @Mock
