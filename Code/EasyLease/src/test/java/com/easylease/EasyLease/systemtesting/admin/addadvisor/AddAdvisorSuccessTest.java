@@ -92,7 +92,9 @@ public class AddAdvisorSuccessTest {
         .sendKeys("p.angela@rai.it");
     driver.findElement(By.id("advisor_date")).click();
     driver.findElement(By.id("advisor_date")).clear();
-    driver.findElement(By.id("advisor_date")).sendKeys("2021-01-20");
+    driver.findElement(By.id("advisor_date")).sendKeys("01");
+    driver.findElement(By.id("advisor_date")).sendKeys("20");
+    driver.findElement(By.id("advisor_date")).sendKeys("2021");
     driver.findElement(By.id("advisor_password")).click();
     driver.findElement(By.id("advisor_password")).clear();
     driver.findElement(By.id("advisor_password")).sendKeys("PieroAngela98");

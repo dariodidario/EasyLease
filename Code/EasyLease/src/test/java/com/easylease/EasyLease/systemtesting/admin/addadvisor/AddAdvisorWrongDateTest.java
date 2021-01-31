@@ -87,7 +87,9 @@ public class AddAdvisorWrongDateTest {
         .sendKeys("p.angela@rai.it");
     driver.findElement(By.id("advisor_date")).click();
     driver.findElement(By.id("advisor_date")).clear();
-    driver.findElement(By.id("advisor_date")).sendKeys("2021-02-25");
+    driver.findElement(By.id("advisor_date")).sendKeys("10");
+    driver.findElement(By.id("advisor_date")).sendKeys("04");
+    driver.findElement(By.id("advisor_date")).sendKeys("3021");
     driver.findElement(By.id("advisor_password")).click();
     driver.findElement(By.id("advisor_password")).clear();
     driver.findElement(By.id("advisor_password")).sendKeys("PieroAngela98");
