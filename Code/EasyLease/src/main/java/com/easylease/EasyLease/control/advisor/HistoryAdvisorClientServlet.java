@@ -44,17 +44,17 @@ public class HistoryAdvisorClientServlet extends HttpServlet {
         }
 
         Advisor advisor = (Advisor) session.getAttribute("user");
-        String clientID = request.getParameter("id_client");
+        String clientId = request.getParameter("id_client");
         List<Object> list = new ArrayList<>();
 
-        list.addAll(dbOrderDao.retrieveByClient(clientID).stream()
+        list.addAll(dbOrderDao.retrieveByClient(clientId).stream()
             .filter(o -> o.getEstimate()
                 .getAdvisor()
                 .getId_user()
                 .equals(advisor.getId_user()))
             .collect(Collectors.toList()));
 
-        list.addAll(dbEstimateDao.retrieveByClient(clientID).stream()
+        list.addAll(dbEstimateDao.retrieveByClient(clientId).stream()
             .filter(e -> e.getAdvisor()
                 .getId_user()
                 .equals(advisor.getId_user()))

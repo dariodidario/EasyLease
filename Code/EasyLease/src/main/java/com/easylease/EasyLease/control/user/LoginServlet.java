@@ -16,12 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "LoginServlet", urlPatterns = "/LoginServlet")
 public class LoginServlet extends HttpServlet {
 
-  public void doPost(HttpServletRequest request,
+  public void doPost(
+      HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     doGet(request, response);
   }
 
-  public void doGet(HttpServletRequest request,
+  public void doGet(
+      HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     DbAdminDao adminDao = (DbAdminDao) DbAdminDao.getInstance();
     DbAdvisorDao advisorDao = (DbAdvisorDao) DbAdvisorDao.getInstance();
@@ -31,59 +33,59 @@ public class LoginServlet extends HttpServlet {
     try {
       String passwordAd = adminDao.retrievePasswordByEmail(email);
       if (passwordAd != null) {
-        if (PasswordHashing.passwordAuthenticator(password, passwordAd, "SHA-1")) {
+        if (PasswordHashing.passwordAuthenticator(password, passwordAd,
+            "SHA-1")) {
           request.getSession().setAttribute("role", "admin");
-          request.getSession().setAttribute("user", adminDao.retrieveByEmail(email));
+          request.getSession()
+              .setAttribute("user", adminDao.retrieveByEmail(email));
           request.removeAttribute("userEmail");
           request.removeAttribute("userPassword");
           request.getRequestDispatcher("/user/homePage.jsp")
               .forward(request, response);
-        }
-        else {
+        } else {
           request.removeAttribute("userEmail");
           request.removeAttribute("userPassword");
           request.getRequestDispatcher("/user/login.jsp")
               .forward(request, response);
         }
-      }
-      else {
+      } else {
         String passwordAdv = advisorDao.retrievePasswordByEmail(email);
         if (passwordAdv != null) {
-          if (PasswordHashing.passwordAuthenticator(password, passwordAdv, "SHA-1")) {
+          if (PasswordHashing.passwordAuthenticator(password, passwordAdv,
+              "SHA-1")) {
             request.getSession().setAttribute("role", "advisor");
-            request.getSession().setAttribute("user", advisorDao.retrieveByEmail(email));
+            request.getSession()
+                .setAttribute("user", advisorDao.retrieveByEmail(email));
             request.removeAttribute("userEmail");
             request.removeAttribute("userPassword");
             request.getRequestDispatcher("/user/homePage.jsp")
                 .forward(request, response);
-          }
-          else {
+          } else {
             request.removeAttribute("userEmail");
             request.removeAttribute("userPassword");
             request.getRequestDispatcher("/user/login.jsp")
                 .forward(request, response);
           }
-        }
-        else {
+        } else {
           String passwordCl = clientDao.retrievePasswordByEmail(email);
           if (passwordCl != null) {
-            if (PasswordHashing.passwordAuthenticator(password, passwordCl, "SHA-1")) {
+            if (PasswordHashing.passwordAuthenticator(password, passwordCl,
+                "SHA-1")) {
               request.getSession().setAttribute("role", "client");
-              request.getSession().setAttribute("user", clientDao.retrieveByEmail(email));
+              request.getSession()
+                  .setAttribute("user", clientDao.retrieveByEmail(email));
               request.removeAttribute("userEmail");
               request.removeAttribute("userPassword");
               request.getRequestDispatcher("/user/homePage.jsp")
                   .forward(request, response);
-            }
-            else {
+            } else {
               request.removeAttribute("userEmail");
               request.removeAttribute("userPassword");
               request.getRequestDispatcher("/user/login.jsp")
                   .forward(request, response);
             }
 
-          }
-          else {
+          } else {
             request.removeAttribute("userEmail");
             request.removeAttribute("userPassword");
             request.getRequestDispatcher("/user/login.jsp")

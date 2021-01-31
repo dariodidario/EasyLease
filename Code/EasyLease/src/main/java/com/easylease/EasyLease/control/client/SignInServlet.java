@@ -15,17 +15,19 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "SignInServlet", value = "/SignInServlet")
 public class SignInServlet extends HttpServlet {
-  protected void doPost(HttpServletRequest request,
+  protected void doPost(
+      HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     doGet(request, response);
   }
 
-  protected void doGet(HttpServletRequest request,
+  protected void doGet(
+      HttpServletRequest request,
       HttpServletResponse response)
       throws ServletException, IOException {
     SimpleDateFormat htmlFormat = new SimpleDateFormat("yyyy-MM-dd");
     Client client = new Client();
-    client.setId_user("CL"+ IdGenerator.randomIdGenerator());
+    client.setId_user("CL" + IdGenerator.randomIdGenerator());
     client.setFirst_name(request.getParameter("name"));
     client.setSurname(request.getParameter("surname"));
     client.setEmail(request.getParameter("email"));
@@ -45,8 +47,7 @@ public class SignInServlet extends HttpServlet {
     if (dao.retrieveByEmail(client.getEmail()) != null) {
       request.getRequestDispatcher("/user/login.jsp")
           .forward(request, response);
-    }
-    else{
+    } else {
       dao.insert(client, request.getParameter("password"));
       request.getRequestDispatcher("/user/login.jsp")
           .forward(request, response);

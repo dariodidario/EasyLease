@@ -5,7 +5,6 @@ import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
 import com.easylease.EasyLease.model.order.DbOrderDao;
 import com.easylease.EasyLease.model.order.Order;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,9 +61,10 @@ public class HistoryAdvisorServlet extends HttpServlet {
         request.getRequestDispatcher("/user/homePage.jsp")
             .forward(request, response);
       }
-    } else
+    } else {
       request.getRequestDispatcher("/user/homePage.jsp")
           .forward(request, response);
+    }
   }
 
   protected void doGet(

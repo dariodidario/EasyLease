@@ -29,8 +29,8 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "ClientsServlet", urlPatterns = "/ClientsServlet")
 public class ClientsServlet extends HttpServlet {
-  DbClientDao dbClientDAO = (DbClientDao) DbClientDao.getInstance();
-  DbEstimateDao estimateDAO = (DbEstimateDao) DbEstimateDao.getInstance();
+  DbClientDao dbClientDao = (DbClientDao) DbClientDao.getInstance();
+  DbEstimateDao estimateDao = (DbEstimateDao) DbEstimateDao.getInstance();
 
   protected void doPost(
       HttpServletRequest request,
@@ -47,10 +47,10 @@ public class ClientsServlet extends HttpServlet {
         Advisor advisor = (Advisor) session.getAttribute("user");
 
         Map<Client, Boolean> clients = new HashMap<>();
-        List<Estimate> estimateList = estimateDAO.retrieveByAdvisor(
+        List<Estimate> estimateList = estimateDao.retrieveByAdvisor(
             advisor.getId_user());
 
-        dbClientDAO.retrieveAll()
+        dbClientDao.retrieveAll()
             .forEach(client -> estimateList.forEach(estimate -> {
               if (!clients.containsKey(client)) {
                 clients.put(client, false);

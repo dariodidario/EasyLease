@@ -26,7 +26,7 @@ import static org.mockito.Mockito.*;
  * @version 0.1
  * @since 0.1
  */
-class FAQServletTest {
+class FaqServletTest {
   @Mock
   private HttpServletRequest request;
   @Mock
@@ -38,13 +38,13 @@ class FAQServletTest {
   @Mock
   private RequestDispatcher dispatcher;
 
-  private FAQServlet servlet;
+  private FaqServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
 
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
-    servlet = new FAQServlet();
+    servlet = new FaqServlet();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");

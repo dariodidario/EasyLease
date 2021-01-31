@@ -5,18 +5,19 @@ import com.easylease.EasyLease.model.car.Car;
 import com.easylease.EasyLease.model.car.CarDao;
 import com.easylease.EasyLease.model.car.DbCarDao;
 import com.easylease.EasyLease.model.user.User;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
 
-/**this servlet provides to delete a car from the database*/
+
+/**this servlet provides to delete a car from the .*/
 
 @WebServlet("/DeleteCarServlet")
 public class DeleteCarServlet extends HttpServlet {
@@ -33,10 +34,12 @@ public class DeleteCarServlet extends HttpServlet {
           HttpServletResponse response) throws ServletException, IOException {
     String role = (String) request.getSession().getAttribute("role");
     if (role == null) {
-      RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/error403.jsp");
+      RequestDispatcher dispatcher =
+          getServletContext().getRequestDispatcher("/fragments/error403.jsp");
       dispatcher.forward(request, response);
     } else if (role.equalsIgnoreCase("admin") == false) {
-      RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/error403.jsp");
+      RequestDispatcher dispatcher =
+          getServletContext().getRequestDispatcher("/fragments/error403.jsp");
       dispatcher.forward(request, response);
     } else {
 
@@ -47,12 +50,12 @@ public class DeleteCarServlet extends HttpServlet {
         CarDAO.update(car);
         File canc = new File(request.getServletContext().getRealPath("img"));
         File rem = new File(canc, car.getImage());
-        Files.delete( rem.toPath());
+        Files.delete(rem.toPath());
 
         User user = (User) request.getSession().getAttribute("user");
         request.getSession().setAttribute("user", user);
         request.getSession().setAttribute("role", "admin");
-        request.getSession().setAttribute("carList",null);
+        request.getSession().setAttribute("carList", null);
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();

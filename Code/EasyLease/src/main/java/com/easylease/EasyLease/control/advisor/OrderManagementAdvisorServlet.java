@@ -47,8 +47,8 @@ public class OrderManagementAdvisorServlet extends HttpServlet {
         if (id == null || id.length() != 7 || !id.startsWith("OR")) {
           throw new ServletException("The id sent is incorrect");
         }
-        DbOrderDao dbOrderDAO = (DbOrderDao) DbOrderDao.getInstance();
-        Order order = dbOrderDAO.retrieveById(id);
+        DbOrderDao dbOrderDao = (DbOrderDao) DbOrderDao.getInstance();
+        Order order = dbOrderDao.retrieveById(id);
         if (order == null) {
           throw new ServletException("The order doesn't exist");
         }

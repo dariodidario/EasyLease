@@ -2,11 +2,13 @@ package com.easylease.EasyLease.control.client;
 
 import com.easylease.EasyLease.model.car.DbCarDao;
 import com.easylease.EasyLease.model.optional.DbOptionalDao;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
 import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 
 @WebServlet(name = "ViewRequestEstimateServlet", value = "/ViewRequestEstimateServlet")
 public class ViewRequestEstimateServlet extends HttpServlet {
@@ -15,11 +17,10 @@ public class ViewRequestEstimateServlet extends HttpServlet {
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     String role = (String) request.getSession().getAttribute("role");
-    if ( !role.equals("client") ) {
+    if (!role.equals("client")) {
       request.getRequestDispatcher("/user/homePage.jsp")
           .forward(request, response);
-    }
-    else {
+    } else {
       String idCar = request.getParameter("idCar");
       request.getSession()
           .setAttribute("car", DbCarDao.getInstance().retrieveById(idCar));

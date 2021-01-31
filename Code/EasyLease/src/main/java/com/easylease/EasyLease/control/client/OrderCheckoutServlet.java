@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "OrderCheckoutServlet", value = "/OrderCheckoutServlet")
 public class OrderCheckoutServlet extends HttpServlet {
-  DbOrderDao dbOrderDAO = (DbOrderDao) DbOrderDao.getInstance();
+  DbOrderDao dbOrderDao = (DbOrderDao) DbOrderDao.getInstance();
   Order order;
 
   @Override
@@ -49,11 +49,11 @@ public class OrderCheckoutServlet extends HttpServlet {
         Client client = (Client) request.getSession().getAttribute("user");
 
         if (client != null) {
-          order = dbOrderDAO.retrieveById(request.getParameter("submit"));
+          order = dbOrderDao.retrieveById(request.getParameter("submit"));
           if (order != null) {
             if (order.getState().equals("Confermato")) {
               order.setState("Pagato");
-              dbOrderDAO.update(order);
+              dbOrderDao.update(order);
             }
           }
         }

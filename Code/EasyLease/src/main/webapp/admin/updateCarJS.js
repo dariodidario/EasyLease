@@ -6,17 +6,13 @@ function readURL(input) {
             var img='#img_carL';
             reader.onload = function (e) {
                 $(img)
-                    .attr('src', e.target.result)
+                .attr('src', e.target.result)
             };
 
             reader.readAsDataURL(input.files[i]);
 
         }
-
-        imgNew.type="file";
-        imgNew.accept=".jpg";
-        imgNew.maxLength="255";
-        imgNew.value="";
+        document.getElementById('image_path').remove();
         imgNew.name="img_car_Update";
         imgNew.id="img_car";
         imgNew.style.cssText="display:none;";
