@@ -3,8 +3,8 @@ package com.easylease.EasyLease.control.admin;
 
 import com.easylease.EasyLease.model.admin.Admin;
 import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.CarDAO;
-import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.easylease.EasyLease.model.car.CarDao;
+import com.easylease.EasyLease.model.car.DbCarDao;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/DeleteCarServlet")
 public class DeleteCarServlet extends HttpServlet {
-  static CarDAO CarDAO = DBCarDAO.getInstance();
 
   protected void doPost(
           HttpServletRequest request,
@@ -32,6 +31,7 @@ public class DeleteCarServlet extends HttpServlet {
   protected void doGet(
           HttpServletRequest request,
           HttpServletResponse response) throws ServletException, IOException {
+    CarDao CarDao = DbCarDao.getInstance();
     String role = (String) request.getSession().getAttribute("role");
     if (role == null) {
       RequestDispatcher dispatcher =
@@ -45,9 +45,9 @@ public class DeleteCarServlet extends HttpServlet {
 
       String id = request.getParameter("ID_Delete");
       if (id != null && !id.equalsIgnoreCase("")) {
-        Car car = CarDAO.retrieveById(id);
+        Car car = CarDao.retrieveById(id);
         car.setVisibility(false);
-        CarDAO.update(car);
+        CarDao.update(car);
         File canc = new File(request.getServletContext().getRealPath("img"));
         File rem = new File(canc, car.getImage());
         Files.delete(rem.toPath());

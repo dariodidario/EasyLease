@@ -4,8 +4,8 @@ package com.easylease.EasyLease.control.admin;
 import com.easylease.EasyLease.control.utility.IdGenerator;
 import com.easylease.EasyLease.model.admin.Admin;
 import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.CarDAO;
-import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.easylease.EasyLease.model.car.CarDao;
+import com.easylease.EasyLease.model.car.DbCarDao;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,11 +30,11 @@ import javax.servlet.http.Part;
 @WebServlet("/AddCarServlet")
 @MultipartConfig
 public class AddCarServlet extends HttpServlet {
-  static CarDAO CarDAO = DBCarDAO.getInstance();
 
   protected void doPost(
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
+    CarDao CarDao = DbCarDao.getInstance();
     String role = (String) request.getSession().getAttribute("role");
     if (role == null) {
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
@@ -126,13 +126,13 @@ public class AddCarServlet extends HttpServlet {
             transmission, avgConsumption, horsePower, emissionClass,
             co2Emissions, powerSupply, capacity, imgCar);
 
-        CarDAO.insert(car);
+        CarDao.insert(car);
 
         //defined the session parameters
         Admin user = (Admin) request.getSession().getAttribute("user");
         request.getSession().setAttribute("user", user);
         request.getSession().setAttribute("role", "admin");
-        Car car1 = CarDAO.retrieveById(id);
+        Car car1 = CarDao.retrieveById(id);
 
         //return statement
         response.setContentType("text/html;charset=UTF-8");
@@ -192,6 +192,7 @@ public class AddCarServlet extends HttpServlet {
    * @return the new id of car
    */
   private String checkId() {
+    CarDao CarDAO = DbCarDao.getInstance();
     List<Car> cars = CarDAO.retrieveAll();
     String idGenerate = "CA" + IdGenerator.randomIdGenerator();
     if (cars != null) {

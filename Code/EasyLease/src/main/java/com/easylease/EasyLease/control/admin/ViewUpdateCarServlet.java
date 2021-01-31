@@ -2,8 +2,8 @@ package com.easylease.EasyLease.control.admin;
 
 import com.easylease.EasyLease.model.admin.Admin;
 import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.CarDAO;
-import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.easylease.EasyLease.model.car.CarDao;
+import com.easylease.EasyLease.model.car.DbCarDao;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,7 +37,7 @@ public class ViewUpdateCarServlet extends HttpServlet {
       String id = (String) request.getParameter("Car_id");
 
       if (id != null && id.equalsIgnoreCase("") == false) {
-        CarDAO carDao = DBCarDAO.getInstance();
+        CarDao carDao = DbCarDao.getInstance();
         Car car = carDao.retrieveById(id);
         request.getSession().setAttribute("car_to_update", car);
         Admin user = (Admin) request.getSession().getAttribute("user");

@@ -3,8 +3,8 @@ package com.easylease.EasyLease.control.admin;
 
 import com.easylease.EasyLease.model.admin.Admin;
 import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.CarDAO;
-import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.easylease.EasyLease.model.car.CarDao;
+import com.easylease.EasyLease.model.car.DbCarDao;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,11 +29,11 @@ import javax.servlet.http.Part;
 @WebServlet("/UpdateCarServlet")
 @MultipartConfig
 public class UpdateCarServlet extends HttpServlet {
-  static CarDAO CarDAO = DBCarDAO.getInstance();
 
   protected void doPost(
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
+    CarDao CarDao = DbCarDao.getInstance();
     String role = (String) request.getSession().getAttribute("role");
     if (role == null) {
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
@@ -47,7 +47,7 @@ public class UpdateCarServlet extends HttpServlet {
 
       String id = request.getParameter("ID_Update");
       if (id != null && !id.equalsIgnoreCase("")) {
-        Car car = CarDAO.retrieveById(id);
+        Car car = CarDao.retrieveById(id);
         String brand = request.getParameter("brand_Update");
         /*case update car brand.*/
         if (brand != null && !brand.equalsIgnoreCase("")) {
@@ -153,7 +153,7 @@ public class UpdateCarServlet extends HttpServlet {
           }
         }
 
-        CarDAO.update(car);
+        CarDao.update(car);
 
         Admin user = (Admin) request.getSession().getAttribute("user");
         request.getSession().setAttribute("user", user);

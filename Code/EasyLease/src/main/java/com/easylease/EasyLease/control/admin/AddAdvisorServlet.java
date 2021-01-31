@@ -3,8 +3,8 @@ package com.easylease.EasyLease.control.admin;
 import com.easylease.EasyLease.control.utility.IdGenerator;
 import com.easylease.EasyLease.model.admin.Admin;
 import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.advisor.AdvisorDAO;
-import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
+import com.easylease.EasyLease.model.advisor.AdvisorDao;
+import com.easylease.EasyLease.model.advisor.DbAdvisorDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -33,7 +33,7 @@ public class AddAdvisorServlet extends HttpServlet {
   protected void doGet(
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
-    AdvisorDAO advisorDao = DBAdvisorDAO.getInstance();
+    AdvisorDao advisorDao = DbAdvisorDao.getInstance();
     String role = (String) request.getSession().getAttribute("role");
     if (role == null) {
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
@@ -132,7 +132,7 @@ public class AddAdvisorServlet extends HttpServlet {
    * @return the new id of advisor
    */
   private String checkId() {
-    AdvisorDAO advisorDao = DBAdvisorDAO.getInstance();
+    AdvisorDao advisorDao = DbAdvisorDao.getInstance();
     List<Advisor> advisors = advisorDao.retrieveAll();
     String idGenerate = "AD" + IdGenerator.randomIdGenerator();
     if (advisors != null) {
@@ -153,7 +153,7 @@ public class AddAdvisorServlet extends HttpServlet {
   private boolean checkAdvisor(
       String advisorName, String advisorSurname,
       String advisorEmail, java.util.Date hireDate) {
-    AdvisorDAO advisorDao = DBAdvisorDAO.getInstance();
+    AdvisorDao advisorDao = DbAdvisorDao.getInstance();
 
     List<Advisor> advisors = advisorDao.retrieveAll();
     boolean advisorOk = true;
