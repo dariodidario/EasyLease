@@ -1,9 +1,9 @@
 package com.easylease.EasyLease.control.admin;
 
+import com.easylease.EasyLease.model.admin.Admin;
 import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.CarDao;
-import com.easylease.EasyLease.model.car.DbCarDao;
-import com.easylease.EasyLease.model.user.User;
+import com.easylease.EasyLease.model.car.CarDAO;
+import com.easylease.EasyLease.model.car.DBCarDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,27 +27,27 @@ public class ViewUpdateCarServlet extends HttpServlet {
     String role = (String) request.getSession().getAttribute("role");
     if (role == null) {
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
-          "/fragments/error403.jsp");
+              "/user/login.jsp");
       dispatcher.forward(request, response);
     } else if (role.equalsIgnoreCase("admin") == false) {
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
-          "/fragments/error403.jsp");
+              "/user/login.jsp");
       dispatcher.forward(request, response);
     } else {
       String id = (String) request.getParameter("Car_id");
 
       if (id != null && id.equalsIgnoreCase("") == false) {
-        CarDao carDao = DbCarDao.getInstance();
+        CarDAO carDao = DBCarDAO.getInstance();
         Car car = carDao.retrieveById(id);
         request.getSession().setAttribute("car_to_update", car);
-        User user = (User) request.getSession().getAttribute("user");
+        Admin user = (Admin) request.getSession().getAttribute("user");
         request.getSession().setAttribute("user", user);
         request.getSession().setAttribute("role", "admin");
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
             "/admin/updateCar.jsp");
         dispatcher.forward(request, response);
       } else {
-        User user = (User) request.getSession().getAttribute("user");
+        Admin user = (Admin) request.getSession().getAttribute("user");
         request.getSession().setAttribute("user", user);
         request.getSession().setAttribute("role", "admin");
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(

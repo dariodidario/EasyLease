@@ -1,25 +1,13 @@
 <%@ page import="java.awt.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%String role=(String) request.getSession().getAttribute("role");
-  if(role==null){%>
-<html>
-<head>
-  <title>Add Advisor</title>
-</head>
-<body onload="window.location.href='fragments/error403.jsp'">
-
-</body>
-</html>
-<%}else if(role.equalsIgnoreCase("admin")==false){ %>
-<html>
-<head>
-  <title>Add Advisor</title>
-</head>
-<body onload="window.location.href='fragments/error403.jsp'">
-
-</body>
-</html>
-<%}else {
+  if(role==null){
+    response.sendRedirect(request.getContextPath() + "/LoginViewServlet");
+    return;
+  }else if(role.equalsIgnoreCase("admin")==false){
+    response.sendRedirect(request.getContextPath() + "/LoginViewServlet");
+    return;
+  }else {
 %>
 <%String error="";
   String s=(String)request.getSession().getAttribute("error");
@@ -49,11 +37,11 @@
     <tr><td colspan="2" align="center"><label id="errore"><%=error%></label></td></tr>
     <tr>
       <td><label class="advisorParameter">Nome</label></td>
-      <td><input class="advisorParameter" type="text"  id="advisor_name" name="advisor_name" placeholder="es.(Mario)" pattern="^[a-zA-Z]+$" required></td>
+      <td><input class="advisorParameter" type="text"  id="advisor_name" name="advisor_name" placeholder="es.(Mario)" pattern="^[a-zA-Z\s']+$" required></td>
     </tr>
     <tr>
       <td><label class="advisorParameter">Cognome</label></td>
-      <td><input class="advisorParameter" type="text" id="advisor_surname" name="advisor_surname" placeholder="es.(Rossi)" pattern="^[a-zA-Z]+$" required></td>
+      <td><input class="advisorParameter" type="text" id="advisor_surname" name="advisor_surname" placeholder="es.(Rossi)" pattern="^[a-zA-Z\s']+$" required></td>
     </tr>
     <tr>
       <td><label class="advisorParameter">E-mail</label></td>
@@ -63,7 +51,7 @@
     </tr>
     <tr>
       <td><label class="advisorParameter">Data assunzione</label></td>
-      <td><input class="advisorParameter" type="date" id="advisor_date" name="advisor_date" placeholder="es.(21/01/2021)" onchange="checkDate(this)" onkeypress="checkDate(this)" required>
+      <td><input class="advisorParameter" type="date" id="advisor_date" name="advisor_date" placeholder="es.(21/01/2021)" onchange="checkDate(this)" required>
         <input type="hidden" id="date_valid" name="date_valid" value="false">
       </td>
     </tr>

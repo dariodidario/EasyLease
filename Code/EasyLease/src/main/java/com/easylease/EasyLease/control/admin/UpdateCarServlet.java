@@ -1,10 +1,10 @@
 package com.easylease.EasyLease.control.admin;
 
 
+import com.easylease.EasyLease.model.admin.Admin;
 import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.CarDao;
-import com.easylease.EasyLease.model.car.DbCarDao;
-import com.easylease.EasyLease.model.user.User;
+import com.easylease.EasyLease.model.car.CarDAO;
+import com.easylease.EasyLease.model.car.DBCarDAO;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +29,7 @@ import javax.servlet.http.Part;
 @WebServlet("/UpdateCarServlet")
 @MultipartConfig
 public class UpdateCarServlet extends HttpServlet {
-  static CarDao CarDAO = DbCarDao.getInstance();
+  static CarDAO CarDAO = DBCarDAO.getInstance();
 
   protected void doPost(
       HttpServletRequest request,
@@ -37,11 +37,11 @@ public class UpdateCarServlet extends HttpServlet {
     String role = (String) request.getSession().getAttribute("role");
     if (role == null) {
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
-          "/fragments/error403.jsp");
+              "/user/login.jsp");
       dispatcher.forward(request, response);
     } else if (role.equalsIgnoreCase("admin") == false) {
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
-          "/fragments/error403.jsp");
+          "/user/login.jsp");
       dispatcher.forward(request, response);
     } else {
 
@@ -155,7 +155,7 @@ public class UpdateCarServlet extends HttpServlet {
 
         CarDAO.update(car);
 
-        User user = (User) request.getSession().getAttribute("user");
+        Admin user = (Admin) request.getSession().getAttribute("user");
         request.getSession().setAttribute("user", user);
         request.getSession().setAttribute("role", "admin");
         request.getSession().setAttribute("carList", null);

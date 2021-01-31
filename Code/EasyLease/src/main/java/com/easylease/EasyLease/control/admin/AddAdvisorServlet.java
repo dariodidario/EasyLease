@@ -1,10 +1,10 @@
 package com.easylease.EasyLease.control.admin;
 
 import com.easylease.EasyLease.control.utility.IdGenerator;
+import com.easylease.EasyLease.model.admin.Admin;
 import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.advisor.AdvisorDao;
-import com.easylease.EasyLease.model.advisor.DbAdvisorDao;
-import com.easylease.EasyLease.model.user.User;
+import com.easylease.EasyLease.model.advisor.AdvisorDAO;
+import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -33,15 +33,15 @@ public class AddAdvisorServlet extends HttpServlet {
   protected void doGet(
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
-    AdvisorDao advisorDao = DbAdvisorDao.getInstance();
+    AdvisorDAO advisorDao = DBAdvisorDAO.getInstance();
     String role = (String) request.getSession().getAttribute("role");
     if (role == null) {
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
-          "/fragments/error403.jsp");
+              "/user/login.jsp");
       dispatcher.forward(request, response);
     } else if (role.equalsIgnoreCase("admin") == false) {
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
-          "/fragments/error403.jsp");
+              "/user/login.jsp");
       dispatcher.forward(request, response);
     } else {
 
@@ -108,7 +108,7 @@ public class AddAdvisorServlet extends HttpServlet {
           advisorDao.insert(advisor, advisorPassword);
 
           //defined the session parameters
-          User user = (User) request.getSession().getAttribute("user");
+          Admin user = (Admin) request.getSession().getAttribute("user");
 
           request.getSession().setAttribute("user", user);
           request.getSession().setAttribute("role", "admin");
@@ -132,7 +132,7 @@ public class AddAdvisorServlet extends HttpServlet {
    * @return the new id of advisor
    */
   private String checkId() {
-    AdvisorDao advisorDao = DbAdvisorDao.getInstance();
+    AdvisorDAO advisorDao = DBAdvisorDAO.getInstance();
     List<Advisor> advisors = advisorDao.retrieveAll();
     String idGenerate = "AD" + IdGenerator.randomIdGenerator();
     if (advisors != null) {
@@ -153,7 +153,7 @@ public class AddAdvisorServlet extends HttpServlet {
   private boolean checkAdvisor(
       String advisorName, String advisorSurname,
       String advisorEmail, java.util.Date hireDate) {
-    AdvisorDao advisorDao = DbAdvisorDao.getInstance();
+    AdvisorDAO advisorDao = DBAdvisorDAO.getInstance();
 
     List<Advisor> advisors = advisorDao.retrieveAll();
     boolean advisorOk = true;
