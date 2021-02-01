@@ -59,7 +59,7 @@
       %>
       <tr>
         <td>
-          <button type="submit" class="estimate_button" role = "button" aria-pressed ="true">
+          <button type="submit" id="stipulate" class="estimate_button" role = "button" aria-pressed ="true">
             Conferma
           </button>
         </td>
