@@ -1,11 +1,112 @@
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none !important;
+.Estimate_main{
+    width: 60%;
+}
+.EstimatePrice{
+    width: 30%;
+    box-shadow:  10px  10px 5px #dedede,
+    -10px -10px 5px #dedede,
+    10px -10px 5px #dedede,
+    -10px  10px 5px #dedede;
+    border: 1px solid #9b334e;
+}
+.page_title{
+    font-size: 4vw;
+}
+.subtitle{
+    font-size: 3vw;
+    margin: 5px;
+}
+.Ltext{
+    font-size: 1vw;
+    font-style: oblique;
+    margin: 5px;
+}
+.car_image{
+    max-width: 80%;
+}
+.estimate_button{
+    background: #9B334E;
+    text-align: center;
+    font-size: 1.5vw;
+    color: white;
+    border-bottom: medium solid #dec717;
+    border-radius: 20px;
+    margin: 5px;
+}
+.estimate_button:hover{
+    background: maroon;
+}
+.estimate_price{
+    width: 70%;
+    font-size: 1vw;
+    margin: 5px;
+}
+.estimate_price:hover{
+    border-bottom: 2px solid #dec717;
 }
 
-.btn-check:active+.btn-primary, .btn-check:checked+.btn-primary,
-.btn-primary.active, .btn-primary:active, .show>.btn-primary.dropdown-toggle{
-    background-color: #9B334E !important;
-    border-color: #9B334E !important;
-
+@media (max-width: 830px) and (orientation: landscape)  {
+    .Estimate_main{
+        width: 70% !important;
+    }
+    .EstimatePrice{
+        width: 40% !important;
+        margin-left: 60% !important;
+        margin-top: -40%;
+    }
+    .estimate_price{
+        width: 80% !important;
+    }
+    .page_title{
+        font-size: 5vw !important;
+    }
+    .subtitle{
+        font-size: 4vw !important;
+    }
+    .Ltext{
+        font-size: 2.8vw !important;
+    }
+    .estimate_button{
+        font-size: 2.5vw !important;
+    }
+    .estimate_price{
+        font-size: 2vw !important;
+    }
+}
+@media (max-width: 1024px) and (orientation: portrait) {
+    .Estimate_main{
+        width: 100% !important;
+    }
+    .EstimatePrice{
+        width: 50% !important;
+        margin-left: 25% !important;
+    }
+    .estimate_price{
+        width: 80% !important;
+    }
+    .page_title{
+        font-size: 5.5vw !important;
+    }
+    .subtitle{
+        font-size: 4vw !important;
+    }
+    .Ltext{
+        font-size: 2.8vw !important;
+    }
+    .estimate_button{
+        font-size: 2.5vw !important;
+    }
+    .estimate_price{
+        font-size: 2vw !important;
+    }
+    .car_image{
+        max-width: 95% !important;
+    }
+}
+@media (min-width: 831px) and (orientation: landscape){
+    .EstimatePrice{
+        position: absolute !important;
+        left: 60% !important;
+        top: 25% !important;
+    }
 }

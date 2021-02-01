@@ -1,10 +1,10 @@
 package com.easylease.EasyLease.control.admin;
 
 import com.easylease.EasyLease.control.utility.IdGenerator;
+import com.easylease.EasyLease.model.admin.Admin;
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.advisor.AdvisorDao;
 import com.easylease.EasyLease.model.advisor.DbAdvisorDao;
-import com.easylease.EasyLease.model.user.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -37,11 +37,11 @@ public class AddAdvisorServlet extends HttpServlet {
     String role = (String) request.getSession().getAttribute("role");
     if (role == null) {
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
-          "/fragments/error403.jsp");
+              "/user/login.jsp");
       dispatcher.forward(request, response);
     } else if (role.equalsIgnoreCase("admin") == false) {
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
-          "/fragments/error403.jsp");
+              "/user/login.jsp");
       dispatcher.forward(request, response);
     } else {
 
@@ -108,7 +108,7 @@ public class AddAdvisorServlet extends HttpServlet {
           advisorDao.insert(advisor, advisorPassword);
 
           //defined the session parameters
-          User user = (User) request.getSession().getAttribute("user");
+          Admin user = (Admin) request.getSession().getAttribute("user");
 
           request.getSession().setAttribute("user", user);
           request.getSession().setAttribute("role", "admin");

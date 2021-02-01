@@ -1,6 +1,6 @@
 package com.easylease.EasyLease.control.admin;
 
-import com.easylease.EasyLease.model.user.User;
+import com.easylease.EasyLease.model.admin.Admin;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,14 +24,14 @@ public class ViewAddAdvisorServlet extends HttpServlet {
     String role = (String) request.getSession().getAttribute("role");
     if (role == null) {
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
-          "/fragments/error403.jsp");
+              "/user/login.jsp");
       dispatcher.forward(request, response);
     } else if (role.equalsIgnoreCase("admin") == false) {
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
-          "/fragments/error403.jsp");
+              "/user/login.jsp");
       dispatcher.forward(request, response);
     } else {
-      User user = (User) request.getSession().getAttribute("user");
+      Admin user = (Admin) request.getSession().getAttribute("user");
       request.getSession().setAttribute("user", user);
       request.getSession().setAttribute("role", "admin");
       request.getSession().setAttribute("error", "");

@@ -1,25 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@page import="com.easylease.EasyLease.model.car.Car" %>
 <%String role=(String) request.getSession().getAttribute("role");
-if(role==null){%>
-  <html>
-<head>
-  <title>Update Car</title>
-</head>
-<body onload="window.location.href='fragments/error403.jsp'">
-
-</body>
-</html>
-<%}else if(role.equalsIgnoreCase("admin")==false){ %>
-<html>
-<head>
-  <title>Update Car</title>
-</head>
-<body onload="window.location.href='fragments/error403.jsp'">
-
-</body>
-</html>
-<%}else {
+if(role==null){
+  response.sendRedirect(request.getContextPath() + "/LoginViewServlet");
+  return;
+}else if(role.equalsIgnoreCase("admin")==false){
+  response.sendRedirect(request.getContextPath() + "/LoginViewServlet");
+  return;
+}else {
 %>
 <%
   String id=""; String brand=""; String model=""; float price=0; String car_type=""; int doors=0;

@@ -1,10 +1,10 @@
 package com.easylease.EasyLease.control.admin;
 
 
+import com.easylease.EasyLease.model.admin.Admin;
 import com.easylease.EasyLease.model.car.Car;
 import com.easylease.EasyLease.model.car.CarDao;
 import com.easylease.EasyLease.model.car.DbCarDao;
-import com.easylease.EasyLease.model.user.User;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,25 +29,25 @@ import javax.servlet.http.Part;
 @WebServlet("/UpdateCarServlet")
 @MultipartConfig
 public class UpdateCarServlet extends HttpServlet {
-  static CarDao CarDAO = DbCarDao.getInstance();
 
   protected void doPost(
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
+    CarDao CarDao = DbCarDao.getInstance();
     String role = (String) request.getSession().getAttribute("role");
     if (role == null) {
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
-          "/fragments/error403.jsp");
+              "/user/login.jsp");
       dispatcher.forward(request, response);
     } else if (role.equalsIgnoreCase("admin") == false) {
       RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
-          "/fragments/error403.jsp");
+          "/user/login.jsp");
       dispatcher.forward(request, response);
     } else {
 
       String id = request.getParameter("ID_Update");
       if (id != null && !id.equalsIgnoreCase("")) {
-        Car car = CarDAO.retrieveById(id);
+        Car car = CarDao.retrieveById(id);
         String brand = request.getParameter("brand_Update");
         /*case update car brand.*/
         if (brand != null && !brand.equalsIgnoreCase("")) {
@@ -153,9 +153,9 @@ public class UpdateCarServlet extends HttpServlet {
           }
         }
 
-        CarDAO.update(car);
+        CarDao.update(car);
 
-        User user = (User) request.getSession().getAttribute("user");
+        Admin user = (Admin) request.getSession().getAttribute("user");
         request.getSession().setAttribute("user", user);
         request.getSession().setAttribute("role", "admin");
         request.getSession().setAttribute("carList", null);

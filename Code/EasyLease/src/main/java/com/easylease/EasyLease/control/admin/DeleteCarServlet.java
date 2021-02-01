@@ -1,10 +1,10 @@
 package com.easylease.EasyLease.control.admin;
 
 
+import com.easylease.EasyLease.model.admin.Admin;
 import com.easylease.EasyLease.model.car.Car;
 import com.easylease.EasyLease.model.car.CarDao;
 import com.easylease.EasyLease.model.car.DbCarDao;
-import com.easylease.EasyLease.model.user.User;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/DeleteCarServlet")
 public class DeleteCarServlet extends HttpServlet {
-  static CarDao CarDAO = DbCarDao.getInstance();
 
   protected void doPost(
           HttpServletRequest request,
@@ -32,27 +31,29 @@ public class DeleteCarServlet extends HttpServlet {
   protected void doGet(
           HttpServletRequest request,
           HttpServletResponse response) throws ServletException, IOException {
+    CarDao CarDao = DbCarDao.getInstance();
     String role = (String) request.getSession().getAttribute("role");
     if (role == null) {
       RequestDispatcher dispatcher =
-          getServletContext().getRequestDispatcher("/fragments/error403.jsp");
+          getServletContext().getRequestDispatcher("/user/login.jsp");
       dispatcher.forward(request, response);
     } else if (role.equalsIgnoreCase("admin") == false) {
       RequestDispatcher dispatcher =
-          getServletContext().getRequestDispatcher("/fragments/error403.jsp");
+          getServletContext().getRequestDispatcher("/user/login.jsp");
       dispatcher.forward(request, response);
     } else {
 
       String id = request.getParameter("ID_Delete");
       if (id != null && !id.equalsIgnoreCase("")) {
-        Car car = CarDAO.retrieveById(id);
+        Car car = CarDao.retrieveById(id);
         car.setVisibility(false);
-        CarDAO.update(car);
+        CarDao.update(car);
         File canc = new File(request.getServletContext().getRealPath("img"));
         File rem = new File(canc, car.getImage());
         Files.delete(rem.toPath());
 
-        User user = (User) request.getSession().getAttribute("user");
+        Admin user = (Admin) request.getSession().getAttribute("user");
+
         request.getSession().setAttribute("user", user);
         request.getSession().setAttribute("role", "admin");
         request.getSession().setAttribute("carList", null);
