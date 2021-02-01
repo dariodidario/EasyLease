@@ -8,200 +8,161 @@
 
 
 <%
-    if (request.getSession() == null) {
-        response.sendRedirect(request.getContextPath() + "/LoginViewServlet");
-    }
-    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-    Order order = (Order) request.getAttribute("order");
-    if (order == null) {
-        response.sendRedirect(request.getContextPath() + "/OrderValidationViewServlet");
-        return;
-    }
-    ArrayList<Optional> caroptionals = new ArrayList<Optional>();
-    ArrayList<Optional> contractoptionals = new ArrayList<Optional>();
-    for (Optional o : order.getEstimate().getOptionalList()) {
-        if (o.getOptionalType().equals("Auto"))
-            caroptionals.add(o);
-        else if (o.getOptionalType().equals("Contratto"))
-            contractoptionals.add(o);
-    }
+  if(request.getSession() == null){
+    response.sendRedirect(request.getContextPath() + "/ViewLoginServlet");
+  }
+  SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+  Order order = (Order) request.getAttribute("order");
+  if (order == null) {
+    response.sendRedirect(request.getContextPath() + "/OrderValidationViewServlet");
+    return;
+  }
+  ArrayList<Optional> caroptionals = new ArrayList<Optional>();
+  ArrayList<Optional> contractoptionals = new ArrayList<Optional>();
+  for(Optional o : order.getEstimate().getOptionalList()){
+    if(o.getOptionalType().equals("Auto"))
+      caroptionals.add(o);
+    else if (o.getOptionalType().equals("Contratto"))
+      contractoptionals.add(o);
+  }
 %>
 <html>
 <head>
-    <title>Order Validation Advisor</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/advisor/estimateManagementAdvisor.css"/>
+  <title>Approva Ordini</title>
+  <link rel="stylesheet" href="advisor/orderValidation.css">
 </head>
 <body>
-<%@include file="/fragments/header.jsp" %>
-<div class="container">
-    <div class="row">
-        <div class="col-12 col-md-6">
-            <div class="car_name">
-                <%= order.getEstimate().getCar().getBrand() + " " + order.getEstimate().getCar().getModel()%>
-            </div>
-            <img src="${pageContext.request.contextPath}/img/<%=order.getEstimate().getCar().getImage()%>"
-                 class="img-fluid">
-        </div>
-        <div class="col-12 col-md-6">
-            <div class="col" align="center">
-                <div class="car_spec_text">
-                    <h2>Informazioni auto</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h4>ID Ordine</h4>
-                </div>
-                <div class="col">
-                    <h4><%=order.getIdOrder()%>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h4>Cliente</h4>
-                </div>
-                <div class="col">
-                    <h4><%=order.getEstimate().getClient().getFirstName() + " " +
-                            order.getEstimate().getClient().getSurname() %>
-                    </h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h4>Data Inizio</h4>
-                </div>
-                <div class="col">
-                    <h4><%=order.getStartDate() != null
-                            ? format.format(order.getStartDate())
-                            : "Data non disponibile" %>
-                    </h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h4>Periodo</h4>
-                </div>
-                <div class="col">
-                    <h4><%=order.getEstimate().getPeriod() + " mesi"%>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h4>Stato</h4>
-                </div>
-                <div class="col">
-                    <h4><%=order.getState()%>
-                </div>
-            </div>
-            <div class="car_optional_text">Optional</div>
-            <div class="table-responsive">
-                <table class="table">
-                    <%
-                        if (caroptionals.size() > 0 || contractoptionals.size() > 0)
-                    %>
-                    <thead>
-                    <tr>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Costo</th>
-                        <th scope="col">Tipo</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <%
-                            if (caroptionals.size() > 0) {
-                                Iterator<Optional> carIterator = caroptionals.iterator();
-                                while (carIterator.hasNext()) {
-                                    Optional carOptional = carIterator.next();
-                        %>
-                        <td data-th="Nome"><%=carOptional.getOptionalName()%>
-                        </td>
-                        <td data-th="Costo"><%=carOptional.getPrice()%>
-                        </td>
-                        <td data-th="Tipo"><%=carOptional.getOptionalType()%>
-                        </td>
-                    </tr>
-                    <tr>
-                        <%
-                                }
-                            }
-                            if (contractoptionals.size() > 0) {
-                                Iterator<Optional> contractIterator = contractoptionals.iterator();
-                                while (contractIterator.hasNext()) {
-                                    Optional contractOptional = contractIterator.next();
-                        %>
-                        <td data-th="Nome"><%=contractOptional.getOptionalName()%>
-                        </td>
-                        <td data-th="Costo"><%=contractOptional.getPrice()%>
-                        </td>
-                        <td data-th="Tipo"><%=contractOptional.getOptionalType()%>
-                        </td>
-                    </tr>
-                    </tbody>
-                    <%
-                        }
-                    } else {
-                    %>
-                    <div class="no_optionals_text" colspan="6"> Nussun optional selezionato</div>
-                    <%
-                        }
-                    %>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="row justify-content-md-center">
-        <div class="col" align="center" id="price_section">
-            <div class="img">
-                <div class="order_status">
-                    <%
-                        if (order.getEstimate().getPrice() > 0) {
-                    %>
-                    <h2>Prezzo totale</h2>
-                    <h2 class="price">
-                        <%=String.format("%.2f", order.getEstimate().getPrice()) + "€"%>
-                    </h2>
-                    <h2>Prezzo mensile</h2>
-                    <h2 class="price">
-                        <%=String.format("%.2f", order.getEstimate().getPrice() / order.getEstimate().getPeriod()) +
-                                "€"%>
-                    </h2>
-                    <%
-                    } else {
-                    %>
-                    <h2>Prezzo non disponibile</h2>
-                    <%
-                        }
-                    %>
-                </div>
-                <%
-                    if (order.getState().equals("Pagato")) {
-                %>
-                <div class="row">
-                    <div class="col-12">
-                        <form action="${pageContext.request.contextPath}/OrderValidationServlet" method="post">
-                            <label for="date" class="form-label mt-3">Data di ritiro</label>
-                            <input type="date" class="form-control" id="date" name="date"
-                                   min="<%= new SimpleDateFormat("yyyy-MM-dd").format(new Date())%>" required>
-                            <input type="hidden" value="<%=order.getIdOrder()%>" name="id">
-                            <input type="hidden" value="<%="true"%>" , name="choice">
-                            <button type="submit" class="btn btn-primary mt-3 btn-lg active" role="button"
-                                    aria-pressed="true" id="validation">
-                                Conferma
-                            </button>
-                        </form>
-                    </div>
-                </div>
-                <%
-                    }
-                %>
-            </div>
-        </div>
-    </div>
+<div><%@include file="/fragments/header.jsp"%></div>
+<div class = "container">
+  <table class="Contract_main">
+    <tr><td><label class="page_title"><%= order.getEstimate().getCar().getBrand() + " " + order.getEstimate().getCar().getModel()%></label></td></tr>
+    <tr><td><img class="car_image" src="${pageContext.request.contextPath}/img/<%=order.getEstimate().getCar().getImage()%>"></td></tr>
+  </table>
+
+
+
+
+
+
+
+  <div class="Contract_information">
+    <br>
+    <table class="car_information" align="center">
+      <tr>
+        <td colspan="5" align="center"><label class="subtitle">Informazioni auto</label></td>
+      </tr>
+      <tr>
+        <td><label class="Ltext">ID Ordine</label></td>
+        <td><label class="Ltext">Cliente</label></td>
+        <td><label class="Ltext">Data Inizio</label></td>
+        <td><label class="Ltext">Periodo</label></td>
+        <td><label class="Ltext">Stato</label></td>
+      </tr>
+      <tr>
+        <td><label class="Ltext"><%=order.getIdOrder()%></label></td>
+        <td><label class="Ltext"><%=order.getEstimate().getClient().getFirstName() + " " + order.getEstimate().getClient().getSurname()%></label></td>
+        <td><label class="Ltext"><%=order.getStartDate() != null ? format.format(order.getStartDate()) : "Data non disponibile"%></label></td>
+        <td><label class="Ltext"><%=order.getEstimate().getPeriod() + " mesi"%></label></td>
+        <td><label class="Ltext"><%=order.getState()%></label></td>
+      </tr>
+    </table>
+
+
+
+
+    <br>
+    <table class="car_optionals">
+      <tr>
+        <td colspan="3" align="center">
+          <label class="subtitle">Optional</label>
+        </td>
+      </tr>
+      <tr>
+        <td><label class="Ltext">Nome</label></td>
+        <td><label class="Ltext">Costo</label></td>
+        <td><label class="Ltext">Tipo</label></td>
+      </tr>
+      <%
+        if(caroptionals.size() > 0){
+          Iterator<Optional> carIterator = caroptionals.iterator();
+          while(carIterator.hasNext()){
+            Optional carOptional = carIterator.next();
+      %>
+      <tr>
+        <td><label class="Ltext"><%=carOptional.getOptionalName()%></label></td>
+        <td><label class="Ltext"><%=carOptional.getPrice()%></label></td>
+        <td><label class="Ltext"><%=carOptional.getOptionalType()%></label></td>
+      </tr>
+      <%
+          }
+        }
+        if(contractoptionals.size() > 0){
+          Iterator<Optional> contractIterator = contractoptionals.iterator();
+          while(contractIterator.hasNext()){
+            Optional contractOptional = contractIterator.next();
+      %>
+      <tr>
+        <td><label class="Ltext"><%=contractOptional.getOptionalName()%></label></td>
+        <td><label class="Ltext"><%=contractOptional.getPrice()%></label></td>
+        <td><label class="Ltext"><%=contractOptional.getOptionalType()%></label></td>
+      </tr>
+      <%
+        }
+      } else {
+      %>
+      <tr><td colspan="3" align="center"><label class="Etext">Nussun optional selezionato</label></td></tr>
+      <%
+        }
+      %>
+    </table>
+  </div>
+
+
+  <table class="Contract_price" align="center">
+    <%
+      if(order.getEstimate().getPrice() >0){
+    %>
+    <tr>
+      <td align="center"><label class="subtitle">Prezzo totale</label></td>
+    </tr>
+    <tr>
+      <td align="center"><label class="Ltext"><%=String.format("%.2f", order.getEstimate().getPrice()) + "€"%></label></td>
+    </tr>
+    <tr>
+      <td align="center"><label class="subtitle">Prezzo mensile</label></td>
+    </tr>
+    <tr>
+      <td align="center"><label class="Ltext"><%=String.format("%.2f", order.getEstimate().getPrice()/order.getEstimate().getPeriod()) + "€"%></label></td>
+    </tr>
+    <%
+    } else {
+    %>
+    <tr><td align="center"><label class="Etext">Prezzo non disponibile</label></td></tr>
+    <%
+      }
+    %>
+    <tr>
+      <td>
+        <%
+          if(order.getState().equals("Pagato")){
+        %>
+        <form action = "${pageContext.request.contextPath}/OrderValidationServlet" method="post">
+          <input type = "hidden" value="<%=order.getIdOrder()%>", name="id">
+          <label for = "date" class = "Contract_confirm">Data di ritiro</label>
+          <input type = "date" class= "confirm_date" id="date" name = "date" min="<%= new SimpleDateFormat("yyyy-MM-dd").format(new Date())%>" required>
+          <button type="submit" id="validation" class="confirm_button" role = "button" aria-pressed ="true">
+            Conferma
+          </button>
+        </form>
+        <%
+          }
+        %>
+      </td>
+    </tr>
+  </table>
+
 
 </div>
-<div>
-    <%@include file="/fragments/footer.jsp" %>
-</div>
+<div><%@include file="/fragments/footer.jsp"%></div>
 </body>
 </html>
