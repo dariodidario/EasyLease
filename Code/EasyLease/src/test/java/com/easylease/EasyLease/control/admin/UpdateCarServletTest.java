@@ -39,7 +39,6 @@ class UpdateCarServletTest {
   private HttpServletResponse response;
   private HttpSession session;
   private CarDao carDao;
-  private Car car;
   private StringWriter responseWriter;
   private RequestDispatcher dispatcher;
   private ServletContext context;
@@ -851,6 +850,7 @@ class UpdateCarServletTest {
 
   @Test
   void testBrandNotEqual() throws ServletException, IOException {
+    Car car = carDao.retrieveById("CA6fSIJ");
 
     when(request.getPart("img_car_Update")).thenReturn(null);
     when(request.getSession().getAttribute("role")).thenReturn("admin");
@@ -873,13 +873,13 @@ class UpdateCarServletTest {
     servlet.doPost(request, response);
     Car car1 = carDao.retrieveById("CA6fSIJ");
     assertNotEquals(car1.getBrand(), car.getBrand());
-    Car car = carDao.retrieveById("CA6fSIJ");
     carDao.update(car);
   }
 
 
   @Test
   void testModelNotEqual() throws ServletException, IOException {
+    Car car = carDao.retrieveById("CA6fSIJ");
 
     when(request.getPart("img_car_Update")).thenReturn(null);
     when(request.getSession().getAttribute("role")).thenReturn("admin");
@@ -902,12 +902,13 @@ class UpdateCarServletTest {
     servlet.doPost(request, response);
     Car car1 = carDao.retrieveById("CA6fSIJ");
     assertNotEquals(car1.getModel(), car.getModel());
-    Car car = carDao.retrieveById("CA6fSIJ");
+
     carDao.update(car);
   }
 
   @Test
   void testDoorsNotEqual() throws ServletException, IOException {
+    Car car = carDao.retrieveById("CA6fSIJ");
 
     when(request.getPart("img_car_Update")).thenReturn(null);
     when(request.getSession().getAttribute("role")).thenReturn("admin");
@@ -930,13 +931,14 @@ class UpdateCarServletTest {
     servlet.doPost(request, response);
     Car car1 = carDao.retrieveById("CA6fSIJ");
     assertNotEquals(car1.getDoors(), car.getDoors());
-    Car car = carDao.retrieveById("CA6fSIJ");
+
     carDao.update(car);
   }
 
 
   @Test
   void testTypeNotEqual() throws ServletException, IOException {
+    Car car = carDao.retrieveById("CA6fSIJ");
 
     when(request.getPart("img_car_Update")).thenReturn(null);
     when(request.getSession().getAttribute("role")).thenReturn("admin");
@@ -959,12 +961,13 @@ class UpdateCarServletTest {
     servlet.doPost(request, response);
     Car car1 = carDao.retrieveById("CA6fSIJ");
     assertNotEquals(car1.getType(), car.getType());
-    Car car = carDao.retrieveById("CA6fSIJ");
+
     carDao.update(car);
   }
 
   @Test
   void testTransmissionNotEqual() throws ServletException, IOException {
+    Car car = carDao.retrieveById("CA6fSIJ");
 
     when(request.getPart("img_car_Update")).thenReturn(null);
     when(request.getSession().getAttribute("role")).thenReturn("admin");
@@ -987,12 +990,13 @@ class UpdateCarServletTest {
     servlet.doPost(request, response);
     Car car1 = carDao.retrieveById("CA6fSIJ");
     assertNotEquals(car1.getTransmission(), car.getTransmission());
-    Car car = carDao.retrieveById("CA6fSIJ");
+
     carDao.update(car);
   }
 
   @Test
   void testAvgNotEqual() throws ServletException, IOException {
+    Car car = carDao.retrieveById("CA6fSIJ");
 
     when(request.getPart("img_car_Update")).thenReturn(null);
     when(request.getSession().getAttribute("role")).thenReturn("admin");
@@ -1015,13 +1019,14 @@ class UpdateCarServletTest {
     servlet.doPost(request, response);
     Car car1 = carDao.retrieveById("CA6fSIJ");
     assertNotEquals(car1.getAvgConsumption(), car.getAvgConsumption());
-    Car car = carDao.retrieveById("CA6fSIJ");
+
     carDao.update(car);
   }
 
 
   @Test
   void testHorseNotEqual() throws ServletException, IOException {
+    Car car = carDao.retrieveById("CA6fSIJ");
 
     when(request.getPart("img_car_Update")).thenReturn(null);
     when(request.getSession().getAttribute("role")).thenReturn("admin");
@@ -1044,13 +1049,14 @@ class UpdateCarServletTest {
     servlet.doPost(request, response);
     Car car1 = carDao.retrieveById("CA6fSIJ");
     assertNotEquals(car1.getHorsePower(), car.getHorsePower());
-    car = carDao.retrieveById("CA6fSIJ");
+
     carDao.update(car);
   }
 
 
   @Test
   void testEmissionClassNotEqual() throws ServletException, IOException {
+    Car car = carDao.retrieveById("CA6fSIJ");
 
     when(request.getPart("img_car_Update")).thenReturn(null);
     when(request.getSession().getAttribute("role")).thenReturn("admin");
@@ -1073,13 +1079,14 @@ class UpdateCarServletTest {
     servlet.doPost(request, response);
     Car car1 = carDao.retrieveById("CA6fSIJ");
     assertNotEquals(car1.getEmissionClass(), car.getEmissionClass());
-    Car car = carDao.retrieveById("CA6fSIJ");
+
     carDao.update(car);
   }
 
 
   @Test
   void testCo2NotEqual() throws ServletException, IOException {
+    Car car = carDao.retrieveById("CA6fSIJ");
 
     when(request.getPart("img_car_Update")).thenReturn(null);
     when(request.getSession().getAttribute("role")).thenReturn("admin");
@@ -1102,13 +1109,14 @@ class UpdateCarServletTest {
     servlet.doPost(request, response);
     Car car1 = carDao.retrieveById("CA6fSIJ");
     assertNotEquals(car1.getCo2Emissions(), car.getCo2Emissions());
-    Car car = carDao.retrieveById("CA6fSIJ");
+
     carDao.update(car);
   }
 
 
   @Test
   void testPowerNotEqual() throws ServletException, IOException {
+    Car car = carDao.retrieveById("CA6fSIJ");
 
     when(request.getPart("img_car_Update")).thenReturn(null);
     when(request.getSession().getAttribute("role")).thenReturn("admin");
@@ -1131,13 +1139,14 @@ class UpdateCarServletTest {
     servlet.doPost(request, response);
     Car car1 = carDao.retrieveById("CA6fSIJ");
     assertNotEquals(car1.getPowerSupply(), car.getPowerSupply());
-    Car car = carDao.retrieveById("CA6fSIJ");
+
     carDao.update(car);
   }
 
 
   @Test
   void testCapacityNotEqual() throws ServletException, IOException {
+    Car car = carDao.retrieveById("CA6fSIJ");
 
     when(request.getPart("img_car_Update")).thenReturn(null);
     when(request.getSession().getAttribute("role")).thenReturn("admin");
@@ -1160,13 +1169,14 @@ class UpdateCarServletTest {
     servlet.doPost(request, response);
     Car car1 = carDao.retrieveById("CA6fSIJ");
     assertNotEquals(car1.getCapacity(), car.getCapacity());
-    Car car = carDao.retrieveById("CA6fSIJ");
+
     carDao.update(car);
   }
 
 
   @Test
   void testPriceNotEqual() throws ServletException, IOException {
+    Car car = carDao.retrieveById("CA6fSIJ");
 
     when(request.getPart("img_car_Update")).thenReturn(null);
     when(request.getSession().getAttribute("role")).thenReturn("admin");
@@ -1189,7 +1199,7 @@ class UpdateCarServletTest {
     servlet.doPost(request, response);
     Car car1 = carDao.retrieveById("CA6fSIJ");
     assertNotEquals(car1.getPrice(), car.getPrice());
-    Car car = carDao.retrieveById("CA6fSIJ");
+
     carDao.update(car);
   }
 
