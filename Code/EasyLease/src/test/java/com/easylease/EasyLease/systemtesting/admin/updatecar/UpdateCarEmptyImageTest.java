@@ -77,8 +77,6 @@ public class UpdateCarEmptyImageTest {
     driver.findElement(By.xpath("//button[@type='submit']")).click();
     driver.findElement(By.xpath("//div[3]/div/a/img")).click();
     driver.findElement(By.name("Modifica Auto")).click();
-    driver.findElement(By.id("matita_image")).click();
-    driver.findElement(By.xpath("//button")).click();
     driver.findElement(By.id("buttonUpdateCar")).click();
     driver.findElement(By.xpath("//a[contains(@href, '#')]")).click();
     driver.findElement(By.linkText("Logout")).click();
