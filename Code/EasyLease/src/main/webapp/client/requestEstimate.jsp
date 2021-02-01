@@ -27,7 +27,7 @@
 <body>
 
 <div class="RequestEstimateForm">
-    <img src="${pageContext.request.contextPath}/foto/newLogo.png" class="logo">
+    <img src="${pageContext.request.contextPath}/img/misc/logo4%20(1).png" class="logo">
     <div class="EstimateLabel">
         Auto scelta: <%=car.getBrand() + " " + car.getModel()%> </div>
     <form action="${pageContext.request.contextPath}/RequestEstimateServlet" method="post">

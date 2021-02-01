@@ -51,7 +51,7 @@ public class ViewUpdateCarServlet extends HttpServlet {
         request.getSession().setAttribute("user", user);
         request.getSession().setAttribute("role", "admin");
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
-            "/fragments/error403.jsp");
+            "/user/login.jsp");
         dispatcher.forward(request, response);
       }
 

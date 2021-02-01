@@ -76,7 +76,7 @@ class AddAdvisorServletTest {
     when(request.getSession().getAttribute("role")).thenReturn(null);
 
     servlet.doGet(request, response);
-    verify(context).getRequestDispatcher("/fragments/error403.jsp");
+    verify(context).getRequestDispatcher("/user/login.jsp");
 
   }
 
@@ -85,7 +85,7 @@ class AddAdvisorServletTest {
     when(request.getSession().getAttribute("role")).thenReturn("client");
 
     servlet.doGet(request, response);
-    verify(context).getRequestDispatcher("/fragments/error403.jsp");
+    verify(context).getRequestDispatcher("/user/login.jsp");
   }
 
   @Test
@@ -186,10 +186,10 @@ class AddAdvisorServletTest {
   void testCheckAdvisorFalse() throws ServletException, IOException {
 
     when(request.getSession().getAttribute("role")).thenReturn("admin");
-    when(request.getParameter("advisor_name")).thenReturn("Clementina");
-    when(request.getParameter("advisor_surname")).thenReturn("Rossa");
+    when(request.getParameter("advisor_name")).thenReturn("Marco");
+    when(request.getParameter("advisor_surname")).thenReturn("Greco");
     when(request.getParameter("advisor_email")).thenReturn(
-        "rossa.clementina@frutta.com");
+        "marcoGreco@easylease.com");
     when(request.getParameter("advisor_date")).thenReturn("2020-08-12");
     when(request.getParameter("advisor_password")).thenReturn("pass");
     when(request.getParameter("email_valid")).thenReturn("true");

@@ -69,7 +69,7 @@ public class AddCarWrongHorsesTest {
     driver.findElement(By.linkText("Login")).click();
     driver.findElement(By.id("email")).click();
     driver.findElement(By.id("email")).clear();
-    driver.findElement(By.id("email")).sendKeys("giu.digiamp@giudigiamp.com");
+    driver.findElement(By.id("email")).sendKeys("lucaVerdi@easylease.com");
     driver.findElement(By.id("password")).click();
     driver.findElement(By.id("password")).clear();
     driver.findElement(By.id("password")).sendKeys("pass");

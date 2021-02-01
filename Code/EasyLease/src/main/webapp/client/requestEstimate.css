@@ -2,9 +2,8 @@
 
 .RequestEstimateForm{
     width:50%;
-    height:100%;
+    height:auto;
     text-align:center;
-    item-align:center;
     background-color:#FFFFFF;
     display:block;
     margin: 0 auto;
@@ -21,7 +20,7 @@
     background-color: #9B334E;
     border: none;
     color: white;
-    padding: 1em 6em;
+    padding: 2% 13%;
     text-decoration: none;
     border-radius:0.5em;
     font-size:1em;
@@ -54,4 +53,28 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 .logo{
     max-width: 80%;
+}
+
+@media (max-width:560px) {
+    .EstimateLabel{
+        font-size:1em;
+    }
+    .EstimateButton{
+        padding: 6% 8%;
+        font-size:0.8em;
+    }
+    .EstimateCheckbox{
+        transform: scale(1);}
+
+}
+
+@media (max-width: 900px) {
+    .EstimateButton{
+        padding: 3% 8%;
+    }
+    .EstimateCheckbox{
+        transform: scale(1.5);}
+    .EstimateLabel{
+        font-size:1.2em;
+    }
 }
