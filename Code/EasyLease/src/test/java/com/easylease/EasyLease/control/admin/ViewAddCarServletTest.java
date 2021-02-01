@@ -46,7 +46,7 @@ class ViewAddCarServletTest {
     when(request.getSession().getAttribute("role")).thenReturn(null);
 
     servlet.doGet(request, response);
-    verify(context).getRequestDispatcher("/fragments/error403.jsp");
+    verify(context).getRequestDispatcher("/user/login.jsp");
   }
 
   @Test
@@ -54,7 +54,7 @@ class ViewAddCarServletTest {
     when(request.getSession().getAttribute("role")).thenReturn("client");
 
     servlet.doGet(request, response);
-    verify(context).getRequestDispatcher("/fragments/error403.jsp");
+    verify(context).getRequestDispatcher("/user/login.jsp");
   }
 
   @Test

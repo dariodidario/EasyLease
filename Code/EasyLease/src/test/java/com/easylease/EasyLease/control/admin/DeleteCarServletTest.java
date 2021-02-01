@@ -86,7 +86,7 @@ class DeleteCarServletTest {
     when(request.getParameter("ID_Delete")).thenReturn("CAAA111");
 
     servlet.doGet(request, response);
-    verify(context).getRequestDispatcher("/fragments/error403.jsp");
+    verify(context).getRequestDispatcher("/user/login.jsp");
   }
 
   @Test
@@ -95,7 +95,7 @@ class DeleteCarServletTest {
     when(request.getParameter("ID_Delete")).thenReturn("CAAA111");
 
     servlet.doGet(request, response);
-    verify(context).getRequestDispatcher("/fragments/error403.jsp");
+    verify(context).getRequestDispatcher("/user/login.jsp");
   }
 
 

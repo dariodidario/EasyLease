@@ -142,7 +142,7 @@ class UpdateCarServletTest {
     when(request.getSession().getAttribute("role")).thenReturn(null);
 
     servlet.doGet(request, response);
-    verify(context).getRequestDispatcher("/fragments/error403.jsp");
+    verify(context).getRequestDispatcher("/user/login.jsp");
   }
 
   @Test
@@ -150,7 +150,7 @@ class UpdateCarServletTest {
     when(request.getSession().getAttribute("role")).thenReturn("client");
 
     servlet.doGet(request, response);
-    verify(context).getRequestDispatcher("/fragments/error403.jsp");
+    verify(context).getRequestDispatcher("/user/login.jsp");
   }
 
   @Test
@@ -1044,7 +1044,7 @@ class UpdateCarServletTest {
     servlet.doPost(request, response);
     Car car1 = carDao.retrieveById("CA6fSIJ");
     assertNotEquals(car1.getHorsePower(), car.getHorsePower());
-    Car car = carDao.retrieveById("CA6fSIJ");
+    car = carDao.retrieveById("CA6fSIJ");
     carDao.update(car);
   }
 

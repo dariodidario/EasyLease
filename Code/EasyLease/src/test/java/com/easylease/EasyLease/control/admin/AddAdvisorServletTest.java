@@ -76,7 +76,7 @@ class AddAdvisorServletTest {
     when(request.getSession().getAttribute("role")).thenReturn(null);
 
     servlet.doGet(request, response);
-    verify(context).getRequestDispatcher("/fragments/error403.jsp");
+    verify(context).getRequestDispatcher("/user/login.jsp");
 
   }
 
@@ -85,7 +85,7 @@ class AddAdvisorServletTest {
     when(request.getSession().getAttribute("role")).thenReturn("client");
 
     servlet.doGet(request, response);
-    verify(context).getRequestDispatcher("/fragments/error403.jsp");
+    verify(context).getRequestDispatcher("/user/login.jsp");
   }
 
   @Test
