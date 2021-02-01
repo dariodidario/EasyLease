@@ -75,7 +75,7 @@ class DbAdminDaoTest {
 
   @Test
   void retrieveByEmail_Success() {
-    String adminEmail = "giu.digiamp@giudigiamp.com";
+    String adminEmail = "lucaVerdi@easylease.com";
     Admin admin = adminDao.retrieveByEmail(adminEmail);
     assertEquals(adminEmail, admin.getEmail());
   }
@@ -92,7 +92,7 @@ class DbAdminDaoTest {
 
   @Test
   void retrievePasswordByEmail_Success() {
-    String adminEmail = "giu.digiamp@giudigiamp.com";
+    String adminEmail = "lucaVerdi@easylease.com";
     assertEquals("9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684",
         adminDao.retrievePasswordByEmail(adminEmail));
   }

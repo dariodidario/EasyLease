@@ -77,8 +77,8 @@ class DbAdvisorDaoTest {
   @Test
   public void retrieveByEmail_CorrectEmailGiven_ExpectedTrue() {
     Advisor advisor = dbAdvisorDao.retrieveByEmail(
-        "rossa.clementina@frutta.com");
-    assertEquals("rossa.clementina@frutta.com", advisor.getEmail());
+        "marcoGreco@easylease.com");
+    assertEquals("marcoGreco@easylease.com", advisor.getEmail());
   }
 
   @Test
@@ -101,7 +101,7 @@ class DbAdvisorDaoTest {
   @Test
   void retrievePasswordByMail_ExistingMailGiven_ExpectedTrue() throws SQLException {
     assertEquals("9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684",
-        dbAdvisorDao.retrievePasswordByEmail("rossa.clementina@frutta.com"));
+        dbAdvisorDao.retrievePasswordByEmail("marcoGreco@easylease.com"));
   }
 
   @Test

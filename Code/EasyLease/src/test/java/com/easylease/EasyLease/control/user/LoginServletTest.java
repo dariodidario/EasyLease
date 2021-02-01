@@ -98,7 +98,7 @@ public class LoginServletTest {
 
   @Test
   void successAdmin() throws ServletException, IOException {
-    when(request.getParameter("userEmail")).thenReturn("giu.digiamp@giudigiamp.com");
+    when(request.getParameter("userEmail")).thenReturn("lucaVerdi@easylease.com");
     when(request.getParameter("userPassword")).thenReturn("pass");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
@@ -108,7 +108,7 @@ public class LoginServletTest {
 
   @Test
   void successAdvisor() throws ServletException, IOException {
-    when(request.getParameter("userEmail")).thenReturn("rossa.clementina@frutta.com");
+    when(request.getParameter("userEmail")).thenReturn("marcoGreco@easylease.com");
     when(request.getParameter("userPassword")).thenReturn("pass");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
@@ -143,7 +143,7 @@ public class LoginServletTest {
 
   @Test
   void unsuccessAdvisor() throws ServletException, IOException {
-    when(request.getParameter("userEmail")).thenReturn("rossa.clementina@frutta.com");
+    when(request.getParameter("userEmail")).thenReturn("marcoGreco@easylease.com");
     when(request.getParameter("userPassword")).thenReturn("a");
     servlet.doPost(request, response);
     request.getSession().removeAttribute("errata");
@@ -152,7 +152,7 @@ public class LoginServletTest {
 
   @Test
   void unsuccessAdmin() throws ServletException, IOException {
-    when(request.getParameter("userEmail")).thenReturn("giu.digiamp@giudigiamp.com");
+    when(request.getParameter("userEmail")).thenReturn("lucaVerdi@easylease.com");
     when(request.getParameter("userPassword")).thenReturn("a");
     servlet.doPost(request, response);
     request.getSession().removeAttribute("errata");
@@ -169,7 +169,7 @@ public class LoginServletTest {
 
   @Test
   void password_null() {
-    when(request.getParameter("userEmail")).thenReturn("giu.digiamp@giudigiamp.com");
+    when(request.getParameter("userEmail")).thenReturn("lucaVerdi@easylease.com");
     when(request.getParameter("userPassword")).thenReturn(null);
     assertThrows(NullPointerException.class, () -> {
       servlet.doGet(request, response);  });

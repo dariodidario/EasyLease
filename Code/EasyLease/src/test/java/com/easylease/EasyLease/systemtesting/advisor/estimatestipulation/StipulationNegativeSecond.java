@@ -42,7 +42,7 @@ public class StipulationNegativeSecond {
     driver.findElement(By.linkText("Login")).click();
     driver.findElement(By.id("email")).click();
     driver.findElement(By.id("email")).clear();
-    driver.findElement(By.id("email")).sendKeys("rossa.clementina@frutta.com");
+    driver.findElement(By.id("email")).sendKeys("marcoGreco@easylease.com");
     driver.findElement(By.id("password")).click();
     driver.findElement(By.id("password")).clear();
     driver.findElement(By.id("password")).sendKeys("pass");

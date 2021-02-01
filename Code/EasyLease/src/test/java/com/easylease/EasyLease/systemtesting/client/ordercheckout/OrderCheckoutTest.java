@@ -72,7 +72,7 @@ public class OrderCheckoutTest {
     driver.findElement(By.linkText("Login")).click();
     driver.findElement(By.id("email")).click();
     driver.findElement(By.id("email")).clear();
-    driver.findElement(By.id("email")).sendKeys("maestro.ioda@flex.com");
+    driver.findElement(By.id("email")).sendKeys("iodice.michele@gmail.com");
     driver.findElement(By.id("password")).click();
     driver.findElement(By.id("password")).clear();
     driver.findElement(By.id("password")).sendKeys("pass");
