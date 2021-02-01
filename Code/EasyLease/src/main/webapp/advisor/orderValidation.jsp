@@ -149,7 +149,7 @@
         <form action = "${pageContext.request.contextPath}/OrderValidationServlet" method="post">
           <input type = "hidden" value="<%=order.getIdOrder()%>", name="id">
           <label for = "date" class = "Contract_confirm">Data di ritiro</label>
-          <input type = "date" class= "confirm_date" id="date" name = "date" min="<%= new Date()%>" required>
+          <input type = "date" class= "confirm_date" id="date" name = "date" min="<%= new SimpleDateFormat("yyyy-MM-dd").format(new Date())%>" required>
           <button type="submit" class="confirm_button" role = "button" aria-pressed ="true">
             Conferma
           </button>
