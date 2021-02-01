@@ -1,9 +1,24 @@
 package com.easylease.EasyLease.control.advisor;
 
-import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import com.easylease.EasyLease.model.advisor.DbAdvisorDao;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
+import com.easylease.EasyLease.model.order.DbOrderDao;
 import com.easylease.EasyLease.model.order.Order;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,19 +26,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
 
 /**
  * @author Caprio Mattia
@@ -42,8 +44,8 @@ class OrderValidationServletTest {
   @Mock
   private RequestDispatcher dispatcher;
 
-  private final DBAdvisorDAO dbAdvisorDAO = (DBAdvisorDAO) DBAdvisorDAO.getInstance();
-  private DBOrderDAO dbOrderDAO;
+  private final DbAdvisorDao dbAdvisorDao = (DbAdvisorDao) DbAdvisorDao.getInstance();
+  private DbOrderDao dbOrderDao;
   private OrderValidationServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
 
@@ -51,7 +53,7 @@ class OrderValidationServletTest {
   void setUp() {
     MockitoAnnotations.openMocks(this);
     servlet = new OrderValidationServlet();
-    dbOrderDAO = (DBOrderDAO) DBOrderDAO.getInstance();
+    dbOrderDao = (DbOrderDao) DbOrderDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");
@@ -77,46 +79,46 @@ class OrderValidationServletTest {
   }
 
   @Test
-  void SuccessNotValidationOrder() throws ServletException, IOException {
-    Order order = dbOrderDAO.retrieveById("ORd3Jks");
+  void successNotValidationOrder() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(
-        dbAdvisorDAO.retrieveById("ADJdybc"));
+        dbAdvisorDao.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn("ORd3Jks");
     when(request.getParameter("choice")).thenReturn("false");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/advisor/orderManagementAdvisorJSP.jsp");
-    dbOrderDAO.update(order);
+        "/advisor/orderManagementAdvisor.jsp");
+    Order order = dbOrderDao.retrieveById("ORd3Jks");
+    dbOrderDao.update(order);
   }
 
   @Test
-  void SuccessValidationOrder() throws ServletException, IOException {
-    Order order = dbOrderDAO.retrieveById("ORd3Jks");
+  void successValidationOrder() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(
-        dbAdvisorDAO.retrieveById("ADJdybc"));
+        dbAdvisorDao.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn("ORd3Jks");
     when(request.getParameter("choice")).thenReturn("true");
     when(request.getParameter("date")).thenReturn("2021-01-17");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/advisor/orderManagementAdvisorJSP.jsp");
-    dbOrderDAO.update(order);
+        "/advisor/orderManagementAdvisor.jsp");
+    Order order = dbOrderDao.retrieveById("ORd3Jks");
+    dbOrderDao.update(order);
   }
 
   @Test
-  void SuccessWrongStateOrder() throws ServletException, IOException {
+  void successWrongStateOrder() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(
-        dbAdvisorDAO.retrieveById("ADJdybc"));
+        dbAdvisorDao.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn("ORlk7Bn");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
   void nullSession() throws ServletException, IOException {
     when(request.getSession()).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
@@ -124,24 +126,24 @@ class OrderValidationServletTest {
     when(request.getSession().getAttribute("user")).thenReturn(new Client());
     when(request.getParameter("id")).thenReturn("ORlk7Bn");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
   void wrongOrderteGiven() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(
-        dbAdvisorDAO.retrieveById("ADJdybc"));
+        dbAdvisorDao.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn(null);
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 
   @Test
   void nullOrderGiven() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(
-        dbAdvisorDAO.retrieveById("ADJdybc"));
+        dbAdvisorDao.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn("ORxxxxx");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
   }
 }

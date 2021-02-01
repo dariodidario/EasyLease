@@ -4,7 +4,6 @@ import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.car.Car;
 import com.easylease.EasyLease.model.client.Client;
 import com.easylease.EasyLease.model.optional.Optional;
-
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +17,7 @@ import java.util.List;
 
 
 public class Estimate {
-  private String id;
+  private String idEstimate;
   private float price;
   private Client client;
   private Advisor advisor;
@@ -35,7 +34,7 @@ public class Estimate {
   /**
    * Constructor for the Estimate Object.
    *
-   * @param id is the ID who identifies the Estimate.
+   * @param idEstimate is the ID who identifies the Estimate.
    * @param price is the price of the Estimate.
    * @param client is the client who requested the Estimate.
    * @param advisor is the advisor who compiled the Estimate.
@@ -45,10 +44,10 @@ public class Estimate {
    * @param visibility tells you if the Estimate is still valid.
    */
 
-  public Estimate(String id, float price, Client client, Advisor advisor, Car car,
+  public Estimate(String idEstimate, float price, Client client, Advisor advisor, Car car,
                   int period, List<Optional> optionalList, boolean visibility,
                   String state, Date requestDate, Date responseDate) {
-    setId(id);
+    setIdEstimate(idEstimate);
     setPrice(price);
     setClient(client);
     setAdvisor(advisor);
@@ -64,10 +63,10 @@ public class Estimate {
   /**
    * Set estimate's id.
    *
-   * @param id is estimate's identifier.
+   * @param idEstimate is estimate's identifier.
    */
-  public void setId(String id) {
-    this.id = id;
+  public void setIdEstimate(String idEstimate) {
+    this.idEstimate = idEstimate;
   }
 
   /**
@@ -75,8 +74,8 @@ public class Estimate {
    *
    * @return id estimate's identifier.
    */
-  public String getId() {
-    return id;
+  public String getIdEstimate() {
+    return idEstimate;
   }
 
   /**

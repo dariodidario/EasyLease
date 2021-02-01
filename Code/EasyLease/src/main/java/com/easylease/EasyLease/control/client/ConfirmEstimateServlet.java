@@ -2,9 +2,9 @@ package com.easylease.EasyLease.control.client;
 
 import com.easylease.EasyLease.control.utility.IdGenerator;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
+import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
+import com.easylease.EasyLease.model.order.DbOrderDao;
 import com.easylease.EasyLease.model.order.Order;
 import java.io.IOException;
 import java.util.Date;
@@ -20,8 +20,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ConfirmEstimateServlet",
     urlPatterns = "/ConfirmEstimateServlet")
 public class ConfirmEstimateServlet extends HttpServlet {
-  private DBEstimateDAO estimateDao = (DBEstimateDAO) DBEstimateDAO.getInstance();
-  private DBOrderDAO orderDao = (DBOrderDAO) DBOrderDAO.getInstance();
+  private DbEstimateDao estimateDao = (DbEstimateDao) DbEstimateDao.getInstance();
+  private DbOrderDao orderDao = (DbOrderDao) DbOrderDao.getInstance();
 
   protected void doPost(
       HttpServletRequest request,
@@ -48,8 +48,8 @@ public class ConfirmEstimateServlet extends HttpServlet {
             checked = true;
           }
         }
-        order.setId("OR" + IdGenerator.randomIdGenerator());
-        session.setAttribute("id_order", order.getId());
+        order.setIdOrder("OR" + IdGenerator.randomIdGenerator());
+        session.setAttribute("id_order", order.getIdOrder());
         order.setState("Attesa");
         Date date = new Date();
         order.setStartDate(date);
@@ -71,7 +71,7 @@ public class ConfirmEstimateServlet extends HttpServlet {
       Logger logger = Logger.getLogger(
           ConfirmEstimateServlet.class.getName());
       logger.log(Level.SEVERE, e.getMessage());
-      request.getRequestDispatcher("/user/homePageJSP.jsp");
+      request.getRequestDispatcher("/user/homePage.jsp");
     }
   }
 

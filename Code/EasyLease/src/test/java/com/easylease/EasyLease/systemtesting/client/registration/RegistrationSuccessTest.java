@@ -1,33 +1,34 @@
 package com.easylease.EasyLease.systemtesting.client.registration;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.client.ClientDAO;
-import com.easylease.EasyLease.model.client.DBClientDAO;
-import com.easylease.EasyLease.model.estimate.Estimate;
+import com.easylease.EasyLease.model.client.ClientDao;
+import com.easylease.EasyLease.model.client.DbClientDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
-import org.junit.jupiter.api.*;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class RegistrationSuccessTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
-  private static DBConnection dbConnection;
-  private static ClientDAO clientDao;
+  private static DbConnection dbConnection;
+  private static ClientDao clientDao;
   private static List<Client> clientList;
   private static List<Client> updatedClients;
 
   @BeforeAll
   static void init() throws Exception {
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
@@ -37,7 +38,7 @@ public class RegistrationSuccessTest {
     mysqlDataSource.setUseSSL(false);
     dbConnection.setDataSource(mysqlDataSource);
     dbConnection.getConnection().setAutoCommit(false);
-    clientDao = DBClientDAO.getInstance();
+    clientDao = DbClientDao.getInstance();
     clientList = clientDao.retrieveAll();
   }
 
@@ -86,7 +87,7 @@ public class RegistrationSuccessTest {
     for (Client item : updatedClients) {
       boolean found = false;
       for (Client item2 : clientList) {
-        if (!found && item.getId().equals(item2.getId())) {
+        if (!found && item.getIdUser().equals(item2.getIdUser())) {
           found = true;
         }
       }

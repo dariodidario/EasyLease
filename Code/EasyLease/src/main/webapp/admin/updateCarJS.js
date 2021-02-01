@@ -6,17 +6,13 @@ function readURL(input) {
             var img='#img_carL';
             reader.onload = function (e) {
                 $(img)
-                    .attr('src', e.target.result)
+                .attr('src', e.target.result)
             };
 
             reader.readAsDataURL(input.files[i]);
 
         }
-
-        imgNew.type="file";
-        imgNew.accept=".jpg";
-        imgNew.maxLength="255";
-        imgNew.value="";
+        document.getElementById('image_path').remove();
         imgNew.name="img_car_Update";
         imgNew.id="img_car";
         imgNew.style.cssText="display:none;";
@@ -52,11 +48,11 @@ window.confirm = function(message) {
         input.type="text";
         var x = 'autoBrand';
         input.setAttribute('list',x);
-        input.pattern='/^[A-Za-z0-9àèéìòù]+$/';
+        input.pattern='/^[a-zA-Z]{1}[A-Za-z0-9àèéìòù\s]+$/';
         input.id=message+"_update";
     }else if(message=="model"){
         input.type="text";
-        input.pattern='/^[A-Za-z0-9àèéìòù]+$/';
+        input.pattern='/^[a-zA-Z]{1}[A-Za-z0-9àèéìòù\s]+$/';
         input.id=message+"_update";
     }else if(message=="price"||message=="avg_consumption"){
         input.type="number";
@@ -67,7 +63,7 @@ window.confirm = function(message) {
         input.type="text"
         var x = 'autoTipologia';
         input.setAttribute('list',x);
-        input.pattern='/^[a-zA-Z]+$/';
+        input.pattern='/^[a-zA-Z]{1}[a-zA-Z\s]+$/';
         input.id=message+"_update";
     }else if(message=="doors"){
         input.type="number";

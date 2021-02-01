@@ -1,5 +1,6 @@
 package com.easylease.EasyLease.systemtesting.client.registration;
 
+import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -7,8 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-
-import java.util.concurrent.TimeUnit;
 
 public class RegistrationEmptyCityTest {
   private WebDriver driver;

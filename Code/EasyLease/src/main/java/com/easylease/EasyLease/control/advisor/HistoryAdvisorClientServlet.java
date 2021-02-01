@@ -1,8 +1,8 @@
 package com.easylease.EasyLease.control.advisor;
 
 import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
+import com.easylease.EasyLease.model.estimate.DbEstimateDao;
+import com.easylease.EasyLease.model.order.DbOrderDao;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +28,8 @@ import javax.servlet.http.HttpSession;
 public class HistoryAdvisorClientServlet extends HttpServlet {
   private final Logger logger = Logger.getLogger(
       HistoryAdvisorServlet.class.getName());
-  DBOrderDAO dbOrderDao = (DBOrderDAO) DBOrderDAO.getInstance();
-  DBEstimateDAO dbEstimateDao = (DBEstimateDAO) DBEstimateDAO.getInstance();
+  DbOrderDao dbOrderDao = (DbOrderDao) DbOrderDao.getInstance();
+  DbEstimateDao dbEstimateDao = (DbEstimateDao) DbEstimateDao.getInstance();
 
   protected void doPost(
       HttpServletRequest request,
@@ -44,32 +44,32 @@ public class HistoryAdvisorClientServlet extends HttpServlet {
         }
 
         Advisor advisor = (Advisor) session.getAttribute("user");
-        String clientID = request.getParameter("id_client");
+        String clientId = request.getParameter("id_client");
         List<Object> list = new ArrayList<>();
 
-        list.addAll(dbOrderDao.retrieveByClient(clientID).stream()
+        list.addAll(dbOrderDao.retrieveByClient(clientId).stream()
             .filter(o -> o.getEstimate()
                 .getAdvisor()
-                .getId()
-                .equals(advisor.getId()))
+                .getIdUser()
+                .equals(advisor.getIdUser()))
             .collect(Collectors.toList()));
 
-        list.addAll(dbEstimateDao.retrieveByClient(clientID).stream()
+        list.addAll(dbEstimateDao.retrieveByClient(clientId).stream()
             .filter(e -> e.getAdvisor()
-                .getId()
-                .equals(advisor.getId()))
+                .getIdUser()
+                .equals(advisor.getIdUser()))
             .collect(Collectors.toList()));
 
         request.setAttribute("list", list);
-        request.getRequestDispatcher("/advisor/historyAdvisorJSP.jsp")
+        request.getRequestDispatcher("/advisor/historyAdvisor.jsp")
             .forward(request, response);
       } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/user/homePageJSP.jsp")
+        request.getRequestDispatcher("/user/homePage.jsp")
             .forward(request, response);
       }
     } else {
-      request.getRequestDispatcher("/user/homePageJSP.jsp")
+      request.getRequestDispatcher("/user/homePage.jsp")
           .forward(request, response);
     }
   }

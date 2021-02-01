@@ -2,11 +2,10 @@ package com.easylease.EasyLease.control.client;
 
 import com.easylease.EasyLease.control.utility.IdGenerator;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.client.DBClientDAO;
+import com.easylease.EasyLease.model.client.DbClientDao;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,23 +15,25 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "SignInServlet", value = "/SignInServlet")
 public class SignInServlet extends HttpServlet {
-  protected void doPost(HttpServletRequest request,
+  protected void doPost(
+      HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     doGet(request, response);
   }
 
-  protected void doGet(HttpServletRequest request,
+  protected void doGet(
+      HttpServletRequest request,
       HttpServletResponse response)
       throws ServletException, IOException {
     SimpleDateFormat htmlFormat = new SimpleDateFormat("yyyy-MM-dd");
     Client client = new Client();
-    client.setId("CL"+ IdGenerator.randomIdGenerator());
-    client.setName(request.getParameter("name"));
+    client.setIdUser("CL" + IdGenerator.randomIdGenerator());
+    client.setFirstName(request.getParameter("name"));
     client.setSurname(request.getParameter("surname"));
     client.setEmail(request.getParameter("email"));
-    client.setBirthPlace(request.getParameter("birthplace"));
+    client.setBirth_place(request.getParameter("birthplace"));
     try {
-      client.setBirthDate(htmlFormat.parse(request.getParameter("birthdate")));
+      client.setBirth_date(htmlFormat.parse(request.getParameter("birthdate")));
     } catch (ParseException e) {
       e.printStackTrace();
     }
@@ -41,15 +42,16 @@ public class SignInServlet extends HttpServlet {
     client.setPc(request.getParameter("pc"));
     client.setStreet(request.getParameter("street"));
 
-    DBClientDAO dao = (DBClientDAO) DBClientDAO.getInstance();
+    DbClientDao dao = (DbClientDao) DbClientDao.getInstance();
 
     if (dao.retrieveByEmail(client.getEmail()) != null) {
-      request.getRequestDispatcher("/user/loginJSP.jsp")
+      request.getSession().setAttribute("exist", "exist");
+      request.getRequestDispatcher("/client/signIn.jsp")
           .forward(request, response);
-    }
-    else{
+    } else {
       dao.insert(client, request.getParameter("password"));
-      request.getRequestDispatcher("/user/loginJSP.jsp")
+      request.getSession().setAttribute("ok", "ok");
+      request.getRequestDispatcher("/user/login.jsp")
           .forward(request, response);
     }
 

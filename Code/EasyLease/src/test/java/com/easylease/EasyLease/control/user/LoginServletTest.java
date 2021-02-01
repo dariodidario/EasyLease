@@ -1,29 +1,34 @@
 package com.easylease.EasyLease.control.user;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.mysql.cj.jdbc.MysqlDataSource;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.stubbing.Answer;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.stubbing.Answer;
+
+
+
 
 public class LoginServletTest {
   @Mock
@@ -41,13 +46,13 @@ public class LoginServletTest {
 
   private LoginServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
-  private static DBConnection dbConnection;
+  private static DbConnection dbConnection;
 
   @BeforeEach
   void setUp() throws SQLException {
     MockitoAnnotations.openMocks(this);
     servlet = new LoginServlet();
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
@@ -92,33 +97,30 @@ public class LoginServletTest {
   }
 
   @Test
-  void SuccessAdmin() throws ServletException, IOException {
+  void successAdmin() throws ServletException, IOException {
     when(request.getParameter("userEmail")).thenReturn("giu.digiamp@giudigiamp.com");
     when(request.getParameter("userPassword")).thenReturn("pass");
-    servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
-    //assertEquals("admin", request.getSession().getAttribute("role"));
+    servlet.doPost(request, response);
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
     request.getSession().removeAttribute("userEmail");
     request.getSession().removeAttribute("userPassword");
   }
 
   @Test
-  void SuccessAdvisor() throws ServletException, IOException {
+  void successAdvisor() throws ServletException, IOException {
     when(request.getParameter("userEmail")).thenReturn("rossa.clementina@frutta.com");
     when(request.getParameter("userPassword")).thenReturn("pass");
-    servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
-    //assertEquals("advisor", request.getSession().getAttribute("role"));
+    servlet.doPost(request, response);
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
     request.getSession().invalidate();
   }
 
   @Test
-  void SuccessClient() throws ServletException, IOException {
+  void successClient() throws ServletException, IOException {
     when(request.getParameter("userEmail")).thenReturn("mattia.caprio@unisa.com");
     when(request.getParameter("userPassword")).thenReturn("pass");
-    servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
-    //assertEquals("client", request.getSession().getAttribute("role"));
+    servlet.doPost(request, response);
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
     request.getSession().invalidate();
   }
 
@@ -126,46 +128,51 @@ public class LoginServletTest {
   void unsuccess() throws ServletException, IOException {
     when(request.getParameter("userEmail")).thenReturn("aaaa@giudigiamp.com");
     when(request.getParameter("userPassword")).thenReturn("pass");
-    servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
+    servlet.doPost(request, response);
+    verify(request).getRequestDispatcher("/user/login.jsp");
   }
 
   @Test
   void unsuccessClient() throws ServletException, IOException {
     when(request.getParameter("userEmail")).thenReturn("mattia.caprio@unisa.com");
     when(request.getParameter("userPassword")).thenReturn("a");
-    servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
+    servlet.doPost(request, response);
+    request.getSession().removeAttribute("errata");
+    verify(request).getRequestDispatcher("/user/login.jsp");
   }
 
   @Test
   void unsuccessAdvisor() throws ServletException, IOException {
     when(request.getParameter("userEmail")).thenReturn("rossa.clementina@frutta.com");
     when(request.getParameter("userPassword")).thenReturn("a");
-    servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
+    servlet.doPost(request, response);
+    request.getSession().removeAttribute("errata");
+    verify(request).getRequestDispatcher("/user/login.jsp");
   }
 
   @Test
   void unsuccessAdmin() throws ServletException, IOException {
     when(request.getParameter("userEmail")).thenReturn("giu.digiamp@giudigiamp.com");
     when(request.getParameter("userPassword")).thenReturn("a");
-    servlet.doPost(request,response);
-    verify(request).getRequestDispatcher("/user/loginJSP.jsp");
+    servlet.doPost(request, response);
+    request.getSession().removeAttribute("errata");
+    verify(request).getRequestDispatcher("/user/login.jsp");
   }
 
   @Test
-  void user_null(){
+  void user_null() {
     when(request.getParameter("userEmail")).thenReturn(null);
     when(request.getParameter("userPassword")).thenReturn("pass");
-    assertThrows(IllegalArgumentException.class,()->{servlet.doGet(request,response);});
+    assertThrows(IllegalArgumentException.class, () -> {
+      servlet.doGet(request, response); });
   }
 
   @Test
-  void password_null(){
+  void password_null() {
     when(request.getParameter("userEmail")).thenReturn("giu.digiamp@giudigiamp.com");
     when(request.getParameter("userPassword")).thenReturn(null);
-    assertThrows(NullPointerException.class,()->{servlet.doGet(request,response);});
+    assertThrows(NullPointerException.class, () -> {
+      servlet.doGet(request, response);  });
   }
 
 

@@ -1,7 +1,7 @@
 package com.easylease.EasyLease.systemtesting.advisor.estimatestipulation;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
+import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.junit.jupiter.api.*;
@@ -23,13 +23,13 @@ public class StipulationSuccess {
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
-  private static DBConnection dbConnection = DBConnection.getInstance();
-  private Estimate estimate = DBEstimateDAO.getInstance()
+  private static DbConnection dbConnection = DbConnection.getInstance();
+  private Estimate estimate = DbEstimateDao.getInstance()
       .retrieveById("ESjg9I7");
 
   @BeforeAll
   static void init() throws Exception {
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     MysqlDataSource mysqlDataSource = new MysqlDataSource();
     mysqlDataSource.setURL("jdbc:mysql://localhost:3306/easylease");
     mysqlDataSource.setUser("root");
@@ -89,7 +89,7 @@ public class StipulationSuccess {
 
   @AfterEach
   public void tearDown() throws Exception {
-    DBEstimateDAO.getInstance().update(estimate);
+    DbEstimateDao.getInstance().update(estimate);
     driver.quit();
   }
 }

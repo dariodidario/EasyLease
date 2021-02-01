@@ -1,265 +1,268 @@
 package com.easylease.EasyLease.model.car;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 class CarTest {
 
 
+  @Test
+  void testCostructor() {
+    Car c = new Car();
+    assertNotNull(c);
+  }
 
-    @Test
-    void testCostructor(){
-        Car c=new Car();
-        assertNotNull(c);
-    }
+  @org.junit.jupiter.api.Test
+  public void testGetId() {
+    Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
+        true, 5, "Automatico", 3.9f,
+        130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
+    assertEquals("ca11111", car.getIdCar());
+  }
 
-    @org.junit.jupiter.api.Test
-    public void testGetId() {
-        Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
-        assertEquals("ca11111", car.getId());
-    }
+  @org.junit.jupiter.api.Test
+  void testGetBrand() {
+    Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
+        true, 5, "Automatico", 3.9f,
+        130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
+    assertEquals("Peugeot", car.getBrand());
+  }
 
-    @org.junit.jupiter.api.Test
-    void testGetBrand() {
-        Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
-        assertEquals("Peugeot", car.getBrand());
-    }
-
-    @Test
-    void test1_SetId() {
-        Car car =new Car();
-        car.setId("ca11112");
-        assertEquals("ca11112", car.getId());
-
-
-    }
+  @Test
+  void test1_SetId() {
+    Car car = new Car();
+    car.setIdCar("ca11112");
+    assertEquals("ca11112", car.getIdCar());
 
 
-    @Test
-    void testSetBrand() {
-        Car car=new Car();
-        car.setBrand("Renault");
-        assertEquals("Renault", car.getBrand());
+  }
 
 
-    }
+  @Test
+  void testSetBrand() {
+    Car car = new Car();
+    car.setBrand("Renault");
+    assertEquals("Renault", car.getBrand());
 
-    @Test
-    void testGetModel() {
-        Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
-        assertEquals("3008", car.getModel());
 
-    }
+  }
 
-    @Test
-    void testSetModel() {
-        Car car=new Car();
-        car.setModel("2008");
-        assertEquals("2008", car.getModel());
+  @Test
+  void testGetModel() {
+    Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
+        true, 5, "Automatico", 3.9f,
+        130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
+    assertEquals("3008", car.getModel());
 
-    }
+  }
 
-    @Test
-    void testGetPrice() {
-        Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
+  @Test
+  void testSetModel() {
+    Car car = new Car();
+    car.setModel("2008");
+    assertEquals("2008", car.getModel());
 
-        float actual=249;
-        assertEquals(actual,car.getPrice());
-    }
+  }
 
-    @Test
-    void testSetPrice() {
-        Car car=new Car();
-        car.setPrice(2409);
+  @Test
+  void testGetPrice() {
+    Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
+        true, 5, "Automatico", 3.9f,
+        130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
 
-        assertEquals(2409,car.getPrice());
-    }
+    float actual = 249;
+    assertEquals(actual, car.getPrice());
+  }
 
-    @Test
-    void testGetType() {
-        Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
-        assertEquals("SUV", car.getType());
+  @Test
+  void testSetPrice() {
+    Car car = new Car();
+    car.setPrice(2409);
 
-    }
+    assertEquals(2409, car.getPrice());
+  }
 
-    @Test
-    void testSetType() {
-        Car car=new Car();
-        car.setType("berlina");
-        assertEquals("berlina", car.getType());
+  @Test
+  void testGetType() {
+    Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
+        true, 5, "Automatico", 3.9f,
+        130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
+    assertEquals("SUV", car.getType());
 
-    }
+  }
 
-    @Test
-    void testGetPowerSupply() {
-        Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
-        assertEquals("Diesel", car.getPowerSupply());
-    }
+  @Test
+  void testSetType() {
+    Car car = new Car();
+    car.setType("berlina");
+    assertEquals("berlina", car.getType());
 
-    @Test
-    void testSetPowerSupply() {
-        Car car=new Car();
-        car.setPowerSupply("Benzina");
-        assertEquals("Benzina", car.getPowerSupply());
-    }
+  }
 
-    @Test
-    void testGetVisibility() {
-        Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
+  @Test
+  void testGetPowerSupply() {
+    Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
+        true, 5, "Automatico", 3.9f,
+        130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
+    assertEquals("Diesel", car.getPowerSupply());
+  }
 
-        assertTrue(car.getVisibility(), "get visibility errato");
-    }
+  @Test
+  void testSetPowerSupply() {
+    Car car = new Car();
+    car.setPowerSupply("Benzina");
+    assertEquals("Benzina", car.getPowerSupply());
+  }
 
-    @Test
-    void testSetVisibility() {
-        Car car =new Car();
-        car.setVisibility(false);
-        assertFalse(car.getVisibility(),"set visibility errato");
-    }
+  @Test
+  void testGetVisibility() {
+    Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
+        true, 5, "Automatico", 3.9f,
+        130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
 
-    @Test
-    void testGetDoors() {
-        Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
+    assertTrue(car.getVisibility(), "get visibility errato");
+  }
 
-        assertEquals(5,car.getDoors(),"get doors errato");
-    }
+  @Test
+  void testSetVisibility() {
+    Car car = new Car();
+    car.setVisibility(false);
+    assertFalse(car.getVisibility(), "set visibility errato");
+  }
 
-    @Test
-    void testSetDoors() {
-        Car car=new Car();
-        car.setDoors(3);
+  @Test
+  void testGetDoors() {
+    Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
+        true, 5, "Automatico", 3.9f,
+        130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
 
-        assertEquals(3,car.getDoors(),"set doors errato");
-    }
+    assertEquals(5, car.getDoors(), "get doors errato");
+  }
 
-    @Test
-    void testGetTrasmision() {
-        Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
-        assertEquals("Automatico", car.getTransmission());
-    }
+  @Test
+  void testSetDoors() {
+    Car car = new Car();
+    car.setDoors(3);
 
-    @Test
-    void testSetTrasmision() {
-        Car car=new Car();
-        car.setTransmission("Manuale");
+    assertEquals(3, car.getDoors(), "set doors errato");
+  }
 
-        assertEquals("Manuale",car.getTransmission());
-    }
+  @Test
+  void testGetTrasmision() {
+    Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
+        true, 5, "Automatico", 3.9f,
+        130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
+    assertEquals("Automatico", car.getTransmission());
+  }
 
-    @Test
-    void testGetAvg_consumption() {
-        Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
-        float s=car.getAvg_consumption();
-        assertEquals(3.9f,s);
-    }
+  @Test
+  void testSetTrasmision() {
+    Car car = new Car();
+    car.setTransmission("Manuale");
 
-    @Test
-    void tetsSetAvg_consumption() {
-        Car car=new Car();
-        car.setAvg_consumption(2.9f);
-        assertEquals(2.9f,car.getAvg_consumption());
-    }
+    assertEquals("Manuale", car.getTransmission());
+  }
 
-    @Test
-    void testGetHorse_power() {
-        Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
+  @Test
+  void testGetAvg_consumption() {
+    Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
+        true, 5, "Automatico", 3.9f,
+        130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
+    float s = car.getAvgConsumption();
+    assertEquals(3.9f, s);
+  }
 
-        assertEquals(130,car.getHorse_power());
-    }
+  @Test
+  void tetsSetAvg_consumption() {
+    Car car = new Car();
+    car.setAvgConsumption(2.9f);
+    assertEquals(2.9f, car.getAvgConsumption());
+  }
 
-    @Test
-    void testSetHorse_power() {
-        Car car = new Car();
-        car.setHorse_power(90);
+  @Test
+  void testGetHorse_power() {
+    Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
+        true, 5, "Automatico", 3.9f,
+        130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
 
-        assertEquals(90, car.getHorse_power());
-    }
+    assertEquals(130, car.getHorsePower());
+  }
 
-    @Test
-    void testGetEmission_class() {
-        Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
-        assertEquals("Euro 6", car.getEmission_class());
+  @Test
+  void testSetHorse_power() {
+    Car car = new Car();
+    car.setHorsePower(90);
 
-    }
+    assertEquals(90, car.getHorsePower());
+  }
 
-    @Test
-    void testSetEmission_class() {
-        Car car=new Car();
-        car.setEmission_class("Euro 5");
-        assertEquals("Euro 5", car.getEmission_class());
+  @Test
+  void testGetEmission_class() {
+    Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
+        true, 5, "Automatico", 3.9f,
+        130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
+    assertEquals("Euro 6", car.getEmissionClass());
 
-    }
+  }
 
-    @Test
-    void tsetGetCo2_emissions() {
-        Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
+  @Test
+  void testSetEmission_class() {
+    Car car = new Car();
+    car.setEmissionClass("Euro 5");
+    assertEquals("Euro 5", car.getEmissionClass());
 
-        assertEquals(104,car.getCo2_emissions());
-    }
+  }
 
-    @Test
-    void testSetCo2_emissions() {
-        Car car =new Car();
-        car.setCo2_emissions(100);
+  @Test
+  void tsetGetCo2_emissions() {
+    Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
+        true, 5, "Automatico", 3.9f,
+        130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
 
-        assertEquals(100,car.getCo2_emissions());
-    }
+    assertEquals(104, car.getCo2Emissions());
+  }
 
-    @Test
-    void testGetCc() {
-        Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
+  @Test
+  void testSetCo2_emissions() {
+    Car car = new Car();
+    car.setCo2Emissions(100);
 
-        assertEquals(1499,car.getCapacity());
-    }
+    assertEquals(100, car.getCo2Emissions());
+  }
 
-    @Test
-    void testSetCc() {
-        Car car=new Car();
-        car.setCapacity(1400);
-        assertEquals(1400,car.getCapacity());
-    }
+  @Test
+  void testGetCc() {
+    Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
+        true, 5, "Automatico", 3.9f,
+        130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
 
-    @Test
-    void testGetImage() {
-        Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
-                true, 5, "Automatico", 3.9f,
-                130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
-        assertEquals("peugeot_3008.jpg", car.getImage());
+    assertEquals(1499, car.getCapacity());
+  }
 
-    }
+  @Test
+  void testSetCc() {
+    Car car = new Car();
+    car.setCapacity(1400);
+    assertEquals(1400, car.getCapacity());
+  }
 
-    @Test
-    void testSetImage() {
-        Car car=new Car();
-        car.setImage("renault_2008.jpg");
-        assertEquals("renault_2008.jpg", car.getImage());
-    }
+  @Test
+  void testGetImage() {
+    Car car = new Car("ca11111", "Peugeot", "3008", 249, "SUV",
+        true, 5, "Automatico", 3.9f,
+        130, "Euro 6", 104, "Diesel", 1499, "peugeot_3008.jpg");
+    assertEquals("peugeot_3008.jpg", car.getImage());
+
+  }
+
+  @Test
+  void testSetImage() {
+    Car car = new Car();
+    car.setImage("renault_2008.jpg");
+    assertEquals("renault_2008.jpg", car.getImage());
+  }
 }

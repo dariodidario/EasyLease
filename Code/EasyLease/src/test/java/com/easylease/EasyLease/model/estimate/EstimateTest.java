@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import com.easylease.EasyLease.model.advisor.Advisor;
 import com.easylease.EasyLease.model.car.Car;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.estimate.Estimate;
 import com.easylease.EasyLease.model.optional.Optional;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,8 +31,8 @@ class EstimateTest {
 
   @Test
   public void constructorTest() {
-    client.setId("cl12346");
-    advisor.setId("ADfake0");
+    client.setIdUser("cl12346");
+    advisor.setIdUser("ADfake0");
     optionalList.add(optional);
     optionalList.add(optional2);
     Estimate estimate = new Estimate("es4312", 240, client, advisor,
@@ -44,27 +43,27 @@ class EstimateTest {
 
   @Test
   public void getIdTest() {
-    client.setId("cl12346");
-    advisor.setId("ADfake0");
+    client.setIdUser("cl12346");
+    advisor.setIdUser("ADfake0");
     optionalList.add(optional);
     optionalList.add(optional2);
     Estimate estimate = new Estimate("es4312", 240, client, advisor,
         car, 30, optionalList, true, "Attesa", null,
         new Date(System.currentTimeMillis()));
-    assertEquals("es4312", estimate.getId());
+    assertEquals("es4312", estimate.getIdEstimate());
   }
 
   @Test
   public void setIdTest() {
     Estimate estimate = new Estimate();
-    estimate.setId("es4312");
-    assertEquals("es4312", estimate.getId());
+    estimate.setIdEstimate("es4312");
+    assertEquals("es4312", estimate.getIdEstimate());
   }
 
   @Test
   public void getPriceTest() {
-    client.setId("cl12346");
-    advisor.setId("ADfake0");
+    client.setIdUser("cl12346");
+    advisor.setIdUser("ADfake0");
     optionalList.add(optional);
     optionalList.add(optional2);
     Estimate estimate = new Estimate("es4312", 240, client, advisor,
@@ -82,8 +81,8 @@ class EstimateTest {
 
   @Test
   public void getClientTest() {
-    client.setId("cl12346");
-    advisor.setId("ADfake0");
+    client.setIdUser("cl12346");
+    advisor.setIdUser("ADfake0");
     optionalList.add(optional);
     optionalList.add(optional2);
     Estimate estimate = new Estimate("es4312", 240, client, advisor,
@@ -101,8 +100,8 @@ class EstimateTest {
 
   @Test
   public void getAdvisorTest() {
-    client.setId("cl12346");
-    advisor.setId("ADfake0");
+    client.setIdUser("cl12346");
+    advisor.setIdUser("ADfake0");
     optionalList.add(optional);
     optionalList.add(optional2);
     Estimate estimate = new Estimate("es4312", 240, client, advisor,
@@ -120,8 +119,8 @@ class EstimateTest {
 
   @Test
   public void getCarTest() {
-    client.setId("cl12346");
-    advisor.setId("ADfake0");
+    client.setIdUser("cl12346");
+    advisor.setIdUser("ADfake0");
     optionalList.add(optional);
     optionalList.add(optional2);
     Estimate estimate = new Estimate("es4312", 240, client, advisor,
@@ -139,8 +138,8 @@ class EstimateTest {
 
   @Test
   public void getPeriodTest() {
-    client.setId("cl12346");
-    advisor.setId("ADfake0");
+    client.setIdUser("cl12346");
+    advisor.setIdUser("ADfake0");
     optionalList.add(optional);
     optionalList.add(optional2);
     Estimate estimate = new Estimate("es4312", 240, client, advisor,
@@ -158,8 +157,8 @@ class EstimateTest {
 
   @Test
   public void getOptionalListTest() {
-    client.setId("cl12346");
-    advisor.setId("ADfake0");
+    client.setIdUser("cl12346");
+    advisor.setIdUser("ADfake0");
     optionalList.add(optional);
     optionalList.add(optional2);
     Estimate estimate = new Estimate("es4312", 240, client, advisor,
@@ -179,8 +178,8 @@ class EstimateTest {
 
   @Test
   public void getVisibilityTest() {
-    client.setId("cl12346");
-    advisor.setId("ADfake0");
+    client.setIdUser("cl12346");
+    advisor.setIdUser("ADfake0");
     optionalList.add(optional);
     optionalList.add(optional2);
     Estimate estimate = new Estimate("es4312", 240, client, advisor,
@@ -198,8 +197,8 @@ class EstimateTest {
 
   @Test
   public void getStateTest() {
-    client.setId("cl12346");
-    advisor.setId("ADfake0");
+    client.setIdUser("cl12346");
+    advisor.setIdUser("ADfake0");
     optionalList.add(optional);
     optionalList.add(optional2);
     Estimate estimate = new Estimate("es4312", 240, client, advisor,
@@ -217,8 +216,8 @@ class EstimateTest {
 
   @Test
   public void getRequestDate() {
-    client.setId("cl12346");
-    advisor.setId("ADfake0");
+    client.setIdUser("cl12346");
+    advisor.setIdUser("ADfake0");
     optionalList.add(optional);
     optionalList.add(optional2);
     Date date = new Date(System.currentTimeMillis());
@@ -238,8 +237,8 @@ class EstimateTest {
 
   @Test
   public void getResponseDate() {
-    client.setId("cl12346");
-    advisor.setId("ADfake0");
+    client.setIdUser("cl12346");
+    advisor.setIdUser("ADfake0");
     optionalList.add(optional);
     optionalList.add(optional2);
     Date date = new Date(System.currentTimeMillis());

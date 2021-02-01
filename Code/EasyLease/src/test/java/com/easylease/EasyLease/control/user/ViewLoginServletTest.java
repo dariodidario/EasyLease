@@ -6,27 +6,25 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
 import com.mysql.cj.jdbc.MysqlDataSource;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.stubbing.Answer;
-
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.stubbing.Answer;
 
 
 /**
@@ -50,7 +48,7 @@ public class ViewLoginServletTest {
 
   private ViewLoginServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
-  private static DBConnection dbConnection;
+  private static DbConnection dbConnection;
 
   @BeforeEach
   void setUp() throws SQLException {
@@ -63,7 +61,7 @@ public class ViewLoginServletTest {
     mysqlDataSource.setServerTimezone("UTC");
     mysqlDataSource.setVerifyServerCertificate(false);
     mysqlDataSource.setUseSSL(false);
-    dbConnection = DBConnection.getInstance();
+    dbConnection = DbConnection.getInstance();
     dbConnection.setDataSource(mysqlDataSource);
     when(request.getServletContext()).thenReturn(context);
     try {
@@ -101,7 +99,7 @@ public class ViewLoginServletTest {
   void success() throws ServletException, IOException {
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
-        "/user/loginJSP.jsp");
+        "/user/login.jsp");
   }
 
 }

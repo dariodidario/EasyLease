@@ -37,14 +37,14 @@ class OrderTest {
   void testOrderGetId() {
     Order order = new Order("OR12RT4", new Estimate(), new Date(),
         new Date(), new Date(), new Date(), true, "Attesa");
-    assertEquals("OR12RT4", order.getId());
+    assertEquals("OR12RT4", order.getIdOrder());
   }
 
   @Test
   void testOrderGetEstimate() {
     Order order = new Order("OR12RT4", new Estimate(), new Date(),
         new Date(), new Date(), new Date(), true, "Attesa");
-    assertEquals(new Estimate().getId(), order.getEstimate().getId());
+    assertEquals(new Estimate().getIdEstimate(), order.getEstimate().getIdEstimate());
   }
 
   @Test
@@ -79,8 +79,8 @@ class OrderTest {
   void testOrderSetId() {
     Order order = new Order("OR12RT4", new Estimate(), new Date(),
         new Date(), new Date(), new Date(), true, "Attesa");
-    order.setId("OR23456");
-    assertEquals("OR23456", order.getId());
+    order.setIdOrder("OR23456");
+    assertEquals("OR23456", order.getIdOrder());
   }
 
   @Test
@@ -89,7 +89,7 @@ class OrderTest {
         new Date(), new Date(), new Date(), true, "Attesa");
     Estimate estimate = new Estimate();
     order.setEstimate(estimate);
-    assertEquals(estimate.getId(), order.getEstimate().getId());
+    assertEquals(estimate.getIdEstimate(), order.getEstimate().getIdEstimate());
   }
 
   @Test

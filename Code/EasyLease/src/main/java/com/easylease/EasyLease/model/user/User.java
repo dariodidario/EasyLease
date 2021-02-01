@@ -13,7 +13,7 @@ public abstract class User implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  /** Constructor */
+  /** Constructor. */
 
   public User() {
 
@@ -23,14 +23,14 @@ public abstract class User implements Serializable {
   /**
    * Constructor for the User object.
    *
-   * @param id The ID who identify the User.
-   * @param name The name of the User.
+   * @param idUser The ID who identify the User.
+   * @param firstName The name of the User.
    * @param surname The surname of the User.
    * @param email The email of the User.
    */
-  public User(String id, String name, String surname, String email) {
-    this.id = id;
-    this.name = name;
+  public User(String idUser, String firstName, String surname, String email) {
+    this.idUser = idUser;
+    this.firstName = firstName;
     this.surname = surname;
     this.email = email;
   }
@@ -41,18 +41,18 @@ public abstract class User implements Serializable {
    *
    * @return ID the user's identificator.
    */
-  public String getId() {
-    return id;
+  public String getIdUser() {
+    return idUser;
   }
 
 
   /**
    * Set the user's id.
    *
-   * @param id the user's identificator.
+   * @param idUser the user's identificator.
    */
-  public void setId(String id) {
-    this.id = id;
+  public void setIdUser(String idUser) {
+    this.idUser = idUser;
   }
 
 
@@ -61,18 +61,18 @@ public abstract class User implements Serializable {
    *
    * @return ID the user's name.
    */
-  public String getName() {
-    return name;
+  public String getFirstName() {
+    return firstName;
   }
 
 
   /**
    * Set the user's name.
    *
-   * @param name the user's identificator.
+   * @param firstName the user's identificator.
    */
-  public void setName(String name) {
-    this.name = name;
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
   }
 
 
@@ -116,10 +116,10 @@ public abstract class User implements Serializable {
   }
 
   /** Rapresents the user's identificator. */
-  protected String id;
+  protected String idUser;
 
   /** Rapresents the user's name. */
-  protected String name;
+  protected String firstName;
 
   /** Rapresents the user's surname. */
   protected String surname;

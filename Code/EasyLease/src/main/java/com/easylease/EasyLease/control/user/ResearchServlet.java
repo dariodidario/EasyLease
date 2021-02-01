@@ -1,7 +1,7 @@
 package com.easylease.EasyLease.control.user;
 
 import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.DBCarDAO;
+import com.easylease.EasyLease.model.car.DbCarDao;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,12 +24,12 @@ public class ResearchServlet extends HttpServlet {
 
     if ((tipologia == null || (tipologia != null && tipologia.equals("Tipologia")))
         && (marca == null || (marca != null && marca.equals("Marca")))) {
-      request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
+      request.getRequestDispatcher("/user/homePage.jsp").forward(request, response);
     } else {
 
       List<String> output = new ArrayList<>();
       if (marca != null && !marca.equals("Marca")) {
-        List<Car> carList = DBCarDAO.getInstance().retrieveAll();
+        List<Car> carList = DbCarDao.getInstance().retrieveAll();
         carList.removeIf(car -> !car.getVisibility());
         if (tipologia != null && !tipologia.equals("Tipologia")) {
           carList.removeIf(car -> !car.getType().equals(tipologia));
@@ -48,7 +48,7 @@ public class ResearchServlet extends HttpServlet {
         }
         output.add("Modello");
       } else {
-        List<Car> carList = DBCarDAO.getInstance().retrieveByType(tipologia);
+        List<Car> carList = DbCarDao.getInstance().retrieveByType(tipologia);
         carList.removeIf(car -> !car.getVisibility());
         for (Car car : carList) {
           if (!output.contains(car.getBrand())) {

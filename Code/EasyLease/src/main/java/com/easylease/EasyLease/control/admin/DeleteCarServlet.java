@@ -1,26 +1,26 @@
 package com.easylease.EasyLease.control.admin;
 
 
+import com.easylease.EasyLease.model.admin.Admin;
 import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.CarDAO;
-import com.easylease.EasyLease.model.car.DBCarDAO;
-import com.easylease.EasyLease.model.user.User;
+import com.easylease.EasyLease.model.car.CarDao;
+import com.easylease.EasyLease.model.car.DbCarDao;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
 
-/**this servlet provides to delete a car from the database*/
+
+/**this servlet provides to delete a car from the .*/
 
 @WebServlet("/DeleteCarServlet")
 public class DeleteCarServlet extends HttpServlet {
-  static CarDAO CarDAO =DBCarDAO.getInstance();
 
   protected void doPost(
           HttpServletRequest request,
@@ -31,34 +31,38 @@ public class DeleteCarServlet extends HttpServlet {
   protected void doGet(
           HttpServletRequest request,
           HttpServletResponse response) throws ServletException, IOException {
+    CarDao CarDao = DbCarDao.getInstance();
     String role = (String) request.getSession().getAttribute("role");
     if (role == null) {
-      RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/error403.jsp");
+      RequestDispatcher dispatcher =
+          getServletContext().getRequestDispatcher("/user/login.jsp");
       dispatcher.forward(request, response);
     } else if (role.equalsIgnoreCase("admin") == false) {
-      RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fragments/error403.jsp");
+      RequestDispatcher dispatcher =
+          getServletContext().getRequestDispatcher("/user/login.jsp");
       dispatcher.forward(request, response);
     } else {
 
       String id = request.getParameter("ID_Delete");
       if (id != null && !id.equalsIgnoreCase("")) {
-        Car car = CarDAO.retrieveById(id);
+        Car car = CarDao.retrieveById(id);
         car.setVisibility(false);
-        CarDAO.update(car);
+        CarDao.update(car);
         File canc = new File(request.getServletContext().getRealPath("img"));
         File rem = new File(canc, car.getImage());
-        Files.delete( rem.toPath());
+        Files.delete(rem.toPath());
 
-        User user = (User) request.getSession().getAttribute("user");
+        Admin user = (Admin) request.getSession().getAttribute("user");
+
         request.getSession().setAttribute("user", user);
         request.getSession().setAttribute("role", "admin");
-        request.getSession().setAttribute("carList",null);
+        request.getSession().setAttribute("carList", null);
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<script type=\"text/javascript\">");
         out.println("alert('Auto eliminata con successo');");
-        out.println("location='user/homePageJSP.jsp';");
+        out.println("location='user/homePage.jsp';");
         out.println("</script>");
 
       } else {
@@ -67,7 +71,7 @@ public class DeleteCarServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<script type=\"text/javascript\">");
         out.println("alert('Impossibile eliminare, Id null error!');");
-        out.println("location='user/updateCarJSP.jsp';");
+        out.println("location='user/updateCar.jsp';");
         out.println("</script>");
       }
     }

@@ -1,7 +1,7 @@
 package com.easylease.EasyLease.control.advisor;
 
 import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
+import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -48,7 +48,7 @@ public class EstimateManagementAdvisorServlet extends HttpServlet {
         if (id == null || id.length() != 7 || !id.startsWith("ES")) {
           throw new ServletException("The id sent is incorrect");
         }
-        DBEstimateDAO dbEstimateDao = (DBEstimateDAO) DBEstimateDAO.getInstance();
+        DbEstimateDao dbEstimateDao = (DbEstimateDao) DbEstimateDao.getInstance();
         Estimate estimate = dbEstimateDao.retrieveById(id);
         if (estimate == null) {
           throw new ServletException("The estimate doesn't exist");
@@ -57,15 +57,15 @@ public class EstimateManagementAdvisorServlet extends HttpServlet {
         dbEstimateDao.update(estimate);
         request.setAttribute("estimate", estimate);
         request.getRequestDispatcher(
-            "/advisor/estimateManagementAdvisorJSP.jsp")
+            "/advisor/estimateManagementAdvisor.jsp")
             .forward(request, response);
       } catch (ServletException e) {
         logger.log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/user/homePageJSP.jsp")
+        request.getRequestDispatcher("/user/homePage.jsp")
             .forward(request, response);
       }
     } else {
-      request.getRequestDispatcher("/user/homePageJSP.jsp")
+      request.getRequestDispatcher("/user/homePage.jsp")
           .forward(request, response);
     }
   }

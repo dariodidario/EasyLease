@@ -1,7 +1,7 @@
 package com.easylease.EasyLease.control.client;
 
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
+import com.easylease.EasyLease.model.order.DbOrderDao;
 import com.easylease.EasyLease.model.order.Order;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -31,7 +31,7 @@ public class OrderManagementClientServlet extends HttpServlet {
         throw new ServletException("Section dedicated to a registered user "
             + "on the platform correctly as a Client");
       }
-      DBOrderDAO orderDao = (DBOrderDAO) DBOrderDAO.getInstance();
+      DbOrderDao orderDao = (DbOrderDao) DbOrderDao.getInstance();
       String id = request.getParameter("id_order");
       System.out.println(id);
       if (id.length() != 7 || !id.startsWith("OR")) {
@@ -39,13 +39,13 @@ public class OrderManagementClientServlet extends HttpServlet {
       }
       Order order = orderDao.retrieveById(id);
       request.setAttribute("order", order);
-      request.getRequestDispatcher("/client/orderManagementClientJSP.jsp")
+      request.getRequestDispatcher("/client/orderManagementClient.jsp")
           .forward(request, response);
     } catch (ServletException e) {
       Logger logger = Logger.getLogger(
           OrderManagementClientServlet.class.getName());
       logger.log(Level.SEVERE, e.getMessage());
-      request.getRequestDispatcher("/user/homePageJSP.jsp");
+      request.getRequestDispatcher("/user/homePage.jsp");
     }
   }
 }

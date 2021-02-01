@@ -48,7 +48,7 @@ public class EmailManager {
     String bodyMail = String.format(
         "Gentile %s %s,\nvogliamo informarla che l'ordine #%s da"
             + " lei effettuato è stato convalidato.",
-        client.getName(), client.getSurname(), order.getId());
+        client.getFirstName(), client.getSurname(), order.getIdOrder());
     return sendMail(subjectMail, bodyMail, clientMail);
   }
 
@@ -71,7 +71,7 @@ public class EmailManager {
     String bodyMail = String.format(
         "Gentile %s %s,\nvogliamo informarla che il "
             + "preventivo #%s da lei richiesto è stato stipulato.",
-        client.getName(), client.getSurname(), estimate.getId());
+        client.getFirstName(), client.getSurname(), estimate.getIdEstimate());
     return  sendMail(subjectMail, bodyMail, clientMail);
   }
 

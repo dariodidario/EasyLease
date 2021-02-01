@@ -1,6 +1,6 @@
 package com.easylease.EasyLease.systemtesting.advisor.estimatestipulation;
 
-import com.easylease.EasyLease.model.DBPool.DBConnection;
+import com.easylease.EasyLease.model.DBPool.DbConnection;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +24,7 @@ public class StipulationNegativeSecond {
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
-  private static DBConnection dbConnection = DBConnection.getInstance();
+  private static DbConnection dbConnection = DbConnection.getInstance();
 
   @BeforeEach
   public void setUp() throws Exception {

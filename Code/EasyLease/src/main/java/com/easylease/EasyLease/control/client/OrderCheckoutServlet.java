@@ -2,7 +2,7 @@ package com.easylease.EasyLease.control.client;
 
 
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
+import com.easylease.EasyLease.model.order.DbOrderDao;
 import com.easylease.EasyLease.model.order.Order;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "OrderCheckoutServlet", value = "/OrderCheckoutServlet")
 public class OrderCheckoutServlet extends HttpServlet {
-  DBOrderDAO dbOrderDAO = (DBOrderDAO) DBOrderDAO.getInstance();
+  DbOrderDao dbOrderDao = (DbOrderDao) DbOrderDao.getInstance();
   Order order;
 
   @Override
@@ -49,24 +49,24 @@ public class OrderCheckoutServlet extends HttpServlet {
         Client client = (Client) request.getSession().getAttribute("user");
 
         if (client != null) {
-          order = dbOrderDAO.retrieveById(request.getParameter("submit"));
+          order = dbOrderDao.retrieveById(request.getParameter("submit"));
           if (order != null) {
             if (order.getState().equals("Confermato")) {
               order.setState("Pagato");
-              dbOrderDAO.update(order);
+              dbOrderDao.update(order);
             }
           }
         }
-        request.getRequestDispatcher("/user/homePageJSP.jsp")
+        request.getRequestDispatcher("/user/homePage.jsp")
             .forward(request, response);
       } catch (ServletException e) {
         Logger.getLogger(OrderCheckoutServlet.class.getName())
             .log(Level.SEVERE, e.getMessage());
-        request.getRequestDispatcher("/user/homePageJSP.jsp")
+        request.getRequestDispatcher("/user/homePage.jsp")
             .forward(request, response);
       }
     } else {
-      request.getRequestDispatcher("/user/homePageJSP.jsp")
+      request.getRequestDispatcher("/user/homePage.jsp")
           .forward(request, response);
     }
   }

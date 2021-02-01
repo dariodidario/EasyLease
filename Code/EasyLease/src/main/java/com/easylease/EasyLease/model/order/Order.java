@@ -13,7 +13,7 @@ import java.util.Date;
 public class Order {
 
   /** Order ID. */
-  private String id;
+  private String idOrder;
   /** Estimate Object linked to the following Order. */
   private Estimate estimate;
   /** Data from which the contract begins. */
@@ -36,7 +36,7 @@ public class Order {
   /**
    * Constructor for the Order Object.
    *
-   * @param id Order ID.
+   * @param idOrder Order ID.
    * @param estimate Estimate Object linked to the following Order.
    * @param startDate Date from which the contract begins.
    * @param endDate Data from which the contract ends.
@@ -46,10 +46,10 @@ public class Order {
    * @param state Current state of the Order.
    */
   public Order(
-      String id, Estimate estimate, Date startDate, Date endDate, Date confirmDate,
+      String idOrder, Estimate estimate, Date startDate, Date endDate, Date confirmDate,
       Date creationDate, boolean visibility, String state) {
 
-    this.id = id;
+    this.idOrder = idOrder;
     this.estimate = estimate;
     this.startDate = startDate;
     this.endDate = endDate;
@@ -64,17 +64,17 @@ public class Order {
    *
    * @return Order ID.
    */
-  public String getId() {
-    return id;
+  public String getIdOrder() {
+    return idOrder;
   }
 
   /**
    * Set the ID of the Order.
    *
-   * @param id Order ID.
+   * @param idOrder Order ID.
    */
-  public void setId(String id) {
-    this.id = id;
+  public void setIdOrder(String idOrder) {
+    this.idOrder = idOrder;
   }
 
   /**

@@ -1,8 +1,7 @@
 package com.easylease.EasyLease.control.client;
 
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.client.DBClientDAO;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
+import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "EstimateManagementClientServlet",
     urlPatterns = "/EstimateManagementClientServlet")
 public class EstimateManagementClientServlet extends HttpServlet {
-  private final DBEstimateDAO estimateDao = (DBEstimateDAO) DBEstimateDAO.getInstance();
+  private final DbEstimateDao estimateDao = (DbEstimateDao) DbEstimateDao.getInstance();
 
   protected void doPost(
       HttpServletRequest request,
@@ -41,13 +40,13 @@ public class EstimateManagementClientServlet extends HttpServlet {
       }
       Estimate estimate = estimateDao.retrieveById(id);
       request.setAttribute("estimate", estimate);
-      request.getRequestDispatcher("/client/estimateManagementClientJSP.jsp")
+      request.getRequestDispatcher("/client/estimateManagementClient.jsp")
           .forward(request, response);
     } catch (ServletException e) {
       Logger logger = Logger.getLogger(
           EstimateManagementClientServlet.class.getName());
       logger.log(Level.SEVERE, e.getMessage());
-      request.getRequestDispatcher("/user/homePageJSP.jsp").forward(request, response);
+      request.getRequestDispatcher("/user/homePage.jsp").forward(request, response);
     }
   }
 }

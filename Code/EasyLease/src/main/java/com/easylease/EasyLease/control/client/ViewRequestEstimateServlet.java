@@ -1,13 +1,14 @@
 package com.easylease.EasyLease.control.client;
 
-import com.easylease.EasyLease.model.car.Car;
-import com.easylease.EasyLease.model.car.DBCarDAO;
-import com.easylease.EasyLease.model.optional.DBOptionalDAO;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import com.easylease.EasyLease.model.car.DbCarDao;
+import com.easylease.EasyLease.model.optional.DbOptionalDao;
 import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 
 @WebServlet(name = "ViewRequestEstimateServlet", value = "/ViewRequestEstimateServlet")
 public class ViewRequestEstimateServlet extends HttpServlet {
@@ -16,19 +17,18 @@ public class ViewRequestEstimateServlet extends HttpServlet {
       HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     String role = (String) request.getSession().getAttribute("role");
-    if ( !role.equals("client") ) {
-      request.getRequestDispatcher("/user/homePageJSP.jsp")
+    if (!role.equals("client")) {
+      request.getRequestDispatcher("/user/homePage.jsp")
           .forward(request, response);
-    }
-    else {
+    } else {
       String idCar = request.getParameter("idCar");
       request.getSession()
-          .setAttribute("car", DBCarDAO.getInstance().retrieveById(idCar));
+          .setAttribute("car", DbCarDao.getInstance().retrieveById(idCar));
       request.getSession().setAttribute("optionalCarList",
-          DBOptionalDAO.getInstance().retrieveByType("Auto"));
+          DbOptionalDao.getInstance().retrieveByType("Auto"));
       request.getSession().setAttribute("optionalContractList",
-          DBOptionalDAO.getInstance().retrieveByType("Contratto"));
-      request.getRequestDispatcher("/client/requestEstimateJSP.jsp")
+          DbOptionalDao.getInstance().retrieveByType("Contratto"));
+      request.getRequestDispatcher("/client/requestEstimate.jsp")
           .forward(request, response);
     }
   }

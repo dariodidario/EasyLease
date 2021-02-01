@@ -1,17 +1,32 @@
 package com.easylease.EasyLease.control.client;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import com.easylease.EasyLease.model.advisor.Advisor;
-import com.easylease.EasyLease.model.advisor.AdvisorDAO;
-import com.easylease.EasyLease.model.advisor.DBAdvisorDAO;
+import com.easylease.EasyLease.model.advisor.AdvisorDao;
+import com.easylease.EasyLease.model.advisor.DbAdvisorDao;
 import com.easylease.EasyLease.model.client.Client;
-import com.easylease.EasyLease.model.client.ClientDAO;
-import com.easylease.EasyLease.model.client.DBClientDAO;
-import com.easylease.EasyLease.model.estimate.DBEstimateDAO;
+import com.easylease.EasyLease.model.client.ClientDao;
+import com.easylease.EasyLease.model.client.DbClientDao;
+import com.easylease.EasyLease.model.estimate.DbEstimateDao;
 import com.easylease.EasyLease.model.estimate.Estimate;
-import com.easylease.EasyLease.model.estimate.EstimateDAO;
-import com.easylease.EasyLease.model.order.DBOrderDAO;
+import com.easylease.EasyLease.model.estimate.EstimateDao;
+import com.easylease.EasyLease.model.order.DbOrderDao;
 import com.easylease.EasyLease.model.order.Order;
-import com.easylease.EasyLease.model.order.OrderDAO;
+import com.easylease.EasyLease.model.order.OrderDao;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,22 +35,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 class ConfirmEstimateServletTest {
   @Mock
@@ -49,10 +48,10 @@ class ConfirmEstimateServletTest {
   @Mock
   private RequestDispatcher dispatcher;
 
-  private ClientDAO clientDao;
-  private EstimateDAO estimateDao;
-  private OrderDAO orderDao;
-  private AdvisorDAO advisorDao;
+  private ClientDao clientDao;
+  private EstimateDao estimateDao;
+  private OrderDao orderDao;
+  private AdvisorDao advisorDao;
   private ConfirmEstimateServlet servlet;
   private final Map<String, Object> attributes = new HashMap<>();
 
@@ -60,10 +59,10 @@ class ConfirmEstimateServletTest {
   void setUp() {
     MockitoAnnotations.openMocks(this);
     servlet = new ConfirmEstimateServlet();
-    clientDao = DBClientDAO.getInstance();
-    estimateDao = DBEstimateDAO.getInstance();
-    orderDao = DBOrderDAO.getInstance();
-    advisorDao = DBAdvisorDAO.getInstance();
+    clientDao = DbClientDao.getInstance();
+    estimateDao = DbEstimateDao.getInstance();
+    orderDao = DbOrderDao.getInstance();
+    advisorDao = DbAdvisorDao.getInstance();
     when(request.getServletContext()).thenReturn(context);
     when(request.getSession()).thenReturn(session);
     when(context.getContextPath()).thenReturn("");
@@ -106,12 +105,12 @@ class ConfirmEstimateServletTest {
     List<Order> updatedOrders = orderDao.retrieveAll();
     for (Order item : updatedOrders) {
       boolean found = false;
-      for(Order item2 : orderList){
-        if (found == false && item.getId().equals(item2.getId())) {
+      for (Order item2 : orderList) {
+        if (found == false && item.getIdOrder().equals(item2.getIdOrder())) {
           found = true;
         }
       }
-      if(found == false){
+      if (found == false) {
         orderDao.delete(item);
       }
     }
@@ -138,7 +137,7 @@ class ConfirmEstimateServletTest {
     Advisor advisor = advisorDao.retrieveById("ADJdybc");
     when(session.getAttribute("user")).thenReturn(advisor);
     servlet.doGet(request, response);
-    verify(request).getRequestDispatcher("/user/homePageJSP.jsp");
+    verify(request).getRequestDispatcher("/user/homePage.jsp");
 
   }
 }

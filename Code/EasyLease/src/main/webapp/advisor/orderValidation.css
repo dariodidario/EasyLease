@@ -1,0 +1,128 @@
+.Contract_main{
+    width: 60%;
+}
+.Contract_price{
+    width: 40%;
+}
+.Contract_confirm{
+    margin-top: 20px;
+    font-size: 3vw;
+}
+.Contract_information{
+    width: 100%;
+    text-align: center;
+}
+.car_optionals{
+    display: inline-block;
+    horiz-align: center;
+}
+.page_title{
+    font-size: 4vw;
+}
+.subtitle{
+    font-size: 3vw;
+    margin: 5px;
+}
+.Ltext{
+    font-size: 1.8vw;
+    font-style: oblique;
+    margin: 5px;
+}
+.Etext{
+    font-size: 1.8vw;
+    font-style: oblique;
+    margin: 5px;
+    color: #9b334e;
+}
+.car_image{
+    max-width: 80%;
+}
+.confirm_button{
+    background: #9B334E;
+    text-align: center;
+    font-size: 1.5vw;
+    color: white;
+    border-bottom: medium solid #dec717;
+    border-radius: 20px;
+    margin: 5px;
+}
+.confirm_button:hover{
+    background: maroon;
+}
+.confirm_date{
+    width: 70%;
+    background: #9B334E;
+    font-size: 1vw;
+    color: white;
+    margin: 5px;
+}
+.confirm_date:hover{
+    background: maroon;
+}
+@media (max-width: 830px) and (orientation: landscape)  {
+    .Contract_main{
+        width: 100% !important;
+    }
+    .Contract_price{
+        width: 40% !important;
+        margin-top: -39% !important;
+        margin-left: 60% !important;
+    }
+    .Contract_information{
+        width: 60% !important;
+    }
+    .car_optionals{
+        display: inline-block;
+        horiz-align: left !important;
+    }
+    .confirm_date{
+        width: 100% !important;
+        font-size: 2vw !important;
+    }
+    .confirm_button{
+        font-size: 2.5vw !important;
+    }
+}
+@media (max-width: 1024px) and (orientation: portrait) {
+    .Contract_main{
+        width: 100% !important;
+    }
+    .Contract_price{
+        width: 40% !important;
+        margin-top: -22% !important;
+        margin-left: 60% !important;
+    }
+    .Contract_information{
+        width: 70% !important;
+    }
+    .car_optionals{
+        display: inline-block;
+        horiz-align: left !important;
+    }
+    .confirm_date{
+        width: 100% !important;
+        font-size: 2vw !important;
+    }
+    .confirm_button{
+        font-size: 2.5vw !important;
+    }
+    .page_title{
+        font-size: 5vw !important;
+    }
+    .subtitle{
+        font-size: 4vw !important;
+    }
+    .Ltext{
+        font-size: 2.8vw !important;
+    }
+    .Etext{
+        font-size: 2.8vw !important;
+    }
+}
+@media (min-width: 831px) and (orientation: landscape){
+    .Contract_price{
+        position: absolute !important;
+        left: 60% !important;
+        top: 20% !important;
+    }
+}
