@@ -14,8 +14,8 @@ public class SchedulerManager implements ServletContextListener {
   @Override
   public void contextInitialized(ServletContextEvent sce) {
     this.scheduler = Executors.newSingleThreadScheduledExecutor();
-    this.scheduler.scheduleAtFixedRate(new DailyChecker(), 0, 1, TimeUnit.DAYS);
-    this.scheduler.scheduleAtFixedRate(new MonthChecker(), 0, 31, TimeUnit.DAYS);
+    this.scheduler.scheduleAtFixedRate(new DailyChecker(), 1, 1, TimeUnit.DAYS);
+    this.scheduler.scheduleAtFixedRate(new MonthChecker(), 1, 31, TimeUnit.DAYS);
   }
 
   @Override
