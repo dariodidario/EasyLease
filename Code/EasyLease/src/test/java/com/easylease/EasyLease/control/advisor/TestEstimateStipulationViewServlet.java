@@ -84,11 +84,10 @@ class TestEstimateStipulationViewServlet {
 
   @Test
   void successTakenState() throws ServletException, IOException {
-
     when(request.getSession().getAttribute("user")).thenReturn(new Advisor());
     when(request.getParameter("id")).thenReturn("ESgY65R");
-    servlet.doPost(request, response);
     Estimate estimate = dbEstimateDao.retrieveById("ESgY65R");
+    servlet.doPost(request, response);
     assertEquals("Preso in carico", estimate.getState());
     verify(request).getRequestDispatcher(
         "/advisor/estimateStipulation.jsp");
