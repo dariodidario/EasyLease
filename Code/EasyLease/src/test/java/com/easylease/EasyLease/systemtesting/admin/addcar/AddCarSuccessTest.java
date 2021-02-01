@@ -124,8 +124,6 @@ public class AddCarSuccessTest {
             "src/test/java/com/easylease/EasyLease/systemtesting/admin/serie3.jpg")
             .getAbsolutePath());
     driver.findElement(By.id("buttonAddCar")).click();
-    driver.findElement(By.xpath("//a[contains(@href, '#')]")).click();
-    driver.findElement(By.linkText("Logout")).click();
   }
 
   /**
