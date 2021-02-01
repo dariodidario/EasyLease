@@ -126,6 +126,12 @@
 <center>
 <div id="divCont">
 
+  <%if(request.getSession().getAttribute("exist")=="exist"){%>
+    <div id="alertExist" class="alert alert-dark" role="alert">
+      Utente già registrato con questa email
+    </div>
+    <%request.getSession().removeAttribute("exist");%>
+  <%}%>
   <form action="${pageContext.request.contextPath}/SignInServlet" method="post" onSubmit="return controllo()">
     <br/>
     <div class="form-group">

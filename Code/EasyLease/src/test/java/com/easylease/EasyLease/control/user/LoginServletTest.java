@@ -102,7 +102,6 @@ public class LoginServletTest {
     when(request.getParameter("userPassword")).thenReturn("pass");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
-    //assertEquals("admin", request.getSession().getAttribute("role"));
     request.getSession().removeAttribute("userEmail");
     request.getSession().removeAttribute("userPassword");
   }
@@ -113,7 +112,6 @@ public class LoginServletTest {
     when(request.getParameter("userPassword")).thenReturn("pass");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
-    //assertEquals("advisor", request.getSession().getAttribute("role"));
     request.getSession().invalidate();
   }
 
@@ -123,7 +121,6 @@ public class LoginServletTest {
     when(request.getParameter("userPassword")).thenReturn("pass");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher("/user/homePage.jsp");
-    //assertEquals("client", request.getSession().getAttribute("role"));
     request.getSession().invalidate();
   }
 
@@ -140,6 +137,7 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("mattia.caprio@unisa.com");
     when(request.getParameter("userPassword")).thenReturn("a");
     servlet.doPost(request, response);
+    request.getSession().removeAttribute("errata");
     verify(request).getRequestDispatcher("/user/login.jsp");
   }
 
@@ -148,6 +146,7 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("rossa.clementina@frutta.com");
     when(request.getParameter("userPassword")).thenReturn("a");
     servlet.doPost(request, response);
+    request.getSession().removeAttribute("errata");
     verify(request).getRequestDispatcher("/user/login.jsp");
   }
 
@@ -156,6 +155,7 @@ public class LoginServletTest {
     when(request.getParameter("userEmail")).thenReturn("giu.digiamp@giudigiamp.com");
     when(request.getParameter("userPassword")).thenReturn("a");
     servlet.doPost(request, response);
+    request.getSession().removeAttribute("errata");
     verify(request).getRequestDispatcher("/user/login.jsp");
   }
 

@@ -45,6 +45,7 @@ public class LoginServlet extends HttpServlet {
         } else {
           request.removeAttribute("userEmail");
           request.removeAttribute("userPassword");
+          request.getSession().setAttribute("errata", "errata");
           request.getRequestDispatcher("/user/login.jsp")
               .forward(request, response);
         }
@@ -63,6 +64,7 @@ public class LoginServlet extends HttpServlet {
           } else {
             request.removeAttribute("userEmail");
             request.removeAttribute("userPassword");
+            request.getSession().setAttribute("errata", "errata");
             request.getRequestDispatcher("/user/login.jsp")
                 .forward(request, response);
           }
@@ -81,6 +83,7 @@ public class LoginServlet extends HttpServlet {
             } else {
               request.removeAttribute("userEmail");
               request.removeAttribute("userPassword");
+              request.getSession().setAttribute("errata", "errata");
               request.getRequestDispatcher("/user/login.jsp")
                   .forward(request, response);
             }

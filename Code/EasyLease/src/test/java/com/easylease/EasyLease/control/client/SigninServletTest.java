@@ -115,6 +115,7 @@ class SigninServletTest {
     Client client = clientDao.retrieveByEmail("francesco.torino1999@gmail.com");
     String email = "francesco.torino1999@gmail.com";
     assertEquals(email, client.getEmail());
+    request.getSession().removeAttribute("ok");
     clientDao.delete(client);
   }
 
@@ -131,7 +132,8 @@ class SigninServletTest {
     when(request.getParameter("street")).thenReturn("Isonzo");
     when(request.getParameter("password")).thenReturn("pass");
     servlet.doPost(request, response);
-    verify(request).getRequestDispatcher("/user/login.jsp");
+    request.getSession().removeAttribute("exist");
+    verify(request).getRequestDispatcher("/client/signIn.jsp");
   }
 
 }
