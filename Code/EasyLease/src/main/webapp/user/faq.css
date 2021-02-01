@@ -1,5 +1,10 @@
-.footer-fixed{
+.wrapper{
+  min-height: 100%;
+  margin-bottom: -8em;
+}
 
+.push{
+  height: 8em;
 }
 
 .container {
