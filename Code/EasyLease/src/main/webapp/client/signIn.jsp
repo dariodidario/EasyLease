@@ -128,7 +128,7 @@
 
   <%if(request.getSession().getAttribute("exist")=="exist"){%>
     <div id="alertExist" class="alert alert-dark" role="alert">
-      Utente già registrato con questa email
+      Utente già registrato con questa e-mail
     </div>
     <%request.getSession().removeAttribute("exist");%>
   <%}%>
