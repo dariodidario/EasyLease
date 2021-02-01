@@ -84,10 +84,10 @@ class OrderValidationServletTest {
         dbAdvisorDao.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn("ORd3Jks");
     when(request.getParameter("choice")).thenReturn("false");
+    Order order = dbOrderDao.retrieveById("ORd3Jks");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
         "/advisor/orderManagementAdvisor.jsp");
-    Order order = dbOrderDao.retrieveById("ORd3Jks");
     dbOrderDao.update(order);
   }
 
@@ -97,11 +97,11 @@ class OrderValidationServletTest {
         dbAdvisorDao.retrieveById("ADJdybc"));
     when(request.getParameter("id")).thenReturn("ORd3Jks");
     when(request.getParameter("choice")).thenReturn("true");
-    when(request.getParameter("date")).thenReturn("2021-01-17");
+    when(request.getParameter("date")).thenReturn("2021-02-24");
+    Order order = dbOrderDao.retrieveById("ORd3Jks");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
         "/advisor/orderManagementAdvisor.jsp");
-    Order order = dbOrderDao.retrieveById("ORd3Jks");
     dbOrderDao.update(order);
   }
 

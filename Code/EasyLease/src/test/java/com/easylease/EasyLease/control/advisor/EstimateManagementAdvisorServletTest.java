@@ -85,24 +85,24 @@ class EstimateManagementAdvisorServletTest {
     when(request.getSession().getAttribute("user")).thenReturn(
         dbAdvisorDao.retrieveById("ADJdybc"));
     when(request.getParameter("id_estimate")).thenReturn("ES76tRE");
+    Estimate estimate = dbEstimateDao.retrieveById("ES76tRE");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
         "/advisor/estimateManagementAdvisor.jsp");
     assertEquals("Preso in carico",
         dbEstimateDao.retrieveById("ES76tRE").getState());
-    Estimate estimate = dbEstimateDao.retrieveById("ES76tRE");
-    estimate.setState("Richiesto");
     dbEstimateDao.update(estimate);
   }
 
   @Test
   void successStipulatedState() throws ServletException, IOException {
+
     when(request.getSession().getAttribute("user")).thenReturn(new Advisor());
     when(request.getParameter("id_estimate")).thenReturn("ESdnA9G");
+    Estimate estimate = dbEstimateDao.retrieveById("ESdnA9G");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
         "/advisor/estimateManagementAdvisor.jsp");
-    Estimate estimate = dbEstimateDao.retrieveById("ESdnA9G");
     assertEquals("Stipulato", estimate.getState());
   }
 
@@ -110,10 +110,10 @@ class EstimateManagementAdvisorServletTest {
   void successTakenState() throws ServletException, IOException {
     when(request.getSession().getAttribute("user")).thenReturn(new Advisor());
     when(request.getParameter("id_estimate")).thenReturn("ESgY65R");
+    Estimate estimate = dbEstimateDao.retrieveById("ESgY65R");
     servlet.doPost(request, response);
     verify(request).getRequestDispatcher(
         "/advisor/estimateManagementAdvisor.jsp");
-    Estimate estimate = dbEstimateDao.retrieveById("ESgY65R");
     assertEquals("Preso in carico", estimate.getState());
   }
 
