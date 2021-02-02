@@ -84,16 +84,6 @@ public class UpdateCarSuccessImageTest {
     driver.findElement(By.xpath("//button[@type='submit']")).click();
     driver.findElement(By.xpath("//div[3]/div/a/img")).click();
     driver.findElement(By.name("Modifica Auto")).click();
-    driver.findElement(By.id("matita_brand")).click();
-    driver.findElement(By.xpath("//input[@type='text']")).click();
-    driver.findElement(By.xpath("//input[@type='text']")).clear();
-    driver.findElement(By.xpath("//input[@type='text']")).sendKeys("BMW");
-    driver.findElement(By.xpath("//button")).click();
-    driver.findElement(By.id("matita_model")).click();
-    driver.findElement(By.xpath("//input[@type='text']")).click();
-    driver.findElement(By.xpath("//input[@type='text']")).clear();
-    driver.findElement(By.xpath("//input[@type='text']")).sendKeys("Serie 3");
-    driver.findElement(By.xpath("//button")).click();
     driver.findElement(By.id("matita_image")).click();
     driver.findElement(By.id("image_path"))
         .sendKeys(new File(
@@ -102,6 +92,8 @@ public class UpdateCarSuccessImageTest {
     driver.findElement(By.id("buttonUpdateCar")).click();
     driver.findElement(By.xpath("//li[3]/a/img")).click();
     driver.findElement(By.linkText("Logout")).click();
+
+    carDAO.update(car);
   }
 
   /**
@@ -112,7 +104,6 @@ public class UpdateCarSuccessImageTest {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-    carDAO.update(car);
     dbConnection.getConnection().rollback();
     dbConnection.getConnection().setAutoCommit(true);
   }
