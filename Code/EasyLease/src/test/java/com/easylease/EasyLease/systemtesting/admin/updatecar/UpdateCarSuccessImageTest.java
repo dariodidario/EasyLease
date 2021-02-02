@@ -31,7 +31,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  */
 public class UpdateCarSuccessImageTest {
   private CarDao carDAO;
-  private Car car;
   private WebDriver driver;
   private static DbConnection dbConnection;
   private String baseUrl;
@@ -57,6 +56,10 @@ public class UpdateCarSuccessImageTest {
   @BeforeEach
   public void setUp() throws Exception {
     carDAO = DbCarDao.getInstance();
+    carDAO.insert(new Car("CA00000", "Fiat", "Panda", 300,
+        "Berlina", true, 5, "Manuale",
+        3, 80, "Euro 6", 96,
+        "Diesel", 1300, "fiat_panda.jpg"));
     dbConnection.getConnection().setAutoCommit(false);
     System.setProperty("webdriver.edge.driver",
         "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
@@ -65,13 +68,12 @@ public class UpdateCarSuccessImageTest {
         UnexpectedAlertBehaviour.ACCEPT);
     driver = new EdgeDriver(capabilities);
     baseUrl = "https://www.google.com/";
-    car = carDAO.retrieveByModel("Spider 124");
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
   @DisplayName("ST_ADMIN_2_13")
-  public void testUpdateCarSuccessImage() {
+  public void testUpdateCarSuccessImage(){
     driver.get("http://localhost:8080/EasyLease_war_exploded/HomePageServlet");
     driver.manage().window().maximize();
     driver.findElement(By.linkText("Login")).click();
@@ -92,8 +94,6 @@ public class UpdateCarSuccessImageTest {
     driver.findElement(By.id("buttonUpdateCar")).click();
     driver.findElement(By.xpath("//li[3]/a/img")).click();
     driver.findElement(By.linkText("Logout")).click();
-
-    carDAO.update(car);
   }
 
   /**
@@ -106,5 +106,6 @@ public class UpdateCarSuccessImageTest {
     driver.quit();
     dbConnection.getConnection().rollback();
     dbConnection.getConnection().setAutoCommit(true);
+    carDAO.delete(carDAO.retrieveById("CA00000"));
   }
 }
