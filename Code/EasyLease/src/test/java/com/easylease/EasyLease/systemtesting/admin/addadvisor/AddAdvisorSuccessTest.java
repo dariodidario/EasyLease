@@ -115,9 +115,9 @@ public class AddAdvisorSuccessTest {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-    Advisor advisor = advisorDAO.retrieveByEmail("p.angela@rai.it");
-    advisorDAO.delete(advisor);
     dbConnection.getConnection().rollback();
     dbConnection.getConnection().setAutoCommit(true);
+    Advisor advisor = advisorDAO.retrieveByEmail("p.angela@rai.it");
+    advisorDAO.delete(advisor);
   }
 }

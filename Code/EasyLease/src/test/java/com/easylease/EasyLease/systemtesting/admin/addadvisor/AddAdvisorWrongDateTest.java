@@ -3,6 +3,9 @@ package com.easylease.EasyLease.systemtesting.admin.addadvisor;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.easylease.EasyLease.model.DBPool.DbConnection;
+import com.easylease.EasyLease.model.advisor.Advisor;
+import com.easylease.EasyLease.model.advisor.AdvisorDao;
+import com.easylease.EasyLease.model.advisor.DbAdvisorDao;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.AfterEach;
@@ -25,6 +28,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  * @author Sarro Antonio
  */
 public class AddAdvisorWrongDateTest {
+  private AdvisorDao advisorDAO;
   private WebDriver driver;
   private static DbConnection dbConnection;
   private String baseUrl;
@@ -49,6 +53,7 @@ public class AddAdvisorWrongDateTest {
    */
   @BeforeEach
   public void setUp() throws Exception {
+    advisorDAO = DbAdvisorDao.getInstance();
     dbConnection.getConnection().setAutoCommit(false);
     System.setProperty("webdriver.edge.driver",
         "src/test/java/com/easylease/EasyLease/systemtesting/msedgedriver.exe");
@@ -110,8 +115,9 @@ public class AddAdvisorWrongDateTest {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-
     dbConnection.getConnection().rollback();
     dbConnection.getConnection().setAutoCommit(true);
+    Advisor advisor = advisorDAO.retrieveByEmail("p.angela@rai.it");
+    advisorDAO.delete(advisor);
   }
 }

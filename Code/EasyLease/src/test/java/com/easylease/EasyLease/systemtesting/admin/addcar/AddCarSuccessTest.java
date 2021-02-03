@@ -121,7 +121,7 @@ public class AddCarSuccessTest {
     driver.findElement(By.id("price")).sendKeys("300");
     driver.findElement(By.id("image_path"))
         .sendKeys(new File(
-            "src/test/java/com/easylease/EasyLease/systemtesting/admin/serie3.jpg")
+            "src/test/java/com/easylease/EasyLease/systemtesting/admin/ferrari.jpg")
             .getAbsolutePath());
     driver.findElement(By.id("buttonAddCar")).click();
   }
@@ -134,10 +134,10 @@ public class AddCarSuccessTest {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-    Car car = carDAO.retrieveByModel("Serie 3");
-    carDAO.delete(car);
     dbConnection.getConnection().rollback();
     dbConnection.getConnection().setAutoCommit(true);
+    Car car = carDAO.retrieveByModel("Serie 3");
+    carDAO.delete(car);
   }
 }
 

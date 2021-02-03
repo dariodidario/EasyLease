@@ -13,13 +13,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 class CheckerTest {
 
   private static DbConnection dbConnection;
-  private OrderDao orderDao;
-  private EstimateDao estimateDao;
-  private Calendar calendar;
 
   @BeforeAll
   static void init() throws Exception {
@@ -36,9 +32,6 @@ class CheckerTest {
 
   @BeforeEach
   void setUp() throws SQLException {
-    orderDao = DbOrderDao.getInstance();
-    estimateDao = DbEstimateDao.getInstance();
-    calendar = Calendar.getInstance();
     dbConnection.getConnection().setAutoCommit(false);
   }
 
@@ -49,14 +42,14 @@ class CheckerTest {
   }
 
   @Test
-  void dailyCheckerTest_Success() {
-    DailyChecker thread = new DailyChecker();
+  void CheckerTest_Success() {
+    MonthChecker thread = new MonthChecker();
     thread.run();
   }
 
   @Test
-  void monthCheckerTest_Success() {
-    MonthChecker thread = new MonthChecker();
+  void dailyCheckerTest_Success() {
+    DailyChecker thread = new DailyChecker();
     thread.run();
   }
 }
