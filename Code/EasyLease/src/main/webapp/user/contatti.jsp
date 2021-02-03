@@ -3,70 +3,69 @@
 <head>
   <link rel="stylesheet" href="user/Contatti.css">
   <title>Contatti</title>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/user/contatti.css"/>
 </head>
 <body>
 <%@include file="/fragments/header.jsp" %>
 
-
-      <form action="sendmail">
-              <table class="table_mail_container">
-                <tr>
-                  <td class="mail_background" >
-                   <table class="mail_table">
-                      <tr>
-                          <td class="subject" colspan="2" valign="bottom">
-                              <label class="subject_label" for="subject">Descrivi il problema*</label>
-                              <br>
-                              <textarea id="subject" name="subject" placeholder="Scrivi qui"  required></textarea>
-                          </td> </tr>
-                      <tr>
-                          <td class="TDmail_button" valign="bottom">
-                              <input class="mail_button" id="contatti" type="submit" value="Invia messaggio" />
-                          </td>
-                          <td class="TDobject" align="left" valign="bottom">
-                              <table class="object">
-                                <tr>
-                                  <td align="right"><label for="firstname">Nome*</label>
-                                    <input type="text" id="firstname" name="firstname" placeholder="Il tuo nome" required/>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="right"><label for="lastname">Cognome*</label>
-                                    <input type="text" id="lastname" name="lastname" placeholder="Il tuo cognome" required/>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="right"><label for="email">Email*</label>
-                                    <input type="email" id="email" name="email" placeholder="La tua mail" required/>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td align="right"><label for="telefono">Telefono</label>
-                                    <input type="telefono" id="telefono" name="telefono" placeholder="Il tuo telefono" pattern="^((00|\+)39[\. ]??)??3\d{2}[\. ]??\d{6,7}$" title="Numero di telefono malformato"/>
-                                  </td>
-                                </tr>
-                              </table>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td colspan="2" class="TDinfo">
-                              <label class="info">I campi segnati con * sono obbligatori</label>
-                          </td>
-                      </tr>
-                  </table>
-                 </td>
-                </tr>
-              </table>
-      </form>
-      <img class="table_img" src="img/misc/mail_png.png">
-
-
-        <div class="tell_container" align="right">
-          <label class="tel1">Chiamaci a telefono</label><br>
-            <a href="tel:+390123456789" class="tell_button" id="call">Chiama +39.0123.456789!</a>
-            <img class="tell_img" src="img/misc/call_center_png.png"><br>
-          <label class="tel2">I centralini sono attivi dal lunedì al venerdi dalle 9:00 alle 18:00</label>
+<div class="container-fluid">
+  <div class="container">
+    <div>
+      <h2 class="text-center mb-5 p-3">Contattaci</h2>
+    </div>
+    <div class="row">
+      <div class="col-md-7 shadow rounded p-5">
+        <div class="row">
+          <div class="col mb-3">
+            <label class="form-label">Nome</label>
+            <input type="text" class="form-control" placeholder="Nome">
+          </div>
+          <div class="col mb-3">
+            <label class="form-label">Cognome</label>
+            <input type="text" class="form-control" placeholder="Cognome">
+          </div>
         </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="text" class="form-control" placeholder="nome@email.com">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Oggetto</label>
+          <input type="text" class="form-control" placeholder="Oggetto">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Messaggio</label>
+          <textarea name="" class="form-control" placeholder="Scrivi il tuo messaggio"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Invia
+        </button>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">EasyLease</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Messaggio inviato con successo!
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary"><a href="${pageContext.request.contextPath}/HomePageServlet">Chiudi</a></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="ml-5">
+          <img src="${pageContext.request.contextPath}/img/misc/mail.svg" alt="" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <%@include file="/fragments/footer.jsp" %>
 </body>
 </html>
