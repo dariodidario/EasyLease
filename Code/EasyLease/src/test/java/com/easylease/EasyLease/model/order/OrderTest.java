@@ -94,10 +94,11 @@ class OrderTest {
 
   @Test
   void testOrderSetStartDate() {
+    Date date = new Date();
     Order order = new Order("OR12RT4", new Estimate(), new Date(),
         new Date(), new Date(), new Date(), true, "Attesa");
-    order.setStartDate(new Date());
-    assertEquals(new Date(), order.getStartDate());
+    order.setStartDate(date);
+    assertEquals(date, order.getStartDate());
   }
 
   @Test
