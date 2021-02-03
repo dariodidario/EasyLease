@@ -100,8 +100,8 @@ public class UpdateCarSuccessPowerTest {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-    carDAO.update(car);
     dbConnection.getConnection().rollback();
     dbConnection.getConnection().setAutoCommit(true);
+    carDAO.update(car);
   }
 }

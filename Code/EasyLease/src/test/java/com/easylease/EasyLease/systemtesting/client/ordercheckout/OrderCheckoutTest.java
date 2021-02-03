@@ -103,9 +103,8 @@ public class OrderCheckoutTest {
   @AfterEach
   public void tearDown() throws Exception {
     driver.quit();
-
-    orderDao.update(order);
     dbConnection.getConnection().rollback();
     dbConnection.getConnection().setAutoCommit(true);
+    orderDao.update(order);
   }
 }
