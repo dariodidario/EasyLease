@@ -28,7 +28,7 @@ public class MonthChecker implements Runnable {
       orderList.forEach(order -> {
         c.setTime(order.getCreationDate());
         c.add(Calendar.MONTH, 1);
-        if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
+        if (c.getTime().compareTo(Calendar.getInstance().getTime()) < 0) {
           orderDAO.delete(order);
         }
       });
@@ -46,7 +46,7 @@ public class MonthChecker implements Runnable {
       orderList.forEach(order -> {
         c.setTime(order.getConfirmDate());
         c.add(Calendar.MONTH, 1);
-        if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
+        if (c.getTime().compareTo(Calendar.getInstance().getTime()) < 0) {
           orderDAO.delete(order);
         }
       });
@@ -64,7 +64,7 @@ public class MonthChecker implements Runnable {
       estimateList.forEach(estimate -> {
         c.setTime(estimate.getResponseDate());
         c.add(Calendar.MONTH, 1);
-        if (c.getTime().compareTo(Calendar.getInstance().getTime()) > 0) {
+        if (c.getTime().compareTo(Calendar.getInstance().getTime()) < 0) {
           estimateDAO.delete(estimate);
         }
       });
