@@ -79,7 +79,7 @@ public class OrderCheckoutTest {
     driver.findElement(By.xpath("//button[@type='submit']")).click();
     driver.findElement(By.xpath("//a[contains(@href, '#')]")).click();
     driver.findElement(By.linkText("Ordini e Preventivi")).click();
-    driver.findElement(By.linkText("Visualizza")).click();
+    driver.findElement(By.id("ORbG567")).click();
     driver.findElement(By.id("#btnPay")).click();
     driver.findElement(By.id("cardNumber")).click();
     driver.findElement(By.id("cardNumber")).clear();
