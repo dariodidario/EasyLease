@@ -1,5 +1,6 @@
 package com.easylease.easylease.control.advisor;
 
+import com.easylease.easylease.control.utility.EmailManager;
 import com.easylease.easylease.model.advisor.Advisor;
 import com.easylease.easylease.model.order.DbOrderDao;
 import com.easylease.easylease.model.order.Order;
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -78,9 +80,10 @@ public class OrderValidationServlet extends HttpServlet {
         order.setState("Convalidato");
         dbOrderDao.update(order);
         request.setAttribute("order", order);
+        EmailManager.sendOrderNotification(order.getEstimate().getClient(), order);
         request.getRequestDispatcher("/advisor/orderManagementAdvisor.jsp")
             .forward(request, response);
-      } catch (ServletException e) {
+      } catch (ServletException | MessagingException e) {
         logger.log(Level.SEVERE, e.getMessage());
         request.getRequestDispatcher("/user/homePage.jsp")
             .forward(request, response);

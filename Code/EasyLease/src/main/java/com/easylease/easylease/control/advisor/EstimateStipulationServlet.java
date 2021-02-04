@@ -1,5 +1,6 @@
 package com.easylease.easylease.control.advisor;
 
+import com.easylease.easylease.control.utility.EmailManager;
 import com.easylease.easylease.model.advisor.Advisor;
 import com.easylease.easylease.model.estimate.DbEstimateDao;
 import com.easylease.easylease.model.estimate.Estimate;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -65,10 +67,11 @@ public class EstimateStipulationServlet extends HttpServlet {
         dbEstimateDao.update(estimate);
         request.setAttribute("estimate", estimate);
         session.removeAttribute("stipulation");
+        EmailManager.sendEstimateNotification(estimate.getClient(), estimate);
         request.getRequestDispatcher(
             "/advisor/estimateManagementAdvisor.jsp")
             .forward(request, response);
-      } catch (ServletException e) {
+      } catch (ServletException | MessagingException e) {
         logger.log(Level.SEVERE, e.getMessage());
         request.getRequestDispatcher("/user/homePage.jsp")
             .forward(request, response);

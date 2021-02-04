@@ -43,7 +43,7 @@
         <div class="col-12 col-md-6">
             <div class="col" align="center">
                 <div class="car_spec_text">
-                    <h2>Informazioni auto</h2>
+                    <h2>Informazioni ordine</h2>
                 </div>
             </div>
             <div class="row">
