@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.easylease.EasyLease.model.estimate.Estimate" %>
-<%@ page import="com.easylease.EasyLease.model.optional.Optional" %>
+<%@ page import="com.easylease.easylease.model.estimate.Estimate" %>
+<%@ page import="com.easylease.easylease.model.optional.Optional" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
 

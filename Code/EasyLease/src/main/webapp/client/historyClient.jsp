@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*" %>
-<%@ page import="com.easylease.EasyLease.model.order.Order" %>
-<%@ page import="com.easylease.EasyLease.model.estimate.Estimate" %>
+<%@ page import="com.easylease.easylease.model.order.Order" %>
+<%@ page import="com.easylease.easylease.model.estimate.Estimate" %>
 <%
     if (request.getSession() == null) {
         response.sendRedirect(request.getContextPath() + "/LoginViewServlet");

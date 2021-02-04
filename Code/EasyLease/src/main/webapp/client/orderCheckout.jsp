@@ -1,5 +1,5 @@
-<%@ page import="com.easylease.EasyLease.model.order.Order" %>
-<%@ page import="com.easylease.EasyLease.model.optional.Optional" %>
+<%@ page import="com.easylease.easylease.model.order.Order" %>
+<%@ page import="com.easylease.easylease.model.optional.Optional" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
