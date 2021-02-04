@@ -17,6 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * This servlet takes care of confirming a customer's estimate,
+ * creating a specific order for that estimate.
+ *
+ * @author Mattia Mori
+ * @version 0.3
+ * @since 0.1
+ */
 @WebServlet(name = "ConfirmEstimateServlet",
     urlPatterns = "/ConfirmEstimateServlet")
 public class ConfirmEstimateServlet extends HttpServlet {

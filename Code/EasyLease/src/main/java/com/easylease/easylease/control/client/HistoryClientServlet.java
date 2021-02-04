@@ -19,6 +19,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * This servlet shows the customer the list of orders and estimates belonging
+ * to him, giving him the opportunity to view more information for each of them.
+ *
+ * @author Mattia Mori
+ * @version 0.4
+ * @since 0.1
+ */
 @WebServlet(name = "HistoryClientServlet", urlPatterns = "/HistoryClientServlet")
 public class HistoryClientServlet extends HttpServlet {
 

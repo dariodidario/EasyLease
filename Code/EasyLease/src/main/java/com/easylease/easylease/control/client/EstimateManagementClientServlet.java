@@ -13,6 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * This servlet shows the client information about the selected estimate
+ * and any operations it can perform.
+ *
+ * @author Mattia Mori
+ * @version 0.4
+ * @since 0.1
+ */
 @WebServlet(name = "EstimateManagementClientServlet",
     urlPatterns = "/EstimateManagementClientServlet")
 public class EstimateManagementClientServlet extends HttpServlet {

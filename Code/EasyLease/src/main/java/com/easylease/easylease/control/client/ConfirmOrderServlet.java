@@ -13,7 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
+/**
+ * This servlet takes care of confirming a client's order and sending it
+ * to the payment procedure (OrderCheckotServlet).
+ *
+ * @author Mattia Mori
+ * @version 0.2
+ * @since 0.1
+ */
 @WebServlet(name = "ConfirmOrderServlet", urlPatterns = "/ConfirmOrderServlet")
 public class ConfirmOrderServlet extends HttpServlet {
   private DbOrderDao orderDao = (DbOrderDao) DbOrderDao.getInstance();

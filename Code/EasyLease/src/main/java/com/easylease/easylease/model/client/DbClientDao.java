@@ -33,6 +33,11 @@ public class DbClientDao implements ClientDao {
     return dao;
   }
 
+  /**
+   * Constructor for the DbClientDao Object
+   *
+   * @param connection
+   */
   private DbClientDao(Connection connection) {
     this.connection = connection;
   }
