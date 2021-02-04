@@ -1,4 +1,4 @@
-<%@ page import="com.easylease.EasyLease.model.car.Car" %>
+<%@ page import="com.easylease.easylease.model.car.Car" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/fragments/header.jsp"%>

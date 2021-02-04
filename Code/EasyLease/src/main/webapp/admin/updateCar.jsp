@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@page import="com.easylease.EasyLease.model.car.Car" %>
+<%@page import="com.easylease.easylease.model.car.Car" %>
 <%String role=(String) request.getSession().getAttribute("role");
 if(role==null){
   response.sendRedirect(request.getContextPath() + "/LoginViewServlet");

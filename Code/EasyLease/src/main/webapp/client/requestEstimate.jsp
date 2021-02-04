@@ -1,11 +1,11 @@
-<%@ page import="com.easylease.EasyLease.model.car.Car" %>
-<%@ page import="com.easylease.EasyLease.model.optional.Optional" %>
+<%@ page import="com.easylease.easylease.model.car.Car" %>
+<%@ page import="com.easylease.easylease.model.optional.Optional" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.easylease.EasyLease.model.optional.DbOptionalDao" %>
-<%@ page import="com.easylease.EasyLease.model.car.DbCarDao" %>
+<%@ page import="com.easylease.easylease.model.optional.DbOptionalDao" %>
+<%@ page import="com.easylease.easylease.model.car.DbCarDao" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.easylease.EasyLease.model.client.DbClientDao" %>
-<%@ page import="com.easylease.EasyLease.model.client.Client" %>
+<%@ page import="com.easylease.easylease.model.client.DbClientDao" %>
+<%@ page import="com.easylease.easylease.model.client.Client" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
    String role = (String)request.getSession().getAttribute("role");
