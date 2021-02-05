@@ -53,6 +53,9 @@ public class StipulationNegativeSecond {
     driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL, Keys.END);
     Thread.sleep(500);
     driver.findElement(By.id("ESjg9I7")).click();
+    Thread.sleep(500);
+    driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL, Keys.END);
+    Thread.sleep(500);
     driver.findElement(By.linkText("Stipula")).click();
     Thread.sleep(500);
     driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL, Keys.END);

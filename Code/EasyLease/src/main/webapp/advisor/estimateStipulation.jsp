@@ -34,7 +34,7 @@
         <div class="col-12 col-md-6">
             <div class="col" align="center">
                 <div class="car_spec_text">
-                    Informazioni auto
+                    Informazioni auto e preventivo
                 </div>
             </div>
             <div class="row">
@@ -89,6 +89,30 @@
                 <div class="col">
                     <h4><%=estimate.getCar().getCapacity()%>
                     </h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h4>ID preventivo</h4>
+                </div>
+                <div class="col">
+                    <h4><%=estimate.getIdEstimate()%>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h4>Periodo</h4>
+                </div>
+                <div class="col">
+                    <h4><%=estimate.getPeriod()%>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h4>Stato preventivo</h4>
+                </div>
+                <div class="col">
+                    <h4><%=estimate.getState()%>
                 </div>
             </div>
             <div class="col" align="center">
